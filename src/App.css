@@ -45,7 +45,7 @@
   width: 100%;
 }
 
-@media screen and (min-width: 624px){
+@media screen and (min-width: 648px){
   .left , .right{
     height: 100vh;
   }
@@ -99,6 +99,7 @@
 }
 
 .rightInput1{
+  background: rgb(235,235,235);
   font-size: 40px;
   font-family: 'Roboto', sans-serif;
   margin:10px;
@@ -109,6 +110,7 @@
 }
 
 .rightInput2{
+  background: rgb(235,235,235);
   font-size: 40px;
   font-family: 'Roboto', sans-serif;
   margin:10px;
@@ -132,11 +134,174 @@
 }
 
 .rightHint{
+  color: black;
   font-size: 30px;
   font-family: 'Roboto', sans-serif;
   margin:5px;
   position: relative;
   top : 310px;
+}
+
+
+/*Register*/
+
+.regleft , .regright{
+  height: 50vh;
+  width: 100%;
+}
+
+@media screen and (min-width: 450px){
+  .regleft , .regright{
+    height: 100vh;
+  }
+}
+
+.regright{
+  background:#FF3736;
+  color: white;
+}
+
+.regleft{
+  background: white;
+  color : #FF3736;
+}
+
+
+.regrightTitle{
+  font-size: 75px;
+  font-family: 'Convergence', sans-serif; 
+  margin: 5px;
+  position: relative;
+  top: 147px;
+}
+
+.regrightSub{
+  font-size: 50px;
+  font-family: 'Roboto', sans-serif;
+  margin: 20px;
+  position: relative;
+  top: 20%;
+}
+
+.regrightButton{
+  background: #FF3736;
+  color: white;
+  border-color: white;
+  font-size: 40px;
+  font-family: 'Roboto', sans-serif;
+  margin: 10px;
+  position: relative;
+  top: 20%;
+  border-radius: 50px;
+  padding: 15px;
+}
+
+.regleftTitle{
+  font-size: 80px;
+  font-size: Con;
+  margin: 5px;
+  position: relative;
+  top:30px;
+}
+
+.regInput1{
+  height: 100px;
+  width: 85%;
+  background: rgb(235,235,235);
+  font-size: 35px;
+  font-family: 'Roboto', sans-serif;
+  position: relative;
+  top: 60px;
+  border-radius: 50px;
+  padding: 10px;
+  padding-left: 25px;
+}
+
+.regInput2{
+  margin: 0;
+  height: 100px;
+  width: 85%;
+  background: rgb(235,235,235);
+  font-size: 35px;
+  font-family: 'Roboto', sans-serif;
+  margin:5px;
+  position: relative;
+  top: 60px;
+  border-radius: 50px;
+  padding: 10px;
+  padding-left: 25px;
+}
+
+.regInput3{
+  height: 100px;
+  background: rgb(235,235,235);
+  font-size: 35px;
+  font-family: 'Roboto', sans-serif;
+  margin: 5px;
+  position: relative;
+  top: 60px;
+  inline-size: 39%;
+  border-radius: 50px;
+  padding-left: 25px;
+}
+
+.regInput4{
+  height: 100px;
+  background: rgb(235,235,235);
+  font-size: 35px;
+  font-family: 'Roboto', sans-serif;
+  margin:5px;
+  margin-left: 30px;
+  position: relative;
+  top: 60px;
+  inline-size: 39%;
+  border-radius: 50px;
+  padding: 15px;
+  padding-left: 25px;
+}
+
+.regInput5{
+  height: 100px;
+  width: 85%;
+  background: rgb(235,235,235);
+  font-size: 35px;
+  font-family: 'Roboto', sans-serif;
+  margin:5px;
+  position: relative;
+  top: 60px;
+  border-radius: 50px;
+  padding: 10px;
+  padding-left: 25px;
+}
+
+.regInput6{
+  height: 100px;
+  width: 85%;
+  background: rgb(235,235,235);
+  font-size: 35px;
+  font-family: 'Roboto', sans-serif;
+  margin:5px;
+  position: relative;
+  top: 60px;
+  border-radius: 50px;
+  padding: 10px;
+  padding-left: 25px;
+}
+
+.regleftButton{
+  height: 70px;
+  width: 70%;
+  border: none;
+  background: #FF3736;
+  color: white;
+  font-size: 40px;
+  font-family: 'Roboto', sans-serif;
+  margin-top: 10px;
+  position: relative;
+  top: 60px;
+  border-radius: 50px;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 #nav1{
