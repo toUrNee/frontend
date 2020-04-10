@@ -14,7 +14,7 @@ function App() {
           </div>
         </div>
         <div class = "col-md-7 no-gutters">
-          <div class = "right">
+          <div class = "right d-flex justify-content-center">
             <LoginBox />            
           </div>
         </div>
