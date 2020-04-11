@@ -1,47 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import Login from './components/Login';
+import Register from './components/Register';
+import AddPlan from './components/AddPlan';
+
 
 function App() {
   return (
-    <div className="App">
-      <ul class="nav justify-content-end" id="nav1">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Amazonas</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Andina</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Caribe</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pacifico</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Orinoquia</a>
-        </li>
-      </ul>
-
-      <header className="App-header">
-
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+				<div className = "App">
+					<Route path = "/login" exact component = {Login} />
+					<Route path = "/register" exact component = {Register} />
+					<Route path = "/addplan" exact component = {AddPlan} />
+					{/*<Route path = "/" exact component = {Inicio} />*/ } 
+				</div>		
+			</Switch>
+    </Router>
+    
   );
 }
 
