@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 const Register = () =>
     <div class = "row no-gutters">
@@ -31,7 +32,9 @@ const Register = () =>
                 <div> 
                     <h1 className = "regrightTitle"> ¡Bienvenido a Cattleya tours! </h1>
                     <h2 className = "regrightSub"> Ingresa tus datos personales </h2>
-                    <button className = "regrightButton"> Iniciar sesión </button>
+                    <Link to = '/login'>
+                        <button className = "regrightButton"> Iniciar sesión </button>
+                    </Link>
                 </div>          
             </div>
         </div>

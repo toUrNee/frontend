@@ -45,7 +45,7 @@
   width: 100%;
 }
 
-@media screen and (min-width: 648px){
+@media screen and (min-width: 450px){
   .left , .right{
     height: 100vh;
   }

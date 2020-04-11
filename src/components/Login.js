@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 const Login = () =>
     <div class = "row no-gutters">
@@ -7,7 +8,9 @@ const Login = () =>
                 <div> 
                     <h1 className = "leftTitle"> ¡Bienvenido a Cattleya tours! </h1>
                     <h2 className = "leftSub"> Inicia sesión para continuar</h2>
-                    <button className = "leftButton"> Crear cuenta</button>
+                    <Link to = '/register'>
+                        <button className = "leftButton"> Crear cuenta</button>
+                    </Link>
                 </div>
             </div>     
         </div>
