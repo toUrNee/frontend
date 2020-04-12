@@ -1,5 +1,20 @@
 import React, { Component } from 'react';
 
+function card(id, descripcion, sitioId) {
+    var card =
+    <div className="col card_col">
+        <div className="card mb-4 box-shadow">
+            <img className="card-img-top" src="https://picsum.photos/286/180" alt="Card image cap" />
+            <div className="card-body">
+                <h5 className="card-title">Titulo {id}</h5>
+                <p className="card-text">{descripcion}</p>
+                <a href="#" className="btn btn-primary">Sitio turistico No. {sitioId}</a>
+            </div>
+        </div>
+    </div>
+        return card;
+}
+
 class Publicaciones extends Component {
 
     state = {
@@ -23,20 +38,16 @@ class Publicaciones extends Component {
             )
         } else {
             console.log("CARGADO")
+            const cards = this.state.cartas.map((publicacion) => {
+                return card(publicacion.id, publicacion.descripcion, publicacion.sitioId)
+            })
             return (
                 <div className="container-fluid">
                     <div className=" text-center portada">
                         COLOMBIA
                 </div>
-                    <div className="card">
-                        <img className="card-img-top" src="https://picsum.photos/286/180" alt="Card image cap" />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="#" className="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-
+                    <div className="row">{cards}</div>
+                    
 
                 </div>
 
