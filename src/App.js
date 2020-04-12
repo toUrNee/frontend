@@ -1,20 +1,38 @@
 import React, { Component } from 'react';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 import './App.css';
 import Navbar from './components/Navbar';
 import Inicio from './components/Inicio';
 import col from './images/colombia.jpg';
+import Publicaciones from './components/Publicaciones';
+import Region from './components/Region';
 
 function App() {
   return (
-    <div className="App">
-      <Navbar />
-      <div className="text-center titulo-inicial" >
-        Cattleya Tours
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Switch>
+          <Route path="/publicaciones" exact>
+            Publicaciones sin filtro
+          </Route>
+          <Route path="/publicaciones/:idregion" component={Region} />
+          <Route path="/" exact>
+            <div className="text-center titulo-inicial" >
+              Cattleya Tours
+            </div>
+            <Inicio />
+          </Route>
+        </Switch>
       </div>
-      
-      
-      <Inicio />
-    </div>
+    </Router>
   );
 }
 
