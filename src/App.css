@@ -332,16 +332,20 @@ li a:hover{
 
 .addleft{
   background: #EF711A;
+  height: 100%;
 }
 
 .addright{
   background: #E2E6EA;
+  height: 100%;
 }
+
 
 .leftText{
   font-size: 75px;
   font-family: 'Convergence', sans-serif; 
   margin: 5px;
+  padding-bottom: 1.5em;
   position: relative;
   top: 147px;
   color: #FFFFFF;
@@ -363,7 +367,10 @@ li a:hover{
   font-family: 'Convergence', sans-serif;
   margin: 5%;
   position: relative;
+  width: 70%;
   border-radius: 50px;
-  padding-left: 200px;
-  padding-right: 200px;
+}
+
+.img-form{
+  padding: 3em;
 }

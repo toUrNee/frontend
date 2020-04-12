@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+/*import axios from 'axios';*/
+import img from '../images/imagen.png';
 
 class AddPlan extends Component {
 
@@ -39,7 +40,7 @@ class AddPlan extends Component {
             place: event.target.value
         })
     }
-    
+
     handlerDateChange = (event) => {
         this.setState({
             date: event.target.value
@@ -78,64 +79,68 @@ class AddPlan extends Component {
     render(){
         const {title, place, date, description} = this.state
         return (
-            <div className="row no-gutters">
-                <div className="col-md-6 no-gutters d-flex justify-content-center">
-                    <div className="addleft">
+            <div className="container-fluid">
+                <div className="row no-gutters">
+                    <div className="col no-gutters d-flex justify-content-center">
+                        <div className="addleft">
                             <h1 className="leftText">Publicar un plan</h1>
-                    </div>         
-                </div>
-                <div className="col-md-6 no-gutters">
-                    <div className="addright">
-                        <form onSubmit={this.handlerSubmit}>
-                            <div>
-                                <label className="reg_label_titulo">Título</label>
-                                <input className="reg_form_titulo" 
-                                type="text" 
-                                value={title} 
-                                onChange={this.handlerTitleChange}
-                                />
-                            </div>
-                            <div>
-                                <label className="reg_label_fecha">Fecha</label>
-                                <input className="reg_form_fecha"
-                                type="text"//revisar esto porque aca debe ser date
-                                value={date}
-                                onChange={this.handlerDateChange} //revisar esto porque tampoco debe ser asi
-                                />
-                            </div>
-                            <div>
-                                <label className="reg_label_lugar">Lugar</label>
-                                <input className="reg_form_lugar"
-                                type="text"
-                                value={place} 
-                                onChange={this.handlerPlaceChange}
-                                />
-                            </div>
-                            <div>
-                                <label className="reg_label_region">Región</label>
-                                <select value={this.state.region} onChange={this.handlerRegionChange}>
-                                    <option value="andina">Andina</option>
-                                    <option value="caribe">Caribe</option>
-                                    <option value="orioquia">Orinoquia</option>
-                                    <option value="pacifico">Pacifico</option>
-                                    <option value="amazonas">Amazonas</option>
-                                    <option value="cafetera">Eje Cafetero</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label className="reg_label_descripcion">Descripción</label>
-                                <textarea 
-                                value={description} 
-                                onChange={this.handlerDescriptionChange}
-                                />
-                            </div>
-                            <div>
-                                <button className="reg_button" type="submit">Publicar</button>
-                            </div>
-                        </form>
-                    </div>   
+                            <img className="img-fluid mx-auto d-block img-form" src={img} />
+                        </div>
+                    </div>
+                    <div className="col no-gutters">
+                        <div className="addright">
+                            <form onSubmit={this.handlerSubmit}>
+                                <div>
+                                    <label className="reg_label_titulo">Título</label>
+                                    <input className="reg_form_titulo"
+                                        type="text"
+                                        value={title}
+                                        onChange={this.handlerTitleChange}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="reg_label_fecha">Fecha</label>
+                                    <input className="reg_form_fecha"
+                                        type="text"//revisar esto porque aca debe ser date
+                                        value={date}
+                                        onChange={this.handlerDateChange} //revisar esto porque tampoco debe ser asi
+                                    />
+                                </div>
+                                <div>
+                                    <label className="reg_label_lugar">Lugar</label>
+                                    <input className="reg_form_lugar"
+                                        type="text"
+                                        value={place}
+                                        onChange={this.handlerPlaceChange}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="reg_label_region">Región</label>
+                                    <select value={this.state.region} onChange={this.handlerRegionChange}>
+                                        <option value="andina">Andina</option>
+                                        <option value="caribe">Caribe</option>
+                                        <option value="orioquia">Orinoquia</option>
+                                        <option value="pacifico">Pacifico</option>
+                                        <option value="amazonas">Amazonas</option>
+                                        <option value="cafetera">Eje Cafetero</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="reg_label_descripcion">Descripción</label>
+                                    <textarea
+                                        value={description}
+                                        onChange={this.handlerDescriptionChange}
+                                    />
+                                </div>
+                                <div>
+                                    <button className="reg_button" type="submit">Publicar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         )
     }
 }
