@@ -126,6 +126,7 @@ class AddPlan extends Component {
                     </div>
                 </div>
             </div>
+
         )
     }
 }
