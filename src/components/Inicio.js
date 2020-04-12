@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 class Inicio extends Component {
     render() {
         return (
-            <div className="container">
+            <div className="container-fluid">
 
                 <Link to="/publicaciones">
                     <div className="row imagenpro">

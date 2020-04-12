@@ -19,10 +19,21 @@ class Navbar extends Component {
 
                 <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
-                        <li className="nav-item active">
-                            <a className="nav-link" href="#regiones-slide">Regiones </a>
+                        <Link to = "/login">
+                        <li className="nav-item">
+                            <a className="nav-link disabled" href="#regiones-slide">Iniciar sesión </a>
                         </li>
-
+                        </Link>
+                        <Link to = "/register">
+                        <li className="nav-item active">
+                            <a className="nav-link" href="#regiones-slide">Registrarse </a>
+                        </li>
+                        </Link>
+                        <Link to = "/crear-plan">
+                        <li className="nav-item active">
+                            <a className="nav-link" href="#regiones-slide">Publica ya!</a>
+                        </li>
+                        </Link>
                     </ul>
 
                 </div>
