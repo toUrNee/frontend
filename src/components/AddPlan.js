@@ -1,139 +1,129 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import img from '../images/imagen.png';
 
 class AddPlan extends Component {
-
-    constructor(props){
-        super(props)
-
-        this.state = {
+    
+    state = {
+        Publicacion: {
             Titulo: "",
-            Nombre: "",
+            SitioId: null,
             Fecha: "",
             Descripcion: "",
-            Nombre_region: "cafetera"
-            //la parte de region deberia traerla desde la tabla de regiones
-        }
+            Precio: null,
+            PropiertarioId: 3 //Cambiar
+        },
+        Sitios_Turisticos: [],
+        loading: true
     }
 
-    handlerTitleChange = (event) => {
-        this.setState({
-            title: event.target.value
-        })
+    handlerTituloChange = (event) => {
+        this.setState({ Publicacion: { ...this.state.Publicacion, Titulo: event.target.value} });
     }
 
-    handlerDescriptionChange = (event) => {
-        this.setState({
-            description: event.target.value
-        })
+    handlerDescripcionChange = (event) => {
+        this.setState({ Publicacion: { ...this.state.Publicacion, Descripcion: event.target.value} });
     }
 
-    handlerRegionChange = (event) => {
-        this.setState({
-            region: event.target.value
-        })
+    handlerPrecioChange = (event) => {
+        this.setState({ Publicacion: { ...this.state.Publicacion, Precio: parseInt(event.target.value)} });
     }
 
-    handlerPlaceChange = (event) => {
-        this.setState({
-            place: event.target.value
-        })
+    handlerSitioTuristicoChange = (event) => {
+        this.setState({ Publicacion: { ...this.state.Publicacion, SitioId: parseInt(event.target.value)} });
     }
     
-    handlerDateChange = (event) => {
-        this.setState({
-            date: event.target.value
-        })
+    handlerFechaChange = (event) => {
+        this.setState({ Publicacion: { ...this.state.Publicacion, Fecha: event.target.value} });
     }
-    /*
+    
     //Aca tengo que hacer el post
     handlerSubmit = (e) => {
         e.preventDefault()
-        console.log(this.state);
-        axios.post('https://localhost:5001/api/Publicaciones', this.state)
+        console.log(this.state.Publicacion);
+        axios.post('https://localhost:5001/api/Publicaciones', this.state.Publicacion)
         .then(response => {
             console.log(response)
-            this.setState({Nombre_region: response.})
+            //this.setState({Nombre_region: response.})
         })
         .catch(error => {
             console.log(error)
         })
         //alert(`${this.state.title} ${this.state.place} ${this.state.region} ${this.state.description}`)
     }
-
-    
-    Esto es para los get
     
     componentDidMount(){
-        axios.get('https://localhost:5001/api/Regiones')
+        axios.get('https://localhost:5001/api/SitiosTuristicos/propietario/1')
             .then(response => {
+                this.setState({Sitios_Turisticos: response.data, loading : false})
                 console.log(response)
-                this.setState({})
+                console.log(this.state)
             })
             .catch(error => {
                 console.log(error)
             })
     }
-    */
     render(){
-        const {title, place, date, description} = this.state
         return (
-            <div className="row no-gutters">
-                <div className="col-md-6 no-gutters d-flex justify-content-center">
-                    <div className="addleft">
+            <div className="container-fluid">
+                <div className="row no-gutters">
+                    <div className="col no-gutters d-flex justify-content-center">
+                        <div className="addleft">
                             <h1 className="leftText">Publicar un plan</h1>
-                    </div>         
-                </div>
-                <div className="col-md-6 no-gutters">
-                    <div className="addright">
-                        <form onSubmit={this.handlerSubmit}>
-                            <div>
-                                <label className="reg_label_titulo">Título</label>
-                                <input className="reg_form_titulo" 
-                                type="text" 
-                                value={title} 
-                                onChange={this.handlerTitleChange}
-                                />
-                            </div>
-                            <div>
-                                <label className="reg_label_fecha">Fecha</label>
-                                <input className="reg_form_fecha"
-                                type="text"//revisar esto porque aca debe ser date
-                                value={date}
-                                onChange={this.handlerDateChange} //revisar esto porque tampoco debe ser asi
-                                />
-                            </div>
-                            <div>
-                                <label className="reg_label_lugar">Lugar</label>
-                                <input className="reg_form_lugar"
-                                type="text"
-                                value={place} 
-                                onChange={this.handlerPlaceChange}
-                                />
-                            </div>
-                            <div>
-                                <label className="reg_label_region">Región</label>
-                                <select value={this.state.region} onChange={this.handlerRegionChange}>
-                                    <option value="andina">Andina</option>
-                                    <option value="caribe">Caribe</option>
-                                    <option value="orioquia">Orinoquia</option>
-                                    <option value="pacifico">Pacifico</option>
-                                    <option value="amazonas">Amazonas</option>
-                                    <option value="cafetera">Eje Cafetero</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label className="reg_label_descripcion">Descripción</label>
-                                <textarea 
-                                value={description} 
-                                onChange={this.handlerDescriptionChange}
-                                />
-                            </div>
-                            <div>
-                                <button className="reg_button" type="submit">Publicar</button>
-                            </div>
-                        </form>
-                    </div>   
+                            <img className="img-fluid mx-auto d-block img-form" src={img} />
+                        </div>
+                    </div>
+                    <div className="col no-gutters">
+                        <div className="addright">
+                            <form onSubmit={this.handlerSubmit}>
+                                <div>
+                                    <label className="reg_label_titulo">Título</label>
+                                    <input className="reg_form_titulo"
+                                        type="text"
+                                        value={this.state.Publicacion.Titulo}
+                                        onChange={this.handlerTituloChange}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="reg_label_fecha">Fecha</label>
+                                    <input className="reg_form_fecha"
+                                        type="datetime-local"//revisar esto porque aca debe ser date
+                                        value={this.state.Publicacion.Fecha}
+                                        onChange={this.handlerFechaChange} //revisar esto porque tampoco debe ser asi
+                                    />
+                                </div>
+                                {this.state.loading ? <div></div> : <div>
+                                    <label className="reg_label_SitioId">Sitio Turistico</label>
+                                    <select
+                                        type="number"
+                                        value={this.state.Publicacion.SitioId}
+                                        onChange={this.handlerSitioTuristicoChange}
+                                    >
+                                        <option>Seleccione una opcion</option>
+                                        {this.state.Sitios_Turisticos.map(sitio => <option value = {sitio.id} key = {sitio.id}>{sitio.nombre} </option>)}                                       
+                                    </select>
+                                </div>}
+                                <div>
+                                    <label className="reg_label_descripcion">Descripción</label>
+                                    <textarea
+                                        value={this.state.Publicacion.Descripcion}
+                                        onChange={this.handlerDescripcionChange}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="reg_label_precio">Precio</label>
+                                    <input className= "reg_form_precio"
+                                        type="number"
+                                        value={this.state.Publicacion.Precio}
+                                        onChange={this.handlerPrecioChange}
+                                    />
+                                </div>
+                                <div>
+                                    <button className="reg_button" type="submit">Publicar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
