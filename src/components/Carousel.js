@@ -5,6 +5,13 @@ import caribe from '../images/caribe.jpg'
 import orinoquia from '../images/orinoquia.jpg'
 import pacifico from '../images/pacifico.jpg'
 
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
+
 
 function slide(region, img, clase) {
     var slide =
@@ -12,7 +19,10 @@ function slide(region, img, clase) {
             <img src={img} alt={img} ></img>
             <div className="carousel-caption">
                 <h1>{region}</h1>
-                <button type="button" className="btn ">Ver planes</button>
+                <Link to ={`/publicaciones/${region}`}>
+                <button type="button" className="btn ">Ver planes</button>                
+                </Link>
+                
             </div>
         </div>
 

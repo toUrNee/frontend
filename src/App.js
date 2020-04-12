@@ -11,7 +11,6 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Inicio from './components/Inicio';
 import col from './images/colombia.jpg';
-import Publicaciones from './components/Publicaciones';
 import Region from './components/Region';
 
 function App() {
