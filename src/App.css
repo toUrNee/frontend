@@ -1,53 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Fjalla+One&family=Nunito:wght@700&display=swap');
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #f2e6b4;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.portada{
+  background-size: cover;
+  background-image: url("https://picsum.photos/1200/800");
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  font-size: 3.5em;
+  position: relative;
   color: white;
+  height: 100%;
+  background-position-x: center;
+  padding-top: 25%;
+  padding-bottom: 25%;
+  margin-bottom: 1em;
+  border: 10px;
+  border-color: black;
+
+  font-family: 'Anton', sans-serif;
+  font-family: 'Fjalla One', sans-serif;
+  font-family: 'Nunito', sans-serif;
+
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-#nav1{
-  background-color: #f2e6b4;
-  font-family: 'Roboto Mono', monospace;
-  color: #74151C ;
-}
-
-.nav-link{
-  color: #74151C ; 
-}
-
-li a:hover{
-  text-decoration: underline;
-  color:beige;
+.card{
+  width: 18rem
 }
