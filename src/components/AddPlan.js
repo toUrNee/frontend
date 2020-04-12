@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class AddPlan extends Component {
 
@@ -6,10 +7,12 @@ class AddPlan extends Component {
         super(props)
 
         this.state = {
-            title: "",
-            place: "",
-            description: "",
-            region: "cafetera"
+            Titulo: "",
+            Nombre: "",
+            Fecha: "",
+            Descripcion: "",
+            Nombre_region: "cafetera"
+            //la parte de region deberia traerla desde la tabla de regiones
         }
     }
 
@@ -31,23 +34,55 @@ class AddPlan extends Component {
         })
     }
 
-    handlerSubmit = () => {
-        alert(`${this.state.title} ${this.state.place} ${this.state.region} ${this.state.description}`)
-    }
-
     handlerPlaceChange = (event) => {
         this.setState({
             place: event.target.value
         })
     }
+    
+    handlerDateChange = (event) => {
+        this.setState({
+            date: event.target.value
+        })
+    }
+    /*
+    //Aca tengo que hacer el post
+    handlerSubmit = (e) => {
+        e.preventDefault()
+        console.log(this.state);
+        axios.post('https://localhost:5001/api/Publicaciones', this.state)
+        .then(response => {
+            console.log(response)
+            this.setState({Nombre_region: response.})
+        })
+        .catch(error => {
+            console.log(error)
+        })
+        //alert(`${this.state.title} ${this.state.place} ${this.state.region} ${this.state.description}`)
+    }
 
+    
+    Esto es para los get
+    
+    componentDidMount(){
+        axios.get('https://localhost:5001/api/Regiones')
+            .then(response => {
+                console.log(response)
+                this.setState({})
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+    */
     render(){
+        const {title, place, date, description} = this.state
         return (
             <div className="row no-gutters">
                 <div className="col-md-6 no-gutters d-flex justify-content-center">
                     <div className="addleft">
                             <h1 className="leftText">Publicar un plan</h1>
-                    </div>
+                    </div>         
                 </div>
                 <div className="col-md-6 no-gutters">
                     <div className="addright">
@@ -56,18 +91,23 @@ class AddPlan extends Component {
                                 <label className="reg_label_titulo">Título</label>
                                 <input className="reg_form_titulo" 
                                 type="text" 
-                                value={this.state.title} 
+                                value={title} 
                                 onChange={this.handlerTitleChange}
                                 />
                             </div>
                             <div>
                                 <label className="reg_label_fecha">Fecha</label>
+                                <input className="reg_form_fecha"
+                                type="text"//revisar esto porque aca debe ser date
+                                value={date}
+                                onChange={this.handlerDateChange} //revisar esto porque tampoco debe ser asi
+                                />
                             </div>
                             <div>
                                 <label className="reg_label_lugar">Lugar</label>
                                 <input className="reg_form_lugar"
                                 type="text"
-                                value={this.state.place} 
+                                value={place} 
                                 onChange={this.handlerPlaceChange}
                                 />
                             </div>
@@ -79,20 +119,15 @@ class AddPlan extends Component {
                                     <option value="orioquia">Orinoquia</option>
                                     <option value="pacifico">Pacifico</option>
                                     <option value="amazonas">Amazonas</option>
-                                    <option value="cafetera">Cafetera</option>
-                                    <option value="llanera">Llanera</option>
-                                    <option value="san agustin">San Agustin</option>
+                                    <option value="cafetera">Eje Cafetero</option>
                                 </select>
                             </div>
                             <div>
                                 <label className="reg_label_descripcion">Descripción</label>
                                 <textarea 
-                                value={this.state.description} 
+                                value={description} 
                                 onChange={this.handlerDescriptionChange}
                                 />
-                            </div>
-                            <div>
-                                <label className="reg_label_fotos">Fotos</label>
                             </div>
                             <div>
                                 <button className="reg_button" type="submit">Publicar</button>

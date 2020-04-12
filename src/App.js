@@ -9,16 +9,17 @@ import AddPlan from './components/AddPlan';
 function App() {
   return (
     <Router>
-      <Switch>
-				<div className = "App">
+    	<Switch>
+			<React.Fragment>
+			<div className = "App">
 					<Route path = "/login" exact component = {Login} />
 					<Route path = "/register" exact component = {Register} />
-					<Route path = "/addplan" exact component = {AddPlan} />
-					{/*<Route path = "/" exact component = {Inicio} />*/ } 
-				</div>		
-			</Switch>
-    </Router>
-    
+					<Route path = "/crear-plan" exact component = {AddPlan} />
+					{/*<Route path = "/" exact component = {Inicio} />*/ }
+			</div>		
+			</React.Fragment> 
+		</Switch>
+    </Router>   
   );
 }
 
