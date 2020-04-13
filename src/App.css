@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Fjalla+One&family=Nunito:wght@700&display=swap');
 
-
 .App {
   text-align: center;
 }
@@ -118,3 +117,4 @@ line-height: 70px;
 .nav-item{
   padding: 1em;
 }
+

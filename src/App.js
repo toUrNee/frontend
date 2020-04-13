@@ -8,21 +8,29 @@ import {
 } from "react-router-dom";
 
 import './App.css';
+
+import Publicaciones from './components/Publicaciones';
 import Navbar from './components/Navbar';
 import Inicio from './components/Inicio';
 import Region from './components/Region';
+
 
 function App() {
   return (
     <Router>
       <div className="App">
         
+
         <Navbar />
         <Switch>
 
           <Route path="/login" exact />
           <Route path="/register" exact />
           <Route path="/crear-plan" exact />
+    
+          <Route path="/publicaciones" exact>
+          <Publicaciones/>
+          </Route>
 
           <Route path="/publicaciones" exact>
             Publicaciones sin filtro
