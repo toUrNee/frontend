@@ -1,53 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Fjalla+One&family=Nunito:wght@700&display=swap');
+
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.titulo-inicial{
+  background-size: cover;
+  background-image: url("./images/colombia.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  font-size: 80px;
+  color: white;
+  height: 100%;
+  background-position-x: center;
+  padding-top: 25%;
+  padding-bottom: 25%;
+
+  font-family: 'Anton', sans-serif;
+font-family: 'Fjalla One', sans-serif;
+font-family: 'Nunito', sans-serif;
+
+line-height: 70px;
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+#logo-cattleya{
+  margin-right: 5px;
+}
+
+.imagenpro{
+  
+  background-image: url("./images/letras.png");
+    background-size: cover;
+    
+    background-attachment: fixed;
+}
+
+.navbar{
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  opacity: 100%;
+  background-color: #F1E4B2; 
+}
+
+.navbar-light{
+  background-color: #F1E4B2; 
+}
+.navbar-brand{
+  color: #74151c;
+}
+
+.col{
+  padding: 20px;
+}
+
+
+
+.carousel-inner img {
+  width: 100%;
+  
+  object-fit: cover;
+}
+
+@media only screen and (max-width: 800px) {
+  .carousel-inner img {
+    
+    height: 500px;
   }
 }
 
-.App-header {
-  background-color: #f2e6b4;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+
+.carousel-caption{
+  background-color: rgba(41, 23, 1, 0.75);
+  right: 0;
+  left: 0;
+}
+
+.carousel{
+  padding: 0px;
+}
+
+.btn {
+  border-radius: 50px;
+  background-color: #EE7120;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.portada{
+  background-size: cover;
+  background-image: url("./images/portada.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  font-size: 3.5em;
+  position: relative;
+  color: white;
+  height: 100%;
+  background-position-x: center;
+  padding-top: 25%;
+  padding-bottom: 25%;
+  margin-bottom: 1em;
+  border-color: black;
+
+  font-family: 'Anton', sans-serif;
+  font-family: 'Fjalla One', sans-serif;
+  font-family: 'Nunito', sans-serif;
+
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.card{
+  width: 18rem;
+  margin:0;
 }
 
-#nav1{
-  background-color: #f2e6b4;
-  font-family: 'Roboto Mono', monospace;
-  color: #74151C ;
-}
-
-.nav-link{
-  color: #74151C ; 
-}
-
-li a:hover{
-  text-decoration: underline;
-  color:beige;
+.nav-item{
+  padding: 1em;
 }

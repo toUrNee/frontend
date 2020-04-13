@@ -1,47 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
 import './App.css';
+import Navbar from './components/Navbar';
+import Inicio from './components/Inicio';
+import Region from './components/Region';
 
 function App() {
   return (
-    <div className="App">
-      <ul class="nav justify-content-end" id="nav1">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Amazonas</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Andina</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Caribe</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pacifico</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Orinoquia</a>
-        </li>
-      </ul>
+    <Router>
+      <div className="App">
+        
+        <Navbar />
+        <Switch>
 
-      <header className="App-header">
+          <Route path="/login" exact />
+          <Route path="/register" exact />
+          <Route path="/crear-plan" exact />
 
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Route path="/publicaciones" exact>
+            Publicaciones sin filtro
+          </Route>
+          
+          <Route path="/publicaciones/:idregion" component={Region} />
+          
+          <Route path="/" exact>
+            <div className="text-center titulo-inicial" >
+              Cattleya Tours
+            </div>
+            <Inicio />
+          </Route>
+        
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
