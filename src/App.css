@@ -4,9 +4,92 @@
   text-align: center;
 }
 
+.titulo-inicial{
+  background-size: cover;
+  background-image: url("./images/colombia.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  
+  font-size: 80px;
+  color: white;
+  height: 100%;
+  background-position-x: center;
+  padding-top: 25%;
+  padding-bottom: 25%;
+
+  font-family: 'Anton', sans-serif;
+font-family: 'Fjalla One', sans-serif;
+font-family: 'Nunito', sans-serif;
+
+line-height: 70px;
+
+}
+
+#logo-cattleya{
+  margin-right: 5px;
+}
+
+.imagenpro{
+  
+  background-image: url("./images/letras.png");
+    background-size: cover;
+    
+    background-attachment: fixed;
+}
+
+.navbar{
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  opacity: 100%;
+  background-color: #F1E4B2; 
+}
+
+.navbar-light{
+  background-color: #F1E4B2; 
+}
+.navbar-brand{
+  color: #74151c;
+}
+
+.col{
+  padding: 20px;
+}
+
+
+
+.carousel-inner img {
+  width: 100%;
+  
+  object-fit: cover;
+}
+
+@media only screen and (max-width: 800px) {
+  .carousel-inner img {
+    
+    height: 500px;
+  }
+}
+
+
+.carousel-caption{
+  background-color: rgba(41, 23, 1, 0.75);
+  right: 0;
+  left: 0;
+}
+
+.carousel{
+  padding: 0px;
+}
+
+.btn {
+  border-radius: 50px;
+  background-color: #EE7120;
+  color: white;
+}
+
 .portada{
   background-size: cover;
-  background-image: url("https://picsum.photos/1200/800");
+  background-image: url("./images/portada.jpg");
   background-position: center;
   background-repeat: no-repeat;
   
@@ -18,7 +101,6 @@
   padding-top: 25%;
   padding-bottom: 25%;
   margin-bottom: 1em;
-  border: 10px;
   border-color: black;
 
   font-family: 'Anton', sans-serif;
@@ -31,3 +113,8 @@
   width: 18rem;
   margin:0;
 }
+
+.nav-item{
+  padding: 1em;
+}
+
