@@ -74,7 +74,7 @@ class AddPlan extends Component {
                     </div>
                     <div className="col no-gutters">
                         <div className="addright">
-                            <form onSubmit={this.handlerSubmit}>
+                            <form className="reg-form" onSubmit={this.handlerSubmit}>
                                 <div>
                                     <label className="reg_label_titulo">Título</label>
                                     <input className="reg_form_titulo"
