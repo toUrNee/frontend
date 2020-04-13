@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-
 import './App.css';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
 import AddPlan from './components/AddPlan';
@@ -31,7 +24,7 @@ function App() {
 
           <Route path="/login" exact />
           <Route path="/register" exact />
-          <Route path="/crear-plan" exact />
+          <Route path="/crear-plan" exact component={AddPlan}/>
     
           <Route path="/publicaciones" exact>
           <Publicaciones/>
