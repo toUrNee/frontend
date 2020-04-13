@@ -16,7 +16,7 @@ import {
 function slide(id, region, img, clase) {
     var slide =
         <div key={id} className={clase}>
-            <img src={img} alt={img} ></img>
+            <img src={img} alt={img} className="d-block w-100" ></img>
             <div className="carousel-caption">
                 <h1>{region}</h1>
                 <Link  to ={{
