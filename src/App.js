@@ -6,7 +6,6 @@ import Login from './components/Login';
 import Register from './components/Register';
 import AddPlan from './components/AddPlan';
 
-
 import Publicaciones from './components/Publicaciones';
 import Navbar from './components/Navbar';
 import Inicio from './components/Inicio';
@@ -22,9 +21,9 @@ function App() {
         <Navbar />
         <Switch>
 
-          <Route path="/login" exact />
-          <Route path="/register" exact />
-          <Route path="/crear-plan" exact component={AddPlan}/>
+          <Route path="/login" exact component = {Login}/>
+          <Route path="/register" exact component = {Register}/>
+          <Route path="/crear-plan" exact component = {AddPlan}/>
     
           <Route path="/publicaciones" exact>
           <Publicaciones/>
