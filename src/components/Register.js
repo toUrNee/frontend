@@ -59,7 +59,7 @@ class Register extends Component{
                             <h1 className = ""> Crear cuenta </h1>
                                 <form onSubmit = {this.handlerSubmit}>
                                     <input 
-                                    className = "rightInput1" 
+                                    className = "regInput1" 
                                     type = "text" 
                                     placeholder = "Nombres y apellidos" 
                                     value = {this.state.Usuario.Nombres}
@@ -120,7 +120,7 @@ class Register extends Component{
                 <div class = "col no-gutters">
                     <div class = "left ">
                         <div> 
-                            <h1 className = "leftTitle"> ¡Bienvenido a Cattleya tours! </h1>
+                            <h1 className = "regleftTitle"> ¡Bienvenido a Cattleya tours! </h1>
                             <h2 className = "leftSub"> Ingresa tus datos personales </h2>
                             <Link to = '/login'>
                                 <button className = "leftButton"> Iniciar sesión </button>

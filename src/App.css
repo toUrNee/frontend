@@ -279,16 +279,13 @@ li a:hover{
 }
 
 .regInput1{
-  height: 100px;
-  width: 85%;
   background: rgb(235,235,235);
-  font-size: 35px;
   font-family: 'Roboto', sans-serif;
+  margin:1em;
   position: relative;
-  top: 60px;
+  width: 50%;
   border-radius: 50px;
-  padding: 10px;
-  padding-left: 25px;
+
 }
 
 .regInput2{
