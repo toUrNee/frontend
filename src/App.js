@@ -10,13 +10,13 @@ import {
 import './App.css';
 import Navbar from './components/Navbar';
 import Inicio from './components/Inicio';
-import col from './images/colombia.jpg';
 import Region from './components/Region';
 
 function App() {
   return (
     <Router>
       <div className="App">
+        
         <Navbar />
         <Switch>
 

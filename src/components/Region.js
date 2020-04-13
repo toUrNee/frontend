@@ -7,8 +7,8 @@ import pacifico from '../images/pacifico.jpg'
 import img from '../images/publicacion.jpg'
 
 function card(id, descripcion, sitioId) {
-    var card =
-    <div className="col card_col">
+    var card = 
+    <div className="col card_col" key={id}>
         <div className="card mb-4 box-shadow">
             <img className="card-img-top" src={img} alt="Card image cap" />
             <div className="card-body">

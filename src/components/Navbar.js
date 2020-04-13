@@ -7,11 +7,10 @@ class Navbar extends Component {
         return (
             <nav className="navbar navbar-expand-lg navbar-light sticky-top">
                 <Link to ="/">
-                <a className="navbar-brand" href="#">
-                    <img src={orquidea} width="30" height="30" className="d-inline-block align-top" alt="cattleya" id="logo-cattleya">
-                    </img>
+                
+                    <img src={orquidea} width="30" height="30" className="d-inline-block align-top" alt="cattleya" id="logo-cattleya"/>
                         CATTLEYA TOURS
-                </a>
+                
                 </Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -19,19 +18,19 @@ class Navbar extends Component {
 
                 <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
-                        <Link to = "/login">
+                        <Link to = '/login'>
                         <li className="nav-item">
-                            <a className="nav-link disabled" href="#regiones-slide">Iniciar sesión </a>
+                            Iniciar sesión 
                         </li>
                         </Link>
-                        <Link to = "/register">
+                        <Link to = '/register'>
                         <li className="nav-item active">
-                            <a className="nav-link" href="#regiones-slide">Registrarse </a>
+                            Registrarse 
                         </li>
                         </Link>
-                        <Link to = "/crear-plan">
+                        <Link to = '/crear-plan'>
                         <li className="nav-item active">
-                            <a className="nav-link" href="#regiones-slide">Publica ya!</a>
+                            Publica ya!
                         </li>
                         </Link>
                     </ul>
