@@ -51,14 +51,15 @@ class Register extends Component{
 
     render(){
         return(
+            <div className="container-fluid">
             <div class = "row no-gutters">
-                <div class = "col-md-7 no-gutters">
-                    <div class = "regleft d-flex justify-content-center">
-                        <div>
-                            <h1 className = "regleftTitle"> Crear cuenta </h1>
+                <div class = "col no-gutters d-flex justify-content-center">
+                    <div class = "right">
+                        
+                            <h1 className = ""> Crear cuenta </h1>
                                 <form onSubmit = {this.handlerSubmit}>
                                     <input 
-                                    className = "regInput1" 
+                                    className = "rightInput1" 
                                     type = "text" 
                                     placeholder = "Nombres y apellidos" 
                                     value = {this.state.Usuario.Nombres}
@@ -67,7 +68,7 @@ class Register extends Component{
                                     />
                                     <br/>
                                     <input 
-                                    className = "regInput2" 
+                                    className = "rightInput2" 
                                     type = "text" 
                                     placeholder = "Correo"
                                     value = {this.state.Usuario.Email}
@@ -75,7 +76,7 @@ class Register extends Component{
                                     required/>
                                     <br/>
                                     <input 
-                                    className = "regInput3" 
+                                    className = "rightInput2" 
                                     type = "text" 
                                     placeholder = "Teléfono" 
                                     //pattern="[0-9]{0,10}"
@@ -83,7 +84,7 @@ class Register extends Component{
                                     onChange = {this.handlerTelefonoChange}
                                     required/>
                                     <select 
-                                    className = "regInput4" 
+                                    className = "rightInput2" 
                                     type = "text"
                                     placeholder = "Nacionalidad"
                                     value = {this.state.Usuario.Nacionalidad}
@@ -97,7 +98,7 @@ class Register extends Component{
                                     </select>
                                     <br/>
                                     <input 
-                                    className = "regInput5" 
+                                    className = "rightInput2" 
                                     type = "text" 
                                     placeholder = "Nombre de usuario"
                                     value = {this.state.Usuario.Nombre_Usuario}
@@ -105,29 +106,30 @@ class Register extends Component{
                                     required/>
                                     <br/>
                                     <input 
-                                    className = "regInput6" 
+                                    className = "rightInput2" 
                                     type = "password" 
                                     placeholder = "contraseña" 
                                     value = {this.state.Usuario.Contrasena}
                                     onChange = {this.handlerContrasenaChange}
                                     required/>
-                                    <button className = "regleftButton" > Crear cuenta </button>
+                                    <button className = "rightButton" > Crear cuenta </button>
                                 </form>
-                        </div> 
+                        
                     </div>     
                 </div>
-                <div class = "col-md-5 no-gutters">
-                    <div class = "regright d-flex justify-content-center">
+                <div class = "col no-gutters">
+                    <div class = "left ">
                         <div> 
-                            <h1 className = "regrightTitle"> ¡Bienvenido a Cattleya tours! </h1>
-                            <h2 className = "regrightSub"> Ingresa tus datos personales </h2>
+                            <h1 className = "leftTitle"> ¡Bienvenido a Cattleya tours! </h1>
+                            <h2 className = "leftSub"> Ingresa tus datos personales </h2>
                             <Link to = '/login'>
-                                <button className = "regrightButton"> Iniciar sesión </button>
+                                <button className = "leftButton"> Iniciar sesión </button>
                             </Link>
                         </div>          
                     </div>
                 </div>
-            </div>      
+            </div>  
+            </div>    
         )
     }
 }
