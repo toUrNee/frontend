@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 class Navbar extends Component {
     render() {
         return (
-            <nav className="navbar navbar-expand-lg navbar-light sticky-top">
+            <nav className="navbar navbar-expand-lg navbar-light">
                 <Link to ="/">
                 
                     <img src={orquidea} width="30" height="30" className="d-inline-block align-top" alt="cattleya" id="logo-cattleya"/>

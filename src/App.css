@@ -38,16 +38,9 @@ line-height: 70px;
     background-attachment: fixed;
 }
 
-.navbar{
-  font-family: 'Montserrat', sans-serif;
-  color: white;
-  opacity: 100%;
-  background-color: #F1E4B2; 
-}
 
-.navbar-light{
-  background-color: #F1E4B2; 
-}
+
+
 .navbar-brand{
   color: #74151c;
 }
