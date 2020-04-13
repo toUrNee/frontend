@@ -42,6 +42,7 @@ class Register extends Component{
         e.preventDefault()
         axios.post('https://localhost:5001/api/Usuarios',this.state.Usuario)
         .then( response => {
+            console.log(response)
         })
         .catch( error => {
             console.log(error)
