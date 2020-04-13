@@ -56,10 +56,19 @@ line-height: 70px;
   padding: 20px;
 }
 
+
+
 .carousel-inner img {
   width: 100%;
-  height: 600px;
+  
   object-fit: cover;
+}
+
+@media only screen and (max-width: 800px) {
+  .carousel-inner img {
+    
+    height: 500px;
+  }
 }
 
 
