@@ -11,7 +11,7 @@ class AddPlan extends Component {
             Fecha: "",
             Descripcion: "",
             Precio: null,
-            PropiertarioId: 3 //Cambiar
+            PropietarioId: 1 //Cambiar
         },
         Sitios_Turisticos: [],
         loading: true
@@ -37,7 +37,6 @@ class AddPlan extends Component {
         this.setState({ Publicacion: { ...this.state.Publicacion, Fecha: event.target.value} });
     }
     
-    //Aca tengo que hacer el post
     handlerSubmit = (e) => {
         e.preventDefault()
         console.log(this.state.Publicacion);
@@ -93,7 +92,7 @@ class AddPlan extends Component {
                                     />
                                 </div>
                                 {this.state.loading ? <div></div> : <div>
-                                    <label className="reg_label_SitioId">Sitio Turistico</label>
+                                    <label className="reg_label_sitio_turistico">Sitio Turistico</label>
                                     <select
                                         type="number"
                                         value={this.state.Publicacion.SitioId}
