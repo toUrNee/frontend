@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Convergence&family=Roboto:wght@300&display=swap');
+.form-container {
+    height: 1em;
+}
+
+@media screen and (max-width: 960px) {
+    .col-color {
+        display: none;
+    }
+    .col-form{
+        background-color: #FFEFC6;
+    }
+}
+
+.col-color {
+    background-color: #FFEFC6;
+    color: #14234B;
+}
+
+.titulo-form {
+    text-align: center;
+    padding: 40px;
+    font-family: 'Convergence', sans-serif;
+}
+
+.img-form {
+    padding: 3em;
+}

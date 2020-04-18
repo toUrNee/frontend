@@ -1,9 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Convergence&family=Roboto:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Fjalla+One&family=Nunito:wght@700&display=swap');
 
-.App {
-  text-align: center;
-}
 
 .titulo-inicial{
   background-size: cover;
@@ -428,9 +425,5 @@ li a:hover{
   position: relative;
   width: 70%;
   border-radius: 50px;
-}
-
-.img-form{
-  padding: 3em;
 }
 
