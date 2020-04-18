@@ -1,28 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Convergence&family=Roboto:wght@300&display=swap');
+
+
 .form-container {
     height: 1em;
 }
-
-@media screen and (max-width: 960px) {
+/*
+@media screen and (max-width: 600px) {
     .col-color {
         display: none;
     }
-    .col-form{
-        background-color: #FFEFC6;
-    }
 }
-
+*/
 .col-color {
-    background-color: #FFEFC6;
-    color: #14234B;
+    background-color: #E75A5F;
+    color: #fafadc;
 }
 
-.titulo-form {
+
+.titulo-form-color {
     text-align: center;
     padding: 40px;
     font-family: 'Convergence', sans-serif;
 }
 
+.titulo-form{
+    color: #E75A5F;
+    font-family: 'Convergence', sans-serif;
+    padding-top: 10px;
+}
+
 .img-form {
     padding: 3em;
+}
+
+.btn-form{
+    background-color: #E75A5F;
+    width: 90%;
+    margin: 10px;
 }

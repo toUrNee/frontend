@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import img from '../images/imagen.png';
+import img from '../images/post.png';
 
 class AddPlan extends Component {
     

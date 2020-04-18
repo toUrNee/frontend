@@ -23,7 +23,7 @@ function App() {
         <Navbar />
         <Switch>
 
-          <Route path="/login" exact component={Login} />
+          <Route path="/login" exact component={Formulario} />
           <Route path="/register" exact component={Register} />
           <Route path="/crear-plan" exact component={AddPlan} />
 
@@ -38,10 +38,10 @@ function App() {
           <Route path="/publicaciones/:idregion" component={Region} />
 
           <Route path="/" exact>
-            {/*<div className="text-center titulo-inicial" >
+            <div className="text-center titulo-inicial" >
               Cattleya Tours
-            </div>  <Inicio />*/}
-            <Formulario/>
+            </div>  <Inicio />
+            
           </Route>
 
         </Switch>
