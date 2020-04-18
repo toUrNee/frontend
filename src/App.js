@@ -41,6 +41,7 @@ function App() {
             {/*<div className="text-center titulo-inicial" >
               Cattleya Tours
             </div>  <Inicio />*/}
+            
             <Formulario/>
           </Route>
 
