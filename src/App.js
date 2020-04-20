@@ -23,7 +23,7 @@ function App() {
         <Navbar />
         <Switch>
 
-          <Route path="/login" exact component={Formulario} />
+          <Route path="/login" exact component={Login} />
           <Route path="/register" exact component={Register} />
           <Route path="/crear-plan" exact component={AddPlan} />
 

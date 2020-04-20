@@ -1,35 +1,42 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import img from '../images/login.png';
+import { Link } from 'react-router-dom';
 
-const Login = () =>
-    <div className="container-fluid">
-        <div className="row no-gutters">
-            <div className="col no-gutters d-flex justify-content-center">
-                <div className="left">
-                    <h1 className="leftTitle"> ¡Bienvenido a Cattleya tours! </h1>
-                    <h2 className="leftSub"> Inicia sesión para continuar</h2>
-                    <Link to='/register'>
-                        <button className="leftButton"> Crear cuenta</button>
-                    </Link>
+class Login extends Component {
+    render() {
+        return (
+            <div className="container-fluid form-container ">
+                <div className="row align-items-center">
+                    <div className="col col-color">
+                        <header>
+                            <h1 className="titulo-form-color">¡Bienvenido a Cattleya tours!</h1>
+                            <img className="img-fluid mx-auto d-block img-form" src={img} />
+                        </header>
+                    </div>
+                    <div className="col col-form ">
+                        <h1 className="titulo-form">Iniciar sesión</h1>
+                        <form>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputEmail1">Usuario o correo</label>
+                                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="exampleInputPassword1">Password</label>
+                                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
+                            </div>
+                            <button type="submit" className="btn btn-form">Submit</button>
+                            <p className="form-link">
+                                ¿Nuevo usuario?
+                                <Link to ="/register">
+                                    Registrate
+                                </Link>
+                            </p>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <div className="col no-gutters">
-                <div className="right">
-                    <form>
-                        <div className="form-rows">
-                            <div className="col-12">
-                                <input className="rightInput1" ltype="text" placeholder="Usuario o correo" />
-                            </div>
-                            <div className="col-12">
-                                <input className="rightInput2" type="password" placeholder="Contraseña" />
-                            </div>
-                        </div>
-                    </form>
-                    <button className="rightButton" > Ingresar </button>
-                    <p className="rightHint">¿Has olvidado la contraseña?</p>
-                </div>
-            </div>
-        </div>
-    </div>
+        );
+    }
+}
 
-export default Login 
+export default Login;
