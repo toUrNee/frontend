@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import img from '../images/post.png';
-import { Link } from 'react-router-dom';
 
 
 class AddPlan extends Component {
@@ -68,12 +67,14 @@ class AddPlan extends Component {
         return (
             <div className="container-fluid form-container ">
                 <div className="row align-items-center">
+                    {/* Columna de color con imagen */}
                     <div className="col col-color-yellow">
                         <header>
                             <h1 className="titulo-form-color">Publicar un plan</h1>
-                            <img className="img-fluid mx-auto d-block img-form" src={img} />
+                            <img className="img-fluid mx-auto d-block img-form" src={img} alt="post" />
                         </header>
                     </div>
+                    {/* Columna de formulario */}
                     <div className="col col-form ">
                         <h1 className="titulo-form-blue">Ingresa los datos del plan</h1>
                         <form onSubmit={this.handlerSubmit}>

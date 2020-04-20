@@ -17,12 +17,13 @@ body{
   background-position-x: center;
   padding-top: 25%;
   padding-bottom: 25%;
-
+  margin-left: -15px;
+  margin-right: -15px;
   font-family: 'Anton', sans-serif;
-font-family: 'Fjalla One', sans-serif;
-font-family: 'Nunito', sans-serif;
+  font-family: 'Fjalla One', sans-serif;
+  font-family: 'Nunito', sans-serif;
 
-line-height: 70px;
+  line-height: 70px;
 
 }
 

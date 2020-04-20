@@ -54,12 +54,14 @@ class Register extends Component {
         return (
             <div className="container-fluid form-container ">
                 <div className="row align-items-center">
+                    {/* Columna de color con imagen */}
                     <div className="col col-color">
                         <header>
                             <h1 className="titulo-form-color">¡Bienvenido a Cattleya tours!</h1>
-                            <img className="img-fluid mx-auto d-block img-form" src={img} />
+                            <img className="img-fluid mx-auto d-block img-form" src={img} alt="register" />
                         </header>
                     </div>
+                    {/* Columna de formulario */}
                     <div className="col col-form ">
                         <h1 className="titulo-form">Crear cuenta</h1>
                         <form onSubmit={this.handlerSubmit}>

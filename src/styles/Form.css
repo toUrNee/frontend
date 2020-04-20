@@ -4,18 +4,22 @@
 .form-container {
     height: 1em;
 }
-/*
+
 @media screen and (max-width: 600px) {
     .col-color {
         display: none;
     }
 }
-*/
+
 .col-color {
     background-color: #E75A5F;
     color: #fafadc;
 }
 
+.col-color-yellow{
+    background-color: #FEE698;
+    color: #273253;
+}
 
 .titulo-form-color {
     text-align: center;
@@ -29,12 +33,24 @@
     padding-top: 10px;
 }
 
+.titulo-form-blue{
+    color: #273253;
+    font-family: 'Convergence', sans-serif;
+    padding-top: 10px;
+}
+
 .img-form {
     padding: 3em;
 }
 
 .btn-form{
     background-color: #E75A5F;
+    width: 90%;
+    margin: 10px;
+}
+
+.btn-form-blue{
+    background-color: #273253;
     width: 90%;
     margin: 10px;
 }

@@ -10,7 +10,7 @@ class Formulario extends Component {
                     <div className="col col-color">
                         <header>
                             <h1 className="titulo-form-color">TITULO FORMULARIO</h1>
-                            <img className="img-fluid mx-auto d-block img-form" src={img} />
+                            <img className="img-fluid mx-auto d-block img-form" src={img} alt="imagen formulario" />
                         </header>
                     </div>
                     <div className="col col-form ">
@@ -27,7 +27,7 @@ class Formulario extends Component {
                             <button type="submit" className="btn btn-form">Submit</button>
                             <p className="form-link">
                                 ¿Nuevo usuario?
-                                <Link to ="/register">
+                                <Link to="/register">
                                     Registrate
                                 </Link>
                             </p>
