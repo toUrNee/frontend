@@ -68,14 +68,14 @@ class AddPlan extends Component {
         return (
             <div className="container-fluid form-container ">
                 <div className="row align-items-center">
-                    <div className="col col-color">
+                    <div className="col col-color-yellow">
                         <header>
                             <h1 className="titulo-form-color">Publicar un plan</h1>
                             <img className="img-fluid mx-auto d-block img-form" src={img} />
                         </header>
                     </div>
                     <div className="col col-form ">
-                        <h1 className="titulo-form">Ingresa los datos del plan</h1>
+                        <h1 className="titulo-form-blue">Ingresa los datos del plan</h1>
                         <form onSubmit={this.handlerSubmit}>
                             <div className="form-group">
                                 <label htmlFor="inputTitulo">Titulo</label>
@@ -133,7 +133,7 @@ class AddPlan extends Component {
                                     onChange={this.handlerPrecioChange}
                                 />
                             </div>
-                            <button type="submit" className="btn btn-form">Submit</button>
+                            <button type="submit" className="btn btn-form-blue">Submit</button>
                             <p className="form-link">
                                 ¿No encuentras un sitio turistico?
                                 {/*
