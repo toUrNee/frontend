@@ -6,28 +6,26 @@ import orinoquia from '../images/orinoquia.jpg'
 import pacifico from '../images/pacifico.jpg'
 
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link
 } from "react-router-dom";
 
-
+//Crear slide de una region
 function slide(id, region, img, clase) {
     var slide =
         <div key={id} className={clase}>
             <img src={img} alt={img} className="d-block w-100" ></img>
             <div className="carousel-caption">
                 <h1>{region}</h1>
-                <Link  to ={{
-                    pathname:`/publicaciones/${region}`,
-                    state:{
-                        region_id:{id}
+                {/* Redirecciona con respecto al id de la region */}
+                <Link to={{
+                    pathname: `/publicaciones/${region}`,
+                    state: {
+                        region_id: { id }
                     }
                 }}>
-                <button type="button" className="btn ">Ver planes</button>                
+                    <button type="button" className="btn ">Ver planes</button>
                 </Link>
-                
+
             </div>
         </div>
     return slide;
@@ -35,22 +33,24 @@ function slide(id, region, img, clase) {
 
 class Carousel extends Component {
 
-    state =  {
+    state = {
         loading: true,
         regiones: []
     };
 
-    async componentDidMount(){
-        const base_url='https://localhost:5001/api'
-        const response = await fetch (base_url+'/Regiones')
+    //Trae las regiones de la base de datos
+    async componentDidMount() {
+        const base_url = 'https://localhost:5001/api'
+        const response = await fetch(base_url + '/Regiones')
         const data = await response.json()
-        this.setState({loading: false, regiones: data})
+        this.setState({ loading: false, regiones: data })
     }
 
     render() {
-        if (this.state.loading){
-            return(<div>Cargando ...</div>)
-        }else{
+        if (this.state.loading) {
+            return (<div>Cargando ...</div>)
+        } else {
+            //Asigna imagenes y crea los slides
             const panels = this.state.regiones.map((region) => {
                 let img = null
                 let clase = 'carousel-item'
@@ -64,6 +64,7 @@ class Carousel extends Component {
                 return slide(region.id, region.nombre, img, clase)
             })
             return (
+                /*Carrusel de Bootstrap*/
                 <div className="row">
                     <div id="demo" className="carousel slide" data-ride="carousel">
                         <ul className="carousel-indicators">
@@ -72,8 +73,8 @@ class Carousel extends Component {
                             <li data-target="#demo" data-slide-to="2"></li>
                             <li data-target="#demo" data-slide-to="3"></li>
                             <li data-target="#demo" data-slide-to="4"></li>
-
                         </ul>
+                        {/*Crea el carrusel con los slides de las regiones*/}
                         <div className="carousel-inner" id="regiones-slide">
                             {panels}
                         </div>

@@ -1,47 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './App.css';
-import {BrowserRouter as Router, Switch, Route, Link} from 'react-router-dom';
+import './styles/Form.css'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
 import AddPlan from './components/AddPlan';
-
 import Publicaciones from './components/Publicaciones';
 import Navbar from './components/Navbar';
 import Inicio from './components/Inicio';
 import Region from './components/Region';
 
-
 function App() {
   return (
     <Router>
       <div className="App">
-        
-
+        {/*Barra de navegación*/}
         <Navbar />
         <Switch>
-
-          <Route path="/login" exact component = {Login}/>
-          <Route path="/register" exact component = {Register}/>
-          <Route path="/crear-plan" exact component = {AddPlan}/>
-    
-          <Route path="/publicaciones" exact>
-          <Publicaciones/>
-          </Route>
-
-          <Route path="/publicaciones" exact>
-            Publicaciones sin filtro
-          </Route>
-          
+          {/*Componente por cada ruta*/}
+          <Route path="/login" exact component={Login} />
+          <Route path="/register" exact component={Register} />
+          <Route path="/crear-plan" exact component={AddPlan} />
+          <Route path="/publicaciones" exact component={Publicaciones} />
           <Route path="/publicaciones/:idregion" component={Region} />
-          
-          <Route path="/" exact>
-            <div className="text-center titulo-inicial" >
-              Cattleya Tours
-            </div>
-            <Inicio />
-          </Route>
-        
+          <Route path="/" exact component={Inicio} />
         </Switch>
       </div>
     </Router>
