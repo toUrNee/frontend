@@ -10,6 +10,7 @@ import Publicaciones from './components/Publicaciones';
 import Navbar from './components/Navbar';
 import Inicio from './components/Inicio';
 import Region from './components/Region';
+import AddSitioTuristico from './components/AddSitioTuristico';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/register" exact component={Register} />
           <Route path="/crear-plan" exact component={AddPlan} />
           <Route path="/publicaciones" exact component={Publicaciones} />
+          <Route path="/crear-sitio-turistico" exact component={AddSitioTuristico} />
           <Route path="/publicaciones/:idregion" component={Region} />
           <Route path="/" exact component={Inicio} />
         </Switch>
