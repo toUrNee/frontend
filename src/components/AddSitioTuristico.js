@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import img from '../images/crear-sitio-tur.png'
 
 class AddSitioTuristico extends Component {
 
@@ -60,12 +61,14 @@ class AddSitioTuristico extends Component {
         return(
             <div className="container-fluid form-container ">
                 <div className="row align-items-center">
-                    <div className="col col-color">
+                    {/* Columna de color con imagen */}
+                    <div className="col col-color-yellow">
                         <header>
                             <h1 className="titulo-form-color">Crear Sitio Turistico</h1>
-                            {/*<img className="img-fluid mx-auto d-block img-form" src={img} alt="imagen formulario" />*/}
+                            {<img className="img-fluid mx-auto d-block img-form" src={img} alt="cool airplane" />}
                         </header>
                     </div>
+                    {/* Columna de formulario */}
                     <div className="col col-form ">
                         <h1 className="titulo-form">Ingrese los datos del sitio turistico</h1>
                         <form onSubmit={this.handlerSubmit}>
