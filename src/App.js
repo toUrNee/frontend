@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 
+<<<<<<< Updated upstream
 import './App.css';
 import './styles/Form.css'
 import { 
@@ -8,6 +9,9 @@ import {
   Route, 
   Redirect
 } from 'react-router-dom';
+=======
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+>>>>>>> Stashed changes
 import Login from './components/Login';
 import Register from './components/Register';
 import AddPlan from './components/AddPlan';
@@ -19,7 +23,13 @@ import AuthContextProvider, { AuthContext } from './context/AuthContext'
 import ExternalDataContextProvider from './context/ExternalDataContext'
 
 
+
+import './App.css';
+import './styles/Form.css'
+import './styles/Post.css'
+
 function App() {
+<<<<<<< Updated upstream
   return (
       <AuthContextProvider>
       <ExternalDataContextProvider>
@@ -63,6 +73,25 @@ const  PrivateRoute = ({ children, ...rest }) => {
           )
     }/>
   );
+=======
+    return (
+        <Router>
+            <div className="App">
+                {/*Barra de navegación*/}
+                <Navbar />
+                <Switch>
+                    {/*Componente por cada ruta*/}
+                    <Route path="/login" exact component={Login} />
+                    <Route path="/register" exact component={Register} />
+                    <Route path="/crear-plan" exact component={AddPlan} />
+                    <Route path="/publicaciones" exact component={Publicaciones} />
+                    <Route path="/publicaciones/:idregion" component={Region} />
+                    <Route path="/" exact component={Inicio} />
+                </Switch>
+            </div>
+        </Router>
+    );
+>>>>>>> Stashed changes
 }
 
 export default App;

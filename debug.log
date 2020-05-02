@@ -1,0 +1,4 @@
+[0501/192005.390:WARNING:minidump_to_upload_parameters.cc(36)] duplicate key guid, discarding value fa7e2414-df1a-41fe-ad62-acbee778d1d7
+[0501/192105.395:WARNING:minidump_to_upload_parameters.cc(36)] duplicate key guid, discarding value fa7e2414-df1a-41fe-ad62-acbee778d1d7
+[0501/234443.858:WARNING:minidump_to_upload_parameters.cc(36)] duplicate key guid, discarding value fa7e2414-df1a-41fe-ad62-acbee778d1d7
+[0502/002621.571:ERROR:process_reader_win.cc(126)] NtOpenThread: {Acceso denegado} Un proceso ha solicitado acceso a un objeto, pero no se le han concedido esos derechos de acceso. (0xc0000022)
