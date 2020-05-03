@@ -18,11 +18,16 @@ import Region from './components/Region';
 import AuthContextProvider, { AuthContext } from './context/AuthContext'
 import ExternalDataContextProvider from './context/ExternalDataContext'
 
+//Notifications library
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+import 'animate.css'
 
 function App() {
   return (
-      <AuthContextProvider>
-      <ExternalDataContextProvider>
+    <AuthContextProvider>
+    <ExternalDataContextProvider>
+    <ReactNotification />
         <Router>
           <div className="App">
             {/*Barra de navegación*/}
