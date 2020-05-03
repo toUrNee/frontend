@@ -118,7 +118,7 @@ class AuthContextProvider extends Component{
                 });
             })
             .catch(err => {
-                console.log(err.response)
+                console.log(err)
                 localStorage.removeItem('token')
                 localStorage.removeItem('usuario')
                 this.setState({
