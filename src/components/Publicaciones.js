@@ -21,10 +21,10 @@ function card(id, titulo, descripcion, sitio, fecha, precio) {
                     <p className="card-text">{descripcion}</p>
                 </div>
                 <div class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
-                    <div className="date">
+                    {/*<div className="date">
                         <i class="far fa-calendar-alt"></i>{fecha}
 
-                    </div>
+                    </div>*/}
                     <div class="stats">
                         <i class="far fa-comment text-primary"></i> 13
                     <i class="fas fa-star text-warning"></i> 4.5
@@ -32,16 +32,6 @@ function card(id, titulo, descripcion, sitio, fecha, precio) {
                 </div>
             </a>
         </div>
-    /*<div className="col card_col" key={id}>
-        <div className="card mb-4 box-shadow">
-            <img className="card-img-top" src="https://picsum.photos/286/180" alt="portada publicacion" />
-            <div className="card-body">
-                <h5 className="card-title">Titulo {id}</h5>
-                <p className="card-text">{descripcion}</p>
-                <a href="#" className="btn btn-primary">Sitio turistico No. {sitioId}</a>
-            </div>
-        </div>
-    </div>*/
     return card;
 }
 
