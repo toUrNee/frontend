@@ -32,15 +32,24 @@ body{
 }
 
 .imagenpro{
-  
   background-image: url("./images/letras.png");
-    background-size: cover;
-    
-    background-attachment: fixed;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
+/*Animar mapa*/
+.mapa>img {
+  -webkit-transition: 0.5s -webkit-transform;
+  transition: 0.5s -webkit-transform;
+  transition: 0.5s transform;
+  transition: 0.5s transform, 0.5s -webkit-transform;
+}
 
-
+.mapa:hover>img {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
 
 .navbar-brand{
   color: #74151c;
@@ -50,11 +59,8 @@ body{
   padding: 20px;
 }
 
-
-
 .carousel-inner img {
   width: 100%;
-  
   object-fit: cover;
 }
 
@@ -65,92 +71,6 @@ body{
   }
 }
 
-/*login screen*/
-.left , .right{
-  height: 100%;
-  width: 100%;
-}
-
-@media screen and (min-width: 650px){
-  .left , .right{
-    height: 100vh;
-  }
-}
-
-.left{
-  background:#FF3736;
-  color: white;
-}
-
-.right{
-  background: white;
-  color : #FF3736;
-}
-
-.leftTitle{
-  font-size: 100;
-  font-family: 'Convergence', sans-serif; 
-  margin: 5px;
-  margin-top: 30%;
-  
-  
-  position: relative;
-  
-  color: #FFFFFF;
-}
-
-.leftSub{
-  font-size: 80;
-  font-family: 'Convergence', sans-serif; 
-  margin: 8px;
-  padding: 2em;
-}
-
-.leftButton{
-  background: #FF3736;
-  color: white;
-  border-color: white;
-  font-family: 'Roboto', sans-serif;
-  margin: 10px;
-  position: relative;
-  top: 20%;
-  border-radius: 50px;
-  width: 50%;
-}
-
-
-.rightInput1{
-  background: rgb(235,235,235);
-  
-  font-family: 'Roboto', sans-serif;
-  margin: 1em;
-  margin-top: 40%;
-  width: 50%;
-  border-radius: 50px;
-  
-}
-
-.rightInput2{
-  background: rgb(235,235,235);
-  font-family: 'Roboto', sans-serif;
-  margin:1em;
-  position: relative;
-  width: 50%;
-  border-radius: 50px;
-  
-}
-
-.rightButton{
- background: #FF3736;
-  color: white;
-  border-color: white;
-  font-family: 'Roboto', sans-serif;
-  margin: 1em;
-  position: relative;
-  width: 50%;
-  border-radius: 50px;
-  
-}
 
 .rightHint{
   color: black;
@@ -176,7 +96,7 @@ body{
   padding: 0px;
 }
 
-.btn {
+.carousel .btn {
   border-radius: 50px;
   background-color: #EE7120;
   color: white;
@@ -204,230 +124,8 @@ body{
 
 }
 
-.card{
-  width: 18rem;
-  margin:0;
-}
 
 .nav-item{
   padding: 1em;
-}
-
-li a:hover{
-  text-decoration: underline;
-  color:beige;
-}
-
-/*Register*/
-
-.regleft , .regright{
-  height: 50vh;
-  width: 100%;
-}
-
-@media screen and (min-width: 450px){
-  .regleft , .regright{
-    height: 100vh;
-  }
-}
-
-.regright{
-  background:#FF3736;
-  color: white;
-}
-
-.regleft{
-  background: white;
-  color : #FF3736;
-}
-
-
-.regrightTitle{
-  font-size: 75px;
-  font-family: 'Convergence', sans-serif; 
-  margin: 5px;
-  position: relative;
-  top: 147px;
-}
-
-.regrightSub{
-  font-size: 50px;
-  font-family: 'Roboto', sans-serif;
-  margin: 20px;
-  position: relative;
-  top: 20%;
-}
-
-.regrightButton{
-  background: #FF3736;
-  color: white;
-  border-color: white;
-  font-size: 40px;
-  font-family: 'Roboto', sans-serif;
-  margin: 10px;
-  position: relative;
-  top: 20%;
-  border-radius: 50px;
-  padding: 15px;
-}
-
-.regleftTitle{
-  font-size: 100;
-  
-  margin: 5px;
-  position: relative;
-  
-}
-
-.regInput1{
-  background: rgb(235,235,235);
-  font-family: 'Roboto', sans-serif;
-  margin:1em;
-  position: relative;
-  width: 50%;
-  border-radius: 50px;
-
-}
-
-.regInput2{
-  margin: 0;
-  height: 100px;
-  width: 85%;
-  background: rgb(235,235,235);
-  font-size: 35px;
-  font-family: 'Roboto', sans-serif;
-  margin:5px;
-  position: relative;
-  top: 60px;
-  border-radius: 50px;
-  padding: 10px;
-  padding-left: 25px;
-}
-
-.regInput3{
-  height: 100px;
-  background: rgb(235,235,235);
-  font-size: 35px;
-  font-family: 'Roboto', sans-serif;
-  margin: 5px;
-  position: relative;
-  top: 60px;
-  inline-size: 39%;
-  border-radius: 50px;
-  padding-left: 25px;
-}
-
-.regInput4{
-  height: 100px;
-  background: rgb(235,235,235);
-  font-size: 35px;
-  font-family: 'Roboto', sans-serif;
-  margin:5px;
-  margin-left: 30px;
-  position: relative;
-  top: 60px;
-  inline-size: 39%;
-  border-radius: 50px;
-  padding: 15px;
-  padding-left: 25px;
-}
-
-.regInput5{
-  height: 100px;
-  width: 85%;
-  background: rgb(235,235,235);
-  font-size: 35px;
-  font-family: 'Roboto', sans-serif;
-  margin:5px;
-  position: relative;
-  top: 60px;
-  border-radius: 50px;
-  padding: 10px;
-  padding-left: 25px;
-}
-
-.regInput6{
-  height: 100px;
-  width: 85%;
-  background: rgb(235,235,235);
-  font-size: 35px;
-  font-family: 'Roboto', sans-serif;
-  margin:5px;
-  position: relative;
-  top: 60px;
-  border-radius: 50px;
-  padding: 10px;
-  padding-left: 25px;
-}
-
-.regleftButton{
-  height: 70px;
-  width: 70%;
-  border: none;
-  background: #FF3736;
-  color: white;
-  font-size: 40px;
-  font-family: 'Roboto', sans-serif;
-  margin-top: 10px;
-  position: relative;
-  top: 60px;
-  border-radius: 50px;
-  padding-left: 100px;
-  padding-right: 100px;
-}
-
-/*AddPlan*/
-
-.addleft, .addright{
-  height: 50vh; /*50 % of vertical height*/
-  width: 100%;
-}
-
-@media screen and (min-width:768px){
-  .addleft, .addright{
-    height: 100vh; /*100 % of vertical height*/
-  }
-}
-
-.addleft{
-  background: #EF711A;
-  height: 100%;
-}
-
-.addright{
-  background: #E2E6EA;
-  height: 100%;
-}
-
-
-.leftText{
-  font-size: 75px;
-  font-family: 'Convergence', sans-serif; 
-  margin: 5px;
-  padding-bottom: 1.5em;
-  position: relative;
-  top: 147px;
-  color: #FFFFFF;
-}
-
-.reg_label_titulo, .reg_label_fecha, .reg_label_lugar,
-.reg_label_sitio_turistico, .reg_label_descripcion, .reg_label_fotos,
-.reg_label_precio{
-  font-size: 30px;
-  font-family: 'Convergence', sans-serif; 
-  margin: 5px;
-  color: rgb(0, 0, 0);
-  margin-left: 0%;
-}
-
-.reg_button{
-  background: #EE7120;
-  color: white;
-  font-size: 40px;
-  font-family: 'Convergence', sans-serif;
-  margin: 5%;
-  position: relative;
-  width: 70%;
-  border-radius: 50px;
 }
 

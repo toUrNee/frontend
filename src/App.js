@@ -24,6 +24,11 @@ import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 import 'animate.css'
 
+
+import './App.css';
+import './styles/Form.css'
+import './styles/Post.css'
+
 function App() {
   return (
     <AuthContextProvider>
