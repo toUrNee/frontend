@@ -21,7 +21,7 @@ const Navbar = () => {
                     <ul className="navbar-nav mr-auto">
                             <Link to='/crear-plan'>
                                 <li className="nav-item active"> Publica ya! </li>
-                            </Link>
+                            </Link>                        
                             <Link to='/crear-sitio-turistico'>
                                 <li className="nav-item active"> Agrega tu sitio turistico! </li>
                             </Link>

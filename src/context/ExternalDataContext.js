@@ -14,6 +14,7 @@ class ExternalDataContextProvider extends Component{
         paises: [],
         municipios: [],
         departamentos: [],
+        sitios_turisticos: [],
         regiones: [
             { nombre: "Región Llano", img: llano },
             { nombre: "Región Centro Oriente", img: centro_oriente },
@@ -77,6 +78,23 @@ class ExternalDataContextProvider extends Component{
         })
     }
 
+    getPublicacionesbyId = (id) => {
+        axios.get(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos/propietario/' + id)
+            .then(res => {
+                this.setState({
+                    ...this.state, 
+                    sitios_turisticos: res.data 
+                })
+            })
+            .catch(error => {
+                console.log(error)
+                this.setState({
+                    ...this.state,
+                    sitios_turisticos: []
+                })
+            })
+    }
+
     render(){
         return(
             <ExternalDataContext.Provider value={{
@@ -84,6 +102,7 @@ class ExternalDataContextProvider extends Component{
                 getPaises:this.getPaises,
                 getMunicipios:this.getMunicipios,
                 getDepartamentos:this.getDepartamentos,
+                getPublicacionesbyId:this.getPublicacionesbyId,
             }}>
                 {this.props.children}
             </ExternalDataContext.Provider>

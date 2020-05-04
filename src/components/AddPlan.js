@@ -1,154 +1,176 @@
-import React, { Component } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import img from '../images/post.png';
-import { Link } from 'react-router-dom'
+import { useHistory, Link } from "react-router-dom";
+import { store } from 'react-notifications-component';
+import { AuthContext } from '../context/AuthContext';
+import { ExternalDataContext } from '../context/ExternalDataContext';
+
+const AddPlan = () => {
+    const history = useHistory();
+    const { user } = useContext(AuthContext) 
+    const { sitios_turisticos, getPublicacionesbyId } = useContext(ExternalDataContext)
 
 
-class AddPlan extends Component {
-
-    state = {
-        Publicacion: {
+    const [publicacion, setPublicacion] = useState({
             Titulo: "",
             SitioId: null,
             Fecha: "",
             Descripcion: "",
             Precio: null,
-            PropietarioId: 1 //Cambiar
-        },
-        Sitios_Turisticos: [],
-        loading: true
+            PropietarioId: null
+    })
+
+    const onChange = (event) => {
+        console.log(event.target.name)
+        console.log(event.target.type)
+        if(event.target.type == "number" || event.target.type == "select-one"){
+            console.log(event.target.name)
+            console.log(event.target.type)
+
+            setPublicacion({
+                ...publicacion,
+                [event.target.name]: parseInt(event.target.value)
+            })
+            
+        }else{
+            setPublicacion({
+                ...publicacion,
+                [event.target.name]: event.target.value
+            })
+        }       
     }
 
-    handlerTituloChange = (event) => {
-        this.setState({ Publicacion: { ...this.state.Publicacion, Titulo: event.target.value } });
-    }
-
-    handlerDescripcionChange = (event) => {
-        this.setState({ Publicacion: { ...this.state.Publicacion, Descripcion: event.target.value } });
-    }
-
-    handlerPrecioChange = (event) => {
-        this.setState({ Publicacion: { ...this.state.Publicacion, Precio: parseInt(event.target.value) } });
-    }
-
-    handlerSitioTuristicoChange = (event) => {
-        this.setState({ Publicacion: { ...this.state.Publicacion, SitioId: parseInt(event.target.value) } });
-    }
-
-    handlerFechaChange = (event) => {
-        this.setState({ Publicacion: { ...this.state.Publicacion, Fecha: event.target.value } });
-    }
-
-    handlerSubmit = (e) => {
+    const handlerSubmit = (e) => {
         e.preventDefault()
-        console.log(this.state.Publicacion);
-        axios.post('https://localhost:5001/api/Publicaciones', this.state.Publicacion)
+        axios.post(process.env.REACT_APP_BACK_URL + '/Publicaciones', publicacion)
             .then(response => {
-                console.log(response)
+                store.addNotification({
+                    title: "Perfecto!",
+                    message: "Tu publicación fue creada exitosamente",
+                    type: "success",
+                    insert: "top",
+                    container: "top-right",
+                    animationIn: ["animated", "fadeInDown"],
+                    animationOut: ["animated", "fadeOut"],
+                    dismiss: {
+                      duration: 5000,
+                      onScreen: false
+                    }
+                });
+                history.push('/')
             })
             .catch(error => {
                 console.log(error)
+                store.addNotification({
+                    title: "Ups!",
+                    message: "Tu publicación no ha podido ser creada",
+                    type: "danger",
+                    insert: "top",
+                    container: "top-right",
+                    animationIn: ["animated", "fadeInDown"],
+                    animationOut: ["animated", "fadeOut"],
+                    dismiss: {
+                      duration: 5000,
+                      onScreen: false
+                    }
+                });
             })
     }
 
-    componentDidMount() {
-        axios.get('https://localhost:5001/api/SitiosTuristicos/propietario/1')
-            .then(response => {
-                this.setState({ Sitios_Turisticos: response.data, loading: false })
-                console.log(response)
-                console.log(this.state)
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }
-    render() {
-        return (
-            <div className="container-fluid form-container ">
-                <div className="row align-items-center">
-                    {/* Columna de color con imagen */}
-                    <div className="col col-color-yellow">
-                        <header>
-                            <h1 className="titulo-form-color">Publicar un plan</h1>
-                            <img className="img-fluid mx-auto d-block img-form" src={img} alt="post" />
-                        </header>
-                    </div>
-                    {/* Columna de formulario */}
-                    <div className="col col-form ">
-                        <h1 className="titulo-form-blue">Ingresa los datos del plan</h1>
-                        <form onSubmit={this.handlerSubmit}>
+    useEffect(() => {
+        publicacion.PropietarioId = parseInt(user.id) 
+    }, [])
+
+    useEffect(() => {
+        getPublicacionesbyId(publicacion.PropietarioId)
+    }, [getPublicacionesbyId, publicacion.sitios_lista])
+
+
+    return (
+        <div className="container-fluid form-container ">
+            <div className="row align-items-center">
+                {/* Columna de color con imagen */}
+                <div className="col col-color-yellow">
+                    <header>
+                        <h1 className="titulo-form-color">Publicar un plan</h1>
+                        <img className="img-fluid mx-auto d-block img-form" src={img} alt="post" />
+                    </header>
+                </div>
+                {/* Columna de formulario */}
+                <div className="col col-form ">
+                    <h1 className="titulo-form-blue">Ingresa los datos del plan</h1>
+                    <form onSubmit={handlerSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="Titulo">Titulo</label>
+                            <input
+                                name="Titulo"
+                                className="form-control"
+                                type="text"
+                                onChange={onChange}
+                                autoFocus
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="Fecha">Fecha</label>
+                            <input
+                                name="Fecha"
+                                className="form-control"
+                                type="datetime-local"
+                                min="2020-05-03T00:00"
+                                onChange={onChange} //revisar esto porque tampoco debe ser asi
+                            />
+                        </div>
                             <div className="form-group">
-                                <label htmlFor="inputTitulo">Titulo</label>
-                                <input
-                                    id="inputTitulo"
-                                    className="form-control"
-                                    type="text"
-                                    value={this.state.Publicacion.Titulo}
-                                    onChange={this.handlerTituloChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="inputFecha">Fecha</label>
-                                <input
-                                    id="inputFecha"
-                                    className="form-control"
-                                    type="datetime-local"//revisar esto porque aca debe ser date
-                                    value={this.state.Publicacion.Fecha}
-                                    onChange={this.handlerFechaChange} //revisar esto porque tampoco debe ser asi
-                                />
-                            </div>
-                            {
-                                this.state.loading ? <div></div> :
-                                    <div className="form-group">
-                                        <label htmlFor="inputSitio">Sitio Turistico</label>
-                                        <select
-                                            id="inputSitio"
-                                            className="form-control"
-                                            type="number"
-                                            value={this.state.Publicacion.SitioId}
-                                            onChange={this.handlerSitioTuristicoChange}
-                                        >
-                                            <option>Seleccione una opcion</option>
-                                            {this.state.Sitios_Turisticos.map(sitio => <option value={sitio.id} key={sitio.id}>{sitio.nombre} </option>)}
-                                        </select>
-                                    </div>
-                            }
-                            <div className="form-group">
-                                <label htmlFor="inputDescripcion">Descripción</label>
-                                <textarea
-                                    id="inputDescripcion"
-                                    className="form-control"
-                                    rows="3"
-                                    value={this.state.Publicacion.Descripcion}
-                                    onChange={this.handlerDescripcionChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="inputPrecio">Precio</label>
-                                <input
-                                    id="inputPrecio"
+                                <label htmlFor="SitioId">Sitio Turistico</label>
+                                <select
+                                    name="SitioId"
                                     className="form-control"
                                     type="number"
-                                    value={this.state.Publicacion.Precio}
-                                    onChange={this.handlerPrecioChange}
-                                />
+                                    onChange={onChange}
+                                >
+                                    <option>Seleccione una opcion</option>
+                                    {sitios_turisticos.map(sitio =>
+                                        <option
+                                        value={sitio.id} key={sitio.id}>
+                                        {sitio.nombre} 
+                                        </option>)}
+                                </select>
                             </div>
-                            <button type="submit" className="btn btn-form-blue">Submit</button>
-                            <p className="form-link">
-                                ¿No encuentras un sitio turistico?
-                                {
-                                <Link to ="/crear-sitio-turistico">
-                                    Crear
-                                </Link>
-                                }
-                            </p>
-                        </form>
-                    </div>
+                        <div className="form-group">
+                            <label htmlFor="Descripcion">Descripción</label>
+                            <textarea
+                                name="Descripcion"
+                                className="form-control"
+                                rows="3"
+                                onChange={onChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="Precio">Precio</label>
+                            <input
+                                name="Precio"
+                                className="form-control"
+                                type="number"
+                                min="0"
+                                onChange={onChange}
+                            />
+                        </div>
+                        <button type="submit" className="btn btn-form-blue">Submit</button>
+                        <p className="form-link">
+                            ¿No encuentras un sitio turistico?
+                            {
+                            <Link to ="/crear-sitio-turistico">
+                                Crear
+                            </Link>
+                            }
+                        </p>
+                    </form>
                 </div>
-                }
             </div>
-        )
-    }
+            }
+        </div>
+    )
 }
 
 

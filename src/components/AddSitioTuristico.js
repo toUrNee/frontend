@@ -1,12 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import img from '../images/crear-sitio-tur.png';
+import { useHistory } from "react-router-dom";
 import { store } from 'react-notifications-component';
 import { AuthContext } from '../context/AuthContext';
 import { ExternalDataContext } from '../context/ExternalDataContext';
 
 
 const AddSitioTuristico = () => {
+
+    const history = useHistory();
+    const { user } = useContext(AuthContext)
+    const { regiones, departamentos, municipios, getDepartamentos, getMunicipios } = useContext(ExternalDataContext)
 
     const [sitio, setSitio] = useState({
         Nombre: "",
@@ -15,11 +20,8 @@ const AddSitioTuristico = () => {
         Region: "",
         Municipio: "",
         Departamento: "",
-        PropietarioId: null //revisar
+        PropietarioId: null
     })
-
-    const { user } = useContext(AuthContext)
-    const { regiones, departamentos, municipios, getDepartamentos, getMunicipios } = useContext(ExternalDataContext)
 
     const onChange = (event) => {
         if(event.target.type == "number"){
@@ -35,13 +37,13 @@ const AddSitioTuristico = () => {
         }       
     }
 
-    const handlerSubmit = (event) => {
-        event.preventDefault()
+    const handlerSubmit = (e) => {
+        e.preventDefault()
         axios.post(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos', sitio)
             .then(response => {
                 store.addNotification({
                     title: "Perfecto!",
-                    message: "Tu sitio Turistico " + response.data.nombre + " fue creado exitosamente",
+                    message: "Tu sitio turistico " + response.data.nombre + " fue creado exitosamente",
                     type: "success",
                     insert: "top",
                     container: "top-right",
@@ -52,11 +54,13 @@ const AddSitioTuristico = () => {
                       onScreen: false
                     }
                 });
+                history.push('/')
             })
             .catch(error => {
+                console.log(error);
                 store.addNotification({
                     title: "Ups!",
-                    message: "Tu sitio Turistico no ha podido ser creado",
+                    message: "Tu sitio turistico no ha podido ser creado",
                     type: "danger",
                     insert: "top",
                     container: "top-right",
@@ -79,8 +83,6 @@ const AddSitioTuristico = () => {
     }, [getDepartamentos, sitio.Region])
 
     useEffect(() => {
-        //console.log(user)
-        //var user = JSON.parse(user)
         sitio.PropietarioId = parseInt(user.id)
     }, [])
 
@@ -105,6 +107,7 @@ const AddSitioTuristico = () => {
                                 className="form-control" 
                                 type="text" 
                                 onChange={onChange}
+                                autoFocus
                             />
                         </div>
                         <div className="form-group">
@@ -122,6 +125,7 @@ const AddSitioTuristico = () => {
                                 name="Capacidad"
                                 className="form-control"
                                 type="number"
+                                min = "1"
                                 onChange={onChange}
                             />
                         </div>
