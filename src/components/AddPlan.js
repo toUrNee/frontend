@@ -22,12 +22,7 @@ const AddPlan = () => {
     })
 
     const onChange = (event) => {
-        console.log(event.target.name)
-        console.log(event.target.type)
         if(event.target.type == "number" || event.target.type == "select-one"){
-            console.log(event.target.name)
-            console.log(event.target.type)
-
             setPublicacion({
                 ...publicacion,
                 [event.target.name]: parseInt(event.target.value)
