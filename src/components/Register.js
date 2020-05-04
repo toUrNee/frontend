@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from "react-router-dom";
 import img from '../images/register.png'
 import { AuthContext } from '../context/AuthContext'
 import { ExternalDataContext } from '../context/ExternalDataContext'
 
-const Register = ({ history: { push } }) => {
+const Register = () => {
+    
+    const history = useHistory();
+    
     const { registerUser, isAuthenticated } = useContext(AuthContext)
     const { paises, getPaises } = useContext(ExternalDataContext)
     const [ usuario, setUsuario ] = useState({
@@ -23,9 +26,9 @@ const Register = ({ history: { push } }) => {
     useEffect(()=>{
         //redirect authenticated user
         if (isAuthenticated){
-            push('/')
+            history.replace('/')
         }
-    }, [isAuthenticated, push])
+    }, [isAuthenticated, history])
 
     const onChange = (event) => {
         setUsuario({

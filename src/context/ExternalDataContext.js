@@ -12,7 +12,8 @@ export const ExternalDataContext = createContext()
 class ExternalDataContextProvider extends Component{
     state = {
         paises: [],
-        ubicaciones: [],
+        municipios: [],
+        departamentos: [],
         regiones: [
             { nombre: "Región Llano", img: llano },
             { nombre: "Región Centro Oriente", img: centro_oriente },
@@ -42,18 +43,36 @@ class ExternalDataContextProvider extends Component{
         })
     }
 
-    getUbicaciones = () => {
-        axios.get(process.env.REACT_APP_REGIONES_URL)
+    getMunicipios = (departamento) => {
+        axios.get(process.env.REACT_APP_REGIONES_URL, { params: {$select: 'municipio', $where: 'departamento = ' + '"' + departamento + '"'}})
         .then(res => {
             this.setState({
                 ...this.state,
-                ubicaciones: res.data
+                municipios: res.data
             })
         }).catch(err => {
             console.log(err)
             this.setState({
                 ...this.state,
-                ubicaciones: []
+                municipios: []
+            })
+        })
+    }
+
+
+
+    getDepartamentos = (region) => {
+        axios.get(process.env.REACT_APP_REGIONES_URL, { params: {$select: 'departamento', $group: 'region,departamento', $where: 'region = ' + '"' + region + '"'}})
+        .then(res => {
+            this.setState({
+                ...this.state,
+                departamentos: res.data
+            })
+        }).catch(err => {
+            console.log(err)
+            this.setState({
+                ...this.state,
+                departamentos: []
             })
         })
     }
@@ -63,7 +82,8 @@ class ExternalDataContextProvider extends Component{
             <ExternalDataContext.Provider value={{
                 ...this.state, 
                 getPaises:this.getPaises,
-                getUbicaciones:this.getUbicaciones,
+                getMunicipios:this.getMunicipios,
+                getDepartamentos:this.getDepartamentos,
             }}>
                 {this.props.children}
             </ExternalDataContext.Provider>

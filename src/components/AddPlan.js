@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import img from '../images/post.png';
+import { Link } from 'react-router-dom'
 
 
 class AddPlan extends Component {
@@ -135,19 +136,17 @@ class AddPlan extends Component {
                             <button type="submit" className="btn btn-form-blue">Submit</button>
                             <p className="form-link">
                                 ¿No encuentras un sitio turistico?
-                                {/*
-                                <Link to ="/register">
-                                    Crear.
+                                {
+                                <Link to ="/crear-sitio-turistico">
+                                    Crear
                                 </Link>
-                                */}
+                                }
                             </p>
                         </form>
                     </div>
                 </div>
                 }
             </div>
-
-
         )
     }
 }
