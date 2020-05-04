@@ -22,6 +22,9 @@ const Navbar = () => {
                             <Link to='/crear-plan'>
                                 <li className="nav-item active"> Publica ya! </li>
                             </Link>
+                            <Link to='/crear-sitio-turistico'>
+                                <li className="nav-item active"> Agrega tu sitio turistico! </li>
+                            </Link>
                             <Link to='/' onClick={logoutUser}>
                                 <li className="nav-item active"> Cerrar sesión </li>
                             </Link>

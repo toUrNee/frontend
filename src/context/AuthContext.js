@@ -16,7 +16,7 @@ class AuthContextProvider extends Component{
         axios.post(process.env.REACT_APP_BACK_URL + '/Usuarios/Login', credenciales)
             .then(res => {
                 localStorage.setItem('token', res.data.token)
-                localStorage.setItem('usuario', res.data.usuario)
+                localStorage.setItem('usuario', JSON.stringify(res.data.usuario))
                 this.setState({
                     ...this.state,
                     token: res.data.token,
@@ -95,7 +95,7 @@ class AuthContextProvider extends Component{
         axios.post(process.env.REACT_APP_BACK_URL + '/Usuarios/Register', usuario)
             .then(res => {
                 localStorage.setItem('token', res.data.token)
-                localStorage.setItem('usuario', res.data.usuario)
+                localStorage.setItem('usuario', JSON.stringify(res.data.usuario))
                 this.setState({
                     ...this.state,
                     token: res.data.token,
@@ -146,7 +146,8 @@ class AuthContextProvider extends Component{
 
     componentDidMount(){
         var token = localStorage.getItem('token')   
-        var usuario = localStorage.getItem('usuario')   
+        var usuario = localStorage.getItem('usuario')
+        usuario = JSON.parse(usuario)
         if (token && usuario){
             this.setState({
                 token: token,
@@ -166,7 +167,7 @@ class AuthContextProvider extends Component{
                 ...this.state, 
                 registerUser:this.registerUser,
                 loginUser:this.loginUser,
-                logoutUser:this.logoutUser
+                logoutUser:this.logoutUser,
             }}>
                 {this.props.children}
             </AuthContext.Provider>

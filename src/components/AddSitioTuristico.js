@@ -1,135 +1,187 @@
-import React, { Component } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import img from '../images/crear-sitio-tur.png'
+import img from '../images/crear-sitio-tur.png';
+import { store } from 'react-notifications-component';
+import { AuthContext } from '../context/AuthContext';
+import { ExternalDataContext } from '../context/ExternalDataContext';
 
-class AddSitioTuristico extends Component {
 
-    state = {
-        SitioTuristico: {
-            Nombre: "",
-            Descripcion: "",
-            Capacidad: null,
-            RegionId: null,
-            PropietarioId: 1 //Modificar esto con la autenticacion para que haga referencia al usuario activo
-        },
-        Regiones: [],
-        loading: true
+const AddSitioTuristico = () => {
+
+    const [sitio, setSitio] = useState({
+        Nombre: "",
+        Descripcion: "",
+        Capacidad: null,
+        Region: "",
+        Municipio: "",
+        Departamento: "",
+        PropietarioId: null //revisar
+    })
+
+    const { user } = useContext(AuthContext)
+    const { regiones, departamentos, municipios, getDepartamentos, getMunicipios } = useContext(ExternalDataContext)
+
+    const onChange = (event) => {
+        if(event.target.type == "number"){
+            setSitio({
+                ...sitio,
+                [event.target.name]: parseInt(event.target.value)
+            })
+        }else{
+            setSitio({
+                ...sitio,
+                [event.target.name]: event.target.value
+            })
+        }       
     }
 
-    handlerNombreChange = (event) => {
-        this.setState({ SitioTuristico: { ...this.state.SitioTuristico, Nombre: event.target.value}});
-    }
-
-    handlerDescripcionChange = (event) => {
-        this.setState({ SitioTuristico: { ...this.state.SitioTuristico, Descripcion: event.target.value}});
-    }
-
-    handlerCapacidadChange = (event) => {
-        this.setState({ SitioTuristico: { ...this.state.SitioTuristico, Capacidad: parseInt(event.target.value)}});
-    }
-
-    handlerRegionIdChange = (event) => {
-        this.setState({ SitioTuristico: { ...this.state.SitioTuristico, RegionId: parseInt(event.target.value)}});
-    }
-
-    handlerSubmit = (event) => {
+    const handlerSubmit = (event) => {
         event.preventDefault()
-        console.log(this.state.SitioTuristico);
-        axios.post('https://localhost:5001/api/SitiosTuristicos', this.state.SitioTuristico)
+        axios.post(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos', sitio)
             .then(response => {
-                console.log(response)
+                store.addNotification({
+                    title: "Perfecto!",
+                    message: "Tu sitio Turistico " + response.data.nombre + " fue creado exitosamente",
+                    type: "success",
+                    insert: "top",
+                    container: "top-right",
+                    animationIn: ["animated", "fadeInDown"],
+                    animationOut: ["animated", "fadeOut"],
+                    dismiss: {
+                      duration: 5000,
+                      onScreen: false
+                    }
+                });
             })
             .catch(error => {
-            alert(`${this.state.Nombre}`)
-                console.log(error)
-            })
-    }
-    
-    componentDidMount() {
-        axios.get('https://localhost:5001/api/Regiones')
-            .then(response => {
-                this.setState({ Regiones: response.data, loading: false })
-                console.log(response)
-                console.log(this.state)
-            })
-            .catch(error => {
-                console.log(error)
+                store.addNotification({
+                    title: "Ups!",
+                    message: "Tu sitio Turistico no ha podido ser creado",
+                    type: "danger",
+                    insert: "top",
+                    container: "top-right",
+                    animationIn: ["animated", "fadeInDown"],
+                    animationOut: ["animated", "fadeOut"],
+                    dismiss: {
+                      duration: 5000,
+                      onScreen: false
+                    }
+                });
             })
     }
 
-    render(){
-        return(
-            <div className="container-fluid form-container ">
-                <div className="row align-items-center">
-                    {/* Columna de color con imagen */}
-                    <div className="col col-color-yellow">
-                        <header>
-                            <h1 className="titulo-form-color">Crear Sitio Turistico</h1>
-                            {<img className="img-fluid mx-auto d-block img-form" src={img} alt="cool airplane" />}
-                        </header>
-                    </div>
-                    {/* Columna de formulario */}
-                    <div className="col col-form ">
-                        <h1 className="titulo-form">Ingrese los datos del sitio turistico</h1>
-                        <form onSubmit={this.handlerSubmit}>
-                            <div className="form-group">
-                                <label htmlFor="inputNombre">Nombre</label>
-                                <input 
-                                    id="inputNombre" 
-                                    className="form-control" 
-                                    type="text" 
-                                    value={this.state.SitioTuristico.Nombre}
-                                    onChange={this.handlerNombreChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="inputDescripcion">Descripcion</label>
-                                <input 
-                                    id="inputDescripcion"
-                                    className="form-control"
-                                    type="text"
-                                    value={this.state.SitioTuristico.Descripcion}
-                                    onChange={this.handlerDescripcionChange}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="inputCapacidad">Capacidad</label>
-                                <input 
-                                    id="inputCapacidad"
-                                    className="form-control"
-                                    type="number"
-                                    value={this.state.SitioTuristico.Capacidad}
-                                    onChange={this.handlerCapacidadChange}
-                                />
-                            </div>
-                            {
-                                this.state.loading ? <div></div> :
-                                    <div className="form-group">      
-                                        <label htmlFor="inputRegionId">Region</label>
-                                        <select 
-                                            id="inputRegionId"
-                                            className="form-control"
-                                            type="number"
-                                            value={this.state.SitioTuristico.RegionId}
-                                            onChange={this.handlerRegionIdChange}
-                                        >
-                                            <option>Seleccione una opcion</option>
-                                            {this.state.Regiones.map(region =>
-                                                <option
-                                                value={region.id} key={region.id}>
-                                                {region.nombre}
-                                                </option>
-                                            )}
-                                        </select>
-                                    </div>
-                            }
-                            <button type="submit" className="btn btn-form">Submit</button>
-                        </form>
-                    </div>
+    useEffect(() => {
+        getMunicipios(sitio.Departamento)
+    }, [getMunicipios, sitio.Departamento])
+    
+    useEffect(() => {
+        getDepartamentos(sitio.Region)
+    }, [getDepartamentos, sitio.Region])
+
+    useEffect(() => {
+        //console.log(user)
+        //var user = JSON.parse(user)
+        sitio.PropietarioId = parseInt(user.id)
+    }, [])
+
+    return (
+        <div className="container-fluid form-container ">
+            <div className="row align-items-center">
+                {/* Columna de color con imagen */}
+                <div className="col col-color-yellow">
+                    <header>
+                        <h1 className="titulo-form-color">Crear Sitio Turistico</h1>
+                        {<img className="img-fluid mx-auto d-block img-form" src={img} alt="cool airplane" />}
+                    </header>
+                </div>
+                {/* Columna de formulario */}
+                <div className="col col-form ">
+                    <h1 className="titulo-form">Ingrese los datos del sitio turistico</h1>
+                    <form onSubmit={handlerSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="Nombre">Nombre</label>
+                            <input 
+                                name="Nombre" 
+                                className="form-control" 
+                                type="text" 
+                                onChange={onChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="Descripcion">Descripcion</label>
+                            <input 
+                                name="Descripcion"
+                                className="form-control"
+                                type="text"
+                                onChange={onChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="Capacidad">Capacidad</label>
+                            <input 
+                                name="Capacidad"
+                                className="form-control"
+                                type="number"
+                                onChange={onChange}
+                            />
+                        </div>
+                        <div className="form-group">      
+                            <label htmlFor="Region">Region</label>
+                            <select 
+                                name="Region"
+                                className="form-control"
+                                type="text"
+                                onChange={onChange}
+                            >
+                                <option>Seleccione una opcion</option>
+                                {regiones.map(region =>
+                                    <option
+                                    value={region.nombre} key={region.nombre}>
+                                    {region.nombre}
+                                    </option>
+                                )}
+                            </select>
+                        </div>
+                        <div className="form-group">      
+                            <label htmlFor="Departamento">Departamento</label>
+                            <select 
+                                name="Departamento"
+                                className="form-control"
+                                type="text"
+                                onChange={onChange}
+                            >
+                                <option>Seleccione una opcion</option>
+                                {departamentos.map(departamento =>
+                                    <option
+                                    value={departamento.departamento} key={departamento.departamento}>
+                                    {departamento.departamento}
+                                    </option>
+                                )}
+                            </select>
+                        </div>
+                        <div className="form-group">      
+                            <label htmlFor="Municipio">Municipio</label>
+                            <select 
+                                name="Municipio"
+                                className="form-control"
+                                type="text"
+                                onChange={onChange}
+                            >
+                                <option>Seleccione una opcion</option>
+                                {municipios.map(municipio =>
+                                    <option
+                                    value={municipio.municipio} key={municipio.municipio}>
+                                    {municipio.municipio}
+                                    </option>
+                                )}
+                            </select>
+                        </div>    
+                        <button type="submit" className="btn btn-form">Submit</button>
+                    </form>
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
 export default AddSitioTuristico
