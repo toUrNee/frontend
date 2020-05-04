@@ -15,6 +15,7 @@ import Publicaciones from './components/Publicaciones';
 import Navbar from './components/Navbar';
 import Inicio from './components/Inicio';
 import Region from './components/Region';
+import AddSitioTuristico from './components/AddSitioTuristico';
 import AuthContextProvider, { AuthContext } from './context/AuthContext'
 import ExternalDataContextProvider from './context/ExternalDataContext'
 
@@ -38,6 +39,9 @@ function App() {
               <Route path="/register" exact component={Register} />
               <PrivateRoute path="/crear-plan" exact>
                 <AddPlan/>
+              </PrivateRoute>
+			  <PrivateRoute path="/crear-sitio-turistico" exact>
+                <AddSitioTuristico/>
               </PrivateRoute>
               <Route path="/publicaciones" exact component={Publicaciones} />
               <Route path="/publicaciones/:idregion" component={Region} />

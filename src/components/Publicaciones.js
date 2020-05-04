@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
+/*
+{ useState, useEffect, useContext } from 'react';
+import axios from 'axios';
+import { store } from 'react-notifications-component';
+import { AuthContext } from '../context/AuthContext'
 
+
+const Publicaciones = () => {
+    const [publicacion, setpublicacion] = useState({
+        cartas: [],
+    })
+}
+*/
 //Crea tarjeta de una publicación
 function card(id, descripcion, sitioId) {
     var card =
