@@ -86,7 +86,7 @@ const Login = () => {
                         </div>
                         <button type="submit" className="btn btn-form">Submit</button>
                         <p className="form-link">
-                            ¿Nuevo usuario?
+                            ¿Nuevo usuario?{" "}
                             <Link to="/register">
                                 Registrate
                             </Link>
