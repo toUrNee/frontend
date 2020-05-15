@@ -1,7 +1,6 @@
 import React, { createContext, Component } from 'react'
 import axios from 'axios'
 
-
 export const PublicacionContext = createContext()
 
 class PublicacionContextProvider extends Component{
@@ -9,8 +8,6 @@ class PublicacionContextProvider extends Component{
         publicaciones: [],
         loading: true
     }
-
-
 
     //Trae las publicaciones
     getPublicaciones = () => {
@@ -35,7 +32,7 @@ class PublicacionContextProvider extends Component{
     render(){
         return(
             <PublicacionContext.Provider value={{
-                ...this.state, 
+                ...this.state,
                 getPublicaciones:this.getPublicaciones,
             }}>
                 {this.props.children}

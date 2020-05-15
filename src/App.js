@@ -18,6 +18,7 @@ import Region from './components/Region';
 import AddSitioTuristico from './components/AddSitioTuristico';
 import AuthContextProvider, { AuthContext } from './context/AuthContext'
 import ExternalDataContextProvider from './context/ExternalDataContext'
+import PublicacionContextProvider from './context/PublicacionContext'
 
 //Notifications library
 import ReactNotification from 'react-notifications-component'
@@ -33,6 +34,7 @@ function App() {
   return (
     <AuthContextProvider>
       <ExternalDataContextProvider>
+      <PublicacionContextProvider>
         <ReactNotification />
         <Router>
           <div className="App">
@@ -48,12 +50,15 @@ function App() {
               <PrivateRoute path="/crear-sitio-turistico" exact>
                 <AddSitioTuristico />
               </PrivateRoute>
+              
               <Route path="/publicaciones" exact component={Publicaciones} />
               <Route path="/publicaciones/:idregion" component={Region} />
+              
               <Route path="/" exact component={Inicio} />
             </Switch>
           </div>
         </Router>
+        </PublicacionContextProvider>
       </ExternalDataContextProvider>
     </AuthContextProvider>
   )
