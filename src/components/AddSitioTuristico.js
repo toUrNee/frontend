@@ -108,6 +108,7 @@ const AddSitioTuristico = () => {
                                 type="text" 
                                 onChange={onChange}
                                 autoFocus
+                                required
                             />
                         </div>
                         <div className="form-group">
@@ -117,6 +118,7 @@ const AddSitioTuristico = () => {
                                 className="form-control"
                                 type="text"
                                 onChange={onChange}
+                                required
                             />
                         </div>
                         <div className="form-group">
@@ -127,6 +129,7 @@ const AddSitioTuristico = () => {
                                 type="number"
                                 min = "1"
                                 onChange={onChange}
+                                required
                             />
                         </div>
                         <div className="form-group">      

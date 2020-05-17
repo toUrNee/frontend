@@ -97,7 +97,7 @@ const Register = () => {
                                     onChange={onChange}
                                 >
                                     {paises.map(pais => (
-                                        <option key={pais.alpha3Code} value={pais.alpha3Code}> 
+                                        <option key={pais.alpha3Code} value={pais.alpha3Code}selected={pais.alpha3Code === 'COL'}> 
                                             {pais.name} 
                                         </option>
                                     ))}                                        

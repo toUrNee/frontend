@@ -104,6 +104,7 @@ const AddPlan = () => {
                                 type="text"
                                 onChange={onChange}
                                 autoFocus
+                                required
                             />
                         </div>
                         <div className="form-group">
@@ -113,7 +114,8 @@ const AddPlan = () => {
                                 className="form-control"
                                 type="datetime-local"
                                 min="2020-05-03T00:00"
-                                onChange={onChange} //revisar esto porque tampoco debe ser asi
+                                onChange={onChange}
+                                required
                             />
                         </div>
                             <div className="form-group">
@@ -123,6 +125,7 @@ const AddPlan = () => {
                                     className="form-control"
                                     type="number"
                                     onChange={onChange}
+                                    required
                                 >
                                     <option>Seleccione una opcion</option>
                                     {sitios_turisticos.map(sitio =>
@@ -139,6 +142,7 @@ const AddPlan = () => {
                                 className="form-control"
                                 rows="3"
                                 onChange={onChange}
+                                required
                             />
                         </div>
                         <div className="form-group">
@@ -149,6 +153,7 @@ const AddPlan = () => {
                                 type="number"
                                 min="0"
                                 onChange={onChange}
+                                required
                             />
                         </div>
                         <button type="submit" className="btn btn-form-blue">Submit</button>
