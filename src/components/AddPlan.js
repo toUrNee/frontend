@@ -163,7 +163,6 @@ const AddPlan = () => {
                     </form>
                 </div>
             </div>
-            }
         </div>
     )
 }

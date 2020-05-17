@@ -15,9 +15,11 @@ import Publicaciones from './components/Publicaciones';
 import Navbar from './components/Navbar';
 import Inicio from './components/Inicio';
 import Region from './components/Region';
+import Sitios from './components/Sitios';
 import AddSitioTuristico from './components/AddSitioTuristico';
 import AuthContextProvider, { AuthContext } from './context/AuthContext'
 import ExternalDataContextProvider from './context/ExternalDataContext'
+
 
 //Notifications library
 import ReactNotification from 'react-notifications-component'
@@ -28,11 +30,14 @@ import 'animate.css'
 import './App.css';
 import './styles/Form.css'
 import './styles/Post.css'
+import SitioContextProvider from './context/SitioContext';
+
 
 function App() {
   return (
     <AuthContextProvider>
     <ExternalDataContextProvider>
+    <SitioContextProvider>
     <ReactNotification />
         <Router>
           <div className="App">
@@ -42,10 +47,11 @@ function App() {
               {/*Componente por cada ruta*/}
               <Route path="/login" exact component={Login} />
               <Route path="/register" exact component={Register} />
+              <Route path="/test" exact component={Sitios}/>
               <PrivateRoute path="/crear-plan" exact>
                 <AddPlan/>
               </PrivateRoute>
-			  <PrivateRoute path="/crear-sitio-turistico" exact>
+			          <PrivateRoute path="/crear-sitio-turistico" exact>
                 <AddSitioTuristico/>
               </PrivateRoute>
               <Route path="/publicaciones" exact component={Publicaciones} />
@@ -54,6 +60,7 @@ function App() {
             </Switch>
           </div>
         </Router>
+      </SitioContextProvider>
       </ExternalDataContextProvider>
       </AuthContextProvider>
   )
