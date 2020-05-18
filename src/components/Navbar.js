@@ -3,9 +3,11 @@ import orquidea from '../images/logo.png'
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext'
 import '../styles/Nav.css'
+import { ExternalDataContext } from '../context/ExternalDataContext'
 
 const Navbar = () => {
     const { isAuthenticated, logoutUser, user } = useContext(AuthContext)
+    const { regiones } = useContext(ExternalDataContext)
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light">
@@ -16,18 +18,36 @@ const Navbar = () => {
                 <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul className="navbar-nav mr-auto">
+                    <Link className="nav-link" to='/publicaciones'>
+                        Publicaciones
+                        </Link>
+                    <li className="nav-item dropdown">
+                        <Link className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            to='/hola'>
+                            Regiones
+                        </Link>
+                        <div className="dropdown-menu text-left" aria-labelledby="navbarDropdownMenuLink">
+                            {regiones.map(region => (
+                                <Link to={"/publicaciones/"+region.nombre} className="nav-link">
+                                    <span className="nav-item active"> {region.nombre} </span>
+                                </Link>
+                            ))}
+                        </div>
+                    </li>
+                </ul>
                 {isAuthenticated ?
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Propietario
                                 </a>
-                            <div className="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
+                            <div className="dropdown-menu text-left" aria-labelledby="navbarDropdownMenuLink">
                                 <Link to='/crear-plan' className="nav-link">
-                                    <li className="nav-item active"> Publica ya! </li>
+                                    <span className="nav-item active"> Publica ya! </span>
                                 </Link>
                                 <Link to='/crear-sitio-turistico' className="nav-link">
-                                    <li className="nav-item active"> Agrega tu sitio turistico! </li>
+                                    <span className="nav-item active"> Agrega tu sitio turistico! </span>
                                 </Link>
                             </div>
                         </li>

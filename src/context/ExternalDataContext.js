@@ -27,26 +27,6 @@ class ExternalDataContextProvider extends Component{
         ]
     }
 
-    //Trae las publicaciones
-    getPublicaciones = () => {
-        axios.get(process.env.REACT_APP_BACK_URL+'/Publicaciones')
-        .then(res => {
-            this.setState({
-                ...this.state,
-                publicaciones: res.data,
-                loading: false
-            })
-        })
-        .catch(error => {
-            console.log(error)
-            this.setState({
-                ...this.state,
-                publicaciones: [],
-                loading: true
-            })
-        })
-    }
-
     getPaises = () => {
         axios.get(process.env.REACT_APP_COUNTRIES_URL + '/all', {
             params:{
@@ -81,8 +61,6 @@ class ExternalDataContextProvider extends Component{
             })
         })
     }
-
-
 
     getDepartamentos = (region) => {
         axios.get(process.env.REACT_APP_REGIONES_URL, { params: {$select: 'departamento', $group: 'region,departamento', $where: 'region = ' + '"' + region + '"'}})

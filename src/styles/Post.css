@@ -4,22 +4,39 @@
   border: none;
 }
 
-.card hover{
+.card hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
 }
 
-.card a{
+.card a {
   color: black;
 }
 
-.card a:hover{
+.card a:hover {
   text-decoration: black;
 }
 
-.card .text-muted i{
+.card .text-muted i {
   margin: 0 10px;
 }
 
-.card .card-title{
+.card .card-title {
   color: #EE7120;
+}
+
+.testimonials {
+  padding-top: 7rem;
+  padding-bottom: 7rem
+}
+
+.testimonials .testimonial-item {
+  max-width: 18rem
+}
+
+.testimonials .testimonial-item img {
+  max-width: 12rem;
+  box-shadow: 0 5px 5px 0 #adb5bd;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
 }
