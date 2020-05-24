@@ -22,7 +22,8 @@ class ExternalDataContextProvider extends Component{
             { nombre: "Región Centro Sur", img: centro_sur },
             { nombre: "Región Eje Cafetero - Antioquia", img: eje_cafetero },
             { nombre: "Región Pacífico", img: pacifico }
-        ]
+        ],
+        loading: true
     }
 
     getPaises = () => {
@@ -83,7 +84,8 @@ class ExternalDataContextProvider extends Component{
             .then(res => {
                 this.setState({
                     ...this.state, 
-                    sitios_turisticos: res.data 
+                    sitios_turisticos: res.data,
+                    loading: true
                 })
             })
             .catch(error => {

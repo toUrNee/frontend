@@ -30,8 +30,8 @@ import 'animate.css'
 import './App.css';
 import './styles/Form.css'
 import './styles/Post.css'
-import SitioContextProvider from './context/SitioContext';
-
+import SitioContextProvider, { SitioContext } from './context/SitioContext';
+import { testContext } from './context/testContext';
 
 function App() {
   return (
@@ -48,12 +48,28 @@ function App() {
               <Route path="/login" exact component={Login} />
               <Route path="/register" exact component={Register} />
               <Route path="/test" exact component={Sitios}/>
+
+              {/*
               <PrivateRoute path="/crear-plan" exact>
+                <OwnerRoute path="/crear-plan" exact>
+                  <AddPlan/>
+                </OwnerRoute>
+              </PrivateRoute>
+
+			        <PrivateRoute path="/crear-sitio-turistico" exact>
+                <OwnerRoute path="/crear-sitio-turistico">
+                  <AddSitioTuristico/>
+                </OwnerRoute>
+              </PrivateRoute>
+              */}
+              <PrivateRoute path = "/crear-plan" exact>
                 <AddPlan/>
               </PrivateRoute>
-			          <PrivateRoute path="/crear-sitio-turistico" exact>
+
+              <PrivateRoute path = "/crear-sitio-turistico" exact>
                 <AddSitioTuristico/>
               </PrivateRoute>
+
               <Route path="/publicaciones" exact component={Publicaciones} />
               <Route path="/publicaciones/:idregion" component={Region} />
               <Route path="/" exact component={Inicio} />
@@ -69,19 +85,41 @@ function App() {
 // A wrapper for <Route> that redirects to the login
 // screen if you're not yet authenticated.
 const  PrivateRoute = ({ children, ...rest }) => {
+
   const { isAuthenticated } = useContext(AuthContext)
+
   return (
     <Route {...rest} render={({ location }) =>
-        isAuthenticated ? 
-          (children) 
+      isAuthenticated ?
+        (children)
         : (
-            <Redirect
-              to={{
-                pathname: "/login",
-                state: { from: location }
-              }}
-            />
-          )
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: location }
+            }}
+          />
+        )
+    }/>
+  );
+}
+
+const  OwnerRoute = ({ children, ...rest }) => {
+
+  const {isOwner} = useContext(testContext)
+
+  return (
+    <Route {...rest} render={({ location }) =>
+      isOwner ?
+        (children)
+        : (
+          <Redirect
+            to={{
+              pathname: "/crear-sitio-turistico",
+              state: { from: location }
+            }}
+          />
+        )
     }/>
   );
 }

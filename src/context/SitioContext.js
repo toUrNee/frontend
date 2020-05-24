@@ -15,8 +15,8 @@ class SitioContextProvider extends Component {
         .then(res =>{
             this.setState({
                 ...this.state,
-                sitios: [],
-                loading: false
+                sitios: res.data,
+                loading: true
             })
         })
         .catch( error =>{
@@ -24,8 +24,7 @@ class SitioContextProvider extends Component {
             this.setState({
                 ...this.setState({
                     ...this.state,
-                    sitios: [],
-                    loading: true
+                    sitios: []
                 })
             })
         })
