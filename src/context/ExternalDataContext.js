@@ -78,7 +78,7 @@ class ExternalDataContextProvider extends Component{
         })
     }
 
-    getPublicacionesbyId = (id) => {
+    getSitiosById = (id) => {
         axios.get(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos/propietario/' + id)
             .then(res => {
                 this.setState({
@@ -102,7 +102,7 @@ class ExternalDataContextProvider extends Component{
                 getPaises:this.getPaises,
                 getMunicipios:this.getMunicipios,
                 getDepartamentos:this.getDepartamentos,
-                getPublicacionesbyId:this.getPublicacionesbyId,
+                getSitiosById:this.getSitiosById,
                 getPublicaciones:this.getPublicaciones,
             }}>
                 {this.props.children}

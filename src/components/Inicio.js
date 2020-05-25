@@ -10,15 +10,7 @@ const Inicio = () => {
             {/*Mapa para ver todas las publicaciones*/}
 
             <div className="row imagenpro justify-content-center">
-                <Link className="mapa" to={{
-                    pathname: `/publicaciones`,
-                    state: {
-                        region: {
-                            nombre: "Colombia",
-                            img: null
-                        }
-                    },
-                }}>
+                <Link className="mapa" to="/publicaciones">
                     <img className="img-fluid mx-auto d-block " src={mapa} alt="Mapa Colombia" width="460" height="345"></img>
                 </Link>
             </div>

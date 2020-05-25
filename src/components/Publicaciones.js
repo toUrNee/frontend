@@ -7,13 +7,25 @@ import Card from './CardPublicacion';
 
 const Publicaciones = (props) => {
 
-    const { loading, publicaciones, getPublicaciones } = useContext(PublicacionContext)
-
+    const { loading, publicaciones, getPublicaciones, getPublicacionesByRegion } = useContext(PublicacionContext)
 
     useEffect(() => {
         getPublicaciones()
-        console.log(props)
     }, [])
+
+    const [region, setRegion] = useState({
+        nombre: props.region.region,
+        img: props.region.img,
+    })
+
+    useEffect(() => {
+        if(props.location.state){
+        setRegion({
+            nombre: props.location.state.region,
+            img: props.location.state.img
+        })
+        console.log("region")}
+    }, [props.location.state])
 
     return (
         <div className="container-fluid">
@@ -25,15 +37,15 @@ const Publicaciones = (props) => {
                 </div>
                 :
                 <div className="container-fluid">
-                    {/*
-                    <div className=" text-center portada" style={{ backgroundImage: `url(${props.location.state.region.img})` }}>{props.location.state.region.nombre}</div>
+
+                    <div className=" text-center portada" style={{ backgroundImage: `url(${region.img})` }}>{region.nombre}</div>
                     <div class="row testimonials">
                         <div class="col-lg-4">
                             <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                <img class="img-fluid rounded-circle mb-3" src={props.location.state.region.img} alt="" />
+                                <img class="img-fluid rounded-circle mb-3" src={region.img} alt="" />
                             </div>
                         </div>
-                    </div>*/}
+                    </div>
                     <div className="card-columns">
                         <div>
                             {publicaciones.map(publicacion => (

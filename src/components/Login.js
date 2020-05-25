@@ -13,6 +13,7 @@ const Login = () => {
     const [ credenciales, setCredenciales ] = useState({
         Email: "",
         Password: "",
+        Propietario: "",
     })
 
     useEffect(()=>{

@@ -28,9 +28,10 @@ const Carousel = () => {
                             <div className="carousel-caption">
                                 <h1>{region.nombre}</h1>
                                 <Link to={{
-                                    pathname: `/publicaciones/${region.nombre}`,
+                                    pathname: `/publicaciones`,
                                     state: {
-                                        img:region.img
+                                        region: region.nombre,
+                                        img: region.img
                                     }
                                 }}>
                                     <button type="button" className="btn ">Ver planes</button>

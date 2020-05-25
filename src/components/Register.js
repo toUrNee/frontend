@@ -17,7 +17,7 @@ const Register = () => {
         Nacionalidad: "",
         Username: "",
         Password: "",
-        RolId: 2,
+        RolId: 1,
     })
 
     useEffect(()=>{
