@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
 import { PublicacionContext } from '../context/PublicacionContext';
 import Card from './CardPublicacion';
 
@@ -28,7 +27,7 @@ const Publicaciones = (props) => {
     }, [props.location.state])
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid" id="1">
             {loading ?
                 <div className="text-center">
                     <div className="spinner-grow" role="status">
@@ -39,10 +38,10 @@ const Publicaciones = (props) => {
                 <div className="container-fluid">
 
                     <div className=" text-center portada" style={{ backgroundImage: `url(${region.img})` }}>{region.nombre}</div>
-                    <div class="row testimonials">
-                        <div class="col-lg-4">
-                            <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                                <img class="img-fluid rounded-circle mb-3" src={region.img} alt="" />
+                    <div className="row testimonials">
+                        <div className="col-lg-4">
+                            <div className="testimonial-item mx-auto mb-5 mb-lg-0">
+                                <img className="img-fluid rounded-circle mb-3" src={region.img} alt="" />
                             </div>
                         </div>
                     </div>

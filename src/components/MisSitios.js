@@ -1,17 +1,17 @@
-import React, { useContext, useEffect } from 'react';
-import '../styles/PerfilPropietario.css'
-import NavPropietario from './NavPropietario';
-import { PublicacionContext } from '../context/PublicacionContext';
+import React, { useContext, useEffect, useRef } from 'react';
+import { SitioContext } from '../context/SitioContext';
 import { AuthContext } from '../context/AuthContext'
 import '../styles/PerfilPropietario.css'
 import CardSitio from './CardSitio';
+import NavPropietario from './NavPropietario';
 
-const MisPublicaciones = (props) => {
-    const { loading, publicaciones, getPublicacionesById } = useContext(PublicacionContext)
+const MisSitios = (props) => {
+
+    const { sitios, loading, getSitiosById } = useContext(SitioContext)
     const { user } = useContext(AuthContext)
 
     useEffect(() => {
-        getPublicacionesById(user.id)
+        getSitiosById(user.id)
     }, [])
 
     return (
@@ -20,12 +20,12 @@ const MisPublicaciones = (props) => {
 
                 <div className="section-title" data-aos="fade-up">
                     <h2>Bienvenido {user.nombres}</h2>
-                    <p>Edita o elimina tus publicaciones</p>
+                    <p>Edita o elimina tus sitios turisticos</p>
                 </div>
                 <NavPropietario
                     perfil=""
-                    sitios=""
-                    planes="filter-active"
+                    sitios="filter-active"
+                    planes=""
                 />
                 {loading ?
                     <div className="text-center">
@@ -35,10 +35,10 @@ const MisPublicaciones = (props) => {
                     </div>
                     :
                     <div className="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
-                        {publicaciones.map(sitio => (
+                        {sitios.map(sitio => (
                             <CardSitio
                                 id={sitio.id}
-                                nombre={sitio.titulo}
+                                nombre={sitio.nombre}
                                 descripcion={sitio.descripcion}
                             />
                         ))}
@@ -48,8 +48,7 @@ const MisPublicaciones = (props) => {
 
             </div>
         </section>
-
     );
 }
 
-export default MisPublicaciones;
+export default MisSitios;

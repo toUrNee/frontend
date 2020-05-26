@@ -1,17 +1,30 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
 import '../styles/PerfilPropietario.css'
 import NavPropietario from './NavPropietario';
+import { AuthContext } from '../context/AuthContext';
 
-const PerfilPropietario = () => {
-    return ( 
-        <div class="active">
-            <NavPropietario />
 
-            <div id="page-content-wrapper">
-                BIENVENIDO
+const PerfilPropietario = (props) => {
+
+    const { user } = useContext(AuthContext)
+
+    return (
+        <section id="portfolio" className="portfolio">
+            <div className="container">
+
+                <div className="section-title" data-aos="fade-up">
+                    <h2>Bienvenido {user.nombres}</h2>
+                    <p>Perfil</p>
+                </div>
+                <NavPropietario
+                    perfil="filter-active"
+                    sitios=""
+                    planes=""
+                />
+
             </div>
-        </div>
-     );
+        </section>
+    );
 }
- 
+
 export default PerfilPropietario;
