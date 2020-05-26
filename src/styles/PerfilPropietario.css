@@ -1,0 +1,68 @@
+.nav-p {
+    width: 10%;
+    margin: 30px;
+    margin-top: 0;
+}
+
+.opcion-p {
+    width: 100%;
+    overflow: hidden;
+    font-size: 30px;
+    margin: 1px;
+}
+
+.opcion-p:hover {
+    width: 150%;
+    text-align: left;
+}
+
+.nav-p-text {
+    display: none;
+}
+
+.opcion-p:hover .nav-p-text {
+    display: inline;
+    margin-left: 10px;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.area-p {
+    margin: 10px;
+}
+
+@media only screen and (max-width: 900px) {
+    .nav-p {
+        width: 100%;
+        margin: 0;
+        text-align: center;
+        vertical-align: baseline;
+    }
+    .opcion-p {
+        width: 30%;
+        height: 100px;
+        overflow: hidden;
+        font-size: 20px;
+        margin: 1%;
+    }
+
+    .opcion-p .fas{
+        width: 100%;
+    }
+    .nav-p-text {
+        display: inline;
+        vertical-align: baseline;
+    }
+
+    .opcion-p:hover {
+        width: 30%;
+        text-align: center;
+    }
+
+    .opcion-p:hover .nav-p-text {
+        display: inline;
+        margin-left: 10px;
+        font-size: 20px;
+        vertical-align: middle;
+    }
+}

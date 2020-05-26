@@ -9,7 +9,7 @@ import { ExternalDataContext } from '../context/ExternalDataContext';
 const AddPlan = () => {
     const history = useHistory();
     const { user } = useContext(AuthContext) 
-    const { sitios_turisticos, getPublicacionesbyId } = useContext(ExternalDataContext)
+    const { sitios_turisticos, getSitiosById } = useContext(ExternalDataContext)
 
 
     const [publicacion, setPublicacion] = useState({
@@ -79,8 +79,8 @@ const AddPlan = () => {
     }, [])
 
     useEffect(() => {
-        getPublicacionesbyId(publicacion.PropietarioId)
-    }, [getPublicacionesbyId, publicacion.sitios_lista])
+        getSitiosById(publicacion.PropietarioId)
+    }, [getSitiosById, publicacion.sitios_lista])
 
 
     return (

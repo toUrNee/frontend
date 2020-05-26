@@ -27,10 +27,7 @@ body{
 
 }
 
-#logo-cattleya{
-  margin-right: 5px;
-}
-
+/*Fondo de letras*/
 .imagenpro{
   background-image: url("./images/letras.png");
   background-size: cover;
@@ -51,14 +48,6 @@ body{
   transform: scale(1.1);
 }
 
-.navbar-brand{
-  color: #74151c;
-}
-
-.col{
-  padding: 20px;
-}
-
 .carousel-inner img {
   width: 100%;
   object-fit: cover;
@@ -71,21 +60,6 @@ body{
   }
 }
 
-
-.rightHint{
-  color: black;
-  
-  font-family: 'Roboto', sans-serif;
-  
-  position: relative;
-  
-}
-
-#nav1{
-  background-color: #f2e6b4;
-  font-family: 'Roboto Mono', monospace;
-  color: #74151C ;
-}
 .carousel-caption{
   background-color: rgba(41, 23, 1, 0.75);
   right: 0;
@@ -104,7 +78,6 @@ body{
 
 .portada{
   background-size: cover;
-  background-image: url("./images/portada.jpg");
   background-position: center;
   background-repeat: no-repeat;
   
@@ -123,9 +96,3 @@ body{
   font-family: 'Nunito', sans-serif;
 
 }
-
-
-.nav-item{
-  padding: 1em;
-}
-

@@ -7,6 +7,7 @@ export const AuthContext = createContext()
 class AuthContextProvider extends Component{
     state = {
         isAuthenticated: false,
+        propietario: false,
         user: null,
         token: null,
         error: null
@@ -17,6 +18,13 @@ class AuthContextProvider extends Component{
             .then(res => {
                 localStorage.setItem('token', res.data.token)
                 localStorage.setItem('usuario', JSON.stringify(res.data.usuario))
+                if(res.data.usuario.rolId == 1)
+                {
+                    this.setState({
+                        ...this.state,
+                        propietario: true
+                    })
+                }
                 this.setState({
                     ...this.state,
                     token: res.data.token,
@@ -74,11 +82,33 @@ class AuthContextProvider extends Component{
             token: null,
             user: null,
             isAuthenticated: false,
+            propietario: false,
             error: null
         })
         store.addNotification({
             title: "Listo",
             message: "Cerrraste sesion de forma existosa",
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animated", "fadeInDown"],
+            animationOut: ["animated", "fadeOut"],
+            dismiss: {
+              duration: 5000,
+              onScreen: false
+            }
+        });
+    }
+
+    crearSitio = () => {
+        this.setState({
+            ...this.state,
+            propietario: true,
+            error: null
+        })
+        store.addNotification({
+            title: "Listo",
+            message: "Ahora eres propietario",
             type: "success",
             insert: "top",
             container: "top-right",
@@ -101,6 +131,7 @@ class AuthContextProvider extends Component{
                     token: res.data.token,
                     user: res.data.usuario,
                     isAuthenticated: true,
+                    propietario: false,
                     error: null
                 })
                 store.addNotification({
@@ -126,6 +157,7 @@ class AuthContextProvider extends Component{
                     token: null,
                     user: null,
                     isAuthenticated: false,
+                    propietario:false,
                     error: err
                 })
                 store.addNotification({
@@ -168,6 +200,7 @@ class AuthContextProvider extends Component{
                 registerUser:this.registerUser,
                 loginUser:this.loginUser,
                 logoutUser:this.logoutUser,
+                crearSitio:this.crearSitio,
             }}>
                 {this.props.children}
             </AuthContext.Provider>
