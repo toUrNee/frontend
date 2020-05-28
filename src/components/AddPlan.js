@@ -4,12 +4,12 @@ import img from '../images/post.png';
 import { useHistory, Link } from "react-router-dom";
 import { store } from 'react-notifications-component';
 import { AuthContext } from '../context/AuthContext';
-import { ExternalDataContext } from '../context/ExternalDataContext';
+import { SitioContext } from '../context/SitioContext';
 
 const AddPlan = () => {
     const history = useHistory();
     const { user } = useContext(AuthContext) 
-    const { sitios_turisticos, getPublicacionesbyId } = useContext(ExternalDataContext)
+    const { sitios, getSitiosById } = useContext(SitioContext)
 
 
     const [publicacion, setPublicacion] = useState({
@@ -22,7 +22,7 @@ const AddPlan = () => {
     })
 
     const onChange = (event) => {
-        if(event.target.type == "number" || event.target.type == "select-one"){
+        if(event.target.type === "number" || event.target.type === "select-one"){
             setPublicacion({
                 ...publicacion,
                 [event.target.name]: parseInt(event.target.value)
@@ -74,12 +74,13 @@ const AddPlan = () => {
     }
 
     useEffect(() => {
+        console.log(user)
         publicacion.PropietarioId = parseInt(user.id) 
     }, [])
 
     useEffect(() => {
-        getPublicacionesbyId(publicacion.PropietarioId)
-    }, [getPublicacionesbyId, publicacion.sitios_lista])
+        getSitiosById(publicacion.PropietarioId)
+    }, [getSitiosById, publicacion.sitios_lista])
 
 
     return (
@@ -125,7 +126,7 @@ const AddPlan = () => {
                                     onChange={onChange}
                                 >
                                     <option>Seleccione una opcion</option>
-                                    {sitios_turisticos.map(sitio =>
+                                    {sitios.map(sitio =>
                                         <option
                                         value={sitio.id} key={sitio.id}>
                                         {sitio.nombre} 
@@ -163,7 +164,6 @@ const AddPlan = () => {
                     </form>
                 </div>
             </div>
-            }
         </div>
     )
 }

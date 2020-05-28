@@ -1,131 +1,92 @@
 @import url('https://fonts.googleapis.com/css2?family=Convergence&family=Roboto:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Fjalla+One&family=Nunito:wght@700&display=swap');
-
-body{
-  background-color: #fafadc;
+body {
+    background-color: #fafadc;
 }
 
-.titulo-inicial{
-  background-size: cover;
-  background-image: url("./images/colombia.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  
-  font-size: 80px;
-  color: white;
-  height: 100%;
-  background-position-x: center;
-  padding-top: 25%;
-  padding-bottom: 25%;
-  margin-left: -15px;
-  margin-right: -15px;
-  font-family: 'Anton', sans-serif;
-  font-family: 'Fjalla One', sans-serif;
-  font-family: 'Nunito', sans-serif;
-
-  line-height: 70px;
-
+.titulo-inicial {
+    background-size: cover;
+    background-image: url("./images/colombia.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    font-size: 80px;
+    color: white;
+    height: 100%;
+    background-position-x: center;
+    padding-top: 25%;
+    padding-bottom: 25%;
+    margin-left: -15px;
+    margin-right: -15px;
+    font-family: 'Anton', sans-serif;
+    font-family: 'Fjalla One', sans-serif;
+    font-family: 'Nunito', sans-serif;
+    line-height: 70px;
 }
 
-#logo-cattleya{
-  margin-right: 5px;
-}
+/*Fondo de letras*/
 
-.imagenpro{
-  background-image: url("./images/letras.png");
-  background-size: cover;
-  background-attachment: fixed;
+.imagenpro {
+    background-image: url("./images/letras.png");
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 /*Animar mapa*/
+
 .mapa>img {
-  -webkit-transition: 0.5s -webkit-transform;
-  transition: 0.5s -webkit-transform;
-  transition: 0.5s transform;
-  transition: 0.5s transform, 0.5s -webkit-transform;
+    -webkit-transition: 0.5s -webkit-transform;
+    transition: 0.5s -webkit-transform;
+    transition: 0.5s transform;
+    transition: 0.5s transform, 0.5s -webkit-transform;
 }
 
 .mapa:hover>img {
-  -webkit-transform: scale(1.1);
-  -ms-transform: scale(1.1);
-  transform: scale(1.1);
-}
-
-.navbar-brand{
-  color: #74151c;
-}
-
-.col{
-  padding: 20px;
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .carousel-inner img {
-  width: 100%;
-  object-fit: cover;
+    width: 100%;
+    object-fit: cover;
 }
 
 @media only screen and (max-width: 800px) {
-  .carousel-inner img {
-    
-    height: 500px;
-  }
+    .carousel-inner img {
+        height: 500px;
+    }
 }
 
-
-.rightHint{
-  color: black;
-  
-  font-family: 'Roboto', sans-serif;
-  
-  position: relative;
-  
+.carousel-caption {
+    background-color: rgba(41, 23, 1, 0.75);
+    right: 0;
+    left: 0;
 }
 
-#nav1{
-  background-color: #f2e6b4;
-  font-family: 'Roboto Mono', monospace;
-  color: #74151C ;
-}
-.carousel-caption{
-  background-color: rgba(41, 23, 1, 0.75);
-  right: 0;
-  left: 0;
-}
-
-.carousel{
-  padding: 0px;
+.carousel {
+    padding: 0px;
 }
 
 .carousel .btn {
-  border-radius: 50px;
-  background-color: #EE7120;
-  color: white;
+    border-radius: 50px;
+    background-color: #EE7120;
+    color: white;
 }
 
-.portada{
-  background-size: cover;
-  background-image: url("./images/portada.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  
-  font-size: 3.5em;
-  position: relative;
-  color: white;
-  height: 100%;
-  background-position-x: center;
-  padding-top: 25%;
-  padding-bottom: 25%;
-  margin-bottom: 1em;
-  border-color: black;
-
-  font-family: 'Anton', sans-serif;
-  font-family: 'Fjalla One', sans-serif;
-  font-family: 'Nunito', sans-serif;
-
+.portada {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-size: 3.5em;
+    position: relative;
+    color: white;
+    height: 100%;
+    background-position-x: center;
+    padding-top: 25%;
+    padding-bottom: 25%;
+    margin-bottom: 1em;
+    border-color: black;
+    font-family: 'Anton', sans-serif;
+    font-family: 'Fjalla One', sans-serif;
+    font-family: 'Nunito', sans-serif;
 }
-
-
-.nav-item{
-  padding: 1em;
-}
-

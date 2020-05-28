@@ -10,7 +10,7 @@ import { ExternalDataContext } from '../context/ExternalDataContext';
 const AddSitioTuristico = () => {
 
     const history = useHistory();
-    const { user } = useContext(AuthContext)
+    const { user, crearSitio } = useContext(AuthContext)
     const { regiones, departamentos, municipios, getDepartamentos, getMunicipios } = useContext(ExternalDataContext)
 
     const [sitio, setSitio] = useState({
@@ -24,7 +24,7 @@ const AddSitioTuristico = () => {
     })
 
     const onChange = (event) => {
-        if(event.target.type == "number"){
+        if(event.target.type === "number"){
             setSitio({
                 ...sitio,
                 [event.target.name]: parseInt(event.target.value)
@@ -180,7 +180,7 @@ const AddSitioTuristico = () => {
                                 )}
                             </select>
                         </div>    
-                        <button type="submit" className="btn btn-form">Submit</button>
+                        <button type="submit" className="btn btn-form" onClick={crearSitio}>Submit</button>
                     </form>
                 </div>
             </div>
