@@ -1,30 +1,38 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { PublicacionContext } from '../context/PublicacionContext';
 import Card from './CardPublicacion';
-
+import CirculoFiltro from './CirculoFiltro';
+import portada from '../images/portada.jpg'
 
 
 const Publicaciones = (props) => {
 
-    const { loading, publicaciones, getPublicaciones, getPublicacionesByRegion } = useContext(PublicacionContext)
+    const { loading, publicaciones, actividades, getPublicaciones, getPublicacionesByRegion, getActividades } = useContext(PublicacionContext)
 
     useEffect(() => {
         getPublicaciones()
+        getActividades()
     }, [])
 
     const [region, setRegion] = useState({
-        nombre: props.region.region,
-        img: props.region.img,
+        nombre: "Colombia",
+        img: portada
     })
 
     useEffect(() => {
-        if(props.location.state){
-        setRegion({
-            nombre: props.location.state.region,
-            img: props.location.state.img
-        })
-        console.log("region")}
+        if (props.location.state) {
+            setRegion({
+                nombre: props.location.state.region,
+                img: props.location.state.img
+            })
+            
+           
+        }
+        console.log(region.nombre)
+        getPublicacionesByRegion(region.nombre)
     }, [props.location.state])
+
+    
 
     return (
         <div className="container-fluid" id="1">
@@ -37,14 +45,19 @@ const Publicaciones = (props) => {
                 :
                 <div className="container-fluid">
 
-                    <div className=" text-center portada" style={{ backgroundImage: `url(${region.img})` }}>{region.nombre}</div>
-                    <div className="row testimonials">
-                        <div className="col-lg-4">
-                            <div className="testimonial-item mx-auto mb-5 mb-lg-0">
-                                <img className="img-fluid rounded-circle mb-3" src={region.img} alt="" />
-                            </div>
-                        </div>
+                    <div className=" text-center portada" style={{ marginBottom: 10, backgroundImage: `url(${region.img})` }}>{region.nombre}</div>
+
+                    <div className="col titulo"> <h1>Tipos de actividad:</h1> </div>
+
+                    <div className="row circles">
+                        
+
+                        {actividades.map(actividad => (
+                            <CirculoFiltro icono={actividad.icono} nombre={actividad.nombre} />
+                        ))}
+
                     </div>
+
                     <div className="card-columns">
                         <div>
                             {publicaciones.map(publicacion => (

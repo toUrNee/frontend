@@ -15,12 +15,12 @@ const MisSitios = (props) => {
     }, [])
 
     return (
-        <section id="portfolio" className="portfolio">
+        <section id="mis-sitios" className="perfil">
             <div className="container">
 
-                <div className="section-title" data-aos="fade-up">
-                    <h2>Bienvenido {user.nombres}</h2>
-                    <p>Edita o elimina tus sitios turisticos</p>
+                <div className="section-title" >
+                    <h2>Edita o elimina</h2>
+                    <p>Sitios turisticos</p>
                 </div>
                 <NavPropietario
                     perfil=""
@@ -34,7 +34,7 @@ const MisSitios = (props) => {
                         </div>
                     </div>
                     :
-                    <div className="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+                    <div className="row perfil-container">
                         {sitios.map(sitio => (
                             <CardSitio
                                 id={sitio.id}

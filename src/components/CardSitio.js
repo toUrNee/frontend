@@ -4,14 +4,14 @@ import React from 'react';
 const CardSitio = (props) => {
     return (
         
-        <div className="col-lg-4 col-md-6 portfolio-item filter-app">
-            <div className="portfolio-wrap">
+        <div className="col-lg-4 col-md-6 perfil-item filter-app">
+            <div className="perfil-wrap">
                 <img src="https://picsum.photos/500/400" className="img-fluid" alt="" />
-                <div className="portfolio-links">
-                    <a href="/" data-gall="portfolioGallery" className="venobox" title="App 1"><i className="far fa-edit"></i></a>
-                    <a href="/" title="More Details"><i className="far fa-trash-alt"></i></a>
+                <div className="perfil-links">
+                    <a href="/" data-gall="perfilGallery" className="venobox" title="Editar"><i className="far fa-edit"></i></a>
+                    <a href="/" title="Eliminar"><i className="far fa-trash-alt"></i></a>
                 </div>
-                <div className="portfolio-info">
+                <div className="perfil-info">
                     <h4>{props.nombre}</h4>
                     <p>.</p>
                 </div>

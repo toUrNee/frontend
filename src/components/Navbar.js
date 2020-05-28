@@ -53,13 +53,14 @@ const Navbar = () => {
                                 <div className="dropdown-menu text-left" aria-labelledby="navbarDropdownMenuLink">
                                     <Link className="nav-link" to="/perfil">
                                         Perfil
-                                </Link>
-                                    <Link to='/crear-plan' className="nav-link">
-                                        <span className="nav-item active"> Publica ya! </span>
                                     </Link>
                                     <Link to='/crear-sitio-turistico' className="nav-link">
-                                        <span className="nav-item active"> Agrega tu sitio turistico! </span>
+                                        <span className="nav-item active"> Agregar sitio turistico </span>
                                     </Link>
+                                    <Link to='/crear-plan' className="nav-link">
+                                        <span className="nav-item active"> Publicar plan </span>
+                                    </Link>
+
                                 </div>
                             </li>
                             <Link to='/' onClick={logoutUser} className="nav-link">

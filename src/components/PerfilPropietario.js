@@ -9,12 +9,12 @@ const PerfilPropietario = (props) => {
     const { user } = useContext(AuthContext)
 
     return (
-        <section id="portfolio" className="portfolio">
+        <section id="perfil" className="perfil">
             <div className="container">
 
-                <div className="section-title" data-aos="fade-up">
+                <div className="section-title">
                     <h2>Bienvenido {user.nombres}</h2>
-                    <p>Perfil</p>
+                    <p>Tu perfil</p>
                 </div>
                 <NavPropietario
                     perfil="filter-active"
@@ -22,6 +22,14 @@ const PerfilPropietario = (props) => {
                     planes=""
                 />
 
+                <div className="row perfil-container">
+                    <div className="col icon">
+                    <i class="fas fa-user-circle"></i>
+                    <h1>{user.nombres} ({user.username})</h1>
+                    <h2>{user.nacionalidad}</h2>
+                    </div>
+                    
+                </div>
             </div>
         </section>
     );

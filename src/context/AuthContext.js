@@ -18,7 +18,7 @@ class AuthContextProvider extends Component {
             .then(res => {
                 localStorage.setItem('token', res.data.token)
                 localStorage.setItem('usuario', JSON.stringify(res.data.usuario))
-                localStorage.setItem('propietario', res.data.usuario.rolId)
+                
                 if (res.data.usuario.rolId === 1) {
                     this.setState({
                         ...this.state,
@@ -28,6 +28,7 @@ class AuthContextProvider extends Component {
                         isAuthenticated: true,
                         error: null
                     })
+                    localStorage.setItem('propietario', true)
                 } else {
                     this.setState({
                         ...this.state,
@@ -37,6 +38,7 @@ class AuthContextProvider extends Component {
                         isAuthenticated: true,
                         error: null
                     })
+                    localStorage.setItem('propietario', false)
                 }
                 store.addNotification({
                     title: "Listo",
@@ -134,7 +136,7 @@ class AuthContextProvider extends Component {
             .then(res => {
                 localStorage.setItem('token', res.data.token)
                 localStorage.setItem('usuario', JSON.stringify(res.data.usuario))
-                localStorage.setItem('propietario', res.data.usuario.rolId)
+                localStorage.setItem('propietario', false)
                 this.setState({
                     ...this.state,
                     token: res.data.token,
@@ -197,15 +199,15 @@ class AuthContextProvider extends Component {
                 isAuthenticated: true,
                 error: null
             })
-            if (propietario) {
+            if (propietario=="true") {
                 this.setState({
-                    propietario: propietario
+                    propietario: true
                 })
             }
         } else {
             localStorage.removeItem('token')
             localStorage.removeItem('usuario')
-            console.log("No propietario component else")
+            localStorage.removeItem('propietario')
         }
     }
 

@@ -35,11 +35,6 @@ import MisSitios from './components/MisSitios';
 
 function App() {
 
-    const [region] = useState({
-        region: "Colombia",
-        img: portada
-    })
-
     return (
         <AuthContextProvider>
             <ExternalDataContextProvider>
@@ -55,17 +50,21 @@ function App() {
                                     <Route path="/login" exact component={Login} />
                                     <Route path="/register" exact component={Register} />
 
-                                    <PrivateRoutePropietario path="/perfil" exact>
-                                        <PerfilPropietario />
+
+                                    <PrivateRoutePropietario path="/perfil/publicaciones" exact>
+                                        <MisPublicaciones />
                                     </PrivateRoutePropietario>
 
-                                    <PrivateRoute path="/perfil/publicaciones" exact>
-                                        <MisPublicaciones />
+                                    <PrivateRoutePropietario path="/perfil/sitios" exact>
+                                        <MisSitios />
+                                    </PrivateRoutePropietario>
+
+                                    <PrivateRoute path="/perfil" exact>
+                                        <PrivateRoutePropietario path="/perfil" exact>
+                                            <PerfilPropietario />
+                                        </PrivateRoutePropietario>
                                     </PrivateRoute>
 
-                                    <PrivateRoute path="/perfil/sitios" exact>
-                                        <MisSitios />
-                                    </PrivateRoute>
 
                                     <PrivateRoute path="/crear-plan" exact>
                                         <AddPlan />
@@ -75,9 +74,11 @@ function App() {
                                         <AddSitioTuristico />
                                     </PrivateRoute>
 
-                                    <Route exact path="/publicaciones" render={(props) => <Publicaciones {...props} region={region} />} />
-                                    <Route exact path="/publicaciones/:region" render={(props) => <Publicaciones {...props} region={region} />} />
+                                    <Route exact path="/publicaciones" render={(props) => <Publicaciones {...props} />} />
+                                    <Route exact path="/publicaciones/:region" render={(props) => <Publicaciones {...props} />} />
+                                    
                                     <Route path="/" exact component={Inicio} />
+
                                 </Switch>
                             </div>
                         </Router>

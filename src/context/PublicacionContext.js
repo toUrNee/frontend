@@ -6,6 +6,7 @@ export const PublicacionContext = createContext()
 class PublicacionContextProvider extends Component{
     state = {
         publicaciones: [],
+        actividades:[],
         loading: true
     }
 
@@ -29,6 +30,8 @@ class PublicacionContextProvider extends Component{
         })
     }
 
+    //Trae publicaciones por propietario
+
     getPublicacionesById = (id) => {
         axios.get(process.env.REACT_APP_BACK_URL+'/Publicaciones/propietario/'+id)
         .then(res => {
@@ -48,8 +51,45 @@ class PublicacionContextProvider extends Component{
         })
     }
 
+    //Filtro por region 
     getPublicacionesByRegion = (region) => {
-        console.log(region)
+        axios.get(process.env.REACT_APP_BACK_URL+'/Publicaciones/region', {params:{region: region.nombre}})
+        .then(res => {
+            this.setState({
+                ...this.state,
+                publicaciones: res.data,
+                loading: false
+            })
+            console.log(res)
+        })
+        .catch(error => {
+            console.log(error)
+            this.setState({
+                ...this.state,
+                publicaciones: [],
+                loading: true
+            })
+        })
+    }
+
+    //Trae tipo actividades
+    getActividades = () => {
+        axios.get(process.env.REACT_APP_BACK_URL+'/CategoriasActividad')
+        .then(res => {
+            this.setState({
+                ...this.state,
+                actividades: res.data,
+                loading: false
+            })
+        })
+        .catch(error => {
+            console.log(error)
+            this.setState({
+                ...this.state,
+                actividades: [],
+                loading: true
+            })
+        })
     }
 
     render(){
@@ -58,6 +98,8 @@ class PublicacionContextProvider extends Component{
                 ...this.state,
                 getPublicaciones:this.getPublicaciones,
                 getPublicacionesById:this.getPublicacionesById,
+                getActividades: this.getActividades,
+                getPublicacionesByRegion: this.getPublicacionesByRegion,
             }}>
                 {this.props.children}
             </PublicacionContext.Provider>
