@@ -27,11 +27,9 @@ const Publicaciones = (props) => {
                 nombre: props.location.state.region,
                 img: props.location.state.img
             })
-            console.log(props.location.state)
-
             getPublicacionesByRegion(props.location.state.region)
         }
-
+        
     }, [props.location.state])
 
 
@@ -45,6 +43,7 @@ const Publicaciones = (props) => {
                     </div>
                 </div>
                 :
+                console.log(publicaciones),
                 <div className="container-fluid">
 
                     <div className=" text-center portada" style={{ marginBottom: 10, backgroundImage: `url(${region.img})` }}>{region.nombre}</div>
@@ -60,19 +59,32 @@ const Publicaciones = (props) => {
 
                     </div>
 
-                    <div className="card-columns">
-                        <div>
-                            {publicaciones.map(publicacion => (
-                                <Card
-                                    id={publicacion.id}
-                                    titulo={publicacion.titulo}
-                                    descripcion={publicacion.descripcion}
-                                    precio={publicacion.precio}
-                                />
-                            ))}
+
+                        {actividades.map(actividad => (
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id={actividad.id} />
+                                <label class="form-check-label" for={actividad.id}>
+                                    {actividad.nombre}
+                                </label>
+                            </div>
+                        ))}
+
+
+
+
+                        <div className="card-columns">
+                            <div>
+                                {publicaciones.map(publicacion => (
+                                    <Card
+                                        id={publicacion.id}
+                                        titulo={publicacion.titulo}
+                                        descripcion={publicacion.descripcion}
+                                        precio={publicacion.precio}
+                                    />
+                                ))}
+                            </div>
                         </div>
                     </div>
-                </div>
             }
         </div>
 
