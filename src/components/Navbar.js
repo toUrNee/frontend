@@ -29,7 +29,7 @@ const Navbar = () => {
                         </Link>
                         <div className="dropdown-menu text-left" aria-labelledby="navbarDropdownMenuLink">
                             {regiones.map(region => (
-                                <Link to={{
+                                <Link key={region.nombre} to={{
                                     pathname: `/publicaciones`,
                                     state: {
                                         region: region.nombre,

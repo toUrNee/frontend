@@ -28,7 +28,7 @@ const Login = () => {
                 animationOut: ["animated", "fadeOut"],
                 dismiss: {
                   duration: 5000,
-                  onScreen: false
+                  onScreen: false,
                 }
             });
         }

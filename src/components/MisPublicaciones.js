@@ -12,7 +12,7 @@ const MisPublicaciones = (props) => {
 
     useEffect(() => {
         getPublicacionesById(user.id)
-    }, [])
+    }, [getPublicacionesById, user])
 
     return (
         <section id="mis-planes" className="perfil">

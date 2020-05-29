@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 
 import './App.css';
 import './styles/Form.css'
@@ -24,11 +24,10 @@ import PublicacionContextProvider from './context/PublicacionContext'
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 import 'animate.css'
-import portada from './images/portada.jpg'
 import './App.css';
 import './styles/Form.css'
 import './styles/Post.css'
-import SitioContextProvider, { SitioContext } from './context/SitioContext';
+import SitioContextProvider from './context/SitioContext';
 import PerfilPropietario from './components/PerfilPropietario';
 import MisPublicaciones from './components/MisPublicaciones';
 import MisSitios from './components/MisSitios';
@@ -51,13 +50,17 @@ function App() {
                                     <Route path="/register" exact component={Register} />
 
 
-                                    <PrivateRoutePropietario path="/perfil/publicaciones" exact>
-                                        <MisPublicaciones />
-                                    </PrivateRoutePropietario>
+                                    <PrivateRoute path="/perfil/publicaciones" exact>
+                                        <PrivateRoutePropietario path="/perfil/publicaciones" exact>
+                                            <MisPublicaciones />
+                                        </PrivateRoutePropietario>
+                                    </PrivateRoute>
 
-                                    <PrivateRoutePropietario path="/perfil/sitios" exact>
-                                        <MisSitios />
-                                    </PrivateRoutePropietario>
+                                    <PrivateRoute path="/perfil/sitios" exact>
+                                        <PrivateRoutePropietario path="/perfil/sitios" exact>
+                                            <MisSitios />
+                                        </PrivateRoutePropietario>
+                                    </PrivateRoute>
 
                                     <PrivateRoute path="/perfil" exact>
                                         <PrivateRoutePropietario path="/perfil" exact>
@@ -71,6 +74,10 @@ function App() {
                                     </PrivateRoute>
 
                                     <PrivateRoute path="/crear-sitio-turistico" exact >
+                                        <AddSitioTuristico />
+                                    </PrivateRoute>
+
+                                    <PrivateRoute path="/editar-sitio-turistico" exact >
                                         <AddSitioTuristico />
                                     </PrivateRoute>
 

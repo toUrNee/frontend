@@ -12,7 +12,7 @@ const Publicaciones = (props) => {
     useEffect(() => {
         getPublicaciones()
         getActividades()
-    }, [])
+    }, [getActividades, getPublicaciones])
 
     const [region, setRegion] = useState({
         nombre: "Colombia",
@@ -24,13 +24,10 @@ const Publicaciones = (props) => {
             setRegion({
                 nombre: props.location.state.region,
                 img: props.location.state.img
-            })
-            
-           
+            })  
         }
-        console.log(region.nombre)
         getPublicacionesByRegion(region.nombre)
-    }, [props.location.state])
+    }, [props.location.state, getPublicacionesByRegion, region])
 
     
 

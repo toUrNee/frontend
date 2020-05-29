@@ -4,7 +4,7 @@ const Card = (props) => {
     return (
         <div className="card" key={props.id}>
             <a href="#">
-                <img className="card-img-top" src="https://picsum.photos/800/400" alt="Card image cap" />
+                <img className="card-img-top" src="https://picsum.photos/800/400" alt="Card cap" />
                 <div className="card-img-overlay d-flex justify-content-end">
                     <a href="#" className="card-link text-danger like">
                         {/* Corazón relleno color
