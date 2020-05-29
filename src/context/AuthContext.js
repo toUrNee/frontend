@@ -110,7 +110,7 @@ class AuthContextProvider extends Component {
         });
     }
 
-    crearSitio = () => {
+    crearSitio = (usuario, rol) => {
         this.setState({
             ...this.state,
             propietario: true,
@@ -128,7 +128,9 @@ class AuthContextProvider extends Component {
                 duration: 5000,
                 onScreen: false
             }
-        });
+        })
+        console.log(usuario, usuario.id, rol)
+        axios.put(process.env.REACT_APP_BACK_URL + '/Usuarios', usuario.id, usuario, rol);
     }
 
     registerUser = (usuario) => {

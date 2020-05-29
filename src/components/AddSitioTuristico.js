@@ -55,6 +55,9 @@ const AddSitioTuristico = () => {
                     }
                 });
                 history.push('/')
+                user.rolId=1
+                console.log(user)
+                crearSitio(user)
             })
             .catch(error => {
                 console.log(error);
@@ -180,7 +183,7 @@ const AddSitioTuristico = () => {
                                 )}
                             </select>
                         </div>    
-                        <button type="submit" className="btn btn-form" onClick={crearSitio}>Submit</button>
+                        <button type="submit" className="btn btn-form">Submit</button>
                     </form>
                 </div>
             </div>

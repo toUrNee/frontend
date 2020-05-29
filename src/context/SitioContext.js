@@ -9,29 +9,6 @@ class SitioContextProvider extends Component {
     state = { 
         sitios: [],
         loading: true,
-        propietario: false,
-    }
-
-    crearSitio = () => {
-        this.setState({
-            ...this.state,
-            propietario: true,
-            error: null
-        })
-        localStorage.setItem('propietario', 1)
-        store.addNotification({
-            title: "Listo",
-            message: "Ahora eres propietario",
-            type: "success",
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animated", "fadeInDown"],
-            animationOut: ["animated", "fadeOut"],
-            dismiss: {
-                duration: 5000,
-                onScreen: false
-            }
-        });
     }
 
     //Traer los sitios turisticos

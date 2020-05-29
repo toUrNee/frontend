@@ -9,10 +9,6 @@ const Publicaciones = (props) => {
 
     const { loading, publicaciones, actividades, getPublicaciones, getPublicacionesByRegion, getActividades } = useContext(PublicacionContext)
 
-    useEffect(() => {
-        getPublicaciones()
-        getActividades()
-    }, [])
 
     const [region, setRegion] = useState({
         nombre: "Colombia",
@@ -20,19 +16,25 @@ const Publicaciones = (props) => {
     })
 
     useEffect(() => {
+        getPublicaciones()
+        getActividades()
+    }, [props.location.state])
+
+
+    useEffect(() => {
         if (props.location.state) {
             setRegion({
                 nombre: props.location.state.region,
                 img: props.location.state.img
             })
-            
-           
+            console.log(props.location.state)
+
+            getPublicacionesByRegion(props.location.state.region)
         }
-        console.log(region.nombre)
-        getPublicacionesByRegion(region.nombre)
+
     }, [props.location.state])
 
-    
+
 
     return (
         <div className="container-fluid" id="1">
@@ -50,7 +52,7 @@ const Publicaciones = (props) => {
                     <div className="col titulo"> <h1>Tipos de actividad:</h1> </div>
 
                     <div className="row circles">
-                        
+
 
                         {actividades.map(actividad => (
                             <CirculoFiltro icono={actividad.icono} nombre={actividad.nombre} />

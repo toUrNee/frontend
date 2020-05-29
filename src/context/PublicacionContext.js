@@ -53,7 +53,8 @@ class PublicacionContextProvider extends Component{
 
     //Filtro por region 
     getPublicacionesByRegion = (region) => {
-        axios.get(process.env.REACT_APP_BACK_URL+'/Publicaciones/region', {params:{region: region.nombre}})
+        console.log("filtro", region)
+        axios.get(process.env.REACT_APP_BACK_URL+'/Publicaciones/region', {params:{region: region}})
         .then(res => {
             this.setState({
                 ...this.state,
