@@ -53,7 +53,6 @@ class PublicacionContextProvider extends Component{
 
     //Filtro por region 
     getPublicacionesByRegion = (region) => {
-        console.log("filtro", region)
         axios.get(process.env.REACT_APP_BACK_URL+'/Publicaciones/region', {params:{region: region}})
         .then(res => {
             this.setState({
@@ -61,7 +60,6 @@ class PublicacionContextProvider extends Component{
                 publicaciones: res.data,
                 loading: false
             })
-            console.log(res)
         })
         .catch(error => {
             console.log(error)

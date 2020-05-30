@@ -56,7 +56,6 @@ const AddSitioTuristico = () => {
                 });
                 history.push('/')
                 user.rolId=1
-                console.log(user)
                 crearSitio(user)
             })
             .catch(error => {

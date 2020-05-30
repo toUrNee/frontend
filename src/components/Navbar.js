@@ -35,7 +35,7 @@ const Navbar = () => {
                                         region: region.nombre,
                                         img: region.img
                                     }
-                                }} className="nav-link">
+                                }} className="nav-link" key={region.nombre}>
                                     <span className="nav-item active"> {region.nombre} </span>
                                 </Link>
                             ))}

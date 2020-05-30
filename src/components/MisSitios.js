@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { SitioContext } from '../context/SitioContext';
 import { AuthContext } from '../context/AuthContext'
 import '../styles/PerfilPropietario.css'
@@ -40,6 +40,7 @@ const MisSitios = (props) => {
                                 id={sitio.id}
                                 nombre={sitio.nombre}
                                 descripcion={sitio.descripcion}
+                                key={sitio.id}
                             />
                         ))}
 

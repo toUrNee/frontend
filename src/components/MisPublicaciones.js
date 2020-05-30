@@ -40,6 +40,7 @@ const MisPublicaciones = (props) => {
                                 id={sitio.id}
                                 nombre={sitio.titulo}
                                 descripcion={sitio.descripcion}
+                                key={sitio.id}
                             />
                         ))}
 

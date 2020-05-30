@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 
 import './App.css';
 import './styles/Form.css'
@@ -24,11 +24,10 @@ import PublicacionContextProvider from './context/PublicacionContext'
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 import 'animate.css'
-import portada from './images/portada.jpg'
 import './App.css';
 import './styles/Form.css'
 import './styles/Post.css'
-import SitioContextProvider, { SitioContext } from './context/SitioContext';
+import SitioContextProvider from './context/SitioContext';
 import PerfilPropietario from './components/PerfilPropietario';
 import MisPublicaciones from './components/MisPublicaciones';
 import MisSitios from './components/MisSitios';

@@ -27,8 +27,6 @@ const Publicaciones = (props) => {
                 nombre: props.location.state.region,
                 img: props.location.state.img
             })
-            console.log(props.location.state)
-
             getPublicacionesByRegion(props.location.state.region)
         }
 
@@ -55,7 +53,7 @@ const Publicaciones = (props) => {
 
 
                         {actividades.map(actividad => (
-                            <CirculoFiltro icono={actividad.icono} nombre={actividad.nombre} />
+                            <CirculoFiltro icono={actividad.icono} nombre={actividad.nombre} key={actividad.id}/>
                         ))}
 
                     </div>
@@ -68,6 +66,7 @@ const Publicaciones = (props) => {
                                     titulo={publicacion.titulo}
                                     descripcion={publicacion.descripcion}
                                     precio={publicacion.precio}
+                                    key={publicacion.id}
                                 />
                             ))}
                         </div>

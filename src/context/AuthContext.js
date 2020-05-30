@@ -129,7 +129,6 @@ class AuthContextProvider extends Component {
                 onScreen: false
             }
         })
-        console.log(usuario, usuario.id)
         axios.put(process.env.REACT_APP_BACK_URL + '/Usuarios/rol/'+ usuario.id, usuario);
         localStorage.setItem('propietario', true)
     }
@@ -202,7 +201,7 @@ class AuthContextProvider extends Component {
                 isAuthenticated: true,
                 error: null
             })
-            if (propietario=="true") {
+            if (propietario==="true") {
                 this.setState({
                     propietario: true
                 })
