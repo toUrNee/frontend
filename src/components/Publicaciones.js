@@ -7,7 +7,7 @@ import portada from '../images/portada.jpg'
 
 const Publicaciones = (props) => {
 
-    const { loading, publicaciones, actividades, getPublicaciones, getPublicacionesByRegion, getActividades } = useContext(PublicacionContext)
+    const { loading, publicaciones, actividades, getPublicaciones, getPublicacionesByRegion, getActividades, getPublicacionesByActividades } = useContext(PublicacionContext)
 
 
     const [region, setRegion] = useState({
@@ -15,10 +15,16 @@ const Publicaciones = (props) => {
         img: portada
     })
 
+    const [filtroActividad, setfiltroActividad] = useState([2, 6])
+
+    const [filtroRegion, setfiltroRegion] = useState(false)
+
     useEffect(() => {
-        getPublicaciones()
+        if (!props.location.state) {
+            getPublicaciones()
+        }
         getActividades()
-    }, [props.location.state])
+    }, [])
 
 
     useEffect(() => {
@@ -27,67 +33,83 @@ const Publicaciones = (props) => {
                 nombre: props.location.state.region,
                 img: props.location.state.img
             })
-            getPublicacionesByRegion(props.location.state.region)
+            setfiltroRegion(true)
+            getPublicaciones()
+            //getPublicacionesByRegion(props.location.state.region)
         }
-        
+
     }, [props.location.state])
+
+    function filtrar(e) {
+        e.preventDefault();
+        console.log(filtroActividad);
+        getPublicacionesByActividades(filtroActividad);
+    }
 
 
 
     return (
         <div className="container-fluid" id="1">
+
             {loading ?
+
                 <div className="text-center">
                     <div className="spinner-grow" role="status">
                         <span className="sr-only"></span>
                     </div>
                 </div>
+
                 :
-                console.log(publicaciones),
+
                 <div className="container-fluid">
 
-                    <div className=" text-center portada" style={{ marginBottom: 10, backgroundImage: `url(${region.img})` }}>{region.nombre}</div>
+                    <div className=" text-center portada" style={{ marginBottom: 10, backgroundImage: `url(${region.img})` }}>
+                        {region.nombre}
+                    </div>
 
-                    <div className="col titulo"> <h1>Tipos de actividad:</h1> </div>
+                    <div className="col titulo">
+                        <h1>Tipos de actividad:</h1>
+                    </div>
 
                     <div className="row circles">
-
-
                         {actividades.map(actividad => (
                             <CirculoFiltro icono={actividad.icono} nombre={actividad.nombre} />
                         ))}
-
                     </div>
 
+                    <button onClick={filtrar}>Filtro</button>
 
-                        {actividades.map(actividad => (
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id={actividad.id} />
-                                <label class="form-check-label" for={actividad.id}>
-                                    {actividad.nombre}
-                                </label>
-                            </div>
-                        ))}
+                    <div className="card-columns">
 
-
-
-
-                        <div className="card-columns">
-                            <div>
-                                {publicaciones.map(publicacion => (
+                        <div>
+                            {filtroRegion ?
+                                publicaciones.map(publicacion => (
+                                    publicacion.sitio.region === region.nombre ?
+                                        <Card
+                                            id={publicacion.id}
+                                            titulo={publicacion.titulo}
+                                            descripcion={publicacion.descripcion}
+                                            precio={publicacion.precio}
+                                        /> : ""
+                                ))
+                                :
+                                publicaciones.map(publicacion => (
                                     <Card
                                         id={publicacion.id}
                                         titulo={publicacion.titulo}
                                         descripcion={publicacion.descripcion}
                                         precio={publicacion.precio}
                                     />
-                                ))}
-                            </div>
+                                ))
+                            }
                         </div>
-                    </div>
-            }
-        </div>
 
+                    </div>
+
+                </div>
+            }
+
+        </div>
     );
 }
 

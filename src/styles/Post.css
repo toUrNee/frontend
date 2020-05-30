@@ -45,6 +45,12 @@
   font-size: 30px;
 }
 
+.circles .circle-item .boton-circular {
+  border: 0;
+  background: transparent;
+  outline: none;
+}
+
 .circles .circle-item i {
   display: inline-block;
   background: #f59c12;
