@@ -9,7 +9,6 @@ const Publicaciones = (props) => {
 
     const { loading, publicaciones, actividades, getPublicaciones, getPublicacionesByRegion, getActividades } = useContext(PublicacionContext)
 
-
     const [region, setRegion] = useState({
         nombre: "Colombia",
         img: portada

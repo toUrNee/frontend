@@ -75,11 +75,11 @@ const AddPlan = () => {
 
     useEffect(() => {
         publicacion.PropietarioId = parseInt(user.id) 
-    }, [])
+    }, [publicacion, user])
 
     useEffect(() => {
         getSitiosById(publicacion.PropietarioId)
-    }, [getSitiosById, publicacion.sitios_lista])
+    }, [getSitiosById, publicacion])
 
 
     return (

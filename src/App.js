@@ -76,6 +76,10 @@ function App() {
                                         <AddSitioTuristico />
                                     </PrivateRoute>
 
+                                    <PrivateRoute path="/editar-sitio-turistico" exact >
+                                        <AddSitioTuristico />
+                                    </PrivateRoute>
+
                                     <Route exact path="/publicaciones" render={(props) => <Publicaciones {...props} />} />
                                     <Route exact path="/publicaciones/:region" render={(props) => <Publicaciones {...props} />} />
 

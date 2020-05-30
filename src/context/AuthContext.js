@@ -201,7 +201,9 @@ class AuthContextProvider extends Component {
                 isAuthenticated: true,
                 error: null
             })
-            if (propietario==="true") {
+
+            if (propietario === "true") {
+
                 this.setState({
                     propietario: true
                 })

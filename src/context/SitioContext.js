@@ -48,8 +48,6 @@ class SitioContextProvider extends Component {
             })
     }
 
-    
-
     render() { 
         return ( 
             <SitioContext.Provider value={{

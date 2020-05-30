@@ -8,8 +8,10 @@ import {
 const Card = (props) => {
     return (
         <div className="card" key={props.id}>
+
             <Link to="/">
                 <img className="card-img-top" src="https://picsum.photos/800/400" alt="Imagen plan" />
+
                 <div className="card-img-overlay d-flex justify-content-end">
                     <p to="/" className="card-link text-danger like">
                         {/* Corazón relleno color

@@ -12,7 +12,7 @@ const MisSitios = (props) => {
 
     useEffect(() => {
         getSitiosById(user.id)
-    }, [])
+    }, [getSitiosById, user])
 
     return (
         <section id="mis-sitios" className="perfil">
@@ -35,9 +35,11 @@ const MisSitios = (props) => {
                     </div>
                     :
                     <div className="row perfil-container">
-                        {sitios.map(sitio => (
+                        {sitios.map((sitio, index) => (
                             <CardSitio
+                                key={sitio.id}
                                 id={sitio.id}
+                                index={index}
                                 nombre={sitio.nombre}
                                 descripcion={sitio.descripcion}
                                 key={sitio.id}
