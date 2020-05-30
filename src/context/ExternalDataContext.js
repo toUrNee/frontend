@@ -14,7 +14,7 @@ class ExternalDataContextProvider extends Component{
         paises: [],
         municipios: [],
         departamentos: [],
-        sitios_turisticos: [],
+        publicaciones: [],
         regiones: [
             { nombre: "Región Llano", img: llano },
             { nombre: "Región Centro Oriente", img: centro_oriente },
@@ -45,7 +45,7 @@ class ExternalDataContextProvider extends Component{
     }
 
     getMunicipios = (departamento) => {
-        axios.get(process.env.REACT_APP_REGIONES_URL, { params: {$select: 'municipio', $where: 'departamento = ' + '"' + departamento + '"'}})
+        axios.get(process.env.REACT_APP_REGIONES_URL, { params: {$select: 'municipio', $where: 'departamento = "' + departamento + '"'}})
         .then(res => {
             this.setState({
                 ...this.state,
@@ -60,10 +60,8 @@ class ExternalDataContextProvider extends Component{
         })
     }
 
-
-
     getDepartamentos = (region) => {
-        axios.get(process.env.REACT_APP_REGIONES_URL, { params: {$select: 'departamento', $group: 'region,departamento', $where: 'region = ' + '"' + region + '"'}})
+        axios.get(process.env.REACT_APP_REGIONES_URL, { params: {$select: 'departamento', $group: 'region,departamento', $where: 'region = "' + region + '"'}})
         .then(res => {
             this.setState({
                 ...this.state,
@@ -78,22 +76,7 @@ class ExternalDataContextProvider extends Component{
         })
     }
 
-    getPublicacionesbyId = (id) => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos/propietario/' + id)
-            .then(res => {
-                this.setState({
-                    ...this.state, 
-                    sitios_turisticos: res.data 
-                })
-            })
-            .catch(error => {
-                console.log(error)
-                this.setState({
-                    ...this.state,
-                    sitios_turisticos: []
-                })
-            })
-    }
+    
 
     render(){
         return(
@@ -102,7 +85,6 @@ class ExternalDataContextProvider extends Component{
                 getPaises:this.getPaises,
                 getMunicipios:this.getMunicipios,
                 getDepartamentos:this.getDepartamentos,
-                getPublicacionesbyId:this.getPublicacionesbyId,
             }}>
                 {this.props.children}
             </ExternalDataContext.Provider>

@@ -1,25 +1,74 @@
+/* -------- TARJETAS PLANES ---------*/ 
+
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
   border: none;
 }
 
-.card hover{
+.card hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
 }
 
-.card a{
+.card a {
   color: black;
 }
 
-.card a:hover{
+.card a:hover {
   text-decoration: black;
 }
 
-.card .text-muted i{
+.card .text-muted i {
   margin: 0 10px;
 }
 
-.card .card-title{
+.card .card-title {
   color: #EE7120;
 }
+
+/* ------ CIRCULOS ----*/
+
+.portada .titulo{
+  align-items: center;
+}
+
+.circles {
+  margin: 80px;
+}
+
+.circles .col{
+  height: 80px;
+  text-align: center;
+}
+.circles .circle-item {
+  max-width: 18rem;
+  font-size: 30px;
+}
+
+.circles .circle-item i {
+  display: inline-block;
+  background: #f59c12;
+  color: #212529;
+  width: 75px;
+  height: 70px;
+  border-radius: 50px;
+  padding: 0.7em 0.7em;
+}
+
+.circles .circle-item p{
+  display: none;
+}
+
+.circles .circle-item i:hover p{
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 15px;
+  width: 90px;
+}
+
+.circles .col i:hover{
+  font-size: 20px;
+  text-align: justify;
+  background: transparent;
+}
+
