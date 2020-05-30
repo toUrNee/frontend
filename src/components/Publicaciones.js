@@ -18,7 +18,7 @@ const Publicaciones = (props) => {
     useEffect(() => {
         getPublicaciones()
         getActividades()
-    }, [props.location.state])
+    }, [])
 
 
     useEffect(() => {
