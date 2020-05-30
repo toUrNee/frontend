@@ -4,9 +4,10 @@ import NavPropietario from './NavPropietario';
 import { PublicacionContext } from '../context/PublicacionContext';
 import { AuthContext } from '../context/AuthContext'
 import '../styles/PerfilPropietario.css'
-import CardSitio from './CardSitio';
+import CardPublicaciones from './CardPublicaciones';
 
 const MisPublicaciones = (props) => {
+
     const { loading, publicaciones, getPublicacionesById } = useContext(PublicacionContext)
     const { user } = useContext(AuthContext)
 
@@ -35,14 +36,15 @@ const MisPublicaciones = (props) => {
                     </div>
                     :
                     <div className="row perfil-container">
-                        {publicaciones.map(sitio => (
-                            <CardSitio
-                                id={sitio.id}
-                                nombre={sitio.titulo}
-                                descripcion={sitio.descripcion}
+                        {publicaciones.map((publicacion, index) => (
+                            <CardPublicaciones
+                                key={publicacion.id}
+                                id={publicacion.id}
+                                index={index}
+                                nombre={publicacion.titulo}
+                                descripcion={publicacion.descripcion}
                             />
                         ))}
-
                     </div>
                 }
 
