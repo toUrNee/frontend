@@ -17,7 +17,7 @@
 }
 
 .col-color-yellow{
-    background-color: #fdb15d;
+    background-color: #ffd37b;
     color: #273253;
 }
 
@@ -53,4 +53,5 @@
     background-color: #273253;
     width: 90%;
     margin: 10px;
+    color:white;
 }

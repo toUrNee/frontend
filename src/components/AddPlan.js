@@ -8,32 +8,32 @@ import { SitioContext } from '../context/SitioContext';
 
 const AddPlan = () => {
     const history = useHistory();
-    const { user } = useContext(AuthContext) 
+    const { user } = useContext(AuthContext)
     const { sitios, getSitiosById } = useContext(SitioContext)
 
 
     const [publicacion, setPublicacion] = useState({
-            Titulo: "",
-            SitioId: null,
-            Fecha: "",
-            Descripcion: "",
-            Precio: null,
-            PropietarioId: null
+        Titulo: "",
+        SitioId: null,
+        Fecha: "",
+        Descripcion: "",
+        Precio: null,
+        PropietarioId: null
     })
 
     const onChange = (event) => {
-        if(event.target.type === "number" || event.target.type === "select-one"){
+        if (event.target.type === "number" || event.target.type === "select-one") {
             setPublicacion({
                 ...publicacion,
                 [event.target.name]: parseInt(event.target.value)
             })
-            
-        }else{
+
+        } else {
             setPublicacion({
                 ...publicacion,
                 [event.target.name]: event.target.value
             })
-        }       
+        }
     }
 
     const handlerSubmit = (e) => {
@@ -49,8 +49,8 @@ const AddPlan = () => {
                     animationIn: ["animated", "fadeInDown"],
                     animationOut: ["animated", "fadeOut"],
                     dismiss: {
-                      duration: 5000,
-                      onScreen: false
+                        duration: 5000,
+                        onScreen: false
                     }
                 });
                 history.push('/')
@@ -66,8 +66,8 @@ const AddPlan = () => {
                     animationIn: ["animated", "fadeInDown"],
                     animationOut: ["animated", "fadeOut"],
                     dismiss: {
-                      duration: 5000,
-                      onScreen: false
+                        duration: 5000,
+                        onScreen: false
                     }
                 });
             })
@@ -75,7 +75,7 @@ const AddPlan = () => {
 
     useEffect(() => {
         console.log(user)
-        publicacion.PropietarioId = parseInt(user.id) 
+        publicacion.PropietarioId = parseInt(user.id)
     }, [])
 
     useEffect(() => {
@@ -117,22 +117,6 @@ const AddPlan = () => {
                                 onChange={onChange} //revisar esto porque tampoco debe ser asi
                             />
                         </div>
-                            <div className="form-group">
-                                <label htmlFor="SitioId">Sitio Turistico</label>
-                                <select
-                                    name="SitioId"
-                                    className="form-control"
-                                    type="number"
-                                    onChange={onChange}
-                                >
-                                    <option>Seleccione una opcion</option>
-                                    {sitios.map(sitio =>
-                                        <option
-                                        value={sitio.id} key={sitio.id}>
-                                        {sitio.nombre} 
-                                        </option>)}
-                                </select>
-                            </div>
                         <div className="form-group">
                             <label htmlFor="Descripcion">Descripción</label>
                             <textarea
@@ -142,25 +126,52 @@ const AddPlan = () => {
                                 onChange={onChange}
                             />
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="Precio">Precio</label>
-                            <input
-                                name="Precio"
-                                className="form-control"
-                                type="number"
-                                min="0"
-                                onChange={onChange}
-                            />
-                        </div>
-                        <button type="submit" className="btn btn-form-blue">Submit</button>
-                        <p className="form-link">
-                            ¿No encuentras un sitio turistico?
-                            {
-                            <Link to ="/crear-sitio-turistico">
-                                Crear
+                        <div className="row">
+                            <div className="form-group col">
+                                <label htmlFor="SitioId">Sitio Turistico</label>
+                                <select
+                                    name="SitioId"
+                                    className="form-control"
+                                    type="number"
+                                    onChange={onChange}
+                                >
+                                    <option>Seleccione</option>
+                                    {sitios.map(sitio =>
+                                        <option
+                                            value={sitio.id} key={sitio.id}>
+                                            {sitio.nombre}
+                                        </option>)}
+                                </select>
+                                <p className="form-link ">
+                                ¿No encuentras un sitio turistico?{" "}
+                                {
+                                    <Link to="/crear-sitio-turistico">
+                                        Crear sitio turistico
                             </Link>
-                            }
-                        </p>
+                                }
+                            </p>
+                            </div>
+                            
+                            <div className="form-group col">
+                                <label htmlFor="Precio">Precio</label>
+                                <input
+                                    name="Precio"
+                                    className="form-control"
+                                    type="number"
+                                    min="0"
+                                    onChange={onChange}
+                                />
+                            </div>
+                        </div>
+
+                        
+
+                        <div className="row justify-content-center">
+                            <button type="submit" className="btn btn-form-blue col-6">
+                                Publicar
+                            </button>
+                        </div>
+                        
                     </form>
                 </div>
             </div>
