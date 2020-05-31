@@ -6,11 +6,11 @@ import {
 
 const CirculoFiltro = (props) => {
     return (
-        <div className="col">
+        <div className="col-4">
             <div className="circle-item mx-auto mb-5 mb-lg-0">
                 <button className="boton-circular" ><i className={props.icono}>
-                    <p>{props.nombre}</p>
                 </i></button>
+                <p>{props.nombre}</p>
             </div>
         </div>
     );

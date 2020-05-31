@@ -7,7 +7,7 @@ import portada from '../images/portada.jpg'
 
 const Publicaciones = (props) => {
 
-    const { loading, publicaciones, actividades, getPublicaciones, getPublicacionesByRegion, getActividades, getPublicacionesByActividades } = useContext(PublicacionContext)
+    const { loading, publicaciones, actividades, getPublicaciones, getPublicacionesByRegion, getActividades, getPublicacionesByActividades, getPublicacionesByRegionAndActividades } = useContext(PublicacionContext)
 
 
     const [region, setRegion] = useState({
@@ -15,7 +15,7 @@ const Publicaciones = (props) => {
         img: portada
     })
 
-    const [filtroActividad, setfiltroActividad] = useState([2, 6])
+    const [filtroActividad, setfiltroActividad] = useState([10, 2])
 
     const [filtroRegion, setfiltroRegion] = useState(false)
 
@@ -34,16 +34,23 @@ const Publicaciones = (props) => {
                 img: props.location.state.img
             })
             setfiltroRegion(true)
-            getPublicaciones()
-            //getPublicacionesByRegion(props.location.state.region)
+            getPublicacionesByRegion(props.location.state.region)
         }
+        getPublicacionesByRegion(region.nombre)
 
     }, [props.location.state])
 
     function filtrar(e) {
         e.preventDefault();
         console.log(filtroActividad);
-        getPublicacionesByActividades(filtroActividad);
+        if (filtroRegion) {
+            console.log("Region y actividad")
+            getPublicacionesByRegionAndActividades(filtroActividad, region.nombre)
+        } else {
+            console.log("Solo actividad")
+            getPublicacionesByActividades(filtroActividad);
+        }
+
     }
 
 
@@ -72,9 +79,14 @@ const Publicaciones = (props) => {
                     </div>
 
                     <div className="row circles">
-                        {actividades.map(actividad => (
-                            <CirculoFiltro icono={actividad.icono} nombre={actividad.nombre} />
-                        ))}
+                        <CirculoFiltro nombre="Actividad1" icono="fas fa-pencil-ruler" />
+                        <CirculoFiltro nombre="Actividad1" icono="fas fa-pencil-ruler" />
+                        <CirculoFiltro nombre="Actividad1" icono="fas fa-pencil-ruler" />
+                        <CirculoFiltro nombre="Actividad1" icono="fas fa-pencil-ruler" />
+                        {/*actividades.map((actividad,index) => (
+                            <CirculoFiltro icono={actividad.icono} nombre={actividad.nombre} i={index}/>
+                            
+                        ))*/}
                     </div>
 
                     <button onClick={filtrar}>Filtro</button>
@@ -82,34 +94,24 @@ const Publicaciones = (props) => {
                     <div className="card-columns">
 
                         <div>
-                            {filtroRegion ?
-                                publicaciones.map(publicacion => (
-                                    publicacion.sitio.region === region.nombre ?
-                                        <Card
-                                            id={publicacion.id}
-                                            titulo={publicacion.titulo}
-                                            descripcion={publicacion.descripcion}
-                                            precio={publicacion.precio}
-                                        /> : ""
-                                ))
-                                :
-                                publicaciones.map(publicacion => (
-                                    <Card
-                                        id={publicacion.id}
-                                        titulo={publicacion.titulo}
-                                        descripcion={publicacion.descripcion}
-                                        precio={publicacion.precio}
-                                    />
-                                ))
+                            {publicaciones.map(publicacion => (
+                                <Card
+                                    id={publicacion.id}
+                                    titulo={publicacion.titulo}
+                                    descripcion={publicacion.descripcion}
+                                    precio={publicacion.precio}
+                                />
+                            ))
                             }
                         </div>
 
                     </div>
 
                 </div>
-            }
 
-        </div>
+            }
+        </div >
+
     );
 }
 

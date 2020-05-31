@@ -53,7 +53,7 @@ class PublicacionContextProvider extends Component {
 
     //Filtro por region 
     getPublicacionesByRegion = (region) => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/region', { params: { region: region } })
+        axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/region', { params: { region: region.nombre } })
             .then(res => {
                 this.setState({
                     ...this.state,
@@ -71,15 +71,14 @@ class PublicacionContextProvider extends Component {
             })
     }
 
+
     //Filtro por actividades
     getPublicacionesByActividades = (filtro) => {
         var _publicaciones = []
         filtro.map(idActividad => (
-            console.log(idActividad),
             axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + idActividad)
                 .then(res => {
                     _publicaciones = _publicaciones.concat(res.data)
-                    console.log(_publicaciones)
                     this.setState({
                         ...this.state,
                         publicaciones: _publicaciones,
@@ -91,27 +90,26 @@ class PublicacionContextProvider extends Component {
                     _publicaciones = []
                 })
         ))
-        console.log(_publicaciones)
-        
+    }
 
-        /*
-        axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/region', { params: { region: region } })
-            .then(res => {
-                this.setState({
-                    ...this.state,
-                    publicaciones: this.state.publicaciones.concat(res.data),
-                    loading: false
+    //Filtro por actividades por region
+    getPublicacionesByRegionAndActividades = (filtro, region) => {
+        var _publicaciones = []
+        filtro.map(idActividad => (
+            axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + idActividad + '/region/', { params: { region: region } })
+                .then(res => {
+                    _publicaciones = _publicaciones.concat(res.data)
+                    this.setState({
+                        ...this.state,
+                        publicaciones: _publicaciones,
+                        loading: false
+                    })
                 })
-                console.log(this.state.publicaciones)
-            })
-            .catch(error => {
-                console.log(error)
-                this.setState({
-                    ...this.state,
-                    publicaciones: [],
-                    loading: true
+                .catch(error => {
+                    console.log(error)
+                    _publicaciones = []
                 })
-            })*/
+        ))
     }
 
     //Trae tipo actividades
@@ -143,9 +141,10 @@ class PublicacionContextProvider extends Component {
                 getActividades: this.getActividades,
                 getPublicacionesByRegion: this.getPublicacionesByRegion,
                 getPublicacionesByActividades: this.getPublicacionesByActividades,
+                getPublicacionesByRegionAndActividades: this.getPublicacionesByRegionAndActividades,
             }}>
                 {this.props.children}
-            </PublicacionContext.Provider>
+            </PublicacionContext.Provider >
         );
     }
 }
