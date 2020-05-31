@@ -15,9 +15,10 @@ const Publicaciones = (props) => {
     })
 
     useEffect(() => {
-        getPublicaciones()
+        if (!props.location.state || props.location.state.region === "Colombia") {
+        getPublicaciones()}
         getActividades()
-    }, [getActividades, getPublicaciones])
+    }, [props.location.state, getActividades, getPublicaciones])
 
 
     useEffect(() => {
