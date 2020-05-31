@@ -42,7 +42,6 @@ const MisSitios = (props) => {
                                 index={index}
                                 nombre={sitio.nombre}
                                 descripcion={sitio.descripcion}
-                                key={sitio.id}
                             />
                         ))}
 

@@ -17,7 +17,7 @@ const Publicaciones = (props) => {
     useEffect(() => {
         getPublicaciones()
         getActividades()
-    }, [])
+    }, [getActividades, getPublicaciones])
 
 
     useEffect(() => {
@@ -29,7 +29,7 @@ const Publicaciones = (props) => {
             getPublicacionesByRegion(props.location.state.region)
         }
 
-    }, [props.location.state])
+    }, [props.location.state, getPublicacionesByRegion])
 
 
 
