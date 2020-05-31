@@ -15,10 +15,15 @@ const Publicaciones = (props) => {
     })
 
     useEffect(() => {
-        if (!props.location.state || props.location.state.region === "Colombia") {
-        getPublicaciones()}
+        if (!props.location.state) {
+            setRegion({
+                nombre: "Colombia",
+                img: portada
+            })
+            getPublicaciones()
+        }
         getActividades()
-    }, [props.location.state, getActividades, getPublicaciones])
+    }, [getActividades, getPublicaciones, props.location.state])
 
 
     useEffect(() => {
@@ -53,7 +58,7 @@ const Publicaciones = (props) => {
 
 
                         {actividades.map(actividad => (
-                            <CirculoFiltro icono={actividad.icono} nombre={actividad.nombre} key={actividad.id}/>
+                            <CirculoFiltro icono={actividad.icono} nombre={actividad.nombre} key={actividad.id} />
                         ))}
 
                     </div>

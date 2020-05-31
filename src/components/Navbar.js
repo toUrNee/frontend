@@ -5,8 +5,6 @@ import { AuthContext } from '../context/AuthContext'
 import '../styles/Nav.css'
 import { ExternalDataContext } from '../context/ExternalDataContext'
 
-import portada from '../images/portada.jpg'
-
 const Navbar = () => {
     const { isAuthenticated, logoutUser, user, propietario } = useContext(AuthContext)
     const { regiones } = useContext(ExternalDataContext)
@@ -21,13 +19,7 @@ const Navbar = () => {
             </button>
             <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
-                    <Link className="nav-link" to={{
-                                    pathname: `/publicaciones`,
-                                    state: {
-                                        region: "Colombia",
-                                        img: portada
-                                    }
-                                }}>
+                    <Link className="nav-link" to='/publicaciones'>
                         Publicaciones
                         </Link>
                     <li className="nav-item dropdown">
