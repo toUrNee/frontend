@@ -1,19 +1,26 @@
 import React from 'react';
 
+
+import {
+    Link
+} from "react-router-dom";
+
 const Card = (props) => {
     return (
         <div className="card" key={props.id}>
-            <a href="#">
-                <img className="card-img-top" src="https://picsum.photos/800/400" alt="Card cap" />
+
+            <Link to="/">
+                <img className="card-img-top" src="https://picsum.photos/800/400" alt="Imagen plan" />
+
                 <div className="card-img-overlay d-flex justify-content-end">
-                    <a href="#" className="card-link text-danger like">
+                    <p to="/" className="card-link text-danger like">
                         {/* Corazón relleno color
                         <i className="fas fa-heart"></i>*/}
                         <i className="far fa-heart"></i>
-                    </a>
+                    </p>
                 </div>
                 <div className="card-img-overlay">
-                    <a href="#" className="btn btn-warning btn-sm ">{'$ ' + props.precio}</a>
+                    <p to="/" className="btn btn-warning btn-sm ">{'$ ' + props.precio}</p>
                 </div>
                 <div className="card-body">
                     <h2 className="card-title">{props.titulo}</h2>
@@ -29,7 +36,7 @@ const Card = (props) => {
                     <i className="fas fa-star text-warning"></i> 4.5
                     </div>
                 </div>
-            </a>
+            </Link>
         </div>
     );
 }
