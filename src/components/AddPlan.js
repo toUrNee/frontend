@@ -74,7 +74,6 @@ const AddPlan = () => {
     }
 
     useEffect(() => {
-        console.log(user)
         publicacion.PropietarioId = parseInt(user.id) 
     }, [publicacion, user])
 

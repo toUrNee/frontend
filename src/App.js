@@ -49,7 +49,6 @@ function App() {
                                     <Route path="/login" exact component={Login} />
                                     <Route path="/register" exact component={Register} />
 
-
                                     <PrivateRoute path="/perfil/publicaciones" exact>
                                         <PrivateRoutePropietario path="/perfil/publicaciones" exact>
                                             <MisPublicaciones />
@@ -83,7 +82,7 @@ function App() {
 
                                     <Route exact path="/publicaciones" render={(props) => <Publicaciones {...props} />} />
                                     <Route exact path="/publicaciones/:region" render={(props) => <Publicaciones {...props} />} />
-                                    
+
                                     <Route path="/" exact component={Inicio} />
 
                                 </Switch>

@@ -9,27 +9,35 @@ const Publicaciones = (props) => {
 
     const { loading, publicaciones, actividades, getPublicaciones, getPublicacionesByRegion, getActividades } = useContext(PublicacionContext)
 
-    useEffect(() => {
-        getPublicaciones()
-        getActividades()
-    }, [getActividades, getPublicaciones])
-
     const [region, setRegion] = useState({
         nombre: "Colombia",
         img: portada
     })
 
     useEffect(() => {
+        if (!props.location.state) {
+            setRegion({
+                nombre: "Colombia",
+                img: portada
+            })
+            getPublicaciones()
+        }
+        getActividades()
+    }, [getActividades, getPublicaciones, props.location.state])
+
+
+    useEffect(() => {
         if (props.location.state) {
             setRegion({
                 nombre: props.location.state.region,
                 img: props.location.state.img
-            })  
+            })
+            getPublicacionesByRegion(props.location.state.region)
         }
-        getPublicacionesByRegion(region.nombre)
-    }, [props.location.state, getPublicacionesByRegion, region])
 
-    
+    }, [props.location.state, getPublicacionesByRegion])
+
+
 
     return (
         <div className="container-fluid" id="1">
@@ -47,10 +55,10 @@ const Publicaciones = (props) => {
                     <div className="col titulo"> <h1>Tipos de actividad:</h1> </div>
 
                     <div className="row circles">
-                        
+
 
                         {actividades.map(actividad => (
-                            <CirculoFiltro icono={actividad.icono} nombre={actividad.nombre} />
+                            <CirculoFiltro icono={actividad.icono} nombre={actividad.nombre} key={actividad.id} />
                         ))}
 
                     </div>
@@ -63,6 +71,7 @@ const Publicaciones = (props) => {
                                     titulo={publicacion.titulo}
                                     descripcion={publicacion.descripcion}
                                     precio={publicacion.precio}
+                                    key={publicacion.id}
                                 />
                             ))}
                         </div>
