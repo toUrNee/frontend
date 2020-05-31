@@ -15,9 +15,9 @@ const Publicaciones = (props) => {
         img: portada
     })
 
-    const [filtroActividad, setfiltroActividad] = useState([10, 2])
+    const [filtroActividad, setfiltroActividad] = useState([])
 
-    const [filtroRegion, setfiltroRegion] = useState(false)
+    const [filtroRegion, setFiltroRegion] = useState(props.location.state)
 
     useEffect(() => {
         if (!props.location.state) {
@@ -33,30 +33,39 @@ const Publicaciones = (props) => {
                 nombre: props.location.state.region,
                 img: props.location.state.img
             })
-            setfiltroRegion(true)
             getPublicacionesByRegion(props.location.state.region)
+            setFiltroRegion(true)
+            console.log(filtroRegion)
         }
-        getPublicacionesByRegion(region.nombre)
-
+        console.log(filtroRegion)
     }, [props.location.state])
 
-    function filtrar(e) {
-        e.preventDefault();
-        console.log(filtroActividad);
+    function filtrar() {
+        console.log(filtroActividad, filtroRegion);
         if (filtroRegion) {
-            console.log("Region y actividad")
+            console.log("Region y actividad", filtroActividad, filtroRegion, region.nombre);
             getPublicacionesByRegionAndActividades(filtroActividad, region.nombre)
         } else {
-            console.log("Solo actividad")
+            console.log("Solo actividad", filtroActividad)
             getPublicacionesByActividades(filtroActividad);
         }
-
     }
 
-
+    function addFilter(idActividad){
+        console.log(idActividad)
+        if(filtroActividad.indexOf(idActividad)===-1){
+            console.log("No existe")
+            setfiltroActividad(filtroActividad.concat(idActividad))
+            document.getElementById('Actividad'+idActividad).style.background="black"
+            filtrar()
+        }else{
+            console.log("Existe")
+            
+        }
+    }
 
     return (
-        <div className="container-fluid" id="1">
+        <div className="container-fluid">
 
             {loading ?
 
@@ -79,14 +88,15 @@ const Publicaciones = (props) => {
                     </div>
 
                     <div className="row circles">
-                        <CirculoFiltro nombre="Actividad1" icono="fas fa-pencil-ruler" />
-                        <CirculoFiltro nombre="Actividad1" icono="fas fa-pencil-ruler" />
-                        <CirculoFiltro nombre="Actividad1" icono="fas fa-pencil-ruler" />
-                        <CirculoFiltro nombre="Actividad1" icono="fas fa-pencil-ruler" />
-                        {/*actividades.map((actividad,index) => (
-                            <CirculoFiltro icono={actividad.icono} nombre={actividad.nombre} i={index}/>
-                            
-                        ))*/}
+
+                        {actividades.map((actividad, index) => (
+                            <div className="col-4" >
+                                <div className="circle-item mx-auto mb-5 mb-lg-0">
+                                    <button className="boton-circular" onClick={() => addFilter(actividad.id)}><i className={actividad.icono} id={'Actividad'+actividad.id}>
+                                    </i></button>
+                                </div>
+                            </div>
+                        ))}
                     </div>
 
                     <button onClick={filtrar}>Filtro</button>

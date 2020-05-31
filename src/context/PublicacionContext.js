@@ -53,28 +53,29 @@ class PublicacionContextProvider extends Component {
 
     //Filtro por region 
     getPublicacionesByRegion = (region) => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/region', { params: { region: region.nombre } })
-            .then(res => {
-                this.setState({
-                    ...this.state,
-                    publicaciones: res.data,
-                    loading: false
-                })
+        axios.get(process.env.REACT_APP_BACK_URL+'/Publicaciones/region', {params:{region: region}})
+        .then(res => {
+            this.setState({
+                ...this.state,
+                publicaciones: res.data,
+                loading: false
             })
-            .catch(error => {
-                console.log(error)
-                this.setState({
-                    ...this.state,
-                    publicaciones: [],
-                    loading: true
-                })
+        })
+        .catch(error => {
+            console.log(error)
+            this.setState({
+                ...this.state,
+                publicaciones: [],
+                loading: true
             })
+        })
     }
 
 
     //Filtro por actividades
     getPublicacionesByActividades = (filtro) => {
         var _publicaciones = []
+        console.log("Antes del filtro", this.state.publicaciones)
         filtro.map(idActividad => (
             axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + idActividad)
                 .then(res => {
@@ -90,11 +91,13 @@ class PublicacionContextProvider extends Component {
                     _publicaciones = []
                 })
         ))
+        console.log("Despues del filtro", this.state.publicaciones)
     }
 
     //Filtro por actividades por region
     getPublicacionesByRegionAndActividades = (filtro, region) => {
         var _publicaciones = []
+        console.log("Antes del filtro", this.state.publicaciones)
         filtro.map(idActividad => (
             axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + idActividad + '/region/', { params: { region: region } })
                 .then(res => {
@@ -110,6 +113,7 @@ class PublicacionContextProvider extends Component {
                     _publicaciones = []
                 })
         ))
+        console.log("Despues del filtro", this.state.publicaciones)
     }
 
     //Trae tipo actividades

@@ -38,26 +38,22 @@
   background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    font-size: 3.5em;
     position: relative;
     color: black;
     background: white;
-    height: 100%;
 }
 
 .circles .col{
   text-align: center;
 }
 .circles .circle-item {
-  width: 100%;
-  font-size: 100%;
+  width: 50%;
 }
 
 .circles .circle-item .boton-circular {
   border: 0;
   background: transparent;
   outline: none;
-  height: 100%;
 }
 
 .circles .circle-item .boton-circular {
@@ -70,8 +66,6 @@
   display: inline-block;
   background: #f59c12;
   color: #212529;
-  width: 100%;
-  height: 100%;
   border-radius: 100% ;
   padding: 0.7em 0.7em;
 }
