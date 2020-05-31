@@ -24,7 +24,7 @@ const Publicaciones = (props) => {
             getPublicaciones()
         }
         getActividades()
-    }, [])
+    }, [props.location.state])
 
 
     useEffect(() => {
@@ -35,32 +35,46 @@ const Publicaciones = (props) => {
             })
             getPublicacionesByRegion(props.location.state.region)
             setFiltroRegion(true)
-            console.log(filtroRegion)
+            //console.log(filtroRegion)
         }
-        console.log(filtroRegion)
+        setfiltroActividad([])
+        //console.log(filtroRegion)
     }, [props.location.state])
 
     function filtrar() {
-        console.log(filtroActividad, filtroRegion);
-        if (filtroRegion) {
-            console.log("Region y actividad", filtroActividad, filtroRegion, region.nombre);
-            getPublicacionesByRegionAndActividades(filtroActividad, region.nombre)
-        } else {
-            console.log("Solo actividad", filtroActividad)
-            getPublicacionesByActividades(filtroActividad);
+        if (filtroActividad.length > 0) {
+            //console.log(filtroActividad, filtroRegion);
+            if (filtroRegion) {
+                //console.log("Region y actividad", filtroActividad, filtroRegion, region.nombre);
+                getPublicacionesByRegionAndActividades(filtroActividad, region.nombre)
+            } else {
+                //console.log("Solo actividad", filtroActividad)
+                getPublicacionesByActividades(filtroActividad);
+            }
+        }else{
+            if (filtroRegion) {
+                //console.log("Region y actividad", filtroActividad, filtroRegion, region.nombre);
+                getPublicacionesByRegion(region.nombre);
+            } else {
+                //console.log("Solo actividad", filtroActividad)
+                getPublicaciones()
+            }
         }
     }
 
-    function addFilter(idActividad){
-        console.log(idActividad)
-        if(filtroActividad.indexOf(idActividad)===-1){
-            console.log("No existe")
+    function addFilter(idActividad) {
+        if (filtroActividad.indexOf(idActividad) === -1) {
+            //console.log("No existe")
             setfiltroActividad(filtroActividad.concat(idActividad))
-            document.getElementById('Actividad'+idActividad).style.background="black"
-            filtrar()
-        }else{
-            console.log("Existe")
-            
+            document.getElementById('i-actividad-' + idActividad).style.background = "#F35C22"
+
+        } else {
+            //console.log("Existe")
+            document.getElementById('i-actividad-' + idActividad).style.background = "#FFCC52"
+            var i = filtroActividad.indexOf(idActividad);
+            if (i !== -1) {
+                filtroActividad.splice(i, 1);
+            }
         }
     }
 
@@ -90,16 +104,19 @@ const Publicaciones = (props) => {
                     <div className="row circles">
 
                         {actividades.map((actividad, index) => (
-                            <div className="col-4" >
+                            
+                            <div className="col" >
                                 <div className="circle-item mx-auto mb-5 mb-lg-0">
-                                    <button className="boton-circular" onClick={() => addFilter(actividad.id)}><i className={actividad.icono} id={'Actividad'+actividad.id}>
-                                    </i></button>
+                                    <button className="boton-circular" id={'boton-act-' + actividad.id} onClick={() => addFilter(actividad.id)}>
+                                        <i className={'icon-actividad '+actividad.icono} id={'i-actividad-' + actividad.id} >
+                                        </i>
+                                    </button>
                                 </div>
                             </div>
                         ))}
                     </div>
 
-                    <button onClick={filtrar}>Filtro</button>
+                    <button type="button" class="btn btn-warning" style={{marginBottom:"40px"}} onClick={filtrar}>Filtro</button>
 
                     <div className="card-columns">
 

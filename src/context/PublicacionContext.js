@@ -53,33 +53,38 @@ class PublicacionContextProvider extends Component {
 
     //Filtro por region 
     getPublicacionesByRegion = (region) => {
-        axios.get(process.env.REACT_APP_BACK_URL+'/Publicaciones/region', {params:{region: region}})
-        .then(res => {
-            this.setState({
-                ...this.state,
-                publicaciones: res.data,
-                loading: false
+        axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/region', { params: { region: region } })
+            .then(res => {
+                this.setState({
+                    ...this.state,
+                    publicaciones: res.data,
+                    loading: false
+                })
             })
-        })
-        .catch(error => {
-            console.log(error)
-            this.setState({
-                ...this.state,
-                publicaciones: [],
-                loading: true
+            .catch(error => {
+                console.log(error)
+                this.setState({
+                    ...this.state,
+                    publicaciones: [],
+                    loading: true
+                })
             })
-        })
     }
 
 
     //Filtro por actividades
     getPublicacionesByActividades = (filtro) => {
         var _publicaciones = []
-        console.log("Antes del filtro", this.state.publicaciones)
+        //console.log("Antes del filtro", this.state.publicaciones)
         filtro.map(idActividad => (
             axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + idActividad)
                 .then(res => {
-                    _publicaciones = _publicaciones.concat(res.data)
+                    res.data.map(publicacion => {
+                        if (_publicaciones.map(x => x.id).indexOf(publicacion.id) === -1) {
+                            //console.log("No existe")
+                            _publicaciones = _publicaciones.concat(publicacion)
+                        }
+                    })
                     this.setState({
                         ...this.state,
                         publicaciones: _publicaciones,
@@ -91,17 +96,23 @@ class PublicacionContextProvider extends Component {
                     _publicaciones = []
                 })
         ))
-        console.log("Despues del filtro", this.state.publicaciones)
+        //console.log("Despues del filtro", this.state.publicaciones)
     }
 
     //Filtro por actividades por region
     getPublicacionesByRegionAndActividades = (filtro, region) => {
         var _publicaciones = []
-        console.log("Antes del filtro", this.state.publicaciones)
+        //console.log("Antes del filtro", this.state.publicaciones)
         filtro.map(idActividad => (
             axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + idActividad + '/region/', { params: { region: region } })
                 .then(res => {
-                    _publicaciones = _publicaciones.concat(res.data)
+                    res.data.map(publicacion => {
+                        if (_publicaciones.map(x => x.id).indexOf(publicacion.id) === -1) {
+                            //console.log("No existe")
+
+                            _publicaciones = _publicaciones.concat(publicacion)
+                        }
+                    })
                     this.setState({
                         ...this.state,
                         publicaciones: _publicaciones,
@@ -113,7 +124,7 @@ class PublicacionContextProvider extends Component {
                     _publicaciones = []
                 })
         ))
-        console.log("Despues del filtro", this.state.publicaciones)
+        //console.log("Posicion pub 10"+this.state.publicaciones.map(x => x.id).indexOf(10))
     }
 
     //Trae tipo actividades

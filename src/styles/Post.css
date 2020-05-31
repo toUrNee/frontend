@@ -40,14 +40,15 @@
     background-repeat: no-repeat;
     position: relative;
     color: black;
-    background: white;
+    margin: 50px;
 }
 
 .circles .col{
   text-align: center;
+  font-size: 30px;
 }
 .circles .circle-item {
-  width: 50%;
+  width: 30%;
 }
 
 .circles .circle-item .boton-circular {
@@ -64,7 +65,7 @@
 
 .circles .circle-item i {
   display: inline-block;
-  background: #f59c12;
+  background: #FFCC52;
   color: #212529;
   border-radius: 100% ;
   padding: 0.7em 0.7em;
