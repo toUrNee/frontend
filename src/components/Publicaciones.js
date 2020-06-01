@@ -34,6 +34,7 @@ const Publicaciones = (props) => {
                 img: props.location.state.img
             })
             getPublicacionesByRegion(props.location.state.region)
+            getActividades()
             setFiltroRegion(true)
             //console.log(filtroRegion)
         }
@@ -51,7 +52,7 @@ const Publicaciones = (props) => {
                 //console.log("Solo actividad", filtroActividad)
                 getPublicacionesByActividades(filtroActividad);
             }
-        }else{
+        } else {
             if (filtroRegion) {
                 //console.log("Region y actividad", filtroActividad, filtroRegion, region.nombre);
                 getPublicacionesByRegion(region.nombre);
@@ -62,16 +63,16 @@ const Publicaciones = (props) => {
         }
     }
 
-    function addFilter(idActividad) {
-        if (filtroActividad.indexOf(idActividad) === -1) {
+    function addFilter(actividad) {
+        
+        if (filtroActividad.indexOf(actividad.id) === -1) {
             //console.log("No existe")
-            setfiltroActividad(filtroActividad.concat(idActividad))
-            document.getElementById('i-actividad-' + idActividad).style.background = "#F35C22"
-
+            setfiltroActividad(filtroActividad.concat(actividad.id))
+            document.getElementById('boton-act-' + actividad.id).className = "boton-circular active"
         } else {
             //console.log("Existe")
-            document.getElementById('i-actividad-' + idActividad).style.background = "#FFCC52"
-            var i = filtroActividad.indexOf(idActividad);
+            document.getElementById('boton-act-' + actividad.id).className = "boton-circular inactive"
+            var i = filtroActividad.indexOf(actividad.id);
             if (i !== -1) {
                 filtroActividad.splice(i, 1);
             }
@@ -97,26 +98,27 @@ const Publicaciones = (props) => {
                         {region.nombre}
                     </div>
 
-                    <div className="col titulo">
-                        <h1>Tipos de actividad:</h1>
+                    <div className="col filter-title">
+                        <h2>Selecciona tus actividades de interés </h2>
                     </div>
 
                     <div className="row circles">
 
                         {actividades.map((actividad, index) => (
-                            
+                            console.log(actividades),
                             <div className="col" >
-                                <div className="circle-item mx-auto mb-5 mb-lg-0">
-                                    <button className="boton-circular" id={'boton-act-' + actividad.id} onClick={() => addFilter(actividad.id)}>
-                                        <i className={'icon-actividad '+actividad.icono} id={'i-actividad-' + actividad.id} >
-                                        </i>
+                                <div className="circle-item">
+                                    <button className="boton-circular inactive" id={'boton-act-' + actividad.id} onClick={() => addFilter(actividad)}>
+                                        <i className={actividad.icono } title={actividad.nombre}>
+                                        
+                                        </i><p>{actividad.nombre}</p>
                                     </button>
                                 </div>
                             </div>
                         ))}
                     </div>
 
-                    <button type="button" class="btn btn-warning" style={{marginBottom:"40px"}} onClick={filtrar}>Filtro</button>
+                    <button type="button" class="btn btn-warning" style={{ marginBottom: "40px"}} onClick={filtrar}>Filtrar</button>
 
                     <div className="card-columns">
 
