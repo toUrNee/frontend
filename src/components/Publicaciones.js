@@ -101,18 +101,18 @@ const Publicaciones = (props) => {
                         {/* Modal de Bootstrap*/}
 
                         <div className="col" style={{ textAlign: "right" }}>
-                            <button type="button" class="btn btn btn-warning" data-toggle="modal" data-target="#exampleModalLong" style={{ opacity: "50%" }}> ? </button>
+                            <button type="button" className="btn btn btn-warning" data-toggle="modal" data-target="#exampleModalLong" style={{ opacity: "50%" }}> ? </button>
 
-                            <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Actividades</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <div className="modal fade" id="exampleModalLong" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                <div className="modal-dialog" role="document">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h5 className="modal-title" id="exampleModalLongTitle">Actividades</h5>
+                                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <div class="modal-body">
+                                        <div className="modal-body">
                                             {actividades.map((actividad, index) => (
                                                 <div className="row" style={{ margin: "5px" }} key={actividad.id}>
                                                     <h5 className="col">{actividad.nombre}</h5>
@@ -120,8 +120,8 @@ const Publicaciones = (props) => {
                                                 </div>
                                             ))}
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        <div className="modal-footer">
+                                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                         </div>
                                     </div>
                                 </div>
