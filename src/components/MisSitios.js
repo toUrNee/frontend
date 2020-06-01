@@ -39,6 +39,7 @@ const MisSitios = (props) => {
                             <CardSitio
                                 key={sitio.id}
                                 sitio={sitio}
+                                sitioId={sitio.id}
                             />
                         ))}
 

@@ -30,6 +30,7 @@ import SitioContextProvider from './context/SitioContext';
 import PerfilPropietario from './components/PerfilPropietario';
 import MisPublicaciones from './components/MisPublicaciones';
 import MisSitios from './components/MisSitios';
+import CardSitio from './components/CardSitio';
 
 function App() {
 
@@ -68,7 +69,15 @@ function App() {
 
 
                                     <PrivateRoute path="/crear-plan" exact>
-                                        <AddPlan />
+                                        <PrivateRoutePropietario path="/crear-plan" exact>
+                                            <AddPlan />
+                                        </PrivateRoutePropietario>
+                                    </PrivateRoute>
+
+                                    <PrivateRoute path="/editar-plan" exact >
+                                        <PrivateRoutePropietario path="/editar-plan">
+                                            <AddPlan />
+                                        </PrivateRoutePropietario>
                                     </PrivateRoute>
 
                                     <PrivateRoute path="/crear-sitio-turistico" exact >
@@ -76,7 +85,9 @@ function App() {
                                     </PrivateRoute>
 
                                     <PrivateRoute path="/editar-sitio-turistico" exact >
-                                        <FormSitio />
+                                        <PrivateRoutePropietario path="/editar-sitio-turistico" exact >
+                                            <FormSitio />
+                                        </PrivateRoutePropietario>
                                     </PrivateRoute>
 
                                     <Route exact path="/publicaciones" render={(props) => <Publicaciones {...props} />} />

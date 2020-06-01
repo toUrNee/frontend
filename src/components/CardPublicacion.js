@@ -7,7 +7,7 @@ import {
 
 const Card = (props) => {
     return (
-        <div className="card">
+        <div className="card" >
 
             <Link to="/">
                 <img className="card-img-top" src={process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/" + props.publicacion.sitioId} alt="Imagen plan" />
@@ -31,14 +31,19 @@ const Card = (props) => {
                         <i className="far fa-calendar-alt"></i>{fecha}
 
                     </div>*/}
+                    {props.publicacion.sitio.actividades.map(actividad => (
+
+                        <i className={actividad.tipoActividad.icono}></i>
+                    ))}
                     <div className="stats">
                         <i className="far fa-comment text-primary"></i> 13
                     <i className="fas fa-star text-warning"></i> 4.5
+
                     </div>
                 </div>
             </Link>
         </div>
     );
 }
- 
+
 export default Card;
