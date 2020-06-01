@@ -17,6 +17,16 @@ const Publicaciones = (props) => {
 
     //Arreglo de actividades activas en el filtro
     const [filtroActividad, setfiltroActividad] = useState([])
+    useEffect(() => {
+        if (!props.location.state) {
+            setRegion({
+                nombre: "Colombia",
+                img: portada
+            })
+            getPublicaciones()
+        }
+        getActividades()
+    }, [getActividades, getPublicaciones, props.location.state])
 
     //Booleano si es filtro por region
     const [filtroRegion, setFiltroRegion] = useState(props.location.state)
@@ -34,7 +44,7 @@ const Publicaciones = (props) => {
             setFiltroRegion(true)
         }
         getActividades()
-    }, [props.location.state])
+    }, [props.location.state, getPublicacionesByRegion])
 
     //Filtra las publicaciones por region y/o por actividades
     function filtrar() {
@@ -116,6 +126,7 @@ const Publicaciones = (props) => {
                                     titulo={publicacion.titulo}
                                     descripcion={publicacion.descripcion}
                                     precio={publicacion.precio}
+                                    key={publicacion.id}
                                 />
                             ))
                             }

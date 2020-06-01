@@ -1,8 +1,6 @@
 import React, { createContext, Component } from 'react'
 import axios from 'axios'
 
-import { store } from 'react-notifications-component'
-
 export const SitioContext = createContext()
 
 class SitioContextProvider extends Component {
@@ -49,8 +47,6 @@ class SitioContextProvider extends Component {
                 })
             })
     }
-
-    
 
     render() { 
         return ( 

@@ -24,7 +24,7 @@ const PerfilPropietario = (props) => {
 
                 <div className="row perfil-container">
                     <div className="col icon">
-                    <i class="fas fa-user-circle"></i>
+                    <i className="fas fa-user-circle"></i>
                     <h1>{user.nombres} ({user.username})</h1>
                     <h2>{user.nacionalidad}</h2>
                     </div>

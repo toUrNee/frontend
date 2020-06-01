@@ -12,7 +12,7 @@ const MisPublicaciones = (props) => {
 
     useEffect(() => {
         getPublicacionesById(user.id)
-    }, [])
+    }, [getPublicacionesById, user])
 
     return (
         <section id="mis-planes" className="perfil">
@@ -40,6 +40,7 @@ const MisPublicaciones = (props) => {
                                 id={sitio.id}
                                 nombre={sitio.titulo}
                                 descripcion={sitio.descripcion}
+                                key={sitio.id}
                             />
                         ))}
 
