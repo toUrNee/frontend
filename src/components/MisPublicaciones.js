@@ -4,7 +4,7 @@ import NavPropietario from './NavPropietario';
 import { PublicacionContext } from '../context/PublicacionContext';
 import { AuthContext } from '../context/AuthContext'
 import '../styles/PerfilPropietario.css'
-import CardPublicaciones from './CardPublicaciones';
+import CardSitio from './CardSitio';
 
 const MisPublicaciones = (props) => {
 
