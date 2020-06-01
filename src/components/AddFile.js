@@ -148,7 +148,7 @@ const AddFile = ({ prevStep, idSitio }) => {
           onScreen: false
         }
       });
-      history.push('/perfil/sitios')
+      history.push('/perfil')
     }
   }
 
@@ -164,6 +164,10 @@ const AddFile = ({ prevStep, idSitio }) => {
     // Make sure to revoke the data uris to avoid memory leaks
     imagen.forEach(file => URL.revokeObjectURL(file.preview));
   }, [imagen]);
+
+  useEffect(() => {
+    
+  })
 
   const style = useMemo(() => ({
     ...baseStyle,
