@@ -5,7 +5,7 @@ import { useHistory, Link, useLocation } from "react-router-dom";
 import { store } from 'react-notifications-component';
 import { AuthContext } from '../context/AuthContext';
 import { SitioContext } from '../context/SitioContext';
-import { PublicacionContext } from '../context/PublicacionContext';
+
 
 const AddPlan = () => {
 
@@ -13,7 +13,6 @@ const AddPlan = () => {
     const location = useLocation();
     const { user } = useContext(AuthContext) 
     const { sitios, getSitiosById } = useContext(SitioContext)
-    const {publicaciones} = useContext(PublicacionContext)
 
     const [publicacion, setPublicacion] = useState({
             Titulo: "",
@@ -53,7 +52,7 @@ const AddPlan = () => {
                 onScreen: false
             }
         });
-        history.push('/perfil/sitios')
+        history.push('/perfil/publicaciones')
     }
 
     const error = (message) => {
@@ -74,9 +73,9 @@ const AddPlan = () => {
 
     const handlerSubmit = (e) => {
         e.preventDefault()
-        if(location.state){
+        if(location.state && location.state.publicacion){
             var id = location.state.publicacion
-            axios.put(process.env.REACT_APP_BACK_URL + '/Publicaciones' + id, publicacion)
+            axios.put(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + id, publicacion)
                 .then(() => {
                     success("Tu publicación fue actualizada con éxito")
                 })
@@ -85,38 +84,12 @@ const AddPlan = () => {
                     error("Ha ocurrido un error y tu publicación no ha podido ser actualizada")
                 })
         }else{
-            axios.post(process.env.REACT_APP_BACK_URL + '/Publicaciones', publicacion)
-                .then(response => {
-                    store.addNotification({
-                        title: "Perfecto!",
-                        message: "Tu publicación fue creada exitosamente",
-                        type: "success",
-                        insert: "top",
-                        container: "top-right",
-                        animationIn: ["animated", "fadeInDown"],
-                        animationOut: ["animated", "fadeOut"],
-                        dismiss: {
-                        duration: 5000,
-                        onScreen: false
-                        }
-                    });
-                    history.push('/')
+            axios.post(process.env.REACT_APP_BACK_URL + '/Publicaciones/', publicacion)
+                .then(() => {
+                    success("Tu publicación fue creada con éxito")
                 })
                 .catch(error => {
-                    console.log(error)
-                    store.addNotification({
-                        title: "Ups!",
-                        message: "Tu publicación no ha podido ser creada",
-                        type: "danger",
-                        insert: "top",
-                        container: "top-right",
-                        animationIn: ["animated", "fadeInDown"],
-                        animationOut: ["animated", "fadeOut"],
-                        dismiss: {
-                        duration: 5000,
-                        onScreen: false
-                        }
-                    });
+                    console.log(error);
                 })
         }
     }
@@ -128,22 +101,37 @@ const AddPlan = () => {
 
     useEffect(() => {
         getSitiosById(publicacion.PropietarioId)
-    }, [getSitiosById, publicacion])
+    }, [getSitiosById, publicacion.PropietarioId])
 
     useEffect(() => {
-        if(location.state){
-            var index = location.state.index
+        if(location.state && location.state.publicacion){
+            axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + location.state.publicacion)
+            .then(res =>{
+                setPublicacion({
+                    Id: res.data.id,
+                    Fecha: res.data.Fecha,
+                    Titulo: res.data.Titulo,
+                    Descripcion: res.data.Descripcion,
+                    PropietarioId: res.data.PropietarioId,
+                    Precio: res.data.Precio,
+                    SitioId: res.data.SitioId,
+                })
+            })
+            .catch(error =>{
+                console.log(error);
+                error("Hubo un problema la traer la publicación")
+            })
+        }else{
             setPublicacion({
-                Id: publicaciones[index].Id,
-                Fecha: publicaciones[index].Fecha,
-                Titulo: publicaciones[index].Titulo,
-                Descripcion: publicaciones[index].Descripcion,
-                PropietarioId: publicaciones[index].PropietarioId,
-                Precio: publicaciones[index].Precio,
-                SitioId: publicaciones[index].SitioId,
+                Titulo: "",
+                Fecha: "",
+                SitioId: null,
+                Descripcion: "",
+                Precio: null,
+                PropietarioId: user.Id,
             })
         }
-    }, [location.state, publicaciones])
+    }, [location.state, user])
 
     return (
         <div className="container-fluid form-container ">
@@ -151,8 +139,8 @@ const AddPlan = () => {
                 {/* Columna de color con imagen */}
                 <div className="col col-color-yellow">
                     <header>
-                        <h1 className="titulo-form-color">{location.state ? "Publicar":"Modificar"} un plan</h1>
-                        <img className="img-fluid mx-auto d-block img-form" src={img} alt="post" />
+                        <h1 className="titulo-form-color">{location.state && location.state.publicacion ? "Modificar":"Publicar"} un plan</h1>
+                        <img className="img-fluid mx-auto d-block img-form" src={img} alt="cool airplane"/>
                     </header>
                 </div>
                 {/* Columna de formulario */}
@@ -188,15 +176,15 @@ const AddPlan = () => {
                                     className="form-control"
                                     type="number"
                                     onChange={onChange}
+                                    value={publicacion.SitioId}
                                 >
                                     <option>Seleccione una opcion</option>
                                     {sitios.map(sitio =>
                                         <option
-                                            value={sitio.id} 
-                                            key={sitio.id}
-                                            disabled={location.state}
+                                            value={sitio.nombre} 
+                                            key={sitio.nombre}
                                             >
-                                            {sitio.nombre} 
+                                            {sitio.nombre}
                                         </option>)}
                                 </select>
                             </div>

@@ -36,12 +36,11 @@ const MisPublicaciones = (props) => {
                     </div>
                     :
                     <div className="row perfil-container">
-                        {publicaciones.map((publicacion, index) => (
+                        {publicaciones.map((publicacion) => (
                             <CardPublicaciones
                                 key={publicacion.id}
                                 id={publicacion.id}
-                                index={index}
-                                nombre={publicacion.titulo}
+                                titulo={publicacion.titulo}
                                 descripcion={publicacion.descripcion}
                             />
                         ))}

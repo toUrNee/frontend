@@ -3,7 +3,7 @@ import { PublicacionContext } from '../context/PublicacionContext';
 import { Link } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
-//template de tarjeta par aun sitio turistico
+//template de tarjeta para una publicación
 const CardPublicaciones = (props) => {
 
     const { deletePublicacionesById } = useContext(PublicacionContext)
@@ -36,19 +36,19 @@ const CardPublicaciones = (props) => {
             <div className="perfil-links">
                 <Link to={{
                     pathname: "/editar-plan",
-                    state: {publicacion: props.id, index: props.index}
+                    state: {publicacion: props.id}
                     }}
-                    data-gall="portfolioGallery" 
+                    data-gall="perfilGallery" 
                     className="venobox" 
                     title="Editar">
                     <i className="far fa-edit"></i>
                 </Link>
-                <Link data-gall="portfolioGallery" className="venobox" title="Eliminar" onClick={borrarPublicacion}>
+                <Link data-gall="perfilGallery" className="venobox" title="Eliminar" onClick={borrarPublicacion}>
                     <i className="far fa-trash-alt"></i>
                 </Link>
             </div>
             <div className="perfil-info">
-                <h4>{props.nombre}</h4>
+                <h4>{props.titulo}</h4>
                 <p>{props.descripcion}</p>
             </div>
         </div>
