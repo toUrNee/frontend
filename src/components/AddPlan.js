@@ -127,7 +127,7 @@ const AddPlan = () => {
                 Fecha: "",
                 SitioId: null,
                 Descripcion: "",
-                Precio: null,
+                Precio: 0,
                 PropietarioId: user.Id,
             })
         }
