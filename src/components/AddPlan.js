@@ -16,10 +16,10 @@ const AddPlan = () => {
 
     const [publicacion, setPublicacion] = useState({
             Titulo: "",
-            SitioId: null,
+            SitioId: 0,
             Fecha: "",
             Descripcion: "",
-            Precio: null,
+            Precio: 0,
             PropietarioId: user.Id
     })
 
@@ -88,14 +88,14 @@ const AddPlan = () => {
                 .then(() => {
                     success("Tu publicación fue creada con éxito")
                 })
-                .catch(error => {
-                    console.log(error);
+                .catch(err => {
+                    console.log(err);
+                    error("Tu publicación no se ha podido crear debido a un error");
                 })
         }
     }
 
     useEffect(() => {
-        console.log(user)
         publicacion.PropietarioId = parseInt(user.id) 
     }, [publicacion, user])
 
@@ -107,14 +107,15 @@ const AddPlan = () => {
         if(location.state && location.state.publicacion){
             axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + location.state.publicacion)
             .then(res =>{
+                console.log(res.data)
                 setPublicacion({
                     Id: res.data.id,
-                    Fecha: res.data.Fecha,
-                    Titulo: res.data.Titulo,
-                    Descripcion: res.data.Descripcion,
-                    PropietarioId: res.data.PropietarioId,
-                    Precio: res.data.Precio,
-                    SitioId: res.data.SitioId,
+                    Fecha: res.data.fecha,
+                    Titulo: res.data.titulo,
+                    Descripcion: res.data.descripcion,
+                    PropietarioId: res.data.propietarioId,
+                    Precio: res.data.precio,
+                    SitioId: res.data.sitioId,
                 })
             })
             .catch(error =>{
@@ -125,7 +126,7 @@ const AddPlan = () => {
             setPublicacion({
                 Titulo: "",
                 Fecha: "",
-                SitioId: null,
+                SitioId: 0,
                 Descripcion: "",
                 Precio: 0,
                 PropietarioId: user.Id,
@@ -177,11 +178,12 @@ const AddPlan = () => {
                                     type="number"
                                     onChange={onChange}
                                     value={publicacion.SitioId}
+                                    disabled={location.state && location.state.publicacion}
                                 >
                                     <option>Seleccione una opcion</option>
                                     {sitios.map(sitio =>
                                         <option
-                                            value={sitio.nombre} 
+                                            value={sitio.id} 
                                             key={sitio.nombre}
                                             >
                                             {sitio.nombre}
