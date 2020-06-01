@@ -31,6 +31,7 @@ import SitioContextProvider from './context/SitioContext';
 import PerfilPropietario from './components/PerfilPropietario';
 import MisPublicaciones from './components/MisPublicaciones';
 import MisSitios from './components/MisSitios';
+import CardSitio from './components/CardSitio';
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
                                     <Route path="/login" exact component={Login} />
                                     <Route path="/register" exact component={Register} />
 
+                                    <Route path="/test" exact component={CardSitio} />
 
                                     <PrivateRoute path="/perfil/publicaciones" exact>
                                         <PrivateRoutePropietario path="/perfil/publicaciones" exact>

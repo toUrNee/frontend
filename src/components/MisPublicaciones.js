@@ -4,7 +4,7 @@ import NavPropietario from './NavPropietario';
 import { PublicacionContext } from '../context/PublicacionContext';
 import { AuthContext } from '../context/AuthContext'
 import '../styles/PerfilPropietario.css'
-import CardPublicaciones from './CardPublicaciones';
+import CardSitio from './CardSitio';
 
 const MisPublicaciones = (props) => {
     const { loading, publicaciones, getPublicacionesById } = useContext(PublicacionContext)
@@ -36,7 +36,7 @@ const MisPublicaciones = (props) => {
                     :
                     <div className="row perfil-container">
                         {publicaciones.map((publicacion, index) => (
-                            <CardPublicaciones
+                            <CardSitio
                                 id={publicacion.id}
                                 nombre={publicacion.titulo}
                                 descripcion={publicacion.descripcion}
