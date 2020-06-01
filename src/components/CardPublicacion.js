@@ -31,7 +31,10 @@ const Card = (props) => {
                         <i className="far fa-calendar-alt"></i>{fecha}
 
                     </div>*/}
+                    {props.publicacion.sitio.actividades.map(actividad => (
 
+                        <i className={actividad.tipoActividad.icono}></i>
+                    ))}
                     <div className="stats">
                         <i className="far fa-comment text-primary"></i> 13
                     <i className="fas fa-star text-warning"></i> 4.5
