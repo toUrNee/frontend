@@ -17,6 +17,7 @@ const Register = () => {
         Nacionalidad: "",
         Username: "",
         Password: "",
+        RolId: 1,
     })
 
     useEffect(()=>{
@@ -126,7 +127,7 @@ const Register = () => {
                         </div>
                         <button type="submit" className="btn btn-form">Submit</button>
                         <p className="form-link">
-                            ¿Tienes cuenta?
+                            ¿Tienes cuenta?{" "}
                             <Link to="/login">
                                 Inicia sesión
                             </Link>

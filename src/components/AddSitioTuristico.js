@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import img from '../images/crear-sitio-tur.png';
+import { useHistory, useLocation } from "react-router-dom";
 import { store } from 'react-notifications-component';
 import { AuthContext } from '../context/AuthContext';
 import { ExternalDataContext } from '../context/ExternalDataContext';
@@ -7,91 +9,137 @@ import { ExternalDataContext } from '../context/ExternalDataContext';
 
 const AddSitioTuristico = ({nextStep , getidSitio}) => {
 
-    const { user } = useContext(AuthContext)
+    const history = useHistory();
+    const location = useLocation();
+    const { user, crearSitio } = useContext(AuthContext)
     const { regiones, departamentos, municipios, getDepartamentos, getMunicipios } = useContext(ExternalDataContext)
 
     const [sitio, setSitio] = useState({
         Nombre: "",
         Descripcion: "",
-        Capacidad: null,
+        Capacidad: 1,
         Region: "",
         Municipio: "",
         Departamento: "",
-        PropietarioId: null
+        PropietarioId: user.Id
     })
 
     const onChange = (event) => {
-        if(event.target.type == "number"){
+        if (event.target.type === "number") {
             setSitio({
                 ...sitio,
                 [event.target.name]: parseInt(event.target.value)
             })
-        }else{
+        } else {
             setSitio({
                 ...sitio,
                 [event.target.name]: event.target.value
             })
-        }       
+        }
+    }
+
+    const success = (message) => {
+        store.addNotification({
+            title: "Perfecto!",
+            message: message,
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animated", "fadeInDown"],
+            animationOut: ["animated", "fadeOut"],
+            dismiss: {
+                duration: 5000,
+                onScreen: false
+            }
+        });
+        getidSitio(response.data.id)
+        nextStep()
+    }
+
+    const error = (message) => {
+        store.addNotification({
+            title: "Oops!",
+            message: message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animated", "fadeInDown"],
+            animationOut: ["animated", "fadeOut"],
+            dismiss: {
+                duration: 5000,
+                onScreen: false
+            }
+        });
     }
 
     const handlerSubmit = (e) => {
         e.preventDefault()
-        axios.post(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos', sitio)
-        .then(response => {
-            store.addNotification({
-                title: "Perfecto!",
-                message: "Tu sitio turistico fue creado exitosamente",
-                type: "success",
-                insert: "top",
-                container: "top-right",
-                animationIn: ["animated", "fadeInDown"],
-                animationOut: ["animated", "fadeOut"],
-                dismiss: {
-                  duration: 5000,
-                  onScreen: false
-                }
-            });
-            GetLastIdSitio(response.data.id)
-            Continue()
-        })
-        .catch(error => {
-            console.log(error);
-            store.addNotification({
-                title: "Ups!",
-                message: "Tu sitio turistico no ha podido ser creado",
-                type: "danger",
-                insert: "top",
-                container: "top-right",
-                animationIn: ["animated", "fadeInDown"],
-                animationOut: ["animated", "fadeOut"],
-                dismiss: {
-                    duration: 5000,
-                    onScreen: false
-                }
-            });
-        })
-    }
-
-    const GetLastIdSitio = (x) => {
-        getidSitio(x)
+        if (location.state && location.state.sitio) {
+            var id = location.state.sitio
+            axios.put(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos/' + id, sitio)
+                .then(() => {
+                    success("Tu sitio turistico fue actualizado exitosamente")
+                })
+                .catch(err => {
+                    console.log(err);
+                    error("Ocurrio un error y no se pudo actualizar el sitio turistico")
+                })
+        } else {
+            axios.post(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos', sitio)
+                .then(() => {
+                    success("Tu sitio turistico fue creado exitosamente")
+                })
+                .catch(err => {
+                    console.log(err);
+                    error("Ocurrio un error y no se pudo crear el sitio turistico")
+                })
+        }
     }
 
     useEffect(() => {
         getMunicipios(sitio.Departamento)
     }, [getMunicipios, sitio.Departamento])
-    
+
     useEffect(() => {
         getDepartamentos(sitio.Region)
     }, [getDepartamentos, sitio.Region])
 
     useEffect(() => {
         sitio.PropietarioId = parseInt(user.id)
-    }, [])
+    }, [sitio, user])
+
+    useEffect(() => {
+        if (location.state && location.state.sitio) {
+            axios.get(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos/'+location.state.sitio)
+            .then(res =>{
+                setSitio({
+                    Id: res.data.id,
+                    Nombre: res.data.nombre,
+                    Descripcion: res.data.descripcion,
+                    Capacidad: res.data.capacidad,
+                    Region: res.data.region,
+                    Municipio: res.data.municipio,
+                    Departamento: res.data.departamento,
+                    PropietarioId: res.data.propietarioId,
+                })
+            })
+            .catch( error =>{
+                console.log(error)
+            })
+        }else{
+            setSitio({
+                Nombre: "",
+                Descripcion: "",
+                Capacidad: 1,
+                Region: "",
+                Municipio: "",
+                Departamento: "",
+                PropietarioId: user.Id
+            })
+        }
+    }, [location.state, user])
 
 
-    const Continue = (e) => {
-        nextStep()
-    }
     
     return (
     <div className="col col-form ">
@@ -99,7 +147,6 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
         -------------------------------------------PARA VANESSA------------------------------------------------------
         {<img src={process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/134"} width="80" height="140" alt=""/>}   
         */}
-        <h1 className="titulo-form">Ingrese los datos del sitio turistico</h1>
         <form method="post" encType="multipart/form-data">
             <div className="form-group">
                 <label htmlFor="Nombre">Nombre</label>
@@ -108,6 +155,7 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
                     className="form-control" 
                     type="text" 
                     onChange={onChange}
+                    value = {sitio.Nombre}
                     autoFocus
                 />
             </div>
@@ -117,6 +165,7 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
                     name="Descripcion"
                     className="form-control"
                     type="text"
+                    value = {sitio.Descripcion}
                     onChange={onChange}
                 />
             </div>
@@ -127,6 +176,7 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
                     className="form-control"
                     type="number"
                     min = "1"
+                    value = {sitio.Capacidad}
                     onChange={onChange}
                 />
             </div>
@@ -136,6 +186,7 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
                     name="Region"
                     className="form-control"
                     type="text"
+                    value = {sitio.Region}
                     onChange={onChange}
                 >
                     <option>Seleccione una opcion</option>
@@ -153,6 +204,7 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
                     name="Departamento"
                     className="form-control"
                     type="text"
+                    value = {sitio.Departamento}
                     onChange={onChange}
                 >
                     <option>Seleccione una opcion</option>
@@ -170,6 +222,7 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
                     name="Municipio"
                     className="form-control"
                     type="text"
+                    value = {sitio.Municipio}
                     onChange={onChange}
                 >
                     <option>Seleccione una opcion</option>

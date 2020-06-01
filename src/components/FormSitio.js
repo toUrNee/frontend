@@ -42,11 +42,11 @@ function FormSitio (){
             <div className="row align-items-center">
                 {/* Columna de color con imagen */}
                 <div className="col col-color-yellow">
-                    <header>
-                        <h1 className="titulo-form-color">Crear Sitio Turistico</h1>
-                        {<img className="img-fluid mx-auto d-block img-form" src={img} alt="cool airplane" />}
-                    </header>
-                </div>
+                <header>
+                    <h1 className="titulo-form-color">{location.state && location.state.sitio ? "Actualizar":"Crear"} Sitio Turistico</h1>
+                    {<img className="img-fluid mx-auto d-block img-form" src={img} alt="cool airplane" />}
+                </header>
+            </div>
                 {showStep()}    
             </div>
         </div>

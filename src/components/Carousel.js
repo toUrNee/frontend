@@ -23,15 +23,16 @@ const Carousel = () => {
                 {/*Crea el carrusel con los slides de las regiones*/}
                 <div className="carousel-inner" id="regiones-slide">
                     {regiones.map(region => (
-                        <div key={region.nombre} className={'carousel-item'+ (region.nombre === "Región Llano"  ? " active" : "")}>
+                        <div key={region.nombre} className={'carousel-item' + (region.nombre === "Región Llano" ? " active" : "")}>
                             <img src={region.img} alt={region.nombre} className="d-block w-100" ></img>
                             <div className="carousel-caption">
                                 <h1>{region.nombre}</h1>
                                 <Link to={{
                                     pathname: `/publicaciones`,
                                     state: {
-                                        region: { region }
-                                    },
+                                        region: region.nombre,
+                                        img: region.img
+                                    }
                                 }}>
                                     <button type="button" className="btn ">Ver planes</button>
                                 </Link>
