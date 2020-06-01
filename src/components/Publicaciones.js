@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { PublicacionContext } from '../context/PublicacionContext';
 import Card from './CardPublicacion';
-import CirculoFiltro from './CirculoFiltro';
 import portada from '../images/portada.jpg'
 
 
@@ -44,7 +43,7 @@ const Publicaciones = (props) => {
             setFiltroRegion(true)
         }
         getActividades()
-    }, [props.location.state, getPublicacionesByRegion])
+    }, [props.location.state, getPublicaciones, getPublicacionesByRegion, getActividades])
 
     //Filtra las publicaciones por region y/o por actividades
     function filtrar() {
@@ -96,36 +95,62 @@ const Publicaciones = (props) => {
                         {region.nombre}
                     </div>
 
-                    <div className="col filter-title">
-                        <h2>Selecciona tus actividades de interés </h2>
+                    <div className="row filter-title">
+                        <h2 className="col"> Selecciona tus actividades de interés </h2>
+
+                        {/* Modal de Bootstrap*/}
+
+                        <div className="col" style={{ textAlign: "right" }}>
+                            <button type="button" class="btn btn btn-warning" data-toggle="modal" data-target="#exampleModalLong" style={{ opacity: "50%" }}> ? </button>
+
+                            <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Actividades</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {actividades.map((actividad, index) => (
+                                                <div className="row" style={{ margin: "5px" }} key={actividad.id}>
+                                                    <h5 className="col">{actividad.nombre}</h5>
+                                                    <p className="col" style={{ color: 'black', fontSize: "13px", textAlign: "justify" }}>{actividad.descripcion}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
 
                     <div className="row circles">
 
                         {actividades.map((actividad, index) => (
-                            console.log(actividades),
-                            <div className="col" >
+                            <div className="col" key={actividad.id}>
                                 <div className="circle-item">
                                     <button className="boton-circular inactive" id={'boton-act-' + actividad.id} onClick={() => addFilter(actividad)}>
-                                        <i className={actividad.icono} title={actividad.nombre}>
-
-                                        </i><p>{actividad.nombre}</p>
+                                        <i className={actividad.icono} title={actividad.nombre} />
+                                        <p>{actividad.nombre}</p>
                                     </button>
                                 </div>
                             </div>
                         ))}
                     </div>
 
-                    <button type="button" class="btn btn-warning" style={{ marginBottom: "40px" }} onClick={filtrar}>Filtrar</button>
+                    <button type="button" className="btn btn-warning" style={{ marginBottom: "40px" }} onClick={filtrar}>Filtrar</button>
 
                     <div className="card-columns">
                         <div>
                             {publicaciones.map(publicacion => (
                                 <Card
-                                    id={publicacion.id}
-                                    titulo={publicacion.titulo}
-                                    descripcion={publicacion.descripcion}
-                                    precio={publicacion.precio}
+                                    publicacion={publicacion}
                                     key={publicacion.id}
                                 />
                             ))
