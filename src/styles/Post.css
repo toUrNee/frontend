@@ -1,4 +1,4 @@
-/* -------- TARJETAS PLANES ---------*/ 
+/* -------- TARJETAS PLANES ---------*/
 
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -26,49 +26,212 @@
   color: #EE7120;
 }
 
-/* ------ CIRCULOS ----*/
-
-.portada .titulo{
+.portada .titulo {
   align-items: center;
 }
 
-.circles {
-  margin: 80px;
-}
+/* ------ CIRCULOS ----*/
 
-.circles .col{
-  height: 80px;
+.circles {
+  position: relative;
+  color: black;
+  margin-top: 50px;
+  margin-bottom: 50px;
   text-align: center;
 }
-.circles .circle-item {
-  max-width: 18rem;
+
+.circles .col {
   font-size: 30px;
 }
 
-.circles .circle-item i {
+.circles .circle-item .active {
   display: inline-block;
-  background: #f59c12;
+  background: #F35C22;
   color: #212529;
-  width: 75px;
-  height: 70px;
-  border-radius: 50px;
-  padding: 0.7em 0.7em;
+  border-radius: 100%;
 }
 
-.circles .circle-item p{
-  display: none;
-}
-
-.circles .circle-item i:hover p{
+.circles .circle-item .inactive {
   display: inline-block;
-  margin-left: 10px;
-  font-size: 15px;
-  width: 90px;
+  background: #FFCC52;
+  color: #212529;
+  border-radius: 100%;
 }
 
-.circles .col i:hover{
+.circles .circle-item p {
   font-size: 20px;
-  text-align: justify;
-  background: transparent;
+  width: 100%;
+  height: 60px;
+  overflow: hidden;
+  text-align: center;
+  padding: 1px;
 }
 
+
+.circles .circle-item i{
+  margin-top: 20px;
+}
+
+.circles .circle-item .boton-circular {
+  border: 0;
+  outline: none;
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+
+
+.filter-title {
+  color: rgb(126, 67, 28);
+  margin-top: 50px;
+}
+
+@media screen and (max-width: 1830px) {
+  .circles .circle-item .boton-circular {
+    width: 120px;
+    height: 120px;
+  }
+
+  .circles .circle-item p {
+    font-size: 15px;
+    height:70px;
+  }
+  
+  .circles .circle-item i{
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 1530px) {
+  .circles .circle-item .boton-circular {
+    width: 100px;
+    height: 100px;
+  }
+
+  .circles .circle-item p {
+    font-size: 13px;
+    height:70px;
+  }
+  
+  .circles .circle-item i{
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 1330px) {
+  .circles .circle-item .boton-circular {
+    width: 85px;
+    height: 85px;
+  }
+  .circles .circle-item p {
+    font-size: 10px;
+    height: 70px;
+    margin: 0;
+  }
+  
+  .circles .circle-item i{
+    margin-top: 0;
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 1170px) {
+  .circles .circle-item .boton-circular {
+    width: 150px;
+    height: 150px;
+  }
+  .circles .circle-item p {
+    font-size: 18px;
+    height: 70px;
+    margin: 0;
+  }
+  
+  .circles .circle-item i{
+    margin-top: 20px;
+    font-size: 50px;
+  }
+}
+
+@media screen and (max-width: 940px) {
+  .circles .circle-item .boton-circular {
+    width: 120px;
+    height: 120px;
+  }
+  .circles .circle-item p {
+    font-size: 15px;
+    height: 70px;
+    margin: 0;
+  }
+  
+  .circles .circle-item i{
+    margin-top: 20px;
+    font-size: 35px;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .circles .circle-item .boton-circular {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .circles .circle-item p {
+    font-size: 10px;
+    height: 70px;
+    margin: 0;
+  }
+  
+  .circles .circle-item i{
+    margin-top: 10px;
+    font-size: 25px;
+  }
+}
+
+@media screen and (max-width: 630px) {
+  .circles .circle-item .boton-circular {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .circles .circle-item p {
+    display: none;
+  }
+  
+  .circles .circle-item i{
+    margin-bottom: 10px;
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .circles .circle-item .boton-circular {
+    width: 50px;
+    height: 50px;
+  }
+
+  .circles .circle-item p {
+    display: none;
+  }
+  
+  .circles .circle-item i{
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .circles .circle-item .boton-circular {
+    width: 90px;
+    height: 90px;
+  }
+
+  .circles .circle-item p {
+    display: none;
+  }
+  
+  .circles .circle-item i{
+    font-size: 30px;
+  }
+}
