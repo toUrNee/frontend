@@ -228,6 +228,7 @@ const AddSitioTuristico = () => {
                                     </option>
                                 )}
                             </select>
+
                         </div>
                         <button type="submit" className="btn btn-form" onClick={crearSitio}>Submit</button>
                     </form>
