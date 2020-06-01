@@ -4,7 +4,6 @@ import img from '../images/crear-sitio-tur.png';
 import { useHistory, useLocation } from "react-router-dom";
 import { store } from 'react-notifications-component';
 import { AuthContext } from '../context/AuthContext';
-import { SitioContext } from '../context/SitioContext';
 import { ExternalDataContext } from '../context/ExternalDataContext';
 
 
@@ -14,7 +13,6 @@ const AddSitioTuristico = () => {
     const location = useLocation();
     const { user, crearSitio } = useContext(AuthContext)
     const { regiones, departamentos, municipios, getDepartamentos, getMunicipios } = useContext(ExternalDataContext)
-    const { sitios } = useContext(SitioContext)
 
     const [sitio, setSitio] = useState({
         Nombre: "",
@@ -75,7 +73,7 @@ const AddSitioTuristico = () => {
 
     const handlerSubmit = (e) => {
         e.preventDefault()
-        if (location.state) {
+        if (location.state && location.state.sitio) {
             var id = location.state.sitio
             axios.put(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos/' + id, sitio)
                 .then(() => {
@@ -110,21 +108,35 @@ const AddSitioTuristico = () => {
     }, [sitio, user])
 
     useEffect(() => {
-        if (location.state) {
-            var index = location.state.index
-            setSitio({
-                Id: sitios[index].id,
-                Nombre: sitios[index].nombre,
-                Descripcion: sitios[index].descripcion,
-                Capacidad: sitios[index].capacidad,
-                Region: sitios[index].region,
-                Municipio: sitios[index].municipio,
-                Departamento: sitios[index].departamento,
-                PropietarioId: sitios[index].propietarioId,
+        if (location.state && location.state.sitio) {
+            axios.get(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos/'+location.state.sitio)
+            .then(res =>{
+                setSitio({
+                    Id: res.data.id,
+                    Nombre: res.data.nombre,
+                    Descripcion: res.data.descripcion,
+                    Capacidad: res.data.capacidad,
+                    Region: res.data.region,
+                    Municipio: res.data.municipio,
+                    Departamento: res.data.departamento,
+                    PropietarioId: res.data.propietarioId,
+                })
             })
-
+            .catch( error =>{
+                console.log(error)
+            })
+        }else{
+            setSitio({
+                Nombre: "",
+                Descripcion: "",
+                Capacidad: 1,
+                Region: "",
+                Municipio: "",
+                Departamento: "",
+                PropietarioId: user.Id
+            })
         }
-    }, [location.state, sitios])
+    }, [location.state, user])
 
     return (
         <div className="container-fluid form-container ">
@@ -132,7 +144,7 @@ const AddSitioTuristico = () => {
                 {/* Columna de color con imagen */}
                 <div className="col col-color-yellow">
                     <header>
-                        <h1 className="titulo-form-color">{location.state ? "Actualizar":"Crear"} Sitio Turistico</h1>
+                        <h1 className="titulo-form-color">{location.state && location.state.sitio ? "Actualizar":"Crear"} Sitio Turistico</h1>
                         {<img className="img-fluid mx-auto d-block img-form" src={img} alt="cool airplane" />}
                     </header>
                 </div>
@@ -180,7 +192,7 @@ const AddSitioTuristico = () => {
                                 type="text"
                                 onChange={onChange}
                                 value={sitio.Region}
-                                disabled={location.state}
+                                disabled={location.state && location.state.sitio}
                             >
                                 <option>Seleccione una opcion</option>
                                 {regiones.map(region =>
@@ -199,7 +211,7 @@ const AddSitioTuristico = () => {
                                 type="text"
                                 onChange={onChange}
                                 value={sitio.Departamento}
-                                disabled={location.state}
+                                disabled={location.state && location.state.sitio}
                             >
                                 <option>Seleccione una opcion</option>
                                 {departamentos.map(departamento =>
@@ -218,7 +230,7 @@ const AddSitioTuristico = () => {
                                 type="text"
                                 onChange={onChange}
                                 value={sitio.Municipio}
-                                disabled={location.state}
+                                disabled={location.state && location.state.sitio}
                             >
                                 <option>Seleccione una opcion</option>
                                 {municipios.map(municipio =>
@@ -228,6 +240,7 @@ const AddSitioTuristico = () => {
                                     </option>
                                 )}
                             </select>
+
                         </div>
                         <button type="submit" className="btn btn-form" onClick={crearSitio}>Submit</button>
                     </form>
