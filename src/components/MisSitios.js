@@ -39,7 +39,6 @@ const MisSitios = (props) => {
                             <CardSitio
                                 key={sitio.id}
                                 id={sitio.id}
-                                index={index}
                                 nombre={sitio.nombre}
                                 descripcion={sitio.descripcion}
                             />

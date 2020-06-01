@@ -73,6 +73,7 @@ const CardSitio = (props) => {
                         </div>
                     </>
                 }          
+
             </div>
         </div>
      );
