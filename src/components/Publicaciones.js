@@ -9,68 +9,56 @@ const Publicaciones = (props) => {
 
     const { loading, publicaciones, actividades, getPublicaciones, getPublicacionesByRegion, getActividades, getPublicacionesByActividades, getPublicacionesByRegionAndActividades } = useContext(PublicacionContext)
 
-
+    //Estado por defecto
     const [region, setRegion] = useState({
         nombre: "Colombia",
         img: portada
     })
 
+    //Arreglo de actividades activas en el filtro
     const [filtroActividad, setfiltroActividad] = useState([])
 
+    //Booleano si es filtro por region
     const [filtroRegion, setFiltroRegion] = useState(props.location.state)
 
+    //Trae las publicaciones y las actividades
     useEffect(() => {
         if (!props.location.state) {
             getPublicaciones()
-        }
-        getActividades()
-    }, [props.location.state])
-
-
-    useEffect(() => {
-        if (props.location.state) {
+        } else {
             setRegion({
                 nombre: props.location.state.region,
                 img: props.location.state.img
             })
             getPublicacionesByRegion(props.location.state.region)
-            getActividades()
             setFiltroRegion(true)
-            //console.log(filtroRegion)
         }
-        setfiltroActividad([])
-        //console.log(filtroRegion)
+        getActividades()
     }, [props.location.state])
 
+    //Filtra las publicaciones por region y/o por actividades
     function filtrar() {
         if (filtroActividad.length > 0) {
-            //console.log(filtroActividad, filtroRegion);
             if (filtroRegion) {
-                //console.log("Region y actividad", filtroActividad, filtroRegion, region.nombre);
                 getPublicacionesByRegionAndActividades(filtroActividad, region.nombre)
             } else {
-                //console.log("Solo actividad", filtroActividad)
                 getPublicacionesByActividades(filtroActividad);
             }
         } else {
             if (filtroRegion) {
-                //console.log("Region y actividad", filtroActividad, filtroRegion, region.nombre);
                 getPublicacionesByRegion(region.nombre);
             } else {
-                //console.log("Solo actividad", filtroActividad)
                 getPublicaciones()
             }
         }
     }
 
+    //Agrega o quita la actividad del arreglo al hacer clic y cambia su color
     function addFilter(actividad) {
-        
         if (filtroActividad.indexOf(actividad.id) === -1) {
-            //console.log("No existe")
             setfiltroActividad(filtroActividad.concat(actividad.id))
             document.getElementById('boton-act-' + actividad.id).className = "boton-circular active"
         } else {
-            //console.log("Existe")
             document.getElementById('boton-act-' + actividad.id).className = "boton-circular inactive"
             var i = filtroActividad.indexOf(actividad.id);
             if (i !== -1) {
@@ -109,8 +97,8 @@ const Publicaciones = (props) => {
                             <div className="col" >
                                 <div className="circle-item">
                                     <button className="boton-circular inactive" id={'boton-act-' + actividad.id} onClick={() => addFilter(actividad)}>
-                                        <i className={actividad.icono } title={actividad.nombre}>
-                                        
+                                        <i className={actividad.icono} title={actividad.nombre}>
+
                                         </i><p>{actividad.nombre}</p>
                                     </button>
                                 </div>
@@ -118,10 +106,9 @@ const Publicaciones = (props) => {
                         ))}
                     </div>
 
-                    <button type="button" class="btn btn-warning" style={{ marginBottom: "40px"}} onClick={filtrar}>Filtrar</button>
+                    <button type="button" class="btn btn-warning" style={{ marginBottom: "40px" }} onClick={filtrar}>Filtrar</button>
 
                     <div className="card-columns">
-
                         <div>
                             {publicaciones.map(publicacion => (
                                 <Card
@@ -133,14 +120,10 @@ const Publicaciones = (props) => {
                             ))
                             }
                         </div>
-
                     </div>
-
                 </div>
-
             }
         </div >
-
     );
 }
 
