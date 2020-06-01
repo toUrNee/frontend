@@ -15,9 +15,9 @@ import Publicaciones from './components/Publicaciones';
 import Navbar from './components/Navbar';
 import Inicio from './components/Inicio';
 import Region from './components/Region';
-import AddSitioTuristico from './components/AddSitioTuristico';
 import AuthContextProvider, { AuthContext } from './context/AuthContext'
 import ExternalDataContextProvider from './context/ExternalDataContext'
+import FormSitio from './components/FormSitio'
 
 //Notifications library
 import ReactNotification from 'react-notifications-component'
@@ -46,7 +46,7 @@ function App() {
                 <AddPlan/>
               </PrivateRoute>
 			  <PrivateRoute path="/crear-sitio-turistico" exact>
-                <AddSitioTuristico/>
+                <FormSitio/>
               </PrivateRoute>
               <Route path="/publicaciones" exact component={Publicaciones} />
               <Route path="/publicaciones/:idregion" component={Region} />
