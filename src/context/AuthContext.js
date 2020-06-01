@@ -110,7 +110,7 @@ class AuthContextProvider extends Component {
         });
     }
 
-    crearSitio = (usuario) => {
+    cambiarRol = (usuario) => {
         this.setState({
             ...this.state,
             propietario: true,
@@ -129,6 +129,7 @@ class AuthContextProvider extends Component {
                 onScreen: false
             }
         })
+
         axios.put(process.env.REACT_APP_BACK_URL + '/Usuarios/rol/'+ usuario.id, usuario);
         localStorage.setItem('propietario', true)
     }
@@ -173,6 +174,8 @@ class AuthContextProvider extends Component {
                     isAuthenticated: false,
                     error: err
                 })
+                console.log(err.response)
+                console.log(err.response.data)
                 store.addNotification({
                     title: "Error",
                     message: err.response ? err.response.data : "Ocurrio un error en el registro, intenta mas tarde",
@@ -222,7 +225,7 @@ class AuthContextProvider extends Component {
                 registerUser: this.registerUser,
                 loginUser: this.loginUser,
                 logoutUser: this.logoutUser,
-                crearSitio: this.crearSitio,
+                cambiarRol: this.cambiarRol,
             }}>
                 {this.props.children}
             </AuthContext.Provider>

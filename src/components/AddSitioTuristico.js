@@ -11,7 +11,7 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
 
     const history = useHistory();
     const location = useLocation();
-    const { user, crearSitio } = useContext(AuthContext)
+    const { user, cambiarRol } = useContext(AuthContext)
     const { regiones, departamentos, municipios, getDepartamentos, getMunicipios } = useContext(ExternalDataContext)
 
     const [sitio, setSitio] = useState({
@@ -38,7 +38,7 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
         }
     }
 
-    const success = (message) => {
+    const success = (message, id) => {
         store.addNotification({
             title: "Perfecto!",
             message: message,
@@ -52,7 +52,7 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
                 onScreen: false
             }
         });
-        getidSitio(response.data.id)
+        getidSitio(id)
         nextStep()
     }
 
@@ -78,16 +78,18 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
             var id = location.state.sitio
             axios.put(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos/' + id, sitio)
                 .then(() => {
-                    success("Tu sitio turistico fue actualizado exitosamente")
+                    success("Tu sitio turistico fue actualizado exitosamente", id)
                 })
                 .catch(err => {
                     console.log(err);
                     error("Ocurrio un error y no se pudo actualizar el sitio turistico")
                 })
+
         } else {
             axios.post(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos', sitio)
-                .then(() => {
-                    success("Tu sitio turistico fue creado exitosamente")
+                .then((response) => {
+                    success("Tu sitio turistico fue creado exitosamente", response.data.id)
+                    cambiarRol(sitio)
                 })
                 .catch(err => {
                     console.log(err);

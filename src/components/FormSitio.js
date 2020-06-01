@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import img from '../images/crear-sitio-tur.png';
 import AddFile from './AddFile';
 import AddSitioTuristico from './AddSitioTuristico';
+import { useHistory, useLocation } from "react-router-dom";
 
 function FormSitio (){
+
+    const location = useLocation();
 
     const [step, setStep] = useState(1)
 
