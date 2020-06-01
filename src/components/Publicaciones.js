@@ -9,16 +9,21 @@ const Publicaciones = (props) => {
 
     const { loading, publicaciones, actividades, getPublicaciones, getPublicacionesByRegion, getActividades } = useContext(PublicacionContext)
 
-
     const [region, setRegion] = useState({
         nombre: "Colombia",
         img: portada
     })
 
     useEffect(() => {
-        getPublicaciones()
+        if (!props.location.state) {
+            setRegion({
+                nombre: "Colombia",
+                img: portada
+            })
+            getPublicaciones()
+        }
         getActividades()
-    }, [props.location.state])
+    }, [getActividades, getPublicaciones, props.location.state])
 
 
     useEffect(() => {
@@ -27,12 +32,10 @@ const Publicaciones = (props) => {
                 nombre: props.location.state.region,
                 img: props.location.state.img
             })
-            console.log(props.location.state)
-
             getPublicacionesByRegion(props.location.state.region)
         }
 
-    }, [props.location.state])
+    }, [props.location.state, getPublicacionesByRegion])
 
 
 
@@ -55,7 +58,7 @@ const Publicaciones = (props) => {
 
 
                         {actividades.map(actividad => (
-                            <CirculoFiltro icono={actividad.icono} nombre={actividad.nombre} />
+                            <CirculoFiltro icono={actividad.icono} nombre={actividad.nombre} key={actividad.id} />
                         ))}
 
                     </div>
@@ -68,6 +71,7 @@ const Publicaciones = (props) => {
                                     titulo={publicacion.titulo}
                                     descripcion={publicacion.descripcion}
                                     precio={publicacion.precio}
+                                    key={publicacion.id}
                                 />
                             ))}
                         </div>

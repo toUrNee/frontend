@@ -45,7 +45,7 @@ class ExternalDataContextProvider extends Component{
     }
 
     getMunicipios = (departamento) => {
-        axios.get(process.env.REACT_APP_REGIONES_URL, { params: {$select: 'municipio', $where: 'departamento = ' + '"' + departamento + '"'}})
+        axios.get(process.env.REACT_APP_REGIONES_URL, { params: {$select: 'municipio', $where: 'departamento = "' + departamento + '"'}})
         .then(res => {
             this.setState({
                 ...this.state,
@@ -61,7 +61,7 @@ class ExternalDataContextProvider extends Component{
     }
 
     getDepartamentos = (region) => {
-        axios.get(process.env.REACT_APP_REGIONES_URL, { params: {$select: 'departamento', $group: 'region,departamento', $where: 'region = ' + '"' + region + '"'}})
+        axios.get(process.env.REACT_APP_REGIONES_URL, { params: {$select: 'departamento', $group: 'region,departamento', $where: 'region = "' + region + '"'}})
         .then(res => {
             this.setState({
                 ...this.state,
