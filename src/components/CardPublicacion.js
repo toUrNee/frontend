@@ -10,7 +10,7 @@ const Card = (props) => {
         <div className="card" >
 
             <Link to="/">
-                <img className="card-img-top" src="https://picsum.photos/800/400" alt="Imagen plan" />
+                <img className="card-img-top" src={process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/" + props.publicacion.sitioId} alt="Imagen plan" />
 
                 <div className="card-img-overlay d-flex justify-content-end">
                     <p to="/" className="card-link text-danger like">

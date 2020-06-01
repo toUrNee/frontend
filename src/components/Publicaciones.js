@@ -150,7 +150,7 @@ const Publicaciones = (props) => {
                         <div>
                             {publicaciones.map(publicacion => (
                                 <Card
-                                    publicacion={publicacion}
+                                    publicacion = {publicacion}
                                     key={publicacion.id}
                                 />
                             ))

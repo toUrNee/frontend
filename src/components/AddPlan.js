@@ -155,6 +155,7 @@ const AddPlan = () => {
                                 className="form-control"
                                 type="text"
                                 autoFocus
+                                required
                                 value = {publicacion.Titulo}
                                 onChange={onChange}
                             />
@@ -166,8 +167,9 @@ const AddPlan = () => {
                                 className="form-control"
                                 type="datetime-local"
                                 min="2020-05-03T00:00"
+                                onChange={onChange}
+                                required
                                 value = {publicacion.Fecha}
-                                onChange={onChange} //revisar esto porque tampoco debe ser asi
                             />
                         </div>
                             <div className="form-group">
@@ -177,6 +179,7 @@ const AddPlan = () => {
                                     className="form-control"
                                     type="number"
                                     onChange={onChange}
+                                    required
                                     value={publicacion.SitioId}
                                     disabled={location.state && location.state.publicacion}
                                 >
@@ -197,6 +200,7 @@ const AddPlan = () => {
                                 className="form-control"
                                 rows="3"
                                 onChange={onChange}
+                                required
                                 value = {publicacion.Descripcion}
                             />
                         </div>
@@ -208,6 +212,7 @@ const AddPlan = () => {
                                 type="number"
                                 min="0"
                                 onChange={onChange}
+                                required
                                 value = {publicacion.Precio}
                             />
                         </div>

@@ -14,11 +14,10 @@ import AddPlan from './components/AddPlan';
 import Publicaciones from './components/Publicaciones';
 import Navbar from './components/Navbar';
 import Inicio from './components/Inicio';
-import AddSitioTuristico from './components/AddSitioTuristico';
 import AuthContextProvider, { AuthContext } from './context/AuthContext'
 import ExternalDataContextProvider from './context/ExternalDataContext'
+import FormSitio from './components/FormSitio'
 import PublicacionContextProvider from './context/PublicacionContext'
-
 
 //Notifications library
 import ReactNotification from 'react-notifications-component'
@@ -70,7 +69,9 @@ function App() {
 
 
                                     <PrivateRoute path="/crear-plan" exact>
-                                        <AddPlan />
+                                        <PrivateRoutePropietario path="/crear-plan" exact>
+                                            <AddPlan />
+                                        </PrivateRoutePropietario>
                                     </PrivateRoute>
 
                                     <PrivateRoute path="/editar-plan" exact >
@@ -80,11 +81,13 @@ function App() {
                                     </PrivateRoute>
 
                                     <PrivateRoute path="/crear-sitio-turistico" exact >
-                                        <AddSitioTuristico />
+                                        <FormSitio />
                                     </PrivateRoute>
 
                                     <PrivateRoute path="/editar-sitio-turistico" exact >
-                                        <AddSitioTuristico />
+                                        <PrivateRoutePropietario path="/editar-sitio-turistico" exact >
+                                            <FormSitio />
+                                        </PrivateRoutePropietario>
                                     </PrivateRoute>
 
                                     <Route exact path="/publicaciones" render={(props) => <Publicaciones {...props} />} />

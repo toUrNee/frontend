@@ -1,17 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import img from '../images/crear-sitio-tur.png';
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { store } from 'react-notifications-component';
 import { AuthContext } from '../context/AuthContext';
 import { ExternalDataContext } from '../context/ExternalDataContext';
 
 
-const AddSitioTuristico = () => {
+const AddSitioTuristico = ({nextStep , getidSitio}) => {
 
-    const history = useHistory();
     const location = useLocation();
-    const { user, crearSitio } = useContext(AuthContext)
+    const { user, cambiarRol } = useContext(AuthContext)
     const { regiones, departamentos, municipios, getDepartamentos, getMunicipios } = useContext(ExternalDataContext)
 
     const [sitio, setSitio] = useState({
@@ -38,7 +36,7 @@ const AddSitioTuristico = () => {
         }
     }
 
-    const success = (message) => {
+    const success = (message, id) => {
         store.addNotification({
             title: "Perfecto!",
             message: message,
@@ -52,7 +50,8 @@ const AddSitioTuristico = () => {
                 onScreen: false
             }
         });
-        history.push('/perfil/sitios')
+        getidSitio(id)
+        nextStep()
     }
 
     const error = (message) => {
@@ -77,16 +76,18 @@ const AddSitioTuristico = () => {
             var id = location.state.sitio
             axios.put(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos/' + id, sitio)
                 .then(() => {
-                    success("Tu sitio turistico fue actualizado exitosamente")
+                    success("Tu sitio turistico fue actualizado exitosamente", id)
                 })
                 .catch(err => {
                     console.log(err);
                     error("Ocurrio un error y no se pudo actualizar el sitio turistico")
                 })
+
         } else {
             axios.post(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos', sitio)
-                .then(() => {
-                    success("Tu sitio turistico fue creado exitosamente")
+                .then((response) => {
+                    success("Tu sitio turistico fue creado exitosamente", response.data.id)
+                    cambiarRol(sitio)
                 })
                 .catch(err => {
                     console.log(err);
@@ -138,115 +139,100 @@ const AddSitioTuristico = () => {
         }
     }, [location.state, user])
 
-    return (
-        <div className="container-fluid form-container ">
-            <div className="row align-items-center">
-                {/* Columna de color con imagen */}
-                <div className="col col-color-yellow">
-                    <header>
-                        <h1 className="titulo-form-color">{location.state && location.state.sitio ? "Actualizar":"Crear"} Sitio Turistico</h1>
-                        {<img className="img-fluid mx-auto d-block img-form" src={img} alt="cool airplane" />}
-                    </header>
-                </div>
-                {/* Columna de formulario */}
-                <div className="col col-form ">
-                    <h1 className="titulo-form">Ingrese los datos del sitio turistico</h1>
-                    <form onSubmit={handlerSubmit}>
-                        <div className="form-group">
-                            <label htmlFor="Nombre">Nombre</label>
-                            <input
-                                name="Nombre"
-                                className="form-control"
-                                type="text"
-                                onChange={onChange}
-                                autoFocus
-                                value={sitio.Nombre}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="Descripcion">Descripcion</label>
-                            <input
-                                name="Descripcion"
-                                className="form-control"
-                                type="text"
-                                value={sitio.Descripcion}
-                                onChange={onChange}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="Capacidad">Capacidad</label>
-                            <input
-                                name="Capacidad"
-                                className="form-control"
-                                type="number"
-                                min="1"
-                                value={sitio.Capacidad}
-                                onChange={onChange}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="Region">Region</label>
-                            <select
-                                name="Region"
-                                className="form-control"
-                                type="text"
-                                onChange={onChange}
-                                value={sitio.Region}
-                                disabled={location.state && location.state.sitio}
-                            >
-                                <option>Seleccione una opcion</option>
-                                {regiones.map(region =>
-                                    <option
-                                        value={region.nombre} key={region.nombre}>
-                                        {region.nombre}
-                                    </option>
-                                )}
-                            </select>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="Departamento">Departamento</label>
-                            <select
-                                name="Departamento"
-                                className="form-control"
-                                type="text"
-                                onChange={onChange}
-                                value={sitio.Departamento}
-                                disabled={location.state && location.state.sitio}
-                            >
-                                <option>Seleccione una opcion</option>
-                                {departamentos.map(departamento =>
-                                    <option
-                                        value={departamento.departamento} key={departamento.departamento}>
-                                        {departamento.departamento}
-                                    </option>
-                                )}
-                            </select>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="Municipio">Municipio</label>
-                            <select
-                                name="Municipio"
-                                className="form-control"
-                                type="text"
-                                onChange={onChange}
-                                value={sitio.Municipio}
-                                disabled={location.state && location.state.sitio}
-                            >
-                                <option>Seleccione una opcion</option>
-                                {municipios.map(municipio =>
-                                    <option
-                                        value={municipio.municipio} key={municipio.municipio}>
-                                        {municipio.municipio}
-                                    </option>
-                                )}
-                            </select>
 
-                        </div>
-                        <button type="submit" className="btn btn-form" onClick={crearSitio}>Submit</button>
-                    </form>
-                </div>
+    
+    return (
+    <div className="col col-form ">
+        <form method="post" encType="multipart/form-data">
+            <div className="form-group">
+                <label htmlFor="Nombre">Nombre</label>
+                <input 
+                    name="Nombre" 
+                    className="form-control" 
+                    type="text" 
+                    onChange={onChange}
+                    value = {sitio.Nombre}
+                    autoFocus
+                />
             </div>
-        </div>
+            <div className="form-group">
+                <label htmlFor="Descripcion">Descripcion</label>
+                <input 
+                    name="Descripcion"
+                    className="form-control"
+                    type="text"
+                    value = {sitio.Descripcion}
+                    onChange={onChange}
+                />
+            </div>
+            <div className="form-group">
+                <label htmlFor="Capacidad">Capacidad</label>
+                <input 
+                    name="Capacidad"
+                    className="form-control"
+                    type="number"
+                    min = "1"
+                    value = {sitio.Capacidad}
+                    onChange={onChange}
+                />
+            </div>
+            <div className="form-group">      
+                <label htmlFor="Region">Region</label>
+                <select 
+                    name="Region"
+                    className="form-control"
+                    type="text"
+                    value = {sitio.Region}
+                    onChange={onChange}
+                >
+                    <option>Seleccione una opcion</option>
+                    {regiones.map(region =>
+                        <option
+                        value={region.nombre} key={region.nombre}>
+                        {region.nombre}
+                        </option>
+                    )}
+                </select>
+            </div>
+            <div className="form-group">      
+                <label htmlFor="Departamento">Departamento</label>
+                <select 
+                    name="Departamento"
+                    className="form-control"
+                    type="text"
+                    value = {sitio.Departamento}
+                    onChange={onChange}
+                >
+                    <option>Seleccione una opcion</option>
+                    {departamentos.map(departamento =>
+                        <option
+                        value={departamento.departamento} key={departamento.departamento}>
+                        {departamento.departamento}
+                        </option>
+                    )}
+                </select>
+            </div>
+            <div className="form-group">      
+                <label htmlFor="Municipio">Municipio</label>
+                <select 
+                    name="Municipio"
+                    className="form-control"
+                    type="text"
+                    value = {sitio.Municipio}
+                    onChange={onChange}
+                >
+                    <option>Seleccione una opcion</option>
+                    {municipios.map(municipio =>
+                        <option
+                        value={municipio.municipio} key={municipio.municipio}>
+                        {municipio.municipio}
+                        </option>
+                    )}
+                </select>
+            </div>
+        <button className="btn btn-form" onClick={handlerSubmit}>Siguiente</button>
+        </form>
+    </div>
     )
 }
 
