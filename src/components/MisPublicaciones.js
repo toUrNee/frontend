@@ -7,6 +7,7 @@ import '../styles/PerfilPropietario.css'
 import CardSitio from './CardSitio';
 
 const MisPublicaciones = (props) => {
+
     const { loading, publicaciones, getPublicacionesById } = useContext(PublicacionContext)
     const { user } = useContext(AuthContext)
 
@@ -35,15 +36,15 @@ const MisPublicaciones = (props) => {
                     </div>
                     :
                     <div className="row perfil-container">
-                        {publicaciones.map(sitio => (
+                        {publicaciones.map((publicacion, index) => (
                             <CardSitio
-                                id={sitio.id}
-                                nombre={sitio.titulo}
-                                descripcion={sitio.descripcion}
-                                key={sitio.id}
+                                id={publicacion.id}
+                                nombre={publicacion.titulo}
+                                descripcion={publicacion.descripcion}
+                                index={index}
+
                             />
                         ))}
-
                     </div>
                 }
 
