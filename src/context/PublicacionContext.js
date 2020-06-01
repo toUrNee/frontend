@@ -91,6 +91,26 @@ class PublicacionContextProvider extends Component{
         })
     }
 
+    deletePublicacionesById = (id, index) => {
+        axios.delete(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + id)
+        .then(res =>{
+            var aux = this.state.publicaciones
+            aux.splice(index,1)
+            this.setState({
+                ...this.state,
+                publicaciones: aux,
+                loading: false
+            })
+        })
+        .catch(error =>{
+            console.log(error)
+            this.setState({
+                ...this.state,
+                loading: false
+            })
+        })
+    }
+
     render(){
         return(
             <PublicacionContext.Provider value={{
@@ -99,6 +119,7 @@ class PublicacionContextProvider extends Component{
                 getPublicacionesById:this.getPublicacionesById,
                 getActividades: this.getActividades,
                 getPublicacionesByRegion: this.getPublicacionesByRegion,
+                deletePublicacionesById: this.deletePublicacionesById,
             }}>
                 {this.props.children}
             </PublicacionContext.Provider>
