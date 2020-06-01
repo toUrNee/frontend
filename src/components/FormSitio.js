@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import img from '../images/crear-sitio-tur.png';
 import AddFile from './AddFile';
 import AddSitioTuristico from './AddSitioTuristico';
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function FormSitio (){
 
@@ -13,13 +13,13 @@ function FormSitio (){
     const [idSitio, setidSitio] = useState(0)
 
     const showStep = () => {
-        if(step == 1){
+        if(step === 1){
             return <AddSitioTuristico
                 nextStep = {nextStep}
                 getidSitio = {getidSitio}
             />
         }
-        if(step == 2){
+        if(step === 2){
             return <AddFile
                 prevStep = {prevStep}
                 idSitio = {idSitio}

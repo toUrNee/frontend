@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import img from '../images/crear-sitio-tur.png';
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { store } from 'react-notifications-component';
 import { AuthContext } from '../context/AuthContext';
 import { ExternalDataContext } from '../context/ExternalDataContext';
@@ -9,7 +8,6 @@ import { ExternalDataContext } from '../context/ExternalDataContext';
 
 const AddSitioTuristico = ({nextStep , getidSitio}) => {
 
-    const history = useHistory();
     const location = useLocation();
     const { user, cambiarRol } = useContext(AuthContext)
     const { regiones, departamentos, municipios, getDepartamentos, getMunicipios } = useContext(ExternalDataContext)

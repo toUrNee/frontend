@@ -4,10 +4,9 @@ import NavPropietario from './NavPropietario';
 import { PublicacionContext } from '../context/PublicacionContext';
 import { AuthContext } from '../context/AuthContext'
 import '../styles/PerfilPropietario.css'
-import CardSitio from './CardSitio';
 
 const MisPublicaciones = (props) => {
-    const { loading, publicaciones, getPublicacionesById } = useContext(PublicacionContext)
+    const { loading, getPublicacionesById } = useContext(PublicacionContext)
     const { user } = useContext(AuthContext)
 
     useEffect(() => {
