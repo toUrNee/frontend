@@ -38,9 +38,7 @@ const MisSitios = (props) => {
                         {sitios.map((sitio, index) => (
                             <CardSitio
                                 key={sitio.id}
-                                id={sitio.id}
-                                nombre={sitio.nombre}
-                                descripcion={sitio.descripcion}
+                                sitio={sitio}
                             />
                         ))}
 

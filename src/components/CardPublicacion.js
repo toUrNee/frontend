@@ -7,10 +7,10 @@ import {
 
 const Card = (props) => {
     return (
-        <div className="card" key={props.id}>
+        <div className="card">
 
             <Link to="/">
-                <img className="card-img-top" src="https://picsum.photos/800/400" alt="Imagen plan" />
+                <img className="card-img-top" src={process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/" + props.publicacion.sitioId} alt="Imagen plan" />
 
                 <div className="card-img-overlay d-flex justify-content-end">
                     <p to="/" className="card-link text-danger like">
@@ -20,11 +20,11 @@ const Card = (props) => {
                     </p>
                 </div>
                 <div className="card-img-overlay">
-                    <p to="/" className="btn btn-warning btn-sm ">{'$ ' + props.precio}</p>
+                    <p to="/" className="btn btn-warning btn-sm ">{'$ ' + props.publicacion.precio}</p>
                 </div>
                 <div className="card-body">
-                    <h2 className="card-title">{props.titulo}</h2>
-                    <p className="card-text">{props.descripcion}</p>
+                    <h2 className="card-title">{props.publicacion.titulo}</h2>
+                    <p className="card-text">{props.publicacion.descripcion}</p>
                 </div>
                 <div className="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
                     {/*<div className="date">

@@ -35,14 +35,14 @@ const MisPublicaciones = (props) => {
                     </div>
                     :
                     <div className="row perfil-container">
-                        {publicaciones.map(sitio => (
+                        {/*publicaciones.map(sitio => (
                             <CardSitio
                                 id={sitio.id}
                                 nombre={sitio.titulo}
                                 descripcion={sitio.descripcion}
                                 key={sitio.id}
                             />
-                        ))}
+                        ))*/}
 
                     </div>
                 }

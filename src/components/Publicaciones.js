@@ -67,10 +67,7 @@ const Publicaciones = (props) => {
                         <div>
                             {publicaciones.map(publicacion => (
                                 <Card
-                                    id={publicacion.id}
-                                    titulo={publicacion.titulo}
-                                    descripcion={publicacion.descripcion}
-                                    precio={publicacion.precio}
+                                    publicacion = {publicacion}
                                     key={publicacion.id}
                                 />
                             ))}

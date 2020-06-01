@@ -7,11 +7,11 @@ const CardSitio = (props) => {
         
         <div className="col-lg-4 col-md-6 perfil-item filter-app">
             <div className="perfil-wrap">
-                <img src="https://picsum.photos/500/400" className="img-fluid" alt="" />
+                <img src={process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/" + props.sitio.id} className="img-fluid" alt="" />
                 <div className="perfil-links">
                     <Link to={{
                         pathname: "/editar-sitio-turistico",
-                        state: {sitio: props.id}
+                        state: {sitio: props.sitio.id}
                         }} 
                         data-gall="perfilGallery" 
                         className="venobox" 
@@ -21,7 +21,7 @@ const CardSitio = (props) => {
                     <Link to="/" title="Eliminar"><i className="far fa-trash-alt"></i></Link>
                 </div>
                 <div className="perfil-info">
-                    <h4>{props.nombre}</h4>
+                    <h4>{props.sitio.nombre}</h4>
                     <p>.</p>
                 </div>
             </div>

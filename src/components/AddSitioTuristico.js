@@ -145,10 +145,6 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
     
     return (
     <div className="col col-form ">
-        {/*
-        -------------------------------------------PARA VANESSA------------------------------------------------------
-        {<img src={process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/134"} width="80" height="140" alt=""/>}   
-        */}
         <form method="post" encType="multipart/form-data">
             <div className="form-group">
                 <label htmlFor="Nombre">Nombre</label>
