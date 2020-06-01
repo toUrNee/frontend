@@ -11,7 +11,7 @@ const CardSitio = (props) => {
                 <div className="perfil-links">
                     <Link to={{
                         pathname: "/editar-sitio-turistico",
-                        state: {sitio: props.id, index: props.index}
+                        state: {sitio: props.id}
                         }} 
                         data-gall="perfilGallery" 
                         className="venobox" 
