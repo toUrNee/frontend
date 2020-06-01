@@ -72,6 +72,12 @@ function App() {
                                         <AddPlan />
                                     </PrivateRoute>
 
+                                    <PrivateRoute path="/editar-plan" exact >
+                                        <PrivateRoutePropietario path="/editar-plan">
+                                            <AddPlan />
+                                        </PrivateRoutePropietario>
+                                    </PrivateRoute>
+
                                     <PrivateRoute path="/crear-sitio-turistico" exact >
                                         <AddSitioTuristico />
                                     </PrivateRoute>

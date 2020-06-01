@@ -10,8 +10,8 @@ const CardSitio = (props) => {
                 <img src="https://picsum.photos/500/400" className="img-fluid" alt="" />
                 <div className="perfil-links">
                     <Link to={{
-                        pathname: "/editar-sitio-turistico",
-                        state: {sitio: props.id}
+                        pathname: "/editar-plan",
+                        state: {publicacion: props.id}
                         }} 
                         data-gall="perfilGallery" 
                         className="venobox" 
