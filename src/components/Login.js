@@ -85,7 +85,7 @@ const Login = () => {
                                 onChange={onChange}
                             />
                         </div>
-                        <button type="submit" className="btn btn-form">Submit</button>
+                        <button type="submit" className="btn btn-form">Iniciar sesión</button>
                         <p className="form-link">
                             ¿Nuevo usuario?{" "}
                             <Link to="/register">
