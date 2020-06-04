@@ -75,7 +75,7 @@ const CardSitio = (props) => {
                             </div>
                             <div className="perfil-info">
                                 <h4>{props.nombre}</h4>
-                                <p>{props.descripcion}</p>
+                                <p>.</p>
                             </div>
                         </>
                 }

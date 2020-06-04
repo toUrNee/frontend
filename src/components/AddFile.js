@@ -148,7 +148,7 @@ const AddFile = ({ prevStep, idSitio }) => {
           onScreen: false
         }
       });
-      history.push('/perfil')
+      history.push('/perfil/sitios')
     }
   }
 
@@ -184,7 +184,7 @@ const AddFile = ({ prevStep, idSitio }) => {
 
     <div className="col col-form">
       <header>
-        <h1 className="titulo-form-color"> Agrega imágenes</h1>
+        <h1 className="titulo-form-blue"> Agrega imágenes</h1>
       </header>
       <aside style={thumbsContainer}>
         {imagen.map((file, j) => (
@@ -202,8 +202,8 @@ const AddFile = ({ prevStep, idSitio }) => {
         <input {...getInputProps()} />
         <p>Arrasta y suelta tus archivos, o click aquí</p>
       </div>
-      <button className="btn btn-form" onClick={prevStep}>Atras</button>
-      <button className="btn btn-form" onClick={handlerSubmit}>Confirmar</button>
+      <button className="btn btn-form-blue" onClick={prevStep}>Atras</button>
+      <button className="btn btn-form-blue" onClick={handlerSubmit}>Confirmar</button>
     </div>
   );
 }

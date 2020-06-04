@@ -126,7 +126,7 @@ const Register = () => {
                                 onChange={onChange}
                                 required />
                         </div>
-                        <button type="submit" className="btn btn-form">Submit</button>
+                        <button type="submit" className="btn btn-form">Registrarse</button>
                         <p className="form-link">
                             ¿Tienes cuenta?{" "}
                             <Link to="/login">
