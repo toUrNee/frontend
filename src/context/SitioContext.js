@@ -48,12 +48,33 @@ class SitioContextProvider extends Component {
             })
     }
 
+    deleteSitioById = (id, index) => {
+        axios.delete(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos/' + id)
+        .then(res => {
+            var aux = this.state.sitios
+            aux.splice(index,1)
+            this.setState({
+                ...this.state,
+                sitios: aux,
+                loading: false
+            })
+        })
+        .catch(error =>{
+            console.log(error)
+            this.setState({
+                ...this.state,
+                loading: false
+            })
+        })
+    }
+
     render() { 
         return ( 
             <SitioContext.Provider value={{
                 ...this.state,
                 getSitios: this.getSitios,
-                getSitiosById:this.getSitiosById,
+                getSitiosById: this.getSitiosById,
+                deleteSitioById: this.deleteSitioById,
             }}>
                 {this.props.children}
             </SitioContext.Provider>
