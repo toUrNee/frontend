@@ -122,7 +122,10 @@ class PublicacionContextProvider extends Component {
 
     //Trae tipo actividades
     getActividades = () => {
-        this.state.loading = true;
+        this.setState({
+            ...this.state,
+            loading: true
+        })
         axios.get(process.env.REACT_APP_BACK_URL + '/CategoriasActividad')
             .then(res => {
                 this.setState({
@@ -143,26 +146,26 @@ class PublicacionContextProvider extends Component {
 
     deletePublicacionesById = (id, index) => {
         axios.delete(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + id)
-        .then(res =>{
-            var aux = this.state.publicaciones
-            aux.splice(index,1)
-            this.setState({
-                ...this.state,
-                publicaciones: aux,
-                loading: false
+            .then(res => {
+                var aux = this.state.publicaciones
+                aux.splice(index, 1)
+                this.setState({
+                    ...this.state,
+                    publicaciones: aux,
+                    loading: false
+                })
             })
-        })
-        .catch(error =>{
-            console.log(error)
-            this.setState({
-                ...this.state,
-                loading: false
+            .catch(error => {
+                console.log(error)
+                this.setState({
+                    ...this.state,
+                    loading: false
+                })
             })
-        })
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <PublicacionContext.Provider value={{
                 ...this.state,
                 getPublicaciones: this.getPublicaciones,

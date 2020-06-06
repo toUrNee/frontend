@@ -11,31 +11,31 @@ const AddPlan = () => {
 
     const history = useHistory();
     const location = useLocation();
-    const { user } = useContext(AuthContext) 
+    const { user } = useContext(AuthContext)
     const { sitios, getSitiosById } = useContext(SitioContext)
 
     const [publicacion, setPublicacion] = useState({
-            Titulo: "",
-            SitioId: 0,
-            Fecha: "",
-            Descripcion: "",
-            Precio: 0,
-            PropietarioId: user.Id
+        Titulo: "",
+        SitioId: 0,
+        Fecha: "",
+        Descripcion: "",
+        Precio: 0,
+        PropietarioId: user.Id
     })
 
     const onChange = (event) => {
-        if(event.target.type === "number" || event.target.type === "select-one"){
+        if (event.target.type === "number" || event.target.type === "select-one") {
             setPublicacion({
                 ...publicacion,
                 [event.target.name]: parseInt(event.target.value)
             })
-            
-        }else{
+
+        } else {
             setPublicacion({
                 ...publicacion,
                 [event.target.name]: event.target.value
             })
-        }       
+        }
     }
 
     const success = (message) => {
@@ -73,7 +73,7 @@ const AddPlan = () => {
 
     const handlerSubmit = (e) => {
         e.preventDefault()
-        if(location.state && location.state.publicacion){
+        if (location.state && location.state.publicacion) {
             var id = location.state.publicacion
             axios.put(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + id, publicacion)
                 .then(() => {
@@ -83,7 +83,7 @@ const AddPlan = () => {
                     console.log(err);
                     error("Ha ocurrido un error y tu publicación no ha podido ser actualizada")
                 })
-        }else{
+        } else {
             axios.post(process.env.REACT_APP_BACK_URL + '/Publicaciones/', publicacion)
                 .then(() => {
                     success("Tu publicación fue creada con éxito")
@@ -96,7 +96,7 @@ const AddPlan = () => {
     }
 
     useEffect(() => {
-        publicacion.PropietarioId = parseInt(user.id) 
+        publicacion.PropietarioId = parseInt(user.id)
     }, [publicacion, user])
 
     useEffect(() => {
@@ -104,25 +104,25 @@ const AddPlan = () => {
     }, [getSitiosById, publicacion.PropietarioId])
 
     useEffect(() => {
-        if(location.state && location.state.publicacion){
+        if (location.state && location.state.publicacion) {
             axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + location.state.publicacion)
-            .then(res =>{
-                console.log(res.data)
-                setPublicacion({
-                    Id: res.data.id,
-                    Fecha: res.data.fecha,
-                    Titulo: res.data.titulo,
-                    Descripcion: res.data.descripcion,
-                    PropietarioId: res.data.propietarioId,
-                    Precio: res.data.precio,
-                    SitioId: res.data.sitioId,
+                .then(res => {
+                    console.log(res.data)
+                    setPublicacion({
+                        Id: res.data.id,
+                        Fecha: res.data.fecha,
+                        Titulo: res.data.titulo,
+                        Descripcion: res.data.descripcion,
+                        PropietarioId: res.data.propietarioId,
+                        Precio: res.data.precio,
+                        SitioId: res.data.sitioId,
+                    })
                 })
-            })
-            .catch(error =>{
-                console.log(error);
-                error("Hubo un problema la traer la publicación")
-            })
-        }else{
+                .catch(error => {
+                    console.log(error);
+                    error("Hubo un problema la traer la publicación")
+                })
+        } else {
             setPublicacion({
                 Titulo: "",
                 Fecha: "",
@@ -140,12 +140,12 @@ const AddPlan = () => {
                 {/* Columna de color con imagen */}
                 <div className="col col-color-yellow">
                     <header>
-                        <h1 className="titulo-form-color">{location.state && location.state.publicacion ? "Modificar":"Publicar"} un plan</h1>
-                        <img className="img-fluid mx-auto d-block img-form" src={img} alt="cool airplane"/>
+                        <h1 className="titulo-form-color">{location.state && location.state.publicacion ? "Modificar" : "Publicar"} un plan</h1>
+                        <img className="img-fluid mx-auto d-block img-form" src={img} alt="cool airplane" />
                     </header>
                 </div>
                 {/* Columna de formulario */}
-                <div className="col col-form ">
+                <div className="col col-form">
                     <h1 className="titulo-form-blue">Ingresa los datos del plan</h1>
                     <form onSubmit={handlerSubmit}>
                         <div className="form-group">
@@ -156,23 +156,38 @@ const AddPlan = () => {
                                 type="text"
                                 autoFocus
                                 required
-                                value = {publicacion.Titulo}
+                                value={publicacion.Titulo}
                                 onChange={onChange}
                             />
                         </div>
+
                         <div className="form-group">
-                            <label htmlFor="Fecha">Fecha</label>
-                            <input
-                                name="Fecha"
+                            <label htmlFor="Descripcion">Descripción</label>
+                            <textarea
+                                name="Descripcion"
                                 className="form-control"
-                                type="datetime-local"
-                                min="2020-05-03T00:00"
+                                rows="3"
                                 onChange={onChange}
                                 required
-                                value = {publicacion.Fecha}
+                                value={publicacion.Descripcion}
                             />
                         </div>
-                            <div className="form-group">
+
+                        <div className="form-group">
+                                <label htmlFor="Precio">Precio</label>
+                                <input
+                                    name="Precio"
+                                    className="form-control"
+                                    type="number"
+                                    min="0"
+                                    onChange={onChange}
+                                    required
+                                    value={publicacion.Precio}
+                                />
+                            </div>
+
+                        <div className="row">
+                            <div className="form-group col">
                                 <label htmlFor="SitioId">Sitio Turistico</label>
                                 <select
                                     name="SitioId"
@@ -183,48 +198,43 @@ const AddPlan = () => {
                                     value={publicacion.SitioId}
                                     disabled={location.state && location.state.publicacion}
                                 >
-                                    <option>Seleccione una opcion</option>
+                                    <option>Seleccione un sitio</option>
                                     {sitios.map(sitio =>
                                         <option
-                                            value={sitio.id} 
+                                            value={sitio.id}
                                             key={sitio.nombre}
-                                            >
+                                        >
                                             {sitio.nombre}
                                         </option>)}
                                 </select>
-                            </div>
-                        <div className="form-group">
-                            <label htmlFor="Descripcion">Descripción</label>
-                            <textarea
-                                name="Descripcion"
-                                className="form-control"
-                                rows="3"
-                                onChange={onChange}
-                                required
-                                value = {publicacion.Descripcion}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="Precio">Precio</label>
-                            <input
-                                name="Precio"
-                                className="form-control"
-                                type="number"
-                                min="0"
-                                onChange={onChange}
-                                required
-                                value = {publicacion.Precio}
-                            />
-                        </div>
-                        <button type="submit" className="btn btn-form-blue">Submit</button>
-                        <p className="form-link">
-                            ¿No encuentras un sitio turistico?
-                            {
-                            <Link to ="/crear-sitio-turistico">
-                                Crear
+                                <p className="form-link">
+                                    ¿No encuentras un sitio turistico?{" "}
+                                    {
+                                        <Link to="/crear-sitio-turistico">
+                                            Crear sitio turistico
                             </Link>
-                            }
-                        </p>
+                                    }
+                                </p>
+                            </div>
+                            <div className="form-group col">
+                                <label htmlFor="Fecha">Fecha</label>
+                                <input
+                                    name="Fecha"
+                                    className="form-control"
+                                    type="date"
+                                    min="2020-05-03T00:00"
+                                    onChange={onChange}
+                                    required
+                                    value={publicacion.Fecha}
+                                />
+                            </div>
+
+
+                            
+                        </div>
+                        
+                        <button type="submit" className="btn btn-form-blue col">Confirmar</button>
+
                     </form>
                 </div>
             </div>

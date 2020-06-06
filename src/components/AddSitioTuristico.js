@@ -87,7 +87,7 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
             axios.post(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos', sitio)
                 .then((response) => {
                     success("Tu sitio turistico fue creado exitosamente", response.data.id)
-                    cambiarRol(sitio)
+                    cambiarRol(user)
                 })
                 .catch(err => {
                     console.log(err);
@@ -143,7 +143,9 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
     
     return (
     <div className="col col-form ">
+        <h1 className="titulo-form-blue">Ingresa los datos del sitio</h1>
         <form method="post" encType="multipart/form-data">
+            
             <div className="form-group">
                 <label htmlFor="Nombre">Nombre</label>
                 <input 
@@ -157,7 +159,7 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
             </div>
             <div className="form-group">
                 <label htmlFor="Descripcion">Descripcion</label>
-                <input 
+                <textarea 
                     name="Descripcion"
                     className="form-control"
                     type="text"
@@ -165,18 +167,8 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
                     onChange={onChange}
                 />
             </div>
-            <div className="form-group">
-                <label htmlFor="Capacidad">Capacidad</label>
-                <input 
-                    name="Capacidad"
-                    className="form-control"
-                    type="number"
-                    min = "1"
-                    value = {sitio.Capacidad}
-                    onChange={onChange}
-                />
-            </div>
-            <div className="form-group">      
+            <div className="row">
+            <div className="form-group col">      
                 <label htmlFor="Region">Region</label>
                 <select 
                     name="Region"
@@ -194,7 +186,7 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
                     )}
                 </select>
             </div>
-            <div className="form-group">      
+            <div className="form-group col">      
                 <label htmlFor="Departamento">Departamento</label>
                 <select 
                     name="Departamento"
@@ -212,7 +204,7 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
                     )}
                 </select>
             </div>
-            <div className="form-group">      
+            <div className="form-group col">      
                 <label htmlFor="Municipio">Municipio</label>
                 <select 
                     name="Municipio"
@@ -230,7 +222,20 @@ const AddSitioTuristico = ({nextStep , getidSitio}) => {
                     )}
                 </select>
             </div>
-        <button className="btn btn-form" onClick={handlerSubmit}>Siguiente</button>
+            </div>
+            <div className="form-group">
+                <label htmlFor="Capacidad">Capacidad</label>
+                <input 
+                    name="Capacidad"
+                    className="form-control"
+                    type="number"
+                    min = "1"
+                    value = {sitio.Capacidad}
+                    onChange={onChange}
+                />
+            </div>
+            
+        <button className="btn btn-form-blue" onClick={handlerSubmit}>Siguiente</button>
         </form>
     </div>
     )
