@@ -45,7 +45,11 @@ const InfoPublicacion = (props) => {
                             <div className="categorias">
                                 <h5>Tipos de actividades: <span>Act 1</span> <span>Act 1</span> </h5>
                             </div>
-                            <div className="comentarios">
+                            
+                        </div>
+                        <div className="col-md-12 col-lg-3 lateral">
+                        <button type="button" className="btn btn-warning col">  $500000 </button>
+                        <div className="comentarios">
                                 <h3 className="mb-5"> 2 comentarios </h3>
                                 <ul className="lista-comentarios">
                                     <li className="comentario">
@@ -83,7 +87,6 @@ const InfoPublicacion = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-md-12 col-lg-3 lateral"></div>
                     </div>
                 </div>
             </section>

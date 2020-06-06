@@ -46,12 +46,12 @@
     padding: 3rem 0;
 }
 
-.publicacion .principal .comentarios .lista-comentarios{
+.publicacion.comentarios .lista-comentarios{
     padding:0;
     margin: 0;
 }
 
-.publicacion .principal .comentarios .lista-comentarios .comentario{
+.publicacion  .comentarios .lista-comentarios .comentario{
     padding:0;
     margin: 0 0 30px 0;
     float:left;
