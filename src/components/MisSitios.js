@@ -37,6 +37,7 @@ const MisSitios = (props) => {
                     <div className="row perfil-container">
                         {sitios.map((sitio, index) => (
                             <CardSitio
+                                key={sitio.id}
                                 id={sitio.id}
                                 sitio={sitio}
                                 index={index}

@@ -14,13 +14,13 @@ const CardSitio = (props) => {
     const borrarPublicacion = () => {
         Swal.fire({
             title: '¿Seguro deseas eliminar esta publicación?',
-            text: "Estos cambios seran irrevertibles!",
+            text: "Estos cambios serán irrevertibles!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             cancelButtonText: 'Cancelar',
-            confirmButtonText: 'Si, eliminar'
+            confirmButtonText: 'Sí, eliminar'
         }).then((result) => {
             if (result.value) {
                 deletePublicacionesById(props.id, props.index)
@@ -36,13 +36,13 @@ const CardSitio = (props) => {
     const borrarSitio = () => {
         Swal.fire({
             title: '¿Seguro deseas eliminar este sitio?',
-            text: "Estos cambios seran irrevertibles y las publicaciones asociadas también se eliminaran!",
+            text: "Estos cambios serán irrevertibles y las publicaciones asociadas también se eliminarán!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             cancelButtonText: 'Cancelar',
-            confirmButtonText: 'Si, eliminar'
+            confirmButtonText: 'Sí, eliminar'
         }).then((result) => {
             if (result.value) {
                 deleteSitioById(props.id, props.index)
@@ -58,7 +58,7 @@ const CardSitio = (props) => {
     return (
         <div className="col-lg-4 col-md-6 perfil-item filter-app">
             <div className="perfil-wrap">
-                <img src={process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/" + props.sitioId} className="img-fluid" alt="" />
+                <img src={process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/" + props.sitioId} className="img-fluid" alt="" style={{width:"100%"}}/>
                 {
                 location.pathname === '/perfil/sitios' ?
                     <>
