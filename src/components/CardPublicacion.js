@@ -1,4 +1,6 @@
 import React from 'react';
+import default_src from '../images/crear-sitio-tur.png';
+import { Img } from 'react-image'
 
 
 import {
@@ -6,11 +8,19 @@ import {
 } from "react-router-dom";
 
 const Card = (props) => {
+
     return (
         <div className="card" >
 
             <Link to="/">
-                <img className="card-img-top" src={process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/" + props.publicacion.sitioId} alt="Imagen plan" />
+                <Img
+                    src={[
+                        process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/sitio/" + props.publicacion.sitioId + "/random",
+                        default_src
+                    ]}
+                    alt="Imagen plan"
+                    className="card-img-top"
+                />
 
                 <div className="card-img-overlay d-flex justify-content-end">
                     <p to="/" className="card-link text-danger like">

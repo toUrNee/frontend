@@ -1,16 +1,37 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { useDropzone } from 'react-dropzone';
-import axios from 'axios';
-import { store } from 'react-notifications-component';
-import { useHistory, Link } from "react-router-dom";
-import '../styles/PerfilPropietario.css'
+import React, { useEffect, useMemo } from 'react'
+import { useDropzone } from 'react-dropzone'
+import axios from 'axios'
+import { useHistory } from "react-router-dom"
 
 const thumbsContainer = {
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',
   marginTop: 16
-};
+}
+
+const thumb = {
+  display: 'inline-flex',
+  borderRadius: 2,
+  border: '1px solid #eaeaea',
+  marginBottom: 8,
+	marginRight: 8,
+	width: 200,
+  height: 200,
+  padding: 4,
+  boxSizing: 'border-box'
+}
+
+const thumbInner = {
+  minWidth: 0,
+  overflow: 'hidden'
+}
+
+const img = {
+  display: 'block',
+  width: 'auto',
+  height: '100%'
+}
 
 const baseStyle = {
   flex: 1,
@@ -26,174 +47,93 @@ const baseStyle = {
   color: '#bdbdbd',
   outline: 'none',
   transition: 'border .24s ease-in-out'
-};
+}
 
-const activeStyle = {
-  borderColor: '#2196f3'
-};
 
-const acceptStyle = {
-  borderColor: '#00e676'
-};
+const AddFile = ({ prevStep, sitio, imagenes, setImagenes, success, error, warning }) => {
+  const history = useHistory()
 
-const rejectStyle = {
-  borderColor: '#ff1744'
-};
-
-const AddFile = ({ prevStep, idSitio }) => {
-  const history = useHistory();
-
-  const [imagen, setFiles] = useState([]);
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-    isDragAccept,
-    isDragReject,
-  } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
     accept: 'image/*',
+    maxSize: 4194304,
     onDrop: acceptedFiles => {
-      setFiles(imagen.concat(acceptedFiles.map(file => Object.assign(file, {
-        preview: URL.createObjectURL(file),
-        imagen: file
-      }))));
+      if (imagenes.length + acceptedFiles.length > 8){
+        error("Tu sitio turistico puede contener hasta 8 fotos")
+        history.push('/crear-sitio-turistico')
+        return  
+      }
+      acceptedFiles.forEach(imagen => {
+        const fd = new FormData()
+        fd.append('file', imagen)
+        fd.append('sitioID', sitio.Id)
+        axios.post(process.env.REACT_APP_BACK_URL + '/Archivo_SitioTuristico', fd)
+          .then(res => {
+            var aux = imagenes
+            aux.push(res.data.id)
+            setImagenes([...aux])
+          })
+          .catch(err => {
+            console.log(err)
+            error("Ocurrió un error con tu imagen. Intenta de nuevo.")
+          })
+      })
+    },
+    onDropRejected: fileRejections => {
+      fileRejections.forEach(err => {
+        error(err.errors[0].message)
+      })
     }
-  });
+  })
 
   const handlerSubmit = (e) => {
-    if (imagen.length < 1) {
-      store.addNotification({
-        title: "¡Ups!",
-        message: "Ninguna imagen fue seleccionada :(",
-        type: "warning",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animated", "fadeInDown"],
-        animationOut: ["animated", "fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: false
-        }
-      });
+    e.preventDefault()
+    if (imagenes.length < 1) {
+      warning("Ninguna imagen fue seleccionada :(")
       history.push('/perfil/sitios')
-    }
-    if (imagen.length > 8) {
-      store.addNotification({
-        title: "Selecciona menos imágenes :(",
-        message: "Tu sitio turistico puede contener hasta 8 fotos",
-        type: "warning",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animated", "fadeInDown"],
-        animationOut: ["animated", "fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: false
-        }
-      });
-      history.push('/crear-sitio-turistico')
     } else {
-      for (let i = 0; i < imagen.length; i++) {
-        if (imagen[i].size < 4194304) {
-          e.preventDefault()
-          const fd = new FormData()
-          fd.append('file', imagen[i])
-          fd.append('sitioID', idSitio)
-          axios.post(process.env.REACT_APP_BACK_URL + '/Archivo_SitioTuristico', fd)
-            .catch(error => {
-              console.log(error);
-              store.addNotification({
-                title: "Ups!",
-                message: "Ocurrió un error con tu imagen. Intenta de nuevo.",
-                type: "danger",
-                insert: "top",
-                container: "top-right",
-                animationIn: ["animated", "fadeInDown"],
-                animationOut: ["animated", "fadeOut"],
-                dismiss: {
-                  duration: 5000,
-                  onScreen: false
-                }
-              });
-            })
-        } else {
-          store.addNotification({
-            title: "Ups!",
-            message: "Las imágenes no pueden pesar más de 4MB. Intenta con otra imagen.",
-            type: "danger",
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animated", "fadeInDown"],
-            animationOut: ["animated", "fadeOut"],
-            dismiss: {
-              duration: 5000,
-              onScreen: false
-            }
-          });
-          break;
-        }
-      }
-    }
-    if (imagen.length > 0 && imagen.length < 9) {
-      store.addNotification({
-        title: "Perfecto!",
-        message: "¡Imagenes añadidas de manera correcta!",
-        type: "success",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animated", "fadeInDown"],
-        animationOut: ["animated", "fadeOut"],
-        dismiss: {
-          duration: 5000,
-          onScreen: false
-        }
-      });
+      success("¡Imagenes añadidas de manera correcta!")
       history.push('/perfil/sitios')
     }
   }
 
   const deleteImage = (i) => {
-    var aux = imagen;
-    if (i !== -1) {
-      aux.splice(i, 1);
-    }
-    setFiles([...aux]);
+    axios.delete(process.env.REACT_APP_BACK_URL + '/Archivo_SitioTuristico/' + imagenes[i])
+      .then(() => {
+        var aux = imagenes
+        aux.splice(i, 1)
+        setImagenes([...aux])
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   useEffect(() => () => {
-    // Make sure to revoke the data uris to avoid memory leaks
-    imagen.forEach(file => URL.revokeObjectURL(file.preview));
-  }, [imagen]);
-
-  useEffect(() => {
-    
-  })
+    imagenes.forEach(file => URL.revokeObjectURL(file.preview))
+  }, [imagenes])
 
   const style = useMemo(() => ({
     ...baseStyle,
-    ...(isDragActive ? activeStyle : {}),
-    ...(isDragAccept ? acceptStyle : {}),
-    ...(isDragReject ? rejectStyle : {})
-  }), [
-    isDragActive,
-    isDragReject,
-    isDragAccept
-  ]);
+    ...(isDragActive ? { borderColor: '#2196f3' } : {}),
+    ...(isDragAccept ? { borderColor: '#00e676' } : {}),
+    ...(isDragReject ? { borderColor: '#ff1744' } : {})
+  }), [isDragActive, isDragReject, isDragAccept])
 
   return (
-
     <div className="col col-form">
       <header>
         <h1 className="titulo-form-blue"> Agrega imágenes</h1>
       </header>
       <aside style={thumbsContainer}>
-        {imagen.map((file, j) => (
-          <div key={j} className="col-lg-4 col-md-6 perfil-item filter-app">
-            <div className="perfil-wrap">
-              <img alt="..." src={file.preview} style={{ height: "100pt" }} />
-              <div className="buttons">
-                <Link onClick={() => deleteImage(j)} title="Eliminar"><i className="far fa-trash-alt"></i></Link>
-              </div>
+        {imagenes.map((id, j) => (
+          <div style={thumb} key={id}>
+            <button onClick={() => deleteImage(j)} className="btn btn-danger"><i className="fas fa-trash"></i></button>
+            <div style={thumbInner}>
+              <img
+                src={process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/" + id}
+                style={img}
+                alt="imagen de sitio"
+              />
             </div>
           </div>
         ))}
@@ -205,7 +145,7 @@ const AddFile = ({ prevStep, idSitio }) => {
       <button className="btn btn-form-blue" onClick={prevStep}>Atras</button>
       <button className="btn btn-form-blue" onClick={handlerSubmit}>Confirmar</button>
     </div>
-  );
+  )
 }
 
 export default AddFile

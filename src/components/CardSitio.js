@@ -2,12 +2,14 @@ import React, { useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { PublicacionContext } from '../context/PublicacionContext';
 import Swal from 'sweetalert2'
+import { Img } from 'react-image'
+import default_src from '../images/crear-sitio-tur.png';
+
 
 //template de tarjeta par aun sitio turistico
 const CardSitio = (props) => {
 
     const location = useLocation();
-    console.log(location.pathname);
 
     const { deletePublicacionesById } = useContext(PublicacionContext)
 
@@ -36,7 +38,14 @@ const CardSitio = (props) => {
     return (
         <div className="col-lg-4 col-md-6 perfil-item filter-app">
             <div className="perfil-wrap">
-                <img src={process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/" + props.sitioId} className="img-fluid" alt="" />
+                <Img
+                    src={[
+                        process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/sitio/" + props.sitioId + "/random",
+                        default_src
+                    ]}
+                    alt="Imagen plan"
+                    className="card-img-top"
+                />
                 {
                     location.pathname === '/perfil/sitios' ?
                         <>

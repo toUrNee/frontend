@@ -174,8 +174,6 @@ class AuthContextProvider extends Component {
                     isAuthenticated: false,
                     error: err
                 })
-                console.log(err.response)
-                console.log(err.response.data)
                 store.addNotification({
                     title: "Error",
                     message: err.response ? err.response.data : "Ocurrio un error en el registro, intenta mas tarde",
