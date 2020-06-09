@@ -89,8 +89,8 @@ function FormSitio() {
                     })
                     setImagenes([...res.data.imagenes])
                 })
-                .catch(error => {
-                    console.log(error)
+                .catch(err => {
+                    console.log(err)
                 })
         }
     }, [location.state, user])
