@@ -91,3 +91,45 @@
     margin-bottom: 1rem;
     text-align: justify;
 }
+
+.lateral{
+    margin-top: 3rem;
+}
+
+.lateral-box{
+    margin-bottom:4em;
+    font-size:15px;
+    width:100%;
+    float: left;
+}
+
+.titulo-lateral{
+    font-size: 25px;
+    margin-bottom:30px;
+    padding-bottom:20px;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.lateral-box .actividades{
+    padding:0;
+    margin:0;
+    font-weight: 400;
+}
+
+.lateral-box .actividades li{
+    padding: 0;
+    margin: 0;
+    position: relative;
+    margin-bottom:10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dotted #dee2e6;
+    list-style: none;
+}
+
+.lateral-box .actividades li span{
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: rgb(179, 13, 13);
+    margin: 0 30px;
+}
