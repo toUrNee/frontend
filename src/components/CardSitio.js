@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { PublicacionContext } from '../context/PublicacionContext';
+import { SitioContext } from '../context/SitioContext';
 import Swal from 'sweetalert2'
-import { Img } from 'react-image'
 import default_src from '../images/crear-sitio-tur.png';
 
 //template de tarjeta par aun sitio turistico
@@ -11,6 +11,8 @@ const CardSitio = (props) => {
     const location = useLocation();
     const { deletePublicacionesById } = useContext(PublicacionContext)
     const { deleteSitioById } = useContext(SitioContext)
+
+    const [image, setImage] = useState({src:"", hash:Date.now()})
 
     const borrarPublicacion = () => {
         Swal.fire({
@@ -56,16 +58,18 @@ const CardSitio = (props) => {
         })
     }
 
+    useEffect(()=>{
+        setImage({src:process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/sitio/" + props.sitioId + "/random", hash:Date.now()})
+    },[props.sitioId])
+
     return (
         <div className="col-lg-4 col-md-6 perfil-item filter-app">
             <div className="perfil-wrap">
-                <Img
-                    src={[
-                        process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/sitio/" + props.sitioId + "/random",
-                        default_src
-                    ]}
-                    alt="Imagen plan"
-                    className="card-img-top"
+                <img 
+                    src={image.src +"?"+ image.hash} 
+                    alt="Imagen sitio"
+                    className="card-img-top"    
+                    onError={() => setImage({src:default_src,hash:Date.now()})}
                 />
                 {
                 location.pathname === '/perfil/sitios' ?
@@ -80,7 +84,7 @@ const CardSitio = (props) => {
                                 title="Editar">
                                 <i className="far fa-edit"></i>
                             </Link>
-                            <Link data-gall="portfolioGallery" className="venobox" title="Eliminar" onClick={borrarSitio}>
+                            <Link to="#" data-gall="portfolioGallery" className="venobox" title="Eliminar" onClick={borrarSitio}>
                                 <i className="far fa-trash-alt"></i>
                             </Link>
                         </div>
@@ -101,7 +105,7 @@ const CardSitio = (props) => {
                                 title="Editar">
                                 <i className="far fa-edit"></i>
                             </Link>
-                            <Link data-gall="portfolioGallery" className="venobox" title="Eliminar" onClick={borrarPublicacion}>
+                            <Link to="#" data-gall="portfolioGallery" className="venobox" title="Eliminar" onClick={borrarPublicacion}>
                                 <i className="far fa-trash-alt"></i>
                             </Link>
                         </div>

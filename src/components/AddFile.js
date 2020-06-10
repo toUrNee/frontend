@@ -89,11 +89,10 @@ const AddFile = ({ prevStep, sitio, imagenes, setImagenes, success, error, warni
     e.preventDefault()
     if (imagenes.length < 1) {
       warning("Ninguna imagen fue seleccionada :(")
-      history.push('/perfil/sitios')
     } else {
       success("¡Imagenes añadidas de manera correcta!")
-      history.push('/perfil/sitios')
     }
+    history.push('/perfil/sitios')
   }
 
   const deleteImage = (i) => {
