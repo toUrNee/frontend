@@ -30,6 +30,7 @@ import SitioContextProvider from './context/SitioContext';
 import PerfilPropietario from './components/PerfilPropietario';
 import MisPublicaciones from './components/MisPublicaciones';
 import MisSitios from './components/MisSitios';
+import InfoPublicacion from './components/InfoPublicacion';
 
 function App() {
 
@@ -90,7 +91,7 @@ function App() {
                                     </PrivateRoute>
 
                                     <Route exact path="/publicaciones" render={(props) => <Publicaciones {...props} />} />
-                                    <Route exact path="/publicaciones/:region" render={(props) => <Publicaciones {...props} />} />
+                                    <Route exact path="/publicaciones/:idPublicacion" render={(props) => <InfoPublicacion {...props} />} />
 
                                     <Route path="/" exact component={Inicio} />
 
