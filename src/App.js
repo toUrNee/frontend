@@ -62,9 +62,9 @@ function App() {
                                     </PrivateRoute>
 
                                     <PrivateRoute path="/perfil" exact>
-                                        <PrivateRoutePropietario path="/perfil" exact>
+                                        
                                             <PerfilPropietario />
-                                        </PrivateRoutePropietario>
+                                        
                                     </PrivateRoute>
 
 

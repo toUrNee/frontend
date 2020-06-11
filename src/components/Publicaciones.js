@@ -3,6 +3,7 @@ import { PublicacionContext } from '../context/PublicacionContext';
 import Card from './CardPublicacion';
 import portada from '../images/portada.jpg'
 
+import { Multiselect } from 'multiselect-react-dropdown';
 
 const Publicaciones = (props) => {
 
@@ -13,6 +14,10 @@ const Publicaciones = (props) => {
         nombre: "Colombia",
         img: portada
     })
+
+    const [options, setOptions] = useState( [{name: 'Srigar', id: 1},{name: 'Sam', id: 2}])
+
+    const[selectedValue, setSelectedValue] = useState([])
 
     //Arreglo de actividades activas en el filtro
     const [filtroActividad, setfiltroActividad] = useState([])
@@ -26,6 +31,12 @@ const Publicaciones = (props) => {
         }
         getActividades()
     }, [getActividades, getPublicaciones, props.location.state])
+
+    useEffect(() => {
+        actividades.map (actividad => {
+            optionFunction(actividad.nombre, actividad.id)
+        })
+    }, [loading])
 
     //Booleano si es filtro por region
     const [filtroRegion, setFiltroRegion] = useState(props.location.state)
@@ -42,8 +53,9 @@ const Publicaciones = (props) => {
             getPublicacionesByRegion(props.location.state.region)
             setFiltroRegion(true)
         }
-        getActividades()
     }, [props.location.state, getPublicaciones, getPublicacionesByRegion, getActividades])
+
+    
 
     //Filtra las publicaciones por region y/o por actividades
     function filtrar() {
@@ -74,6 +86,16 @@ const Publicaciones = (props) => {
                 filtroActividad.splice(i, 1);
             }
         }
+    }
+
+    function onSelect(selectedList, selectedItem) {
+        console.log( selectedItem);
+        
+        setSelectedValue([...selectedValue, selectedItem]);
+    }
+
+    function onRemove(selectedList, removedItem) {
+        console.log( removedItem);
     }
 
     return (
@@ -146,17 +168,36 @@ const Publicaciones = (props) => {
 
                     <button type="button" className="btn btn-warning" style={{ marginBottom: "40px" }} onClick={filtrar}>Filtrar</button>
 
-                    <div className="card-columns">
-                        <div>
-                            {publicaciones.map(publicacion => (
-                                <Card
-                                    publicacion = {publicacion}
-                                    key={publicacion.id}
-                                />
-                            ))
-                            }
+                    <section className="publicaciones">
+                        <div className="container-fluid">
+                            <div className="row">
+                            <div className="col-md-12 col-lg-2 lateral">
+                                    <Multiselect
+                                        options={options} // Options to display in the dropdown
+                                        selectedValues='' // Preselected value to persist in dropdown
+                                        onSelect={onSelect} // Function will trigger on select event
+                                        onRemove={onRemove} // Function will trigger on remove event
+                                        displayValue="name" // Property name to display in the dropdown options
+                                    />
+                                </div>
+                                <div className="col-md-12 col-lg-10 principal">
+                                    <div className="card-columns">
+                                        <div>
+                                            {publicaciones.map(publicacion => (
+                                                <Card
+                                                    publicacion={publicacion}
+                                                    key={publicacion.id}
+                                                />
+                                            ))
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
                         </div>
-                    </div>
+                    </section>
+
                 </div>
             }
         </div >
