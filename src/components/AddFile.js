@@ -59,7 +59,6 @@ const AddFile = ({ prevStep, sitio, imagenes, setImagenes, success, error, warni
     onDrop: acceptedFiles => {
       if (imagenes.length + acceptedFiles.length > 8){
         error("Tu sitio turistico puede contener hasta 8 fotos")
-        history.push('/crear-sitio-turistico')
         return  
       }
       acceptedFiles.forEach(imagen => {
