@@ -1,19 +1,81 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import '../styles/InfoPublicacion.css'
 import { PublicacionContext } from '../context/PublicacionContext';
+import { AuthContext } from '../context/AuthContext';
+import axios from 'axios';
+import { store } from 'react-notifications-component';
+import { ReservaContext } from '../context/ReservaContext';
+//import { useLocation } from 'react-router-dom';
 
 const InfoPublicacion = (props) => {
 
     const { match } = props;
-
     let { idPublicacion } = match.params;
 
     const { loading, publicacion, getPublicacionById } = useContext(PublicacionContext)
+    const { user } = useContext(AuthContext)
+    const { getReservasByUserId } = useContext(ReservaContext)
+    //const location = useLocation();
+    //console.log(location.pathname.substring(location.pathname.lastIndexOf('/') + 1));
+    //hacer un contexto para la reserva ---> traer todas las reservas y traer las reservas por el id de un user 
+
+    const success = (message) => {
+        store.addNotification({
+            title: "Perfecto!",
+            message: message,
+            type: "success",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animated", "fadeInDown"],
+            animationOut: ["animated", "fadeOut"],
+            dismiss: {
+                duration: 3600,
+                onScreen: false
+            }
+        });
+    }
+
+    const error = (message) => {
+        store.addNotification({
+            title: "Oops!",
+            message: message,
+            type: "danger",
+            insert: "top",
+            container: "top-right",
+            animationIn: ["animated", "fadeInDown"],
+            animationOut: ["animated", "fadeOut"],
+            dismiss: {
+                duration: 3600,
+                onScreen: false
+            }
+        });
+    }
+
+    const reservarPlan = () => {
+        axios.post(process.env.REACT_APP_BACK_URL + '/Reserva/', {
+            Fecha: publicacion.fecha,
+            UsuarioId: user.id,
+            PublicacionId: publicacion.id
+        })
+        .then(() => {
+            success("La reserva para este plan fue creada con éxito");
+        })
+        .catch(err => {
+            console.log(err);
+            error("Ha ocurrido un error y no se ha podido hacer tu reserva");
+        })
+    }
 
     useEffect(() => {
         getPublicacionById(idPublicacion)
-    })
+    }, [getPublicacionById])
 
+    /*
+    useEffect(() =>{
+        getReservasByUserId(user.id)        
+    }, [getReservasByUserId])
+    */
+   
     return (
         <div>
             {loading ?
@@ -35,7 +97,7 @@ const InfoPublicacion = (props) => {
                                 <div className="col-md-12 col-lg-8 principal">
                                     <div className="botones text-right">
                                         <button type="button" className="btn btn-danger"> <i className="far fa-heart"></i> Guardar </button>
-                                        <button type="button" class="btn btn-success"> <i class="far fa-bell"></i> Reservar </button>
+                                        <button type="button" class="btn btn-success" onClick={reservarPlan}> <i class="far fa-bell"></i> Reservar </button>
                                     </div>
                                     <div className="description">
                                         <h2>Descripcion del plan <button type="button" className="btn btn-warning">  ${publicacion.precio} </button> </h2>
