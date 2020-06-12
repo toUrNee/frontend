@@ -5,6 +5,9 @@ import portada from '../images/portada.jpg'
 
 import { Multiselect } from 'multiselect-react-dropdown';
 
+
+import '../styles/Post.css'
+
 const Publicaciones = (props) => {
 
     const { loading, publicaciones, actividades, getPublicaciones, getPublicacionesByRegion, getActividades, getPublicacionesByActividades, getPublicacionesByRegionAndActividades } = useContext(PublicacionContext)
@@ -15,28 +18,8 @@ const Publicaciones = (props) => {
         img: portada
     })
 
-    const [options, setOptions] = useState( [{name: 'Srigar', id: 1},{name: 'Sam', id: 2}])
-
-    const[selectedValue, setSelectedValue] = useState([])
-
     //Arreglo de actividades activas en el filtro
-    const [filtroActividad, setfiltroActividad] = useState([])
-    useEffect(() => {
-        if (!props.location.state) {
-            setRegion({
-                nombre: "Colombia",
-                img: portada
-            })
-            getPublicaciones()
-        }
-        getActividades()
-    }, [getActividades, getPublicaciones, props.location.state])
-
-    useEffect(() => {
-        actividades.map (actividad => {
-            optionFunction(actividad.nombre, actividad.id)
-        })
-    }, [loading])
+    const [filtroActividad, setFiltroActividad] = useState([])
 
     //Booleano si es filtro por region
     const [filtroRegion, setFiltroRegion] = useState(props.location.state)
@@ -44,6 +27,10 @@ const Publicaciones = (props) => {
     //Trae las publicaciones y las actividades
     useEffect(() => {
         if (!props.location.state) {
+            setRegion({
+                nombre: "Colombia",
+                img: portada
+            })
             getPublicaciones()
         } else {
             setRegion({
@@ -53,9 +40,11 @@ const Publicaciones = (props) => {
             getPublicacionesByRegion(props.location.state.region)
             setFiltroRegion(true)
         }
+        getActividades()
+        setFiltroActividad([])
     }, [props.location.state, getPublicaciones, getPublicacionesByRegion, getActividades])
 
-    
+
 
     //Filtra las publicaciones por region y/o por actividades
     function filtrar() {
@@ -74,28 +63,18 @@ const Publicaciones = (props) => {
         }
     }
 
-    //Agrega o quita la actividad del arreglo al hacer clic y cambia su color
-    function addFilter(actividad) {
-        if (filtroActividad.indexOf(actividad.id) === -1) {
-            setfiltroActividad(filtroActividad.concat(actividad.id))
-            document.getElementById('boton-act-' + actividad.id).className = "boton-circular active"
-        } else {
-            document.getElementById('boton-act-' + actividad.id).className = "boton-circular inactive"
-            var i = filtroActividad.indexOf(actividad.id);
-            if (i !== -1) {
-                filtroActividad.splice(i, 1);
-            }
-        }
-    }
-
     function onSelect(selectedList, selectedItem) {
-        console.log( selectedItem);
-        
-        setSelectedValue([...selectedValue, selectedItem]);
+        setFiltroActividad([...filtroActividad, selectedItem]);
+        console.log(filtroActividad);
+
     }
 
     function onRemove(selectedList, removedItem) {
-        console.log( removedItem);
+        var i = filtroActividad.indexOf(removedItem);
+        if (i !== -1) {
+            filtroActividad.splice(i, 1);
+        }
+        console.log(filtroActividad);
     }
 
     return (
@@ -117,70 +96,62 @@ const Publicaciones = (props) => {
                         {region.nombre}
                     </div>
 
-                    <div className="row filter-title">
-                        <h2 className="col"> Selecciona tus actividades de interés </h2>
-
-                        {/* Modal de Bootstrap*/}
-
-                        <div className="col" style={{ textAlign: "right" }}>
-                            <button type="button" className="btn btn btn-warning" data-toggle="modal" data-target="#exampleModalLong" style={{ opacity: "50%" }}> ? </button>
-
-                            <div className="modal fade" id="exampleModalLong" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                                <div className="modal-dialog" role="document">
-                                    <div className="modal-content">
-                                        <div className="modal-header">
-                                            <h5 className="modal-title" id="exampleModalLongTitle">Actividades</h5>
-                                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div className="modal-body">
-                                            {actividades.map((actividad, index) => (
-                                                <div className="row" style={{ margin: "5px" }} key={actividad.id}>
-                                                    <h5 className="col">{actividad.nombre}</h5>
-                                                    <p className="col" style={{ color: 'black', fontSize: "13px", textAlign: "justify" }}>{actividad.descripcion}</p>
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <div className="modal-footer">
-                                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
 
-                    <div className="row circles">
 
-                        {actividades.map((actividad, index) => (
-                            <div className="col" key={actividad.id}>
-                                <div className="circle-item">
-                                    <button className="boton-circular inactive" id={'boton-act-' + actividad.id} onClick={() => addFilter(actividad)}>
-                                        <i className={actividad.icono} title={actividad.nombre} />
-                                        <p>{actividad.nombre}</p>
-                                    </button>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-                    <button type="button" className="btn btn-warning" style={{ marginBottom: "40px" }} onClick={filtrar}>Filtrar</button>
 
                     <section className="publicaciones">
                         <div className="container-fluid">
                             <div className="row">
-                            <div className="col-md-12 col-lg-2 lateral">
-                                    <Multiselect
-                                        options={options} // Options to display in the dropdown
-                                        selectedValues='' // Preselected value to persist in dropdown
-                                        onSelect={onSelect} // Function will trigger on select event
-                                        onRemove={onRemove} // Function will trigger on remove event
-                                        displayValue="name" // Property name to display in the dropdown options
-                                    />
+                                <div className="col-md-12 col-lg-12 lateral">
+                                    <div className="row filtro">
+                                        <div className="col-5">
+                                            <h5 className="filter-title">
+                                                Tipo de actividades
+                                            {/* Modal de Bootstrap*/}
+                                                <button type="button" className="btn btn-secondary ayuda" data-toggle="modal" data-target="#exampleModalLong"> ? </button>
+                                                <div className="modal fade" id="exampleModalLong" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                                    <div className="modal-dialog" role="document">
+                                                        <div className="modal-content">
+                                                            <div className="modal-header">
+                                                                <h5 className="modal-title" id="exampleModalLongTitle">Actividades</h5>
+                                                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div className="modal-body">
+                                                                {actividades.map((actividad, index) => (
+                                                                    <div className="row" style={{ margin: "5px" }} key={actividad.id}>
+                                                                        <h5 className="col">{actividad.nombre}</h5>
+                                                                        <p className="col" style={{ color: 'black', fontSize: "13px", textAlign: "justify" }}>{actividad.descripcion}</p>
+                                                                    </div>
+                                                                ))}
+                                                            </div>
+                                                            <div className="modal-footer">
+                                                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </h5>
+                                            <Multiselect
+                                                options={actividades} // Options to display in the dropdown
+                                                selectedValues='' // Preselected value to persist in dropdown
+                                                onSelect={onSelect} // Function will trigger on select event
+                                                onRemove={onRemove} // Function will trigger on remove event
+                                                displayValue="nombre" // Property name to display in the dropdown options
+                                                placeholder="Actividades"
+                                            />
+                                        </div>
+                                        <div className="col-5">
+                                            
+                                        </div>
+
+                                        <button type="button" className="btn btn-warning" style={{ marginTop: "40px" }} onClick={filtrar}>Filtrar</button>
+                                    </div>
+
                                 </div>
-                                <div className="col-md-12 col-lg-10 principal">
+                                <div className="col-md-12 col-lg-12 principal">
                                     <div className="card-columns">
                                         <div>
                                             {publicaciones.map(publicacion => (
@@ -193,7 +164,7 @@ const Publicaciones = (props) => {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </section>

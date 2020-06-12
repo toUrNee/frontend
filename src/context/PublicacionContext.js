@@ -75,8 +75,8 @@ class PublicacionContextProvider extends Component {
     //Filtro por actividades
     getPublicacionesByActividades = (filtro) => {
         var _publicaciones = []
-        filtro.map(idActividad => (
-            axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + idActividad)
+        filtro.map(actividad => (
+            axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + actividad.id)
                 .then(res => {
                     res.data.map(publicacion => {
                         if (_publicaciones.map(x => x.id).indexOf(publicacion.id) === -1) {
@@ -99,8 +99,8 @@ class PublicacionContextProvider extends Component {
     //Filtro por actividades por region
     getPublicacionesByRegionAndActividades = (filtro, region) => {
         var _publicaciones = []
-        filtro.map(idActividad => (
-            axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + idActividad + '/region/', { params: { region: region } })
+        filtro.map(actividad => (
+            axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + actividad.id + '/region/', { params: { region: region } })
                 .then(res => {
                     res.data.map(publicacion => {
                         if (_publicaciones.map(x => x.id).indexOf(publicacion.id) === -1) {
