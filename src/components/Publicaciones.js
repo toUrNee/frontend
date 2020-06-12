@@ -49,15 +49,19 @@ const Publicaciones = (props) => {
     //Filtra las publicaciones por region y/o por actividades
     function filtrar() {
         if (filtroActividad.length > 0) {
-            if (filtroRegion) {
+            if (filtroRegion && region.nombre !== 'Colombia') {
+                console.log('region y actividad');
                 getPublicacionesByRegionAndActividades(filtroActividad, region.nombre)
             } else {
+                console.log('actividad');
                 getPublicacionesByActividades(filtroActividad);
             }
         } else {
-            if (filtroRegion) {
+            if (filtroRegion && region.nombre !== 'Colombia') {
+                console.log('region');
                 getPublicacionesByRegion(region.nombre);
             } else {
+                console.log('nada');
                 getPublicaciones()
             }
         }
@@ -105,7 +109,7 @@ const Publicaciones = (props) => {
                             <div className="row">
                                 <div className="col-md-12 col-lg-12 lateral">
                                     <div className="row filtro">
-                                        <div className="col-5">
+                                        <div className="col-7">
                                             <h5 className="filter-title">
                                                 Tipo de actividades
                                             {/* Modal de Bootstrap*/}
@@ -128,7 +132,7 @@ const Publicaciones = (props) => {
                                                                 ))}
                                                             </div>
                                                             <div className="modal-footer">
-                                                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                                <button type="button" className="btn btn-secondary " data-dismiss="modal">Cerrar</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -143,11 +147,11 @@ const Publicaciones = (props) => {
                                                 placeholder="Actividades"
                                             />
                                         </div>
-                                        <div className="col-5">
+                                        <div className="col-3">
                                             
                                         </div>
 
-                                        <button type="button" className="btn btn-warning" style={{ marginTop: "40px" }} onClick={filtrar}>Filtrar</button>
+                                        <button type="button" className="btn btn-warning filtro-btn" onClick={filtrar}>Filtrar</button>
                                     </div>
 
                                 </div>

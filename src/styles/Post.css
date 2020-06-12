@@ -32,6 +32,12 @@
 
 .filtro{
   margin: 2rem;
+  vertical-align: center;
+}
+
+.filtro .filtro-btn{
+  height: 40px;
+
 }
 
 .filter-title {
