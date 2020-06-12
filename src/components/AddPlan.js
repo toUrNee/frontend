@@ -1,15 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import img from '../images/post.png';
-import { useHistory, Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { store } from 'react-notifications-component';
 import { AuthContext } from '../context/AuthContext';
 import { SitioContext } from '../context/SitioContext';
 
 
-const AddPlan = () => {
+const AddPlan = ({ nextStep, getidPublicacion }) => {
 
-    const history = useHistory();
     const location = useLocation();
     const { user } = useContext(AuthContext)
     const { sitios, getSitiosById } = useContext(SitioContext)
@@ -38,7 +36,7 @@ const AddPlan = () => {
         }
     }
 
-    const success = (message) => {
+    const success = (message, id) => {
         store.addNotification({
             title: "Perfecto!",
             message: message,
@@ -52,7 +50,8 @@ const AddPlan = () => {
                 onScreen: false
             }
         });
-        history.push('/perfil/publicaciones')
+        getidPublicacion(id)
+        nextStep()
     }
 
     const error = (message) => {
@@ -77,7 +76,7 @@ const AddPlan = () => {
             var id = location.state.publicacion
             axios.put(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + id, publicacion)
                 .then(() => {
-                    success("Tu publicación fue actualizada con éxito")
+                    success("Tu publicación fue actualizada con éxito", id)
                 })
                 .catch(err => {
                     console.log(err);
@@ -85,8 +84,8 @@ const AddPlan = () => {
                 })
         } else {
             axios.post(process.env.REACT_APP_BACK_URL + '/Publicaciones/', publicacion)
-                .then(() => {
-                    success("Tu publicación fue creada con éxito")
+                .then((res) => {
+                    success("Tu publicación fue creada con éxito", res.data.id)
                 })
                 .catch(err => {
                     console.log(err);
@@ -137,13 +136,6 @@ const AddPlan = () => {
     return (
         <div className="container-fluid form-container ">
             <div className="row align-items-center">
-                {/* Columna de color con imagen */}
-                <div className="col col-color-yellow">
-                    <header>
-                        <h1 className="titulo-form-color">{location.state && location.state.publicacion ? "Modificar" : "Publicar"} un plan</h1>
-                        <img className="img-fluid mx-auto d-block img-form" src={img} alt="cool airplane" />
-                    </header>
-                </div>
                 {/* Columna de formulario */}
                 <div className="col col-form">
                     <h1 className="titulo-form-blue">Ingresa los datos del plan</h1>
@@ -228,12 +220,9 @@ const AddPlan = () => {
                                     value={publicacion.Fecha}
                                 />
                             </div>
-
-
-                            
                         </div>
                         
-                        <button type="submit" className="btn btn-form-blue col">Confirmar</button>
+                        <button type="submit" className="btn btn-form-blue col">Siguiente</button>
 
                     </form>
                 </div>
