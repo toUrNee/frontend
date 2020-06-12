@@ -31,18 +31,18 @@
 }
 
 .filtro{
-  margin: 2rem;
+  margin: 2rem 0;
   vertical-align: center;
 }
 
 .filtro .filtro-btn{
   height: 40px;
-
+  margin: 30px 0 0 20px;
 }
 
 .filter-title {
   color: rgb(126, 67, 28);
-
+  margin-top: 20px;
 }
 
 .filter-title .btn{
@@ -69,4 +69,17 @@
 .lhyQmCtWOINviMz0WG_gr {
   background: none;
   color: black;
+}
+
+.MuiSlider-root{
+  color: orange !important; 
+  padding: 30px 0 !important;
+}
+
+.PrivateValueLabel-offset-3{
+  font-size: 0.7rem !important;
+}
+
+.MuiSlider-markLabel{
+  margin-top: 1rem;
 }

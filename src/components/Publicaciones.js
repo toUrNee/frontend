@@ -5,8 +5,17 @@ import portada from '../images/portada.jpg'
 
 import { Multiselect } from 'multiselect-react-dropdown';
 
+import Slider from '@material-ui/core/Slider';
 
 import '../styles/Post.css'
+
+function valueLabelFormat(value) {
+    if(value>=1000){
+        return `${value/1000}M`;
+    }else{
+        return `${value}K`;
+    }
+}
 
 const Publicaciones = (props) => {
 
@@ -23,6 +32,16 @@ const Publicaciones = (props) => {
 
     //Booleano si es filtro por region
     const [filtroRegion, setFiltroRegion] = useState(props.location.state)
+
+    const [value, setValue] = React.useState([50, 3000]);
+    const marks = [
+        {value: 50, label: '50K'},
+        {value: 3000, label: '3M'}
+    ]
+
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
 
     //Trae las publicaciones y las actividades
     useEffect(() => {
@@ -109,7 +128,7 @@ const Publicaciones = (props) => {
                             <div className="row">
                                 <div className="col-md-12 col-lg-12 lateral">
                                     <div className="row filtro">
-                                        <div className="col-7">
+                                        <div className="col-lg-7 col-md-12">
                                             <h5 className="filter-title">
                                                 Tipo de actividades
                                             {/* Modal de Bootstrap*/}
@@ -147,8 +166,22 @@ const Publicaciones = (props) => {
                                                 placeholder="Actividades"
                                             />
                                         </div>
-                                        <div className="col-3">
-                                            
+                                        <div className="col-lg-3 col-md-6">
+                                            <h5 className="filter-title">
+                                                Precio
+                                        </h5>
+                                            <Slider
+                                                value={value}
+                                                onChange={handleChange}
+                                                valueLabelDisplay="auto"
+                                                aria-labelledby="range-slider"
+                                                getAriaValueText={valueLabelFormat}
+                                                valueLabelFormat={valueLabelFormat}
+                                                step={50}
+                                                min={50}
+                                                max={3000}
+                                                marks={marks}
+                                            />
                                         </div>
 
                                         <button type="button" className="btn btn-warning filtro-btn" onClick={filtrar}>Filtrar</button>
