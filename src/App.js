@@ -30,6 +30,8 @@ import SitioContextProvider from './context/SitioContext';
 import PerfilPropietario from './components/PerfilPropietario';
 import MisPublicaciones from './components/MisPublicaciones';
 import MisSitios from './components/MisSitios';
+import InfoPublicacion from './components/InfoPublicacion';
+import ReservaContextProvider from './context/ReservaContext';
 
 function App() {
 
@@ -38,65 +40,67 @@ function App() {
             <ExternalDataContextProvider>
                 <SitioContextProvider>
                     <PublicacionContextProvider>
+                        <ReservaContextProvider>
                         <ReactNotification />
-                        <Router>
-                            <div className="App">
-                                {/*Barra de navegación*/}
-                                <Navbar />
-                                <Switch>
-                                    {/*Componente por cada ruta*/}
-                                    <Route path="/login" exact component={Login} />
-                                    <Route path="/register" exact component={Register} />
+                            <Router>
+                                <div className="App">
+                                    {/*Barra de navegación*/}
+                                    <Navbar />
+                                    <Switch>
+                                        {/*Componente por cada ruta*/}
+                                        <Route path="/login" exact component={Login} />
+                                        <Route path="/register" exact component={Register} />
 
-                                    <PrivateRoute path="/perfil/publicaciones" exact>
-                                        <PrivateRoutePropietario path="/perfil/publicaciones" exact>
-                                            <MisPublicaciones />
-                                        </PrivateRoutePropietario>
-                                    </PrivateRoute>
+                                        <PrivateRoute path="/perfil/publicaciones" exact>
+                                            <PrivateRoutePropietario path="/perfil/publicaciones" exact>
+                                                <MisPublicaciones />
+                                            </PrivateRoutePropietario>
+                                        </PrivateRoute>
 
-                                    <PrivateRoute path="/perfil/sitios" exact>
-                                        <PrivateRoutePropietario path="/perfil/sitios" exact>
-                                            <MisSitios />
-                                        </PrivateRoutePropietario>
-                                    </PrivateRoute>
+                                        <PrivateRoute path="/perfil/sitios" exact>
+                                            <PrivateRoutePropietario path="/perfil/sitios" exact>
+                                                <MisSitios />
+                                            </PrivateRoutePropietario>
+                                        </PrivateRoute>
 
-                                    <PrivateRoute path="/perfil" exact>
-                                        <PrivateRoutePropietario path="/perfil" exact>
-                                            <PerfilPropietario />
-                                        </PrivateRoutePropietario>
-                                    </PrivateRoute>
+                                        <PrivateRoute path="/perfil" exact>
+                                            <PrivateRoutePropietario path="/perfil" exact>
+                                                <PerfilPropietario />
+                                            </PrivateRoutePropietario>
+                                        </PrivateRoute>
 
 
-                                    <PrivateRoute path="/crear-plan" exact>
-                                        <PrivateRoutePropietario path="/crear-plan" exact>
-                                            <AddPlan />
-                                        </PrivateRoutePropietario>
-                                    </PrivateRoute>
+                                        <PrivateRoute path="/crear-plan" exact>
+                                            <PrivateRoutePropietario path="/crear-plan" exact>
+                                                <AddPlan />
+                                            </PrivateRoutePropietario>
+                                        </PrivateRoute>
 
-                                    <PrivateRoute path="/editar-plan" exact >
-                                        <PrivateRoutePropietario path="/editar-plan">
-                                            <AddPlan />
-                                        </PrivateRoutePropietario>
-                                    </PrivateRoute>
+                                        <PrivateRoute path="/editar-plan" exact >
+                                            <PrivateRoutePropietario path="/editar-plan">
+                                                <AddPlan />
+                                            </PrivateRoutePropietario>
+                                        </PrivateRoute>
 
-                                    <PrivateRoute path="/crear-sitio-turistico" exact >
-                                        <FormSitio />
-                                    </PrivateRoute>
-
-                                    <PrivateRoute path="/editar-sitio-turistico" exact >
-                                        <PrivateRoutePropietario path="/editar-sitio-turistico" exact >
+                                        <PrivateRoute path="/crear-sitio-turistico" exact >
                                             <FormSitio />
-                                        </PrivateRoutePropietario>
-                                    </PrivateRoute>
+                                        </PrivateRoute>
 
-                                    <Route exact path="/publicaciones" render={(props) => <Publicaciones {...props} />} />
-                                    <Route exact path="/publicaciones/:region" render={(props) => <Publicaciones {...props} />} />
+                                        <PrivateRoute path="/editar-sitio-turistico" exact >
+                                            <PrivateRoutePropietario path="/editar-sitio-turistico" exact >
+                                                <FormSitio />
+                                            </PrivateRoutePropietario>
+                                        </PrivateRoute>
 
-                                    <Route path="/" exact component={Inicio} />
+                                        <Route exact path="/publicaciones" render={(props) => <Publicaciones {...props} />} />
+                                        <Route exact path="/publicaciones/:idPublicacion" render={(props) => <InfoPublicacion {...props} />} />
 
-                                </Switch>
-                            </div>
-                        </Router>
+                                        <Route path="/" exact component={Inicio} />
+
+                                    </Switch>
+                                </div>
+                            </Router>
+                        </ReservaContextProvider>
                     </PublicacionContextProvider>
                 </SitioContextProvider>
             </ExternalDataContextProvider>

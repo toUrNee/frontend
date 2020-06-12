@@ -8,12 +8,12 @@ import CardSitio from './CardSitio';
 
 const MisPublicaciones = (props) => {
 
-    const { loading, publicaciones, getPublicacionesById } = useContext(PublicacionContext)
+    const { loading, publicaciones, getPublicacionesByPropietarioId } = useContext(PublicacionContext)
     const { user } = useContext(AuthContext)
 
     useEffect(() => {
-        getPublicacionesById(user.id)
-    }, [getPublicacionesById, user])
+        getPublicacionesByPropietarioId(user.id)
+    }, [getPublicacionesByPropietarioId, user])
 
     return (
         <section id="mis-planes" className="perfil">
