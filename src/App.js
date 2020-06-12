@@ -30,7 +30,6 @@ import SitioContextProvider from './context/SitioContext';
 import PerfilPropietario from './components/PerfilPropietario';
 import MisPublicaciones from './components/MisPublicaciones';
 import MisSitios from './components/MisSitios';
-import CardSitio from './components/CardSitio';
 
 function App() {
 

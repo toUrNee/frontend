@@ -78,6 +78,7 @@ class PublicacionContextProvider extends Component {
         filtro.map(idActividad => (
             axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + idActividad)
                 .then(res => {
+                // eslint-disable-next-line
                     res.data.map(publicacion => {
                         if (_publicaciones.map(x => x.id).indexOf(publicacion.id) === -1) {
                             _publicaciones = _publicaciones.concat(publicacion)
@@ -102,6 +103,7 @@ class PublicacionContextProvider extends Component {
         filtro.map(idActividad => (
             axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + idActividad + '/region/', { params: { region: region } })
                 .then(res => {
+                // eslint-disable-next-line
                     res.data.map(publicacion => {
                         if (_publicaciones.map(x => x.id).indexOf(publicacion.id) === -1) {
                             _publicaciones = _publicaciones.concat(publicacion)
