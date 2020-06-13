@@ -116,7 +116,6 @@ function FormSitio() {
                 success={success}
                 error={error}
                 warning={warning}
-                edit={location.state && location.state.sitio}
             />
         }
     }

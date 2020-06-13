@@ -66,7 +66,6 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, success, error, edit }) 
         <div className="col col-form ">
             <h1 className="titulo-form-blue">Ingresa los datos del sitio</h1>
             <form method="post" encType="multipart/form-data">
-
                 <div className="form-group">
                     <label htmlFor="Nombre">Nombre</label>
                     <input
