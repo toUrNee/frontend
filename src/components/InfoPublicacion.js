@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import '../styles/InfoPublicacion.css'
 import { PublicacionContext } from '../context/PublicacionContext';
 import { AuthContext } from '../context/AuthContext';
@@ -13,11 +13,12 @@ const InfoPublicacion = (props) => {
     let { idPublicacion } = match.params;
 
     const { loading, publicacion, getPublicacionById } = useContext(PublicacionContext)
+    const { reservas, getReservasByUserId } = useContext(ReservaContext)
     const { user } = useContext(AuthContext)
-    const { getReservasByUserId } = useContext(ReservaContext)
     //const location = useLocation();
     //console.log(location.pathname.substring(location.pathname.lastIndexOf('/') + 1));
-    //hacer un contexto para la reserva ---> traer todas las reservas y traer las reservas por el id de un user 
+
+    const firstUpdate = useRef(true)
 
     const success = (message) => {
         store.addNotification({
@@ -51,30 +52,49 @@ const InfoPublicacion = (props) => {
         });
     }
 
+    var alreadyDone = 0;
+
     const reservarPlan = () => {
-        axios.post(process.env.REACT_APP_BACK_URL + '/Reserva/', {
-            Fecha: publicacion.fecha,
-            UsuarioId: user.id,
-            PublicacionId: publicacion.id
-        })
-        .then(() => {
-            success("La reserva para este plan fue creada con éxito");
-        })
-        .catch(err => {
-            console.log(err);
-            error("Ha ocurrido un error y no se ha podido hacer tu reserva");
-        })
+        var x = 0;
+        for(var i = 0; i < reservas.length; i++){
+            if(reservas[i].usuarioId === user.id && reservas[i].publicacion.id === publicacion.id){
+                x = 1;
+            }
+        }
+        if(x){
+            error("Al parecer ya has intentado hacer esta reserva");
+            alreadyDone = 0;
+        }else{
+            axios.post(process.env.REACT_APP_BACK_URL + '/Reserva/', {
+                Fecha: new Date(),
+                UsuarioId: user.id,
+                PublicacionId: publicacion.id
+            })
+            .then(() => {
+                success("La reserva para este plan fue creada con éxito");
+                alreadyDone = 0;
+                console.log(alreadyDone)
+            })
+            .catch(err => {
+                console.log(err);
+                error("Ha ocurrido un error y no se ha podido hacer tu reserva");
+            })
+        }
     }
 
     useEffect(() => {
         getPublicacionById(idPublicacion)
-    }, [getPublicacionById])
+    }, [getPublicacionById, idPublicacion])
 
-    /*
+    
     useEffect(() =>{
-        getReservasByUserId(user.id)        
-    }, [getReservasByUserId])
-    */
+        if(firstUpdate.current){
+            firstUpdate.current = false;
+            return;
+        }
+        getReservasByUserId(user.id);
+    }, [getReservasByUserId, user])
+    
    
     return (
         <div>
@@ -97,7 +117,7 @@ const InfoPublicacion = (props) => {
                                 <div className="col-md-12 col-lg-8 principal">
                                     <div className="botones text-right">
                                         <button type="button" className="btn btn-danger"> <i className="far fa-heart"></i> Guardar </button>
-                                        <button type="button" class="btn btn-success" onClick={reservarPlan}> <i class="far fa-bell"></i> Reservar </button>
+                                        <button type="button" class="btn btn-success" onClick={reservarPlan} disabled={alreadyDone}><i class="far fa-bell"></i> Reservar </button>
                                     </div>
                                     <div className="description">
                                         <h2>Descripcion del plan <button type="button" className="btn btn-warning">  ${publicacion.precio} </button> </h2>
