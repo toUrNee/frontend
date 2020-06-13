@@ -42,7 +42,7 @@ const Card = (props) => {
                         <i className="far fa-calendar-alt"></i>{fecha}
 
                     </div>*/}
-                    {props.publicacion.sitio.actividades.map(actividad => (
+                    {props.publicacion.actividades.map(actividad => (
 
                         <i className={actividad.tipoActividad.icono}></i>
                     ))}
