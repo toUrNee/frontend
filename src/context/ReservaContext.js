@@ -7,6 +7,8 @@ class ReservaContextProvider extends Component {
 
     state = { 
         reservas: [],
+        loading: true,
+        existeInteres: false,
     }
     
     getReservas = () => {
@@ -22,6 +24,26 @@ class ReservaContextProvider extends Component {
             this.setState({
                 ...this.state,
                 reservas: [],
+            })
+        })
+    }
+
+    getInteres = (usuarioId, publicacionId) => {
+        console.log(usuarioId, publicacionId)
+        axios.get(process.env.REACT_APP_BACK_URL + '/Interes/publicacion/'+publicacionId+'/usuario/'+usuarioId)
+        .then(res => {
+            this.setState({
+                ...this.state,
+                existeInteres: true,
+                loading:false,
+            })
+        })
+        .catch(err => {
+            console.log(err)
+            this.setState({
+                ...this.state,
+                existeInteres: false,
+                loading:false,
             })
         })
     }
@@ -68,6 +90,7 @@ class ReservaContextProvider extends Component {
                 ...this.state,
                 getReservas: this.getReservas,
                 getReservasByUserId: this.getReservasByUserId,
+                getInteres: this.getInteres,
             }}>
                 {this.props.children}
             </ReservaContext.Provider>

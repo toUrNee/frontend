@@ -15,7 +15,7 @@ const Card = (props) => {
     return (
         <div className="card" >
 
-            <Link to="/">
+            <Link to={'/publicacion/'+props.publicacion.id}>
                 <img
                     src={image.src + "?" + image.hash}
                     alt="Imagen plan"

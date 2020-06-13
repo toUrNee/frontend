@@ -93,7 +93,7 @@ function App() {
                                         </PrivateRoute>
 
                                         <Route exact path="/publicaciones" render={(props) => <Publicaciones {...props} />} />
-                                        <Route exact path="/publicaciones/:idPublicacion" render={(props) => <InfoPublicacion {...props} />} />
+                                        <Route exact path="/publicacion/:idPublicacion" render={(props) => <InfoPublicacion {...props} />} />
 
                                         <Route path="/" exact component={Inicio} />
 
