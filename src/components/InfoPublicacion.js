@@ -13,8 +13,8 @@ const InfoPublicacion = (props) => {
     let { idPublicacion } = match.params;
 
     const { loading, publicacion, getPublicacionById } = useContext(PublicacionContext)
-    const { user } = useContext(AuthContext)
-    const { existeInteres, getInteres } = useContext(ReservaContext)
+    const { user, isAuthenticated } = useContext(AuthContext)
+    const { existeInteres, getInteres, postInteres, deleteInteres, loadingReserva } = useContext(ReservaContext)
 
     const success = (message) => {
         store.addNotification({
@@ -63,31 +63,17 @@ const InfoPublicacion = (props) => {
             })
     }
 
-    const agregarInteres = () => {
-        axios.post(process.env.REACT_APP_BACK_URL + '/Interes/', {
-            Fecha: new Date(),
-            UsuarioId: user.id,
-            PublicacionId: publicacion.id
-        })
-            .then(() => {
-                success("Este plan fue guardado con éxito");
-                document.getElementById('interes' + publicacion.id + user.id).disabled = true;
-            })
-            .catch(err => {
-                console.log(err);
-                error("Ha ocurrido un error y no se ha podido hacer tu reserva");
-            })
-    }
 
     useEffect(() => {
         getPublicacionById(idPublicacion)
     }, [getPublicacionById])
 
     useEffect(() => {
-        if (user !== null){
-        console.log('FUNCION')
-            getInteres(user.id, publicacion.id)}
-    }, [])
+        if (publicacion !== null && user !== null) {
+            console.log('FUNCION', user, publicacion)
+            getInteres(user.id, publicacion.id)
+        }
+    }, [user, publicacion, getInteres])
 
     /*
     useEffect(() =>{
@@ -104,7 +90,7 @@ const InfoPublicacion = (props) => {
                     </div >
                 </div >
                 :
-                publicacion.id === undefined ?
+                publicacion === null ?
                     <div className="container-fluid">
                         <div className="text-center portada" style={{ marginBottom: 10, backgroundImage: `url("https://i.pinimg.com/originals/af/4c/57/af4c571f547a74ae7a0dbda30a79c509.jpg")` }}>
                             <span className="clasificacion bg-success ">Error 404</span>
@@ -122,13 +108,21 @@ const InfoPublicacion = (props) => {
                             <div className="container-fluid">
                                 <div className="row">
                                     <div className="col-md-12 col-lg-8 principal">
-                                        {user === null ? null :
+                                        {isAuthenticated ?
                                             <div className="botones text-right">
-                                                {existeInteres ? null :
-                                                    <button type="button" className="btn btn-danger" onClick={agregarInteres} id={'interes' + publicacion.id + user.id}> <i className="far fa-heart"></i> Guardar </button>
+                                                {existeInteres ?
+                                                    <button type="button" className="btn btn-danger" onClick={() => deleteInteres(user.id, publicacion.id)} >
+                                                        <i className='fas fa-heart' ></i> Guardado
+                                                    </button>
+                                                    :
+                                                    <button type="button" className="btn btn-danger" onClick={() => postInteres(user.id, publicacion.id)} >
+                                                        <i className='far fa-heart' ></i> Guardar
+                                                    </button>
                                                 }
+
                                                 <button type="button" class="btn btn-success" onClick={reservarPlan}> <i class="far fa-bell"></i> Reservar </button>
                                             </div>
+                                            : null
                                         }
                                         <div className="description">
                                             <h2>Descripcion del plan <button type="button" className="btn btn-warning">  ${publicacion.precio} </button> </h2>

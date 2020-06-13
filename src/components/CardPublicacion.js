@@ -15,7 +15,7 @@ const Card = (props) => {
     return (
         <div className="card" >
 
-            <Link to={'/publicacion/'+props.publicacion.id}>
+            <Link to={'/publicacion/' + props.publicacion.id}>
                 <img
                     src={image.src + "?" + image.hash}
                     alt="Imagen plan"
@@ -23,13 +23,7 @@ const Card = (props) => {
                     onError={() => setImage({ src: default_src, hash: Date.now() })}
                 />
 
-                <div className="card-img-overlay d-flex justify-content-end">
-                    <p to="/" className="card-link text-danger like">
-                        {/* Corazón relleno color
-                        <i className="fas fa-heart"></i>*/}
-                        <i className="far fa-heart"></i>
-                    </p>
-                </div>
+                
                 <div className="card-img-overlay">
                     <p to="/" className="btn btn-warning btn-sm ">{'$ ' + props.publicacion.precio}</p>
                 </div>

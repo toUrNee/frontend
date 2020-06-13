@@ -5,64 +5,106 @@ export const ReservaContext = createContext()
 
 class ReservaContextProvider extends Component {
 
-    state = { 
+    state = {
         reservas: [],
-        loading: true,
+        loadingReserva: true,
         existeInteres: false,
     }
-    
+
     getReservas = () => {
         axios.get(process.env.REACT_APP_BACK_URL + '/Reserva/')
-        .then(res => {
-            this.setState({
-                ...this.state,
-                reservas: res.data,
+            .then(res => {
+                this.setState({
+                    ...this.state,
+                    reservas: res.data,
+                })
             })
-        })
-        .catch(err => {
-            console.log(err)
-            this.setState({
-                ...this.state,
-                reservas: [],
+            .catch(err => {
+                console.log(err)
+                this.setState({
+                    ...this.state,
+                    reservas: [],
+                })
             })
-        })
     }
 
     getInteres = (usuarioId, publicacionId) => {
+        console.log('CONTEXT',usuarioId, publicacionId)
+        axios.get(process.env.REACT_APP_BACK_URL + '/Interes/publicacion/' + publicacionId + '/usuario/' + usuarioId)
+            .then(res => {
+                this.setState({
+                    ...this.state,
+                    existeInteres: true,
+                    loadingReserva: false,
+                })
+            })
+            .catch(err => {
+                this.setState({
+                    ...this.state,
+                    existeInteres: false,
+                    loadingReserva: false,
+                })
+            })
+    }
+
+    postInteres = (usuarioId, publicacionId) => {
+        axios.post(process.env.REACT_APP_BACK_URL + '/Interes/', {
+            Fecha: new Date(),
+            UsuarioId: usuarioId,
+            PublicacionId: publicacionId
+        })
+            .then(() => {
+                this.setState({
+                    ...this.state,
+                    existeInteres: true,
+                    loadingReserva: false,
+                })
+            })
+            .catch(err => {
+                console.log(err);
+                this.setState({
+                    ...this.state,
+                    existeInteres: false,
+                    loadingReserva: false,
+                })
+            })
+    }
+
+    deleteInteres = (usuarioId, publicacionId) => {
         console.log(usuarioId, publicacionId)
-        axios.get(process.env.REACT_APP_BACK_URL + '/Interes/publicacion/'+publicacionId+'/usuario/'+usuarioId)
-        .then(res => {
-            this.setState({
-                ...this.state,
-                existeInteres: true,
-                loading:false,
+        axios.delete(process.env.REACT_APP_BACK_URL + '/Interes/publicacion/' + publicacionId + '/usuario/' + usuarioId)
+            .then(res => {
+                this.setState({
+                    ...this.state,
+                    existeInteres: false,
+                    loadingReserva: false,
+                })
             })
-        })
-        .catch(err => {
-            console.log(err)
-            this.setState({
-                ...this.state,
-                existeInteres: false,
-                loading:false,
+            .catch(err => {
+                console.log(err)
+                this.setState({
+                    ...this.state,
+                    existeInteres: true,
+                    loadingReserva: false,
+                })
             })
-        })
     }
 
     getReservasByUserId = (id) => {
         axios.get(process.env.REACT_APP_BACK_URL + '/Reserva/usuario/' + id)
-        .then(res => {
-            this.setState({
-                ...this.state,
-                reservas: res.data,
+            .then(res => {
+                this.setState({
+                    ...this.state,
+                    reservas: res.data,
+                })
             })
-        })
-        .catch(err =>{
-            console.log(err)
-            this.setState({
-                ...this.state,
-                reservas: []
+            .catch(err => {
+                console.log(err)
+                this.setState({
+                    ...this.state,
+                    reservas: []
+                })
             })
-        })
     }
 
     /*
@@ -83,19 +125,21 @@ class ReservaContextProvider extends Component {
         })
     }
     */
-   
-    render() { 
-        return ( 
+
+    render() {
+        return (
             <ReservaContext.Provider value={{
                 ...this.state,
                 getReservas: this.getReservas,
                 getReservasByUserId: this.getReservasByUserId,
                 getInteres: this.getInteres,
+                postInteres: this.postInteres,
+                deleteInteres: this.deleteInteres,
             }}>
                 {this.props.children}
             </ReservaContext.Provider>
-         );
+        );
     }
 }
- 
+
 export default ReservaContextProvider;
