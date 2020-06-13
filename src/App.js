@@ -5,27 +5,6 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <ul class="nav justify-content-end" id="nav1">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Amazonas</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Andina</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Caribe</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pacifico</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Orinoquia</a>
-        </li>
-      </ul>
-
       <header className="App-header">
 
         <img src={logo} className="App-logo" alt="logo" />
