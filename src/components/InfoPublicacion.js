@@ -51,7 +51,7 @@ const InfoPublicacion = (props) => {
                 deleteReserva(user.id, publicacion.id)
                 Swal.fire(
                     'Listo!',
-                    'Tu reserva ha sido creada éxito.',
+                    'Tu reserva ha sido eliminada éxito.',
                     'success'
                 )
             }
@@ -64,6 +64,7 @@ const InfoPublicacion = (props) => {
 
     useEffect(() => {
         if (publicacion !== null && user !== null) {
+            console.log(publicacion)
             getReserva(user.id, publicacion.id)
         }
     }, [getReserva, user, publicacion])
@@ -89,13 +90,13 @@ const InfoPublicacion = (props) => {
                                 <div className="col-md-12 col-lg-8 principal">
                                     <div className="botones text-right">
                                         <button type="button" className="btn btn-danger"> <i className="far fa-heart"></i> Guardar </button>
-                                        {!existeReserva ? 
-                                                <button type="button" className="btn btn-danger" onClick={() => eliminarReserva()}>
-                                                    <i className='far fa-calendar-times' ></i> Remover reserva
+                                        {existeReserva ? 
+                                                <button type="button" className="btn btn-success disabled" onClick={eliminarReserva}>
+                                                    <i className="far fa-bell-slash"></i>Remover reserva
                                                 </button>
                                             :
-                                                <button type="button" className="btn btn-success" onClick={() => hacerReserva()}>
-                                                    <i className='far fa-calendar-check' ></i> Reservar
+                                                <button type="button" className="btn btn-success" onClick={hacerReserva}>
+                                                    <i className="far fa-bell"></i> Reservar
                                                 </button>
                                         }
                                     </div>

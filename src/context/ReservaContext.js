@@ -10,23 +10,23 @@ class ReservaContextProvider extends Component {
     }
     
     getReserva = (usuarioId, publicacionId) => {
-        axios.get(process.env.REACT_APP_BACK_URL + 'Reserva/publicacion/' + publicacionId + '/usuario/' + usuarioId)
+        axios.get(process.env.REACT_APP_BACK_URL + '/Reserva/publicacion/' + publicacionId + '/usuario/' + usuarioId)
         .then(() => {
             this.setState({
                 ...this.state,
                 existeReserva: true
             })
         })
-        .catch(err => {
-            console.log(err);
+        .catch(() => {
             this.setState({
+                ...this.state,
                 existeReserva: false
             })
         })
     }
     
     postReserva = (usuarioId, publicacionId) => {
-        axios.post(process.env.REACT_APP_BACK_URL + '/Reserva/', {
+        axios.post(process.env.REACT_APP_BACK_URL + '/Reserva', {
             Fecha: new Date(),
             UsuarioId: usuarioId,
             PublicacionId: publicacionId
@@ -47,7 +47,7 @@ class ReservaContextProvider extends Component {
     }
 
     deleteReserva = (usuarioId, publicacionId) => {
-        axios.delete(process.env.REACT_APP_BACK_URL + 'Reserva/publicacion/' + publicacionId + '/usuario/' + usuarioId)
+        axios.delete(process.env.REACT_APP_BACK_URL + '/Reserva/publicacion/' + publicacionId + '/usuario/' + usuarioId)
         .then(() => {
             this.setState({
                 ...this.state,

@@ -5,7 +5,7 @@ export const PublicacionContext = createContext()
 
 class PublicacionContextProvider extends Component {
     state = {
-        publicacion: "",
+        publicacion: null,
         publicaciones: [],
         actividades: [],
         loading: true
