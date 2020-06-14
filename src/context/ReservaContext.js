@@ -6,68 +6,70 @@ export const ReservaContext = createContext()
 class ReservaContextProvider extends Component {
 
     state = { 
-        reservas: [],
+        existeReserva: false
     }
     
-    getReservas = () => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/Reserva/')
-        .then(res => {
+    getReserva = (usuarioId, publicacionId) => {
+        axios.get(process.env.REACT_APP_BACK_URL + 'Reserva/publicacion/' + publicacionId + '/usuario/' + usuarioId)
+        .then(() => {
             this.setState({
                 ...this.state,
-                reservas: res.data,
+                existeReserva: true
             })
         })
         .catch(err => {
-            console.log(err)
+            console.log(err);
             this.setState({
-                ...this.state,
-                reservas: [],
+                existeReserva: false
             })
         })
     }
-
-    getReservasByUserId = (id) => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/Reserva/usuario/' + id)
-        .then(res => {
-            this.setState({
-                ...this.state,
-                reservas: res.data,
-            })
+    
+    postReserva = (usuarioId, publicacionId) => {
+        axios.post(process.env.REACT_APP_BACK_URL + '/Reserva/', {
+            Fecha: new Date(),
+            UsuarioId: usuarioId,
+            PublicacionId: publicacionId
         })
-        .catch(err =>{
-            console.log(err)
+        .then(() => {
             this.setState({
                 ...this.state,
-                reservas: []
-            })
-        })
-    }
-
-    /*
-    getUsersByReservaId = (id) => { 
-        axios.get(process.env.REACT_APP_BACK_URL + '/Reserva/' + id)
-        .then(res =>{
-            this.setState({
-                ...this.state,
-                //algo
+                existeReserva: true
             })
         })
         .catch(err => {
             console.log(err);
             this.setState({
                 ...this.state,
-                //algo
+                existeReserva: false
             })
         })
     }
-    */
-   
+
+    deleteReserva = (usuarioId, publicacionId) => {
+        axios.delete(process.env.REACT_APP_BACK_URL + 'Reserva/publicacion/' + publicacionId + '/usuario/' + usuarioId)
+        .then(() => {
+            this.setState({
+                ...this.state,
+                existeReserva: false
+            })
+        })
+        .catch((err) => {
+            console.log(err);
+            this.setState({
+                ...this.state,
+                existeReserva: true
+            })
+        })
+    }
+    
     render() { 
         return ( 
             <ReservaContext.Provider value={{
                 ...this.state,
-                getReservas: this.getReservas,
-                getReservasByUserId: this.getReservasByUserId,
+                getReserva: this.getReserva,
+                postReserva: this.postReserva,
+                deleteReserva: this.deleteReserva
             }}>
                 {this.props.children}
             </ReservaContext.Provider>
