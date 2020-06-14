@@ -1,16 +1,27 @@
-import React from 'react';
-
-
+import React, { useState, useEffect } from 'react';
+import default_src from '../images/crear-sitio-tur.png';
 import {
     Link
 } from "react-router-dom";
 
 const Card = (props) => {
+
+    const [image, setImage] = useState({ src: "", hash: Date.now() })
+
+    useEffect(() => {
+        setImage({ src: process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/sitio/" + props.publicacion.sitioId + "/random", hash: Date.now() })
+    }, [props.publicacion.sitioId])
+
     return (
         <div className="card" >
 
             <Link to="/">
-                <img className="card-img-top" src={process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/" + props.publicacion.sitioId} alt="Imagen plan" />
+                <img
+                    src={image.src + "?" + image.hash}
+                    alt="Imagen plan"
+                    className="card-img-top"
+                    onError={() => setImage({ src: default_src, hash: Date.now() })}
+                />
 
                 <div className="card-img-overlay d-flex justify-content-end">
                     <p to="/" className="card-link text-danger like">
