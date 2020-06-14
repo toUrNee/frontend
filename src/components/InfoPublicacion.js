@@ -90,7 +90,7 @@ const InfoPublicacion = (props) => {
                                     <div className="botones text-right">
                                         <button type="button" className="btn btn-danger"> <i className="far fa-heart"></i> Guardar </button>
                                         {!existeReserva ? 
-                                                <button type="button" className="btn btn-danger" onClick={() => eliminarReserva(user.id, publicacion.id)}>
+                                                <button type="button" className="btn btn-danger" onClick={() => eliminarReserva()}>
                                                     <i className='far fa-calendar-times' ></i> Remover reserva
                                                 </button>
                                             :
