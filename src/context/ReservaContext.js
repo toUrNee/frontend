@@ -10,23 +10,23 @@ class ReservaContextProvider extends Component {
         intereses: [],
         loadingReserva: true,
         existeInteres: false,
+        existeReserva: false,
     }
 
-    getReservas = () => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/Reserva/')
-            .then(res => {
-                this.setState({
-                    ...this.state,
-                    reservas: res.data,
-                })
+    getReserva = (usuarioId, publicacionId) => {
+        axios.get(process.env.REACT_APP_BACK_URL + '/Reserva/publicacion/' + publicacionId + '/usuario/' + usuarioId)
+        .then(() => {
+            this.setState({
+                ...this.state,
+                existeReserva: true
             })
-            .catch(err => {
-                console.log(err)
-                this.setState({
-                    ...this.state,
-                    reservas: [],
-                })
+        })
+        .catch(() => {
+            this.setState({
+                ...this.state,
+                existeReserva: false
             })
+        })
     }
 
     getInteres = (usuarioId, publicacionId) => {
@@ -46,21 +46,24 @@ class ReservaContextProvider extends Component {
                 })
             })
     }
-
-    getInteresByUser = (usuarioId) => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/Interes/usuario/' + usuarioId)
-        .then (res => {
+    
+    postReserva = (usuarioId, publicacionId) => {
+        axios.post(process.env.REACT_APP_BACK_URL + '/Reserva', {
+            Fecha: new Date(),
+            UsuarioId: usuarioId,
+            PublicacionId: publicacionId
+        })
+        .then(() => {
             this.setState({
                 ...this.state,
-                intereses: res.data,
-                loadingReserva: false,
+                existeReserva: true
             })
         })
         .catch(err => {
+            console.log(err);
             this.setState({
                 ...this.state,
-                intereses: [],
-                loadingReserva: false,
+                existeReserva: false
             })
         })
     }
@@ -88,6 +91,23 @@ class ReservaContextProvider extends Component {
             })
     }
 
+    deleteReserva = (usuarioId, publicacionId) => {
+        axios.delete(process.env.REACT_APP_BACK_URL + '/Reserva/publicacion/' + publicacionId + '/usuario/' + usuarioId)
+        .then(() => {
+            this.setState({
+                ...this.state,
+                existeReserva: false
+            })
+        })
+        .catch((err) => {
+            console.log(err);
+            this.setState({
+                ...this.state,
+                existeReserva: true
+            })
+        })
+    }
+
     deleteInteres = (usuarioId, publicacionId) => {
         axios.delete(process.env.REACT_APP_BACK_URL + '/Interes/publicacion/' + publicacionId + '/usuario/' + usuarioId)
             .then(res => {
@@ -105,7 +125,7 @@ class ReservaContextProvider extends Component {
                     loadingReserva: false,
                 })
             })
-    }
+    }   
 
     getReservasByUserId = (id) => {
         axios.get(process.env.REACT_APP_BACK_URL + '/Reserva/usuario/' + id)
@@ -123,15 +143,36 @@ class ReservaContextProvider extends Component {
                 })
             })
     }
+
+    getInteresByUser = (usuarioId) => {
+        axios.get(process.env.REACT_APP_BACK_URL + '/Interes/usuario/' + usuarioId)
+        .then (res => {
+            this.setState({
+                ...this.state,
+                intereses: res.data,
+                loadingReserva: false,
+            })
+        })
+        .catch(err => {
+            this.setState({
+                ...this.state,
+                intereses: [],
+                loadingReserva: false,
+            })
+        })
+    }
+
     render() {
         return (
             <ReservaContext.Provider value={{
                 ...this.state,
-                getReservas: this.getReservas,
-                getReservasByUserId: this.getReservasByUserId,
+                getReserva: this.getReserva,
                 getInteres: this.getInteres,
+                postReserva: this.postReserva,
                 postInteres: this.postInteres,
+                deleteReserva: this.deleteReserva,
                 deleteInteres: this.deleteInteres,
+                getReservasByUserId: this.getReservasByUserId,
                 getInteresByUser: this.getInteresByUser,
             }}>
                 {this.props.children}

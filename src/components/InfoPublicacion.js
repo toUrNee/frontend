@@ -2,11 +2,10 @@ import React, { useContext, useEffect } from 'react';
 import '../styles/InfoPublicacion.css'
 import { PublicacionContext } from '../context/PublicacionContext';
 import { AuthContext } from '../context/AuthContext';
-import axios from 'axios';
-import { store } from 'react-notifications-component';
 import { ReservaContext } from '../context/ReservaContext';
-//import { useLocation } from 'react-router-dom';
+import Swal from 'sweetalert2'
 
+//mirrar error de petición doble al eliminar o hacer reserva
 const InfoPublicacion = (props) => {
 
     const { match } = props;
@@ -14,36 +13,47 @@ const InfoPublicacion = (props) => {
 
     const { loading, publicacion, getPublicacionById } = useContext(PublicacionContext)
     const { user, isAuthenticated } = useContext(AuthContext)
-    const { existeInteres, getInteres, postInteres, deleteInteres } = useContext(ReservaContext)
+    const { existeInteres, getInteres, postInteres, deleteInteres, existeReserva, getReserva, postReserva, deleteReserva } = useContext(ReservaContext)
 
-    const success = (message) => {
-        store.addNotification({
-            title: "Perfecto!",
-            message: message,
-            type: "success",
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animated", "fadeInDown"],
-            animationOut: ["animated", "fadeOut"],
-            dismiss: {
-                duration: 3600,
-                onScreen: false
+    const hacerReserva = () => {
+        Swal.fire({
+            title: '¿Seguro de que deseas hacer una reserva para este plan?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Sí, deseo hacer la reserva'
+        }).then((result) => {
+            if (result.value) {
+                postReserva(user.id, publicacion.id)
+                Swal.fire(
+                    'Listo!',
+                    'Tu reserva ha sido creada éxito.',
+                    'success'
+                )
             }
-        });
+        })
     }
 
-    const error = (message) => {
-        store.addNotification({
-            title: "Oops!",
-            message: message,
-            type: "danger",
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animated", "fadeInDown"],
-            animationOut: ["animated", "fadeOut"],
-            dismiss: {
-                duration: 3600,
-                onScreen: false
+    const eliminarReserva = () => {
+        Swal.fire({
+            title: '¿Seguro de que deseas remover esta reserva?',
+            text: "Estos cambios podrían ser irrevertibles!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Sí, deseo remover la reserva'
+        }).then((result) => {
+            if (result.value) {
+                deleteReserva(user.id, publicacion.id)
+                Swal.fire(
+                    'Listo!',
+                    'Tu reserva ha sido eliminada éxito.',
+                    'success'
+                )
             }
         });
     }
@@ -54,16 +64,15 @@ const InfoPublicacion = (props) => {
             UsuarioId: user.id,
             PublicacionId: publicacion.id
         })
-            .then(() => {
-                success("La reserva para este plan fue creada con éxito");
-            })
-            .catch(err => {
-                console.log(err);
-                error("Ha ocurrido un error y no se ha podido hacer tu reserva");
-            })
+        .then(() => {
+            success("La reserva para este plan fue creada con éxito");
+        })
+        .catch(err => {
+            console.log(err);
+            error("Ha ocurrido un error y no se ha podido hacer tu reserva");
+        })
     }
-
-
+    
     useEffect(() => {
         getPublicacionById(idPublicacion)
     }, [getPublicacionById, idPublicacion])
@@ -72,14 +81,9 @@ const InfoPublicacion = (props) => {
         if (publicacion !== null && user !== null) {
             console.log('FUNCION', user, publicacion)
             getInteres(user.id, publicacion.id)
+            getReserva(user.id, publicacion.id)
         }
     }, [user, publicacion, getInteres])
-
-    /*
-    useEffect(() =>{
-        getReservasByUserId(user.id)        
-    }, [getReservasByUserId])
-    */
 
     return (
         <div>
@@ -119,10 +123,18 @@ const InfoPublicacion = (props) => {
                                                         <i className='far fa-heart' ></i> Guardar
                                                     </button>
                                                 }
-
-                                                <button type="button" className="btn btn-success" onClick={reservarPlan}> <i className="far fa-bell"></i> Reservar </button>
+                                                {existeReserva ? 
+                                                    <button type="button" className="btn btn-success disabled" onClick={eliminarReserva}>
+                                                        <i className="far fa-bell-slash"></i>Remover reserva
+                                                    </button>
+                                                :
+                                                    <button type="button" className="btn btn-success" onClick={hacerReserva}>
+                                                        <i className="far fa-bell"></i> Reservar
+                                                    </button>
+                                                }
                                             </div>
-                                            : null
+                                            : 
+                                            null
                                         }
                                         <div className="description">
                                             <h2>Descripcion del plan <button type="button" className="btn btn-warning">  ${publicacion.precio} </button> </h2>
