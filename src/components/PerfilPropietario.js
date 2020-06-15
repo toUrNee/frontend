@@ -1,36 +1,74 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import '../styles/PerfilPropietario.css'
 import NavPropietario from './NavPropietario';
 import { AuthContext } from '../context/AuthContext';
+import perfil from '../images/perfil.png'
 
 
 const PerfilPropietario = (props) => {
 
-    const { user } = useContext(AuthContext)
+    const { user, getPais, paisUsuario } = useContext(AuthContext)
+
+    useEffect(() => {
+        getPais(user)
+    }, [getPais, user])
 
     return (
         <section id="perfil" className="perfil">
-            <div className="container">
+            {paisUsuario !== null ?
 
-                <div className="section-title">
-                    <h2>Bienvenido {user.nombres}</h2>
-                    <p>Tu perfil</p>
-                </div>
-                <NavPropietario
-                    perfil="filter-active"
-                    sitios=""
-                    planes=""
-                />
+                <div className="container">
 
-                <div className="row perfil-container">
-                    <div className="col icon">
-                    <i className="fas fa-user-circle"></i>
-                    <h1>{user.nombres} ({user.username})</h1>
-                    <h2>{user.nacionalidad}</h2>
+                    <div className="section-title">
+                        <h2>Bienvenido {user.username}</h2>
+                        <p>Tu perfil</p>
+
                     </div>
-                    
+                    <NavPropietario
+                        perfil="filter-active"
+                        sitios=""
+                        planes=""
+                        reservas=""
+                        intereses=""
+                    />
+
+                    <div className="col">
+                        <h1 className="datos-title">Datos personales</h1>
+                    </div>
+
+                    <div className="row perfil-container justify-content-md-center">
+                        <div className="col-lg-6 col-md-12">
+                            <img src={perfil} alt="img perfil" style={{ width: '100%', marginBottom: '1rem' }}></img>
+                        </div>
+
+                        <div className="col-lg-6 col-md-12 datos-personales">
+                            <div className="row ">
+                                <h3 className="col-5">Nombre:</h3>
+                                <span className="col">{user.nombres}</span>
+
+                            </div>
+                            <div className="row">
+                                <h3 className="col-5">Pais: </h3>
+                                <span className="col">{paisUsuario.name}
+                                    <img className="rounded-circle img-fluid bandera" src={paisUsuario.flag} alt='Bandera'/>
+                                </span>
+
+                            </div>
+                            <div className="row">
+                                <h3 className="col-5">Correo:</h3>
+                                <span className="col">{user.email}</span>
+                            </div>
+                            <div className="row">
+                                <h3 className="col-5">Telefono:</h3>
+                                <span className="col"> {user.telefono}</span>
+                            </div>
+
+
+
+                        </div>
+                    </div>
                 </div>
-            </div>
+                : null}
         </section>
     );
 }

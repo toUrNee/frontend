@@ -14,7 +14,7 @@ const InfoPublicacion = (props) => {
 
     const { loading, publicacion, getPublicacionById } = useContext(PublicacionContext)
     const { user, isAuthenticated } = useContext(AuthContext)
-    const { existeInteres, getInteres, postInteres, deleteInteres, loadingReserva } = useContext(ReservaContext)
+    const { existeInteres, getInteres, postInteres, deleteInteres } = useContext(ReservaContext)
 
     const success = (message) => {
         store.addNotification({
@@ -66,7 +66,7 @@ const InfoPublicacion = (props) => {
 
     useEffect(() => {
         getPublicacionById(idPublicacion)
-    }, [getPublicacionById])
+    }, [getPublicacionById, idPublicacion])
 
     useEffect(() => {
         if (publicacion !== null && user !== null) {
@@ -120,7 +120,7 @@ const InfoPublicacion = (props) => {
                                                     </button>
                                                 }
 
-                                                <button type="button" class="btn btn-success" onClick={reservarPlan}> <i class="far fa-bell"></i> Reservar </button>
+                                                <button type="button" className="btn btn-success" onClick={reservarPlan}> <i className="far fa-bell"></i> Reservar </button>
                                             </div>
                                             : null
                                         }
@@ -194,12 +194,12 @@ const InfoPublicacion = (props) => {
                                             <div className="form-comentario">
                                                 <h3 className="mb-5">Deja tu comentario</h3>
                                                 <form className="p-5 bg-light text-dark">
-                                                    <div class="form-group">
-                                                        <label for="comentario">Comentario</label>
-                                                        <textarea name class="form-control" id="comentario" rows="10" cols="30"></textarea>
+                                                    <div className="form-group">
+                                                        <label htmlFor="comentario">Comentario</label>
+                                                        <textarea  className="form-control" id="comentario" rows="10" cols="30"></textarea>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <input type="submit" value="Publicar" class="btn btn-primary"></input>
+                                                    <div className="form-group">
+                                                        <input type="submit" value="Publicar" className="btn btn-primary"></input>
                                                     </div>
                                                 </form>
                                             </div>

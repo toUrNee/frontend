@@ -7,6 +7,7 @@ class ReservaContextProvider extends Component {
 
     state = {
         reservas: [],
+        intereses: [],
         loadingReserva: true,
         existeInteres: false,
     }
@@ -29,7 +30,6 @@ class ReservaContextProvider extends Component {
     }
 
     getInteres = (usuarioId, publicacionId) => {
-        console.log('CONTEXT',usuarioId, publicacionId)
         axios.get(process.env.REACT_APP_BACK_URL + '/Interes/publicacion/' + publicacionId + '/usuario/' + usuarioId)
             .then(res => {
                 this.setState({
@@ -45,6 +45,24 @@ class ReservaContextProvider extends Component {
                     loadingReserva: false,
                 })
             })
+    }
+
+    getInteresByUser = (usuarioId) => {
+        axios.get(process.env.REACT_APP_BACK_URL + '/Interes/usuario/' + usuarioId)
+        .then (res => {
+            this.setState({
+                ...this.state,
+                intereses: res.data,
+                loadingReserva: false,
+            })
+        })
+        .catch(err => {
+            this.setState({
+                ...this.state,
+                intereses: [],
+                loadingReserva: false,
+            })
+        })
     }
 
     postInteres = (usuarioId, publicacionId) => {
@@ -71,7 +89,6 @@ class ReservaContextProvider extends Component {
     }
 
     deleteInteres = (usuarioId, publicacionId) => {
-        console.log(usuarioId, publicacionId)
         axios.delete(process.env.REACT_APP_BACK_URL + '/Interes/publicacion/' + publicacionId + '/usuario/' + usuarioId)
             .then(res => {
                 this.setState({
@@ -106,26 +123,6 @@ class ReservaContextProvider extends Component {
                 })
             })
     }
-
-    /*
-    getUsersByReservaId = (id) => { 
-        axios.get(process.env.REACT_APP_BACK_URL + '/Reserva/' + id)
-        .then(res =>{
-            this.setState({
-                ...this.state,
-                //algo
-            })
-        })
-        .catch(err => {
-            console.log(err);
-            this.setState({
-                ...this.state,
-                //algo
-            })
-        })
-    }
-    */
-
     render() {
         return (
             <ReservaContext.Provider value={{
@@ -135,6 +132,7 @@ class ReservaContextProvider extends Component {
                 getInteres: this.getInteres,
                 postInteres: this.postInteres,
                 deleteInteres: this.deleteInteres,
+                getInteresByUser: this.getInteresByUser,
             }}>
                 {this.props.children}
             </ReservaContext.Provider>
