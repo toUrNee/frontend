@@ -32,6 +32,28 @@ function FormPublicacion (){
         getActividades()
     }, [getActividades])
 
+    useEffect(() => {
+        if (location.state && location.state.publicacion) {
+            axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + location.state.publicacion)
+                .then(res => {
+                    console.log(res.data)
+                    setPublicacion({
+                        Id: res.data.id,
+                        Fecha: res.data.fecha,
+                        Titulo: res.data.titulo,
+                        Descripcion: res.data.descripcion,
+                        PropietarioId: res.data.propietarioId,
+                        Precio: res.data.precio,
+                        SitioId: res.data.sitioId,
+                    })
+                })
+                .catch(error => {
+                    console.log(error);
+                    error("Hubo un problema la traer la publicación")
+                })
+        }
+    }, [location.state, user])
+
     const success = (message) => {
         store.addNotification({
             title: "Perfecto!",
@@ -80,30 +102,6 @@ function FormPublicacion (){
         });
     }
 
-    useEffect(() => {
-        if (location.state && location.state.publicacion) {
-            axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + location.state.publicacion)
-                .then(res => {
-                    console.log(res.data)
-                    setPublicacion({
-                        Id: res.data.id,
-                        Fecha: res.data.fecha,
-                        Titulo: res.data.titulo,
-                        Descripcion: res.data.descripcion,
-                        PropietarioId: res.data.propietarioId,
-                        Precio: res.data.precio,
-                        SitioId: res.data.sitioId,
-                    })
-                    //Hay que traer las actividades que se tenian y setearlas en actividades
-                    //setActividadesPublicacion([])
-                })
-                .catch(error => {
-                    console.log(error);
-                    error("Hubo un problema la traer la publicación")
-                })
-        }
-    }, [location.state, user])
-
     const showStep = () => {
         if(step === 1){
             return <AddPlan
@@ -120,14 +118,12 @@ function FormPublicacion (){
                 prevStep = {prevStep}
                 nextStep = {nextStep}
                 publicacion = {publicacion}
-                setPublicacion = {setPublicacion}
                 actividades = {actividades}
                 actividadesPublicacion = {actividadesPublicacion}
                 setActividadesPublicacion = {setActividadesPublicacion}
                 success = {success}
                 error = {error}
                 warning = {warning}
-                step = {step}
             />
         }
     }
@@ -137,7 +133,7 @@ function FormPublicacion (){
     }
 
     const prevStep = () => {
-        setStep(step-1)
+        setStep(1)
     }
 
     return (

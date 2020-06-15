@@ -3,45 +3,59 @@ import axios from 'axios';
 import { useHistory } from "react-router-dom"
 
 
-const AddActividad = ({ prevStep, publicacion, actividades, success, warning, nextStep, step, actividadesPublicacion, setActividadesPublicacion }) => {
+const AddActividad = ({ prevStep, publicacion, actividades, success, warning, error, nextStep, actividadesPublicacion, setActividadesPublicacion }) => {
     
     const history = useHistory()
 
     const [actividad, setActividad] = useState({
         Nombre: "",
-        TipoActividadId: 0,
+        TipoActividadId: 1,
         PublicacionId: publicacion.Id
     })
-
+    
+    useEffect(() => {
+        axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/actividades/' + publicacion.Id)
+            .then(res => {
+                var temp = res.data[0].actividades
+                setActividadesPublicacion(temp)
+            })
+            .catch(err => {
+                console.log(err)
+                error("Error cargando iconos")
+            })
+    },[])
+    
     const handlerSubmit = (e) => {
         e.preventDefault()
-        if((step > 1 && step < 7) && actividadesPublicacion.length < 6){
+        if(actividadesPublicacion.length < 5){
             axios.post(process.env.REACT_APP_BACK_URL + '/Actividades', actividad)
-                .then((res) => {
-                    console.log(res)    
+                .then(() => {
+                    axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/actividades/' + publicacion.Id)
+                        .then(res => {
+                            var temp = res.data[0].actividades
+                            setActividadesPublicacion(temp)
+                        })
+                        .catch(err => {
+                            console.log(err)
+                            error("Error cargando iconos")
+                        })
+                    refresh()    
+                    success("Actividad añadida correctamente")
+                    nextStep()
                 })
                 .catch((err) =>{
                     console.log(err)
                 })
-            var aux = actividadesPublicacion
-            aux.push(actividad)
-            setActividadesPublicacion([...aux])   
-            refresh()
-            nextStep()
         }else{
             warning("No se pueden añadir más de 5 actividades")
             return
         }  
     }
 
-    useEffect(() =>{
-        //traer todas las actividadesPublicacion
-    }, [actividadesPublicacion])
-
     const refresh = () => {
         setActividad({
             Nombre: "",
-            TipoActividadId: 0,
+            TipoActividadId: 1,
             PublicacionId: publicacion.Id
         })
     }
@@ -65,49 +79,107 @@ const AddActividad = ({ prevStep, publicacion, actividades, success, warning, ne
         }
     }
 
+    const borrarActividad = (i) => {
+        var x = actividadesPublicacion[i].id
+        axios.delete(process.env.REACT_APP_BACK_URL + '/Actividades/' + x)
+            .then(() => {
+                var aux = actividadesPublicacion
+                aux.splice(i, 1)
+                setActividadesPublicacion([...aux])
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
     return (
         <div className="col col-form">
             <header>
-                <h1> Selecciona tus actividades </h1>
+                <h1> ¿Qué actividades incluye este plan? 
+                    <button type="button" className="btn btn btn-warning" data-toggle="modal" data-target="#exampleModalLong" style={{ opacity: "50%", margin:"5px" }}> ? </button>
+                </h1>
+                {/* Modal de Bootstrap*/}
+                    <div className="modal fade" id="exampleModalLong" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="exampleModalLongTitle">Actividades</h5>
+                                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div className="modal-body">
+                                    {actividades.map((actividad, index) => (
+                                        <div className="row" style={{ margin: "5px" }} key={actividad.id}>
+                                            <h5 className="col">{actividad.nombre}</h5>
+                                            <p className="col" style={{ color: 'black', fontSize: "13px", textAlign: "justify" }}>{actividad.descripcion}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </header>
-            <form method="post">
+                <p>
+                    Crea las diferentes actividades que se pueden hacer 
+                    en este plan y clasifícalas en nuestras categorias (Máximo 5)
+                </p>
+                <div className="card" style={{width: "18rem"}}>
+                    <ul className="list-group list-group-flush">       
+                        {actividadesPublicacion.map((actividad, index) => (
+                            <li className="list-group-item" key={index}><i className={actividad.tipoActividad.icono} style={{ opacity: "50%", margin:"-14px", marginRight:"8px", padding: "5px" }}></i>
+                                {actividad.nombre}
+                                <button onClick={() => borrarActividad(index)} className="btn btn-danger" style={{float: "right"}}>
+                                    <span className="text-right"><i className="fas fa-trash"></i></span>
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            <form onSubmit={handlerSubmit}>
                 <div className="form-group">
                     <label htmlFor="Nombre">Nombre</label>
                     <input
                         name="Nombre"
                         className="form-control"
                         type="text"
-                        autoFocus
-                        required
                         value={actividad.Nombre}
                         onChange={onChange}
+                        required
+                        autoFocus
                     />
                 </div>
 
                 <div className="form-group">
                     <label htmlFor="TipoActividadId">Tipo de Actividad</label>
+                    
                     <select
                         name="TipoActividadId"
                         className="form-control"
                         type="number"
                         onChange={onChange}
-                        required
                         value={actividad.TipoActividadId}
+                        placeholder="Seleccione un tipo de actividad"
+                        required
                     >
-                        <option>Seleccione un tipo de actividad</option>
-                        {actividades.map(categoria =>
+                        {actividades.map(categoria => (
                             <option
                                 value={categoria.id}
                                 key={categoria.nombre}
+                                selected={categoria.id === 1}
                             >
                                 {categoria.nombre}
-                            </option>)}
+                            </option>
+                        ))}
                     </select>
                 </div>
+                <button className="btn btn-form-blue" onClick={prevStep}>Atras</button>
+                <button className="btn btn-form-blue" type="submit" disabled={actividadesPublicacion.length===5}>Añade otra actividad</button>
+                <button className="btn btn-form-blue" onClick={confirmSubmit}>Confirmar</button>
             </form>
-            <button className="btn btn-form-blue" onClick={prevStep}>Atras</button>
-            <button className="btn btn-form-blue" onClick={handlerSubmit}>Añade otra actividad</button>
-            <button className="btn btn-form-blue" onClick={confirmSubmit}>Confirmar</button>
         </div>
     );
 }

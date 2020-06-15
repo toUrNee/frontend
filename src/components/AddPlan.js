@@ -11,13 +11,16 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
     const { user } = useContext(AuthContext)
     const { sitios, getSitiosById } = useContext(SitioContext)
 
+    var curr = new Date();
+    curr.setDate(curr.getDate());
+    var date = curr.toISOString().substr(0,10);
+
     const onChange = (event) => {
         if (event.target.type === "number" || event.target.type === "select-one") {
             setPublicacion({
                 ...publicacion,
                 [event.target.name]: parseInt(event.target.value)
             })
-
         } else {
             setPublicacion({
                 ...publicacion,
@@ -29,7 +32,6 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
     const handlerSubmit = (e) => {
         e.preventDefault()
         if (edit) {
-            //el Id puede ser en minuscula
             axios.put(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + publicacion.Id, publicacion)
                 .then(() => {
                     success("Tu publicación fue actualizada con éxito")
@@ -99,7 +101,7 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
                             name="Precio"
                             className="form-control"
                             type="number"
-                            min="0"
+                            min="1"
                             onChange={onChange}
                             required
                             value={publicacion.Precio}
@@ -142,7 +144,7 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
                             name="Fecha"
                             className="form-control"
                             type="date"
-                            min="2020-05-03T00:00"
+                            min={date}
                             onChange={onChange}
                             required
                             value={publicacion.Fecha}
