@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from '../context/AuthContext';
 import { SitioContext } from '../context/SitioContext';
+import moment from 'moment';
 
 
 const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }) => {
@@ -21,6 +22,7 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
                 ...publicacion,
                 [event.target.name]: parseInt(event.target.value)
             })
+            console.log(publicacion.Fecha)
         } else {
             setPublicacion({
                 ...publicacion,

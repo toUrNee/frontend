@@ -109,10 +109,10 @@ const AddActividad = ({ prevStep, publicacion, actividades, success, warning, er
                                     </button>
                                 </div>
                                 <div className="modal-body">
-                                    {actividades.map((actividad, index) => (
-                                        <div className="row" style={{ margin: "5px" }} key={actividad.id}>
-                                            <h5 className="col">{actividad.nombre}</h5>
-                                            <p className="col" style={{ color: 'black', fontSize: "13px", textAlign: "justify" }}>{actividad.descripcion}</p>
+                                    {actividades.map((act, index) => (
+                                        <div className="row" style={{ margin: "5px" }} key={act.id}>
+                                            <h5 className="col">{act.nombre}</h5>
+                                            <p className="col" style={{ color: 'black', fontSize: "13px", textAlign: "justify" }}>{act.descripcion}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -129,9 +129,9 @@ const AddActividad = ({ prevStep, publicacion, actividades, success, warning, er
                 </p>
                 <div className="card" style={{width: "18rem"}}>
                     <ul className="list-group list-group-flush">       
-                        {actividadesPublicacion.map((actividad, index) => (
-                            <li className="list-group-item" key={index}><i className={actividad.tipoActividad.icono} style={{ opacity: "50%", margin:"-14px", marginRight:"8px", padding: "5px" }}></i>
-                                {actividad.nombre}
+                        {actividadesPublicacion.map((actividadPublicacion, index) => (
+                            <li className="list-group-item" key={index}><i className={actividadPublicacion.tipoActividad.icono} style={{ opacity: "50%", margin:"-14px", marginRight:"8px", padding: "5px" }}></i>
+                                {actividadPublicacion.nombre}
                                 <button onClick={() => borrarActividad(index)} className="btn btn-danger" style={{float: "right"}}>
                                     <span className="text-right"><i className="fas fa-trash"></i></span>
                                 </button>
@@ -169,7 +169,6 @@ const AddActividad = ({ prevStep, publicacion, actividades, success, warning, er
                             <option
                                 value={categoria.id}
                                 key={categoria.nombre}
-                                selected={categoria.id === 1}
                             >
                                 {categoria.nombre}
                             </option>

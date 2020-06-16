@@ -47,8 +47,8 @@ function FormPublicacion (){
                         SitioId: res.data.sitioId,
                     })
                 })
-                .catch(error => {
-                    console.log(error);
+                .catch(err => {
+                    console.log(err);
                     error("Hubo un problema la traer la publicación")
                 })
         }
