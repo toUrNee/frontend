@@ -57,21 +57,6 @@ const InfoPublicacion = (props) => {
             }
         });
     }
-
-    const reservarPlan = () => {
-        axios.post(process.env.REACT_APP_BACK_URL + '/Reserva/', {
-            Fecha: publicacion.fecha,
-            UsuarioId: user.id,
-            PublicacionId: publicacion.id
-        })
-        .then(() => {
-            success("La reserva para este plan fue creada con éxito");
-        })
-        .catch(err => {
-            console.log(err);
-            error("Ha ocurrido un error y no se ha podido hacer tu reserva");
-        })
-    }
     
     useEffect(() => {
         getPublicacionById(idPublicacion)
@@ -83,7 +68,7 @@ const InfoPublicacion = (props) => {
             getInteres(user.id, publicacion.id)
             getReserva(user.id, publicacion.id)
         }
-    }, [user, publicacion, getInteres])
+    }, [user, publicacion, getInteres, getReserva])
 
     return (
         <div>

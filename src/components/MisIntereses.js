@@ -6,11 +6,11 @@ import { ReservaContext } from '../context/ReservaContext';
 
 const MisIntereses = (props) => {
     const { user } = useContext(AuthContext)
-    const { intereses, getInteresByUser, loadingReserva, deleteInteres } = useContext(ReservaContext)
+    const { intereses, getInteresByUser, loadingReserva, deleteInteres, postReserva, deleteReserva, getReservasByUserId, existeReserva } = useContext(ReservaContext)
 
     useEffect(() => {
         getInteresByUser(user.id)
-    }, [getInteresByUser, deleteInteres, intereses, user.id])
+    }, [intereses, getInteresByUser , user.id, deleteInteres, existeReserva])
 
     return (
         <section id="perfil" className="perfil">
@@ -39,10 +39,14 @@ const MisIntereses = (props) => {
                             :
                             intereses.map(interes => (
                                 <CardInteres
-                                    key={interes.id}
+                                    //key={interes.id}
                                     interes={interes}
                                     deleteInteres={deleteInteres}
                                     user={user}
+                                    postReserva={postReserva}
+                                    getReservasByUserId={getReservasByUserId}
+                                    deleteReserva={deleteReserva}
+                                    existeReserva={existeReserva}
                                 />
                             ))}
                     </div >
