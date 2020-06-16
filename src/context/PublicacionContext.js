@@ -74,6 +74,7 @@ class PublicacionContextProvider extends Component {
 
     //Filtro por region 
     getPublicacionesByRegion = (region) => {
+        
         axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/region', { params: { region: region } })
             .then(res => {
                 this.setState({
@@ -96,8 +97,8 @@ class PublicacionContextProvider extends Component {
     //Filtro por actividades
     getPublicacionesByActividades = (filtro) => {
         var _publicaciones = []
-        filtro.map(idActividad => (
-            axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + idActividad)
+        filtro.map(actividad => (
+            axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + actividad.id)
                 .then(res => {
                 // eslint-disable-next-line
                     res.data.map(publicacion => {
@@ -121,8 +122,8 @@ class PublicacionContextProvider extends Component {
     //Filtro por actividades por region
     getPublicacionesByRegionAndActividades = (filtro, region) => {
         var _publicaciones = []
-        filtro.map(idActividad => (
-            axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + idActividad + '/region/', { params: { region: region } })
+        filtro.map(actividad => (
+            axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + actividad.id + '/region/', { params: { region: region } })
                 .then(res => {
                 // eslint-disable-next-line
                     res.data.map(publicacion => {
