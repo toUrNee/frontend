@@ -5,6 +5,7 @@ export const PublicacionContext = createContext()
 
 class PublicacionContextProvider extends Component {
     state = {
+        publicacion: null,
         publicaciones: [],
         actividades: [],
         loading: true
@@ -30,9 +31,29 @@ class PublicacionContextProvider extends Component {
             })
     }
 
+    //Trae una publicacion por su id
+    getPublicacionById = (id) => {
+        axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + id)
+        .then(res => {
+            this.setState({
+                ...this.state,
+                publicacion: res.data,
+                loading: false
+            })
+        })
+        .catch(error => {
+            console.log(error)
+            this.setState({
+                ...this.state,
+                publicacion: "",
+                loading: true
+            })
+        })
+    }
+
     //Trae publicaciones por propietario
 
-    getPublicacionesById = (id) => {
+    getPublicacionesByPropietarioId = (id) => {
         axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/propietario/' + id)
             .then(res => {
                 this.setState({
@@ -171,8 +192,9 @@ class PublicacionContextProvider extends Component {
         return (
             <PublicacionContext.Provider value={{
                 ...this.state,
+                getPublicacionById: this.getPublicacionById,
                 getPublicaciones: this.getPublicaciones,
-                getPublicacionesById: this.getPublicacionesById,
+                getPublicacionesByPropietarioId: this.getPublicacionesByPropietarioId,
                 getActividades: this.getActividades,
                 getPublicacionesByRegion: this.getPublicacionesByRegion,
                 getPublicacionesByActividades: this.getPublicacionesByActividades,
