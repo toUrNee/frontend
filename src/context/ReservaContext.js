@@ -91,11 +91,14 @@ class ReservaContextProvider extends Component {
             })
     }
 
-    deleteReserva = (usuarioId, publicacionId) => {
+    deleteReserva = (usuarioId, publicacionId, index) => {
         axios.delete(process.env.REACT_APP_BACK_URL + '/Reserva/publicacion/' + publicacionId + '/usuario/' + usuarioId)
         .then(() => {
+            var aux = this.state.reservas
+            aux.splice(index, 1)
             this.setState({
                 ...this.state,
+                reservas: aux,
                 existeReserva: false
             })
         })
@@ -108,11 +111,14 @@ class ReservaContextProvider extends Component {
         })
     }
 
-    deleteInteres = (usuarioId, publicacionId) => {
+    deleteInteres = (usuarioId, publicacionId, index) => {
         axios.delete(process.env.REACT_APP_BACK_URL + '/Interes/publicacion/' + publicacionId + '/usuario/' + usuarioId)
             .then(res => {
+                var aux = this.state.intereses
+                aux.splice(index, 1)
                 this.setState({
                     ...this.state,
+                    intereses: aux,
                     existeInteres: false,
                     loadingReserva: false,
                 })
@@ -152,6 +158,7 @@ class ReservaContextProvider extends Component {
                 intereses: res.data,
                 loadingReserva: false,
             })
+            
         })
         .catch(err => {
             this.setState({

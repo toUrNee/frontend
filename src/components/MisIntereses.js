@@ -6,11 +6,11 @@ import { ReservaContext } from '../context/ReservaContext';
 
 const MisIntereses = (props) => {
     const { user } = useContext(AuthContext)
-    const { intereses, getInteresByUser, loadingReserva, deleteInteres, postReserva, deleteReserva, getReservasByUserId, existeReserva } = useContext(ReservaContext)
+    const { intereses, getInteresByUser, loadingReserva, deleteInteres, postReserva, getReservasByUserId } = useContext(ReservaContext)
 
     useEffect(() => {
         getInteresByUser(user.id)
-    }, [intereses, getInteresByUser , user.id, deleteInteres, existeReserva])
+    }, [getInteresByUser , user.id])
 
     return (
         <section id="perfil" className="perfil">
@@ -37,16 +37,15 @@ const MisIntereses = (props) => {
                         {intereses.length === 0 ?
                             <p>Aun no guardas ninguna publicación, te invitamos a seguir buscando un plan que te agrade</p>
                             :
-                            intereses.map(interes => (
+                            intereses.map((interes, index) => (
                                 <CardInteres
-                                    //key={interes.id}
+                                    key={interes.publicacion.id}
                                     interes={interes}
                                     deleteInteres={deleteInteres}
                                     user={user}
+                                    index={index}
                                     postReserva={postReserva}
                                     getReservasByUserId={getReservasByUserId}
-                                    deleteReserva={deleteReserva}
-                                    existeReserva={existeReserva}
                                 />
                             ))}
                     </div >

@@ -11,7 +11,7 @@ const MisReservas = (props) => {
     
     useEffect(() => {
         getReservasByUserId(user.id)
-    }, [reservas, getReservasByUserId, user])
+    }, [getReservasByUserId, user])
     
     return (
         <section id="perfil" className="perfil">
@@ -32,11 +32,13 @@ const MisReservas = (props) => {
                         { reservas.length === 0 ?
                            <p>Parece que no tienes planes reservados, visita nuestros planes y haz una reserva ahora mismo</p>
                         :
-                            reservas.map((reserva) => (
+                            reservas.map((reserva, index) => (
                                 <CardReserva
+                                    key={reserva.publicacion.id}
                                     reserva={reserva}
                                     deleteReserva={deleteReserva}
                                     user={user}
+                                    index={index}
                                 />
                             ))
                         }

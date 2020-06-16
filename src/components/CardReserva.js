@@ -25,7 +25,7 @@ const CardReserva = (props) => {
             confirmButtonText: 'Sí, deseo remover la reserva'
         }).then((result) => {
             if (result.value) {
-                props.deleteReserva(props.user.id, props.reserva.publicacion.id)
+                props.deleteReserva(props.user.id, props.reserva.publicacion.id, props.index)
                 Swal.fire(
                     'Listo!',
                     'Tu reserva ha sido eliminada éxito.',
