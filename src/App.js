@@ -25,7 +25,6 @@ import 'react-notifications-component/dist/theme.css'
 import 'animate.css'
 import './App.css';
 import './styles/Form.css'
-import './styles/Post.css'
 import SitioContextProvider from './context/SitioContext';
 import PerfilPropietario from './components/PerfilPropietario';
 import MisPublicaciones from './components/MisPublicaciones';
@@ -61,9 +60,9 @@ function App() {
                                     </PrivateRoute>
 
                                     <PrivateRoute path="/perfil" exact>
-                                        <PrivateRoutePropietario path="/perfil" exact>
+                                        
                                             <PerfilPropietario />
-                                        </PrivateRoutePropietario>
+                                        
                                     </PrivateRoute>
 
 
