@@ -2,8 +2,11 @@ import React from 'react';
 import '../styles/PerfilPropietario.css'
 import Moment from 'react-moment';
 import Swal from 'sweetalert2';
+import { useHistory } from "react-router-dom";
 
 const CardInteres = (props) => {
+
+    const history = useHistory();
 
     const hacerReserva = () => {
         Swal.fire({
@@ -22,7 +25,9 @@ const CardInteres = (props) => {
                     'Listo!',
                     'Tu reserva ha sido creada éxito.',
                     'success'
-                )
+                ).then(() => {
+                    history.push("/perfil/reservas/");
+                })
             }
         })
     }
@@ -39,10 +44,17 @@ const CardInteres = (props) => {
                     </div>
                 </div>
                 <div className="col-md-3" style={{ textAlign: 'center', padding: '5% 0' }}>
-                        <button type="button" className="btn btn-success" onClick={hacerReserva}> 
+                    {/*
+                    <button type="button" className="btn btn-success" onClick={hacerReserva}> 
                             <i className="far fa-bell"></i> Reservar 
                         </button>
-                    <button type="button" className="btn btn-danger" onClick={() => props.deleteInteres(props.user.id, props.interes.publicacion.id, props.index)}> <i className="far fa-trash-alt"></i> Eliminar </button>
+                    */}
+                        <button type="button" className="btn btn-success" onClick={hacerReserva}> 
+                                <i className="far fa-bell"></i> Reservar 
+                        </button>
+                        <button type="button" className="btn btn-danger" onClick={() => props.deleteInteres(props.user.id, props.interes.publicacion.id, props.index)}>     
+                            <i className="far fa-trash-alt"></i> Eliminar 
+                        </button>
                 </div>
             </div>
         </div>

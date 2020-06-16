@@ -27,6 +27,9 @@ const InfoPublicacion = (props) => {
         }).then((result) => {
             if (result.value) {
                 postReserva(user.id, publicacion.id)
+                if(existeInteres){
+                    deleteInteres(user.id, publicacion.id)
+                }
                 Swal.fire(
                     'Listo!',
                     'Tu reserva ha sido creada éxito.',
@@ -70,6 +73,8 @@ const InfoPublicacion = (props) => {
         }
     }, [user, publicacion, getInteres, getReserva])
 
+    console.log("interes: " + existeInteres, " reserva: " + existeReserva)
+
     return (
         <div>
             {loading ?
@@ -99,24 +104,33 @@ const InfoPublicacion = (props) => {
                                     <div className="col-md-12 col-lg-8 principal">
                                         {isAuthenticated ?
                                             <div className="botones text-right">
-                                                {existeInteres ?
-                                                    <button type="button" className="btn btn-danger" onClick={() => deleteInteres(user.id, publicacion.id)} >
-                                                        <i className='fas fa-heart' ></i> Guardado
-                                                    </button>
-                                                    :
-                                                    <button type="button" className="btn btn-danger" onClick={() => postInteres(user.id, publicacion.id)} >
-                                                        <i className='far fa-heart' ></i> Guardar
-                                                    </button>
-                                                }
+                                                <div>
                                                 {existeReserva ? 
-                                                    <button type="button" className="btn btn-success disabled" onClick={eliminarReserva}>
-                                                        <i className="far fa-bell-slash"></i>Remover reserva
-                                                    </button>
+                                                    <div>
+                                                        <button type="button" className="btn btn-danger" disabled>
+                                                            <i className='far fa-heart' ></i> Guardar
+                                                        </button>   
+                                                        <button type="button" className="btn btn-success disabled" onClick={eliminarReserva}>
+                                                            <i className="far fa-bell-slash"></i>Remover reserva
+                                                        </button>
+                                                    </div>
                                                 :
-                                                    <button type="button" className="btn btn-success" onClick={hacerReserva}>
-                                                        <i className="far fa-bell"></i> Reservar
-                                                    </button>
+                                                    <div>
+                                                        {existeInteres ? 
+                                                            <button type="button" className="btn btn-danger" onClick={() => deleteInteres(user.id, publicacion.id)} >
+                                                                <i className='fas fa-heart' ></i> Guardado
+                                                            </button>
+                                                        :
+                                                            <button type="button" className="btn btn-danger" onClick={() => postInteres(user.id, publicacion.id)} >
+                                                                <i className='far fa-heart' ></i> Guardar
+                                                            </button>
+                                                        }
+                                                        <button type="button" className="btn btn-success" onClick={hacerReserva}>
+                                                            <i className="far fa-bell"></i> Reservar
+                                                        </button>
+                                                    </div>
                                                 }
+                                                </div>
                                             </div>
                                             : 
                                             null

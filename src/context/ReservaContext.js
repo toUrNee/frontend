@@ -56,7 +56,7 @@ class ReservaContextProvider extends Component {
         .then(() => {
             this.setState({
                 ...this.state,
-                existeReserva: true
+                existeReserva: true,
             })
         })
         .catch(err => {
@@ -127,7 +127,7 @@ class ReservaContextProvider extends Component {
                 console.log(err)
                 this.setState({
                     ...this.state,
-                    existeInteres: true,
+                    existeInteres: false,
                     loadingReserva: false,
                 })
             })

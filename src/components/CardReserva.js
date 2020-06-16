@@ -36,13 +36,14 @@ const CardReserva = (props) => {
     }
 
     return (
-        <div className="card card-reserva">
+        <div className="card card-reserva col-6">
             <div className="card-img-body">
                 <img
                     src={image.src + "?" + image.hash}
                     alt="Imagen plan"
                     className="card-img-top"
                     onError={() => setImage({ src: default_src, hash: Date.now() })}
+                    
                 />
             </div>
             <div className="card-body">
