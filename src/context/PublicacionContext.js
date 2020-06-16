@@ -5,6 +5,7 @@ export const PublicacionContext = createContext()
 
 class PublicacionContextProvider extends Component {
     state = {
+        publicacion: null,
         publicaciones: [],
         actividades: [],
         loading: true
@@ -30,9 +31,29 @@ class PublicacionContextProvider extends Component {
             })
     }
 
+    //Trae una publicacion por su id
+    getPublicacionById = (id) => {
+        axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + id)
+        .then(res => {
+            this.setState({
+                ...this.state,
+                publicacion: res.data,
+                loading: false
+            })
+        })
+        .catch(error => {
+            console.log(error)
+            this.setState({
+                ...this.state,
+                publicacion: "",
+                loading: true
+            })
+        })
+    }
+
     //Trae publicaciones por propietario
 
-    getPublicacionesById = (id) => {
+    getPublicacionesByPropietarioId = (id) => {
         axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/propietario/' + id)
             .then(res => {
                 this.setState({
@@ -53,6 +74,7 @@ class PublicacionContextProvider extends Component {
 
     //Filtro por region 
     getPublicacionesByRegion = (region) => {
+        
         axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/region', { params: { region: region } })
             .then(res => {
                 this.setState({
@@ -75,8 +97,8 @@ class PublicacionContextProvider extends Component {
     //Filtro por actividades
     getPublicacionesByActividades = (filtro) => {
         var _publicaciones = []
-        filtro.map(idActividad => (
-            axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + idActividad)
+        filtro.map(actividad => (
+            axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + actividad.id)
                 .then(res => {
                 // eslint-disable-next-line
                     res.data.map(publicacion => {
@@ -100,8 +122,8 @@ class PublicacionContextProvider extends Component {
     //Filtro por actividades por region
     getPublicacionesByRegionAndActividades = (filtro, region) => {
         var _publicaciones = []
-        filtro.map(idActividad => (
-            axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + idActividad + '/region/', { params: { region: region } })
+        filtro.map(actividad => (
+            axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + actividad.id + '/region/', { params: { region: region } })
                 .then(res => {
                 // eslint-disable-next-line
                     res.data.map(publicacion => {
@@ -170,8 +192,9 @@ class PublicacionContextProvider extends Component {
         return (
             <PublicacionContext.Provider value={{
                 ...this.state,
+                getPublicacionById: this.getPublicacionById,
                 getPublicaciones: this.getPublicaciones,
-                getPublicacionesById: this.getPublicacionesById,
+                getPublicacionesByPropietarioId: this.getPublicacionesByPropietarioId,
                 getActividades: this.getActividades,
                 getPublicacionesByRegion: this.getPublicacionesByRegion,
                 getPublicacionesByActividades: this.getPublicacionesByActividades,
