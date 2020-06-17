@@ -10,7 +10,8 @@ class AuthContextProvider extends Component {
         propietario: false,
         user: null,
         token: null,
-        error: null
+        error: null,
+        paisUsuario: null,
     }
 
     loginUser = (credenciales) => {
@@ -190,6 +191,26 @@ class AuthContextProvider extends Component {
             })
     }
 
+    getPais = (usuario) => {
+        axios.get(process.env.REACT_APP_COUNTRIES_URL + '/alpha/' + usuario.nacionalidad, {
+            params:{
+                fields: "name;flag"
+            }
+        }).then(res => {
+            this.setState({
+                ...this.state,
+                paisUsuario: res.data,
+                isAuthenticated:true
+            })
+        }).catch(err => {
+            console.log(err)
+            this.setState({
+                ...this.state,
+                paisUsuario: null
+            })
+        })
+    }
+
     componentDidMount() {
         var token = localStorage.getItem('token')
         var usuario = localStorage.getItem('usuario')
@@ -224,6 +245,7 @@ class AuthContextProvider extends Component {
                 loginUser: this.loginUser,
                 logoutUser: this.logoutUser,
                 cambiarRol: this.cambiarRol,
+                getPais: this.getPais,
             }}>
                 {this.props.children}
             </AuthContext.Provider>

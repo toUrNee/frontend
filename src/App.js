@@ -31,6 +31,8 @@ import MisPublicaciones from './components/MisPublicaciones';
 import MisSitios from './components/MisSitios';
 import InfoPublicacion from './components/InfoPublicacion';
 import ReservaContextProvider from './context/ReservaContext';
+import MisReservas from './components/MisReservas';
+import MisIntereses from './components/MisIntereses';
 
 
 function App() {
@@ -63,12 +65,17 @@ function App() {
                                             </PrivateRoutePropietario>
                                         </PrivateRoute>
 
-                                        <PrivateRoute path="/perfil" exact>
-                                            <PrivateRoutePropietario path="/perfil" exact>
-                                                <PerfilPropietario />
-                                            </PrivateRoutePropietario>
+                                        <PrivateRoute path="/perfil/reservas" exact>
+                                                <MisReservas />
                                         </PrivateRoute>
 
+                                        <PrivateRoute path="/perfil/favoritos" exact>
+                                                <MisIntereses />
+                                        </PrivateRoute>
+
+                                        <PrivateRoute path="/perfil" exact>
+                                                <PerfilPropietario />
+                                        </PrivateRoute>                                       
 
                                         <PrivateRoute path="/crear-plan" exact>
                                             <PrivateRoutePropietario path="/crear-plan" exact>
@@ -93,7 +100,7 @@ function App() {
                                         </PrivateRoute>
 
                                         <Route exact path="/publicaciones" render={(props) => <Publicaciones {...props} />} />
-                                        <Route exact path="/publicaciones/:idPublicacion" render={(props) => <InfoPublicacion {...props} />} />
+                                        <Route exact path="/publicacion/:idPublicacion" render={(props) => <InfoPublicacion {...props} />} />
 
                                         <Route path="/" exact component={Inicio} />
 

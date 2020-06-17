@@ -10,7 +10,7 @@ const Carousel = () => {
     const { regiones } = useContext(ExternalDataContext)
 
     return (
-        <div className="row">
+        <div className="row justify-content-md-center">
             <div id="regiones_slider" className="carousel slide" data-ride="carousel">
                 <ul className="carousel-indicators">
                     <li data-target="#regiones_slider" data-slide-to="0" className="active"></li>

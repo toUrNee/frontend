@@ -43,17 +43,15 @@ const Navbar = () => {
                     </li>
                 </ul>
                 {isAuthenticated ?
-                    propietario ?
-                        <ul className="navbar-nav ">
+                    <ul className="navbar-nav">
+                        {propietario ?
                             <li className="nav-item dropdown">
                                 <Link className="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                     to='/hola'>
-                                    Propietario
-                        </Link>
+                                    Publicar
+                    </Link>
                                 <div className="dropdown-menu text-left" aria-labelledby="navbarDropdownMenuLink">
-                                    <Link className="nav-link" to="/perfil">
-                                        Perfil
-                                    </Link>
+                                    
                                     <Link to='/crear-sitio-turistico' className="nav-link">
                                         <span className="nav-item active"> Agregar sitio turistico </span>
                                     </Link>
@@ -63,20 +61,18 @@ const Navbar = () => {
 
                                 </div>
                             </li>
-                            <Link to='/' onClick={logoutUser} className="nav-link">
-                                <li className="nav-item active"> Cerrar sesión {user.username}</li>
-                            </Link>
-                        </ul>
-                        :
-                        <ul className="navbar-nav">
+                            :
                             <Link to='/crear-sitio-turistico' className="nav-link">
-                                <span className="nav-item active"> ¿Quieres publicar? </span>
+                                <li className="nav-item"> ¿Quieres publicar? </li>
                             </Link>
-                            <Link to='/' onClick={logoutUser} className="nav-link">
-                                <li className="nav-item active"> Cerrar sesión {user.username}</li>
-                            </Link>
-                        </ul>
-
+                        }
+                        <Link to='/perfil' className="nav-link">
+                            <li className="nav-item"> Perfil </li>
+                        </Link>
+                        <Link to='/' onClick={logoutUser} className="nav-link">
+                            <li className="nav-item active"> Cerrar sesión {user.username}</li>
+                        </Link>
+                    </ul>
                     :
                     <ul className="navbar-nav">
                         <Link to='/login' className="nav-link">
