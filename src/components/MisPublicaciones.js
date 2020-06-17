@@ -52,6 +52,7 @@ const MisPublicaciones = (props) => {
                                     descripcion={publicacion.descripcion}
                                     index={index}
                                     sitioId={publicacion.sitioId}
+                                    key={publicacion.id}
                                 />
                             ))}
                     </div>

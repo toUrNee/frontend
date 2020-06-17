@@ -40,7 +40,6 @@ const Register = () => {
     
     const onSubmit = e => {
         e.preventDefault()
-        console.log(usuario)
         registerUser(usuario)
     } 
 
@@ -96,10 +95,11 @@ const Register = () => {
                                     type="number"
                                     className="form-control"
                                     placeholder="Nacionalidad"
+                                    value={usuario.Nacionalidad}
                                     onChange={onChange}
                                 >
                                     {paises.map(pais => (
-                                        <option key={pais.alpha3Code} value={pais.alpha3Code} selected={pais.alpha3Code === 'COL'}> 
+                                        <option key={pais.alpha3Code} value={pais.alpha3Code} > 
                                             {pais.name} 
                                         </option>
                                     ))}                                        

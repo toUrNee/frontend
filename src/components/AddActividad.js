@@ -23,6 +23,7 @@ const AddActividad = ({ prevStep, publicacion, actividades, success, warning, er
                 console.log(err)
                 error("Error cargando iconos")
             })
+            //eslint-disable-next-line
     },[])
     
     const handlerSubmit = (e) => {
@@ -176,7 +177,7 @@ const AddActividad = ({ prevStep, publicacion, actividades, success, warning, er
                     </select>
                 </div>
                 <button className="btn btn-form-blue" onClick={prevStep}>Atras</button>
-                <button className="btn btn-form-blue" type="submit" disabled={actividadesPublicacion.length===5}>Añade otra actividad</button>
+                <button className="btn btn-form-blue" type="submit" disabled={actividadesPublicacion.length===5}>Añadir actividad</button>
                 <button className="btn btn-form-blue" onClick={confirmSubmit}>Confirmar</button>
             </form>
         </div>

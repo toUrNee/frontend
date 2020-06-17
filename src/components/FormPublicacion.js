@@ -36,7 +36,6 @@ function FormPublicacion (){
         if (location.state && location.state.publicacion) {
             axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + location.state.publicacion)
                 .then(res => {
-                    console.log(res.data)
                     setPublicacion({
                         Id: res.data.id,
                         Fecha: res.data.fecha,
@@ -49,7 +48,7 @@ function FormPublicacion (){
                 })
                 .catch(err => {
                     console.log(err);
-                    error("Hubo un problema la traer la publicación")
+                    error("Hubo un problema al traer la publicación")
                 })
         }
     }, [location.state, user])

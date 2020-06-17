@@ -37,7 +37,7 @@ const Card = (props) => {
                     </div>*/}
                     {props.publicacion.actividades.map(actividad => (
 
-                        <i className={actividad.tipoActividad.icono}></i>
+                        <i className={actividad.tipoActividad.icono} key={actividad.id}></i>
                     ))}
                     <div className="stats">
                     <i className="far fa-comment text-primary"></i> 13

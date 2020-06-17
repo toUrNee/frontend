@@ -164,9 +164,9 @@ const InfoPublicacion = (props) => {
                                                 Actividades disponibles
                                 </h3>
                                             <ul className="actividades">
-                                                {publicacion.sitio.actividades.map(actividad => (
+                                                {publicacion.actividades.map(actividad => (
 
-                                                    <li>
+                                                    <li key={actividad.id}>
                                                         {actividad.nombre}
                                                         <span><i className={actividad.tipoActividad.icono}></i></span>
                                                     </li>
