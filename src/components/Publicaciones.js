@@ -69,18 +69,14 @@ const Publicaciones = (props) => {
     function filtrar() {
         if (filtroActividad.length > 0) {
             if (filtroRegion && region.nombre !== 'Colombia') {
-                console.log('region y actividad');
                 getPublicacionesByRegionAndActividades(filtroActividad, region.nombre)
             } else {
-                console.log('actividad');
                 getPublicacionesByActividades(filtroActividad);
             }
         } else {
             if (filtroRegion && region.nombre !== 'Colombia') {
-                console.log('region');
                 getPublicacionesByRegion(region.nombre);
             } else {
-                console.log('nada');
                 getPublicaciones()
             }
         }
@@ -88,8 +84,6 @@ const Publicaciones = (props) => {
 
     function onSelect(selectedList, selectedItem) {
         setFiltroActividad([...filtroActividad, selectedItem]);
-        console.log(filtroActividad);
-
     }
 
     function onRemove(selectedList, removedItem) {
@@ -97,7 +91,6 @@ const Publicaciones = (props) => {
         if (i !== -1) {
             filtroActividad.splice(i, 1);
         }
-        console.log(filtroActividad);
     }
 
     return (

@@ -67,13 +67,10 @@ const InfoPublicacion = (props) => {
 
     useEffect(() => {
         if (publicacion !== null && user !== null) {
-            console.log('FUNCION', user, publicacion)
             getInteres(user.id, publicacion.id)
             getReserva(user.id, publicacion.id)
         }
     }, [user, publicacion, getInteres, getReserva])
-
-    console.log("interes: " + existeInteres, " reserva: " + existeReserva)
 
     return (
         <div>
