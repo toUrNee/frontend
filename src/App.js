@@ -37,6 +37,7 @@ import MisIntereses from './components/MisIntereses';
 
 function App() {
 
+
     return (
         <AuthContextProvider>
             <ExternalDataContextProvider>
@@ -116,6 +117,7 @@ function App() {
             </ExternalDataContextProvider>
         </AuthContextProvider>
     )
+
 }
 
 // A wrapper for <Route> that redirects to the login
