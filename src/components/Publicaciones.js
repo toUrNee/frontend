@@ -19,7 +19,10 @@ function valueLabelFormat(value) {
 
 const Publicaciones = (props) => {
 
-    const { loading, publicaciones, actividades, getPublicaciones, getPublicacionesByRegion, getActividades, getPublicacionesByActividades, getPublicacionesByRegionAndActividades } = useContext(PublicacionContext)
+    const { loading, publicaciones, actividades,
+            getPublicaciones, getPublicacionesByRegion, 
+            getActividades, getPublicacionesByActividades, 
+            getPublicacionesByRegionAndActividades } = useContext(PublicacionContext)
 
     //Estado por defecto
     const [region, setRegion] = useState({

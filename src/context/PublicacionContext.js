@@ -148,7 +148,7 @@ class PublicacionContextProvider extends Component {
         ))
     }
 
-    //Trae tipo actividades
+    //Trae tipo CategoriasActividad
     getActividades = () => {
         this.setState({
             ...this.state,

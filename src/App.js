@@ -10,7 +10,7 @@ import {
 } from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
-import AddPlan from './components/AddPlan';
+import FormPublicacion from './components/FormPublicacion';
 import Publicaciones from './components/Publicaciones';
 import Navbar from './components/Navbar';
 import Inicio from './components/Inicio';
@@ -44,6 +44,7 @@ function App() {
                     <PublicacionContextProvider>
                         <ReservaContextProvider>
                         <ReactNotification />
+
                             <Router>
                                 <div className="App">
                                     {/*Barra de navegación*/}
@@ -69,6 +70,7 @@ function App() {
                                                 <MisReservas />
                                         </PrivateRoute>
 
+
                                         <PrivateRoute path="/perfil/favoritos" exact>
                                                 <MisIntereses />
                                         </PrivateRoute>
@@ -77,15 +79,16 @@ function App() {
                                                 <PerfilPropietario />
                                         </PrivateRoute>                                       
 
+
                                         <PrivateRoute path="/crear-plan" exact>
                                             <PrivateRoutePropietario path="/crear-plan" exact>
-                                                <AddPlan />
+                                                <FormPublicacion />
                                             </PrivateRoutePropietario>
                                         </PrivateRoute>
 
                                         <PrivateRoute path="/editar-plan" exact >
                                             <PrivateRoutePropietario path="/editar-plan">
-                                                <AddPlan />
+                                                <FormPublicacion />
                                             </PrivateRoutePropietario>
                                         </PrivateRoute>
 
