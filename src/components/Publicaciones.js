@@ -9,20 +9,23 @@ import Slider from '@material-ui/core/Slider';
 
 import '../styles/Post.css'
 
-function valueLabelFormat(value) {
-    if(value>=1000){
-        return `${value/1000}M`;
-    }else{
-        return `${value}K`;
+function valueLabelFormat(precio) {
+    if (precio >= 1000) {
+        return `${precio / 1000}M`;
+    } else {
+        return `${precio}K`;
     }
 }
 
 const Publicaciones = (props) => {
 
-    const { loading, publicaciones, actividades,
-            getPublicaciones, getPublicacionesByRegion, 
-            getActividades, getPublicacionesByActividades, 
-            getPublicacionesByRegionAndActividades } = useContext(PublicacionContext)
+    const { 
+        loading, 
+        publicaciones, 
+        actividades,
+        getPublicacionesFiltered,
+        getActividades 
+    } = useContext(PublicacionContext)
 
     //Estado por defecto
     const [region, setRegion] = useState({
@@ -32,57 +35,49 @@ const Publicaciones = (props) => {
 
     //Arreglo de actividades activas en el filtro
     const [filtroActividad, setFiltroActividad] = useState([])
-
-    //Booleano si es filtro por region
-    const [filtroRegion, setFiltroRegion] = useState(props.location.state)
-
-    const [value, setValue] = React.useState([50, 3000]);
+    const [precio, setPrecio] = React.useState([50, 3000]);
     const marks = [
-        {value: 50, label: '50K'},
-        {value: 3000, label: '3M'}
+        { value: 50, label: '50K' },
+        { value: 3000, label: '3M' }
     ]
 
     const handleChange = (event, newValue) => {
-        setValue(newValue);
+        setPrecio(newValue);
     };
 
     //Trae las publicaciones y las actividades
     useEffect(() => {
-        if (!props.location.state) {
-            setRegion({
-                nombre: "Colombia",
-                img: portada
-            })
-            getPublicaciones()
-        } else {
+        if (props.location.state) {
             setRegion({
                 nombre: props.location.state.region,
                 img: props.location.state.img
             })
-            getPublicacionesByRegion(props.location.state.region)
-            setFiltroRegion(true)
+        }else{
+            setRegion({
+                nombre: "Colombia",
+                img: portada
+            })
         }
         getActividades()
-        setFiltroActividad([])
-    }, [props.location.state, getPublicaciones, getPublicacionesByRegion, getActividades])
+        filtrar()
+    // eslint-disable-next-line
+    }, [props.location.state, getActividades])
+
+    useEffect(() => {
+        filtrar()
+    // eslint-disable-next-line
+    }, [region])
 
 
-
-    //Filtra las publicaciones por region y/o por actividades
+    //Filtra las publicaciones por region y/o por actividades y precio
     function filtrar() {
-        if (filtroActividad.length > 0) {
-            if (filtroRegion && region.nombre !== 'Colombia') {
-                getPublicacionesByRegionAndActividades(filtroActividad, region.nombre)
-            } else {
-                getPublicacionesByActividades(filtroActividad);
-            }
-        } else {
-            if (filtroRegion && region.nombre !== 'Colombia') {
-                getPublicacionesByRegion(region.nombre);
-            } else {
-                getPublicaciones()
-            }
+        var filtros = {
+            region: region.nombre,
+            actividades: filtroActividad.map(act => act.id),
+            precioMinimo: precio[0],
+            precioMaximo: precio[1]
         }
+        getPublicacionesFiltered(filtros)
     }
 
     function onSelect(selectedList, selectedItem) {
@@ -167,7 +162,7 @@ const Publicaciones = (props) => {
                                                 Precio
                                         </h5>
                                             <Slider
-                                                value={value}
+                                                value={precio}
                                                 onChange={handleChange}
                                                 valueLabelDisplay="auto"
                                                 aria-labelledby="range-slider"
