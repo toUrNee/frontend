@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from '../context/AuthContext';
 import { SitioContext } from '../context/SitioContext';
-
+import NumberFormat from 'react-number-format';
 
 const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }) => {
 
@@ -16,6 +16,9 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
     var date = curr.toISOString().substr(0,10);
 
     const onChange = (event) => {
+        console.log(event.target.type)
+        console.log(event.target.name)
+        console.log(event.target.value)
         if (event.target.type === "number" || event.target.type === "select-one") {
             setPublicacion({
                 ...publicacion,
@@ -97,15 +100,20 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
 
                 <div className="form-group">
                         <label htmlFor="Precio">Precio</label>
-                        <input
-                            name="Precio"
-                            className="form-control"
-                            type="number"
-                            min="1"
-                            onChange={onChange}
-                            required
+                        <NumberFormat 
+                            allowNegative={false}
                             value={publicacion.Precio}
-                        />
+                            thousandSeparator={true} 
+                            decimalSeparator={false}
+                            name="Precio"
+                            prefix={'$'} 
+                            allowEmptyFormatting={false}
+                            allowLeadingZeros={false}
+                            renderText={value => <div>{value}</div>} 
+                            onValueChange={values => {setPublicacion({...publicacion, Precio:values.floatValue})}}
+                            className="form-control"
+                            required
+                            />
                     </div>
 
                 <div className="row">

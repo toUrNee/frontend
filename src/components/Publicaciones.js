@@ -10,10 +10,10 @@ import Slider from '@material-ui/core/Slider';
 import '../styles/Post.css'
 
 function valueLabelFormat(precio) {
-    if (precio >= 1000) {
-        return `${precio / 1000}M`;
+    if (precio >= 1000000) {
+        return `${Math.round((precio / 1000000)*10)/10}M`;
     } else {
-        return `${precio}K`;
+        return `${Math.round((precio / 100000))*100}K`;
     }
 }
 
@@ -35,10 +35,12 @@ const Publicaciones = (props) => {
 
     //Arreglo de actividades activas en el filtro
     const [filtroActividad, setFiltroActividad] = useState([])
-    const [precio, setPrecio] = React.useState([50, 3000]);
+    const [precio, setPrecio] = React.useState([0, 3000000]);
     const marks = [
-        { value: 50, label: '50K' },
-        { value: 3000, label: '3M' }
+        { value: 0, label: '$0' },
+        { value: 1000000, label: '$1M' },
+        { value: 2000000, label: '$2M' },
+        { value: 3000000, label: '$3M' }
     ]
 
     const handleChange = (event, newValue) => {
@@ -168,9 +170,9 @@ const Publicaciones = (props) => {
                                                 aria-labelledby="range-slider"
                                                 getAriaValueText={valueLabelFormat}
                                                 valueLabelFormat={valueLabelFormat}
-                                                step={50}
-                                                min={50}
-                                                max={3000}
+                                                step={100000}
+                                                min={0}
+                                                max={3000000}
                                                 marks={marks}
                                             />
                                         </div>
