@@ -35,12 +35,14 @@ const Publicaciones = (props) => {
 
     //Arreglo de actividades activas en el filtro
     const [filtroActividad, setFiltroActividad] = useState([])
-    const [precio, setPrecio] = React.useState([0, 3000000]);
+    const [precio, setPrecio] = React.useState([0, 5000000]);
     const marks = [
         { value: 0, label: '$0' },
         { value: 1000000, label: '$1M' },
         { value: 2000000, label: '$2M' },
-        { value: 3000000, label: '$3M' }
+        { value: 3000000, label: '$3M' },
+        { value: 4000000, label: '$4M' },
+        { value: 5000000, label: '$5M' }
     ]
 
     const handleChange = (event, newValue) => {
@@ -111,11 +113,6 @@ const Publicaciones = (props) => {
                     <div className=" text-center portada" style={{ marginBottom: 10, backgroundImage: `url(${region.img})` }}>
                         {region.nombre}
                     </div>
-
-
-
-
-
                     <section className="publicaciones">
                         <div className="container-fluid">
                             <div className="row">
@@ -172,7 +169,7 @@ const Publicaciones = (props) => {
                                                 valueLabelFormat={valueLabelFormat}
                                                 step={100000}
                                                 min={0}
-                                                max={3000000}
+                                                max={5000000}
                                                 marks={marks}
                                             />
                                         </div>

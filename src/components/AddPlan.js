@@ -16,9 +16,6 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
     var date = curr.toISOString().substr(0,10);
 
     const onChange = (event) => {
-        console.log(event.target.type)
-        console.log(event.target.name)
-        console.log(event.target.value)
         if (event.target.type === "number" || event.target.type === "select-one") {
             setPublicacion({
                 ...publicacion,
@@ -99,7 +96,7 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
                 </div>
 
                 <div className="form-group">
-                        <label htmlFor="Precio">Precio</label>
+                        <label htmlFor="Precio">Precio (COP) El máximo precio permitido es $5'000.000</label>
                         <NumberFormat 
                             allowNegative={false}
                             value={publicacion.Precio}
@@ -110,7 +107,7 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
                             allowEmptyFormatting={false}
                             allowLeadingZeros={false}
                             renderText={value => <div>{value}</div>} 
-                            onValueChange={values => {setPublicacion({...publicacion, Precio:values.floatValue})}}
+                            onValueChange={values => {setPublicacion({...publicacion, Precio:Math.min(values.floatValue, 5000000)})}}
                             className="form-control"
                             required
                             />
@@ -132,7 +129,7 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
                             {sitios.map(sitio =>
                                 <option
                                     value={sitio.id}
-                                    key={sitio.nombre}
+                                    key={sitio.id}
                                 >
                                     {sitio.nombre}
                                 </option>)}
