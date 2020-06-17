@@ -33,22 +33,26 @@ class PublicacionContextProvider extends Component {
 
     //Trae una publicacion por su id
     getPublicacionById = (id) => {
+        this.setState({
+            ...this.state,
+            loading: true
+        })
         axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + id)
-        .then(res => {
-            this.setState({
-                ...this.state,
-                publicacion: res.data,
-                loading: false
+            .then(res => {
+                this.setState({
+                    ...this.state,
+                    publicacion: res.data,
+                    loading: false
+                })
             })
-        })
-        .catch(error => {
-            console.log(error)
-            this.setState({
-                ...this.state,
-                publicacion: "",
-                loading: true
+            .catch(error => {
+                console.log(error)
+                this.setState({
+                    ...this.state,
+                    publicacion: null,
+                    loading: false
+                })
             })
-        })
     }
 
     //Trae publicaciones por propietario
@@ -100,7 +104,7 @@ class PublicacionContextProvider extends Component {
         filtro.map(actividad => (
             axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + actividad.id)
                 .then(res => {
-                // eslint-disable-next-line
+                    // eslint-disable-next-line
                     res.data.map(publicacion => {
                         if (_publicaciones.map(x => x.id).indexOf(publicacion.id) === -1) {
                             _publicaciones = _publicaciones.concat(publicacion)
@@ -125,7 +129,7 @@ class PublicacionContextProvider extends Component {
         filtro.map(actividad => (
             axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/tipo/' + actividad.id + '/region/', { params: { region: region } })
                 .then(res => {
-                // eslint-disable-next-line
+                    // eslint-disable-next-line
                     res.data.map(publicacion => {
                         if (_publicaciones.map(x => x.id).indexOf(publicacion.id) === -1) {
                             _publicaciones = _publicaciones.concat(publicacion)

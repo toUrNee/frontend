@@ -4,6 +4,7 @@ import { AuthContext } from '../context/AuthContext'
 import '../styles/PerfilPropietario.css'
 import CardSitio from './CardSitio';
 import NavPropietario from './NavPropietario';
+import { Link } from 'react-router-dom';
 
 const MisSitios = (props) => {
 
@@ -26,6 +27,8 @@ const MisSitios = (props) => {
                     perfil=""
                     sitios="filter-active"
                     planes=""
+                    reservas=""
+                    intereses=""
                 />
                 {loading ?
                     <div className="text-center">
@@ -35,16 +38,22 @@ const MisSitios = (props) => {
                     </div>
                     :
                     <div className="row perfil-container">
-                        {sitios.map((sitio, index) => (
-                            <CardSitio
-                                key={sitio.id}
-                                id={sitio.id}
-                                sitio={sitio}
-                                index={index}
-                                sitioId={sitio.id}
-                            />
-                        ))}
-
+                        {sitios.length === 0 ?
+                            <div className="row justify-content-center">
+                                <p className="col-12">Eliminaste todos los sitios</p>
+                                <Link type="button" className="btn btn-success" to='/crear-sitio-turistico'> <i className="fas fa-plus-circle"></i> Agregar sitio </Link>
+                            </div>
+                            :
+                            sitios.map((sitio, index) => (
+                                <CardSitio
+                                    key={sitio.id}
+                                    id={sitio.id}
+                                    sitio={sitio}
+                                    index={index}
+                                    sitioId={sitio.id}
+                                />
+                            ))
+                        }
                     </div>
                 }
 

@@ -6,6 +6,30 @@
   margin-bottom: 30px;
 }
 
+.perfil .bandera{
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+}
+
+ .datos-title{
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    position: relative;
+    color: #502b13;
+}
+
+.datos-personales h3{
+  text-align: right;
+  margin: 0 0 16px;
+  color: #502b13;
+}
+
+.datos-personales span{
+  font-size: 20px;
+  text-decoration: none;
+}
+
 .perfil #perfil-flters {
   padding: 0;
   margin: 0 0 35px 0;
@@ -24,14 +48,11 @@
   color: #212529;
   margin-bottom: 5px;
   transition: all 0.3s ease-in-out;
+  width: 170px;
 }
 
 .perfil #perfil-flters li:hover, .perfil #perfil-flters li.filter-active {
   color: #eb5d1e;
-}
-
-.perfil #perfil-flters li:last-child {
-  margin-right: 0;
 }
 
 .perfil .perfil-wrap {
@@ -135,7 +156,6 @@
 
 .section-title {
   text-align: center;
-  padding-bottom: 30px;
 }
 
 .section-title h2 {
@@ -163,3 +183,19 @@
 .perfil .perfil-container .about{
   text-align: center;
 }
+
+.perfil .card-info{
+  background: transparent;
+  box-shadow: none;
+  border: solid 0.5px;
+  border-color: #502b13;
+}
+
+.perfil .card-info button{
+  margin:15px;
+}
+
+.perfil .card-reserva{
+  margin:15px;
+}
+
