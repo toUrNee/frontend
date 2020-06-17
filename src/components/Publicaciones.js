@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { PublicacionContext } from '../context/PublicacionContext';
-import Card from './CardPublicacion';
+import CardPublicacion from './CardPublicacion';
 import portada from '../images/portada.jpg'
 
 import { Multiselect } from 'multiselect-react-dropdown';
@@ -188,7 +188,7 @@ const Publicaciones = (props) => {
                                     <div className="card-columns">
                                         <div>
                                             {publicaciones.map(publicacion => (
-                                                <Card
+                                                <CardPublicacion
                                                     publicacion={publicacion}
                                                     key={publicacion.id}
                                                 />

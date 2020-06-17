@@ -4,7 +4,7 @@ import {
     Link
 } from "react-router-dom";
 
-const Card = (props) => {
+const CardPublicacion = (props) => {
 
     const [image, setImage] = useState({ src: "", hash: Date.now() })
 
@@ -50,4 +50,4 @@ const Card = (props) => {
     );
 }
 
-export default Card;
+export default CardPublicacion;
