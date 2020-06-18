@@ -169,6 +169,23 @@ class ReservaContextProvider extends Component {
         })
     }
 
+    getInteresadosByPublicacionId = (publicacionId) => {
+        axios.get(process.env.REACT_APP_BACK_URL + '/Interes/publicacion/' + publicacionId)
+        .then(res => {
+            this.setState({
+                ...this.state,
+                intereses: res.data
+            })
+        })
+        .catch(err =>{
+            console.log(err);
+            this.setState({
+                ...this.state,
+                intereses: []
+            })
+        })
+    } 
+
     render() {
         return (
             <ReservaContext.Provider value={{
@@ -181,6 +198,7 @@ class ReservaContextProvider extends Component {
                 deleteInteres: this.deleteInteres,
                 getReservasByUserId: this.getReservasByUserId,
                 getInteresByUser: this.getInteresByUser,
+                getInteresadosByPublicacionId: this.getInteresadosByPublicacionId,
             }}>
                 {this.props.children}
             </ReservaContext.Provider>
