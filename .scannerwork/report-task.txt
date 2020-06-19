@@ -1,7 +1,0 @@
-organization=cattleyatours
-projectKey=CattleyaTours_frontend
-serverUrl=https://sonarcloud.io
-serverVersion=8.0.0.8760
-dashboardUrl=https://sonarcloud.io/dashboard?id=CattleyaTours_frontend
-ceTaskId=AXLI2xI98soIs9Hdb-u4
-ceTaskUrl=https://sonarcloud.io/api/ce/task?id=AXLI2xI98soIs9Hdb-u4
