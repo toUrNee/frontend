@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from '../context/AuthContext';
 import { SitioContext } from '../context/SitioContext';
-
+import NumberFormat from 'react-number-format';
 
 const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }) => {
 
@@ -96,16 +96,21 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
                 </div>
 
                 <div className="form-group">
-                        <label htmlFor="Precio">Precio</label>
-                        <input
-                            name="Precio"
-                            className="form-control"
-                            type="number"
-                            min="1"
-                            onChange={onChange}
-                            required
+                        <label htmlFor="Precio">Precio (COP) El máximo precio permitido es $5'000.000</label>
+                        <NumberFormat 
+                            allowNegative={false}
                             value={publicacion.Precio}
-                        />
+                            thousandSeparator={true} 
+                            decimalSeparator={false}
+                            name="Precio"
+                            prefix={'$'} 
+                            allowEmptyFormatting={false}
+                            allowLeadingZeros={false}
+                            renderText={value => <div>{value}</div>} 
+                            onValueChange={values => {setPublicacion({...publicacion, Precio:Math.min(values.floatValue, 5000000)})}}
+                            className="form-control"
+                            required
+                            />
                     </div>
 
                 <div className="row">
@@ -124,7 +129,7 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
                             {sitios.map(sitio =>
                                 <option
                                     value={sitio.id}
-                                    key={sitio.nombre}
+                                    key={sitio.id}
                                 >
                                     {sitio.nombre}
                                 </option>)}
