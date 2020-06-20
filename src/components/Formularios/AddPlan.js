@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useLocation } from "react-router-dom";
-import { AuthContext } from '../context/AuthContext';
-import { SitioContext } from '../context/SitioContext';
+import { AuthContext } from '../../context/AuthContext';
+import { SitioContext } from '../../context/SitioContext';
 import NumberFormat from 'react-number-format';
 
 const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }) => {

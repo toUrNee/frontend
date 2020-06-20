@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
-import img from '../images/login.png';
+import img from '../../images/login.png';
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { AuthContext } from '../context/AuthContext'
+import { AuthContext } from '../../context/AuthContext'
 import { store } from 'react-notifications-component';
 
 const Login = () => {

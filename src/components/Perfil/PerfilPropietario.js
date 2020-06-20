@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import '../styles/PerfilPropietario.css'
+import '../../styles/PerfilPropietario.css'
 import NavPropietario from './NavPropietario';
-import { AuthContext } from '../context/AuthContext';
-import perfil from '../images/perfil.png'
+import { AuthContext } from '../../context/AuthContext';
+import perfil from '../../images/perfil.png'
 
 
 const PerfilPropietario = (props) => {

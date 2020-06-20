@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useHistory } from "react-router-dom";
-import img from '../images/register.png'
-import { AuthContext } from '../context/AuthContext'
-import { ExternalDataContext } from '../context/ExternalDataContext'
+import img from '../../images/register.png'
+import { AuthContext } from '../../context/AuthContext'
+import { ExternalDataContext } from '../../context/ExternalDataContext'
 
 const Register = () => {
     

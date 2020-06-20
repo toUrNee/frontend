@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/PerfilPropietario.css'
+import '../../styles/PerfilPropietario.css'
 import Swal from 'sweetalert2';
 import Moment from 'react-moment';
-import default_src from '../images/crear-sitio-tur.png';
+import default_src from '../../images/crear-sitio-tur.png';
 import { Link } from 'react-router-dom';
 
 const CardReserva = (props) => {

@@ -9,7 +9,8 @@ class PublicacionContextProvider extends Component {
         publicacion: null,
         publicaciones: [],
         actividades: [],
-        loading: true
+        loading: true,
+        numImagenes: 0,
     }
 
     //Trae las publicaciones
@@ -54,6 +55,21 @@ class PublicacionContextProvider extends Component {
                     loading: false
                 })
             })
+
+        axios.get(process.env.REACT_APP_BACK_URL + '/Archivo_SitioTuristico/sitio/'+id+'/imagenes')
+        .then(res => {
+            this.setState({
+                ...this.state,
+                numImagenes: res.data,
+            })
+        })
+        .catch(err => {
+            console.log(err)
+            this.setState({
+                ...this.state,
+                numImagenes: 0,
+            })
+        })
     }
 
     //Trae publicaciones por propietario

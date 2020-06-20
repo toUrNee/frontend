@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from 'react';
-import '../styles/PerfilPropietario.css'
+import '../../styles/PerfilPropietario.css'
 import NavPropietario from './NavPropietario';
-import { PublicacionContext } from '../context/PublicacionContext';
-import { AuthContext } from '../context/AuthContext'
-import '../styles/PerfilPropietario.css'
+import { PublicacionContext } from '../../context/PublicacionContext';
+import { AuthContext } from '../../context/AuthContext'
+import '../../styles/PerfilPropietario.css'
 import CardSitio from './CardSitio';
 import { Link } from 'react-router-dom';
 

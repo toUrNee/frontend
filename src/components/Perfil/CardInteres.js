@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/PerfilPropietario.css'
+import '../../styles/PerfilPropietario.css'
 import Moment from 'react-moment';
 import Swal from 'sweetalert2';
 import { useHistory } from "react-router-dom";

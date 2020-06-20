@@ -186,6 +186,10 @@ class ReservaContextProvider extends Component {
         })
     } 
 
+    getReservasByPublicacionId = (publicacionId) => {
+        axios.get(process.env.REACT_APP_BACK_URL + '/')
+    }
+
     render() {
         return (
             <ReservaContext.Provider value={{
