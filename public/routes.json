@@ -2,7 +2,8 @@
     "routes": [
       {
         "route": "/*",
-        "allowedRoles": ["anonymous"]
-      }    
+        "serve": "/index.html",
+        "statusCode": 200
+      }
     ]
 }
