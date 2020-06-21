@@ -18,7 +18,7 @@ const Comentario = ({ comentario }) => {
             console.log(err)
             setPais("")
         })
-    })
+    }, [comentario])
 
     return (
         <li key={comentario.id} className="comentario">

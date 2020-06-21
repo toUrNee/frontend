@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import '../styles/InfoPublicacion.css'
 import { PublicacionContext } from '../context/PublicacionContext';
 import { AuthContext } from '../context/AuthContext';
 import { ReservaContext } from '../context/ReservaContext';
 import Comentario from './Comentario';
 import Swal from 'sweetalert2'
-
+import axios from 'axios'
 
 //mirrar error de petición doble al eliminar o hacer reserva
 const InfoPublicacion = (props) => {
@@ -13,7 +13,12 @@ const InfoPublicacion = (props) => {
     const { match } = props;
     let { idPublicacion } = match.params;
 
-    const { loading, publicacion, getPublicacionById, comentarios, getComentariosByPublicacion, createComentario } = useContext(PublicacionContext)
+    const [comentario, setComentario] = useState({
+        UsuarioId: null,
+        PublicacionId: null,
+        Contenido: ""
+    })
+    const { loading, publicacion, getPublicacionById, comentarios, getComentariosByPublicacion } = useContext(PublicacionContext)
     const { user, isAuthenticated } = useContext(AuthContext)
     const { existeInteres, getInteres, postInteres, deleteInteres, existeReserva, getReserva, postReserva, deleteReserva } = useContext(ReservaContext)
 
@@ -63,6 +68,29 @@ const InfoPublicacion = (props) => {
         });
     }
     
+    const comentar = (e) => {
+        e.preventDefault()
+        console.log(comentario);
+        axios.post(process.env.REACT_APP_BACK_URL + '/Comentarios', comentario)
+        .then(() => {
+            getComentariosByPublicacion(idPublicacion)
+        })
+        .catch(error => {
+            console.log(error)
+        })        
+    }
+
+    useEffect(() => {
+        if(user !== null && idPublicacion !== null){
+            setComentario({
+                ...comentario,
+                UsuarioId: user.id,
+                PublicacionId: parseInt(idPublicacion),
+            })
+        }
+    // eslint-disable-next-line
+    },[user, idPublicacion])
+
     useEffect(() => {
         getPublicacionById(idPublicacion)
     }, [getPublicacionById, idPublicacion])
@@ -183,16 +211,23 @@ const InfoPublicacion = (props) => {
                                         <div className="comentarios">
                                             <h3 className="mb-5"> 2 comentarios </h3>
                                             <ul className="lista-comentarios">
-                                                {comentarios.map(comentario => (
-                                                    <Comentario comentario={comentario} />
+                                                {comentarios.map(com => (
+                                                    <Comentario key={com.id} comentario={com} />
                                                 ))}
                                            </ul>
                                             <div className="form-comentario">
                                                 <h3 className="mb-5">Deja tu comentario</h3>
-                                                <form className="p-5 bg-light text-dark">
+                                                <form onSubmit={comentar} className="p-5 bg-light text-dark">
                                                     <div className="form-group">
                                                         <label htmlFor="comentario">Comentario</label>
-                                                        <textarea  className="form-control" id="comentario" rows="10" cols="30"></textarea>
+                                                        <textarea 
+                                                            onChange={(e) => {setComentario({...comentario, Contenido:e.target.value})}} 
+                                                            value={comentario.Contenido} 
+                                                            className="form-control" 
+                                                            id="comentario" 
+                                                            rows="10" 
+                                                            cols="30">
+                                                        </textarea>
                                                     </div>
                                                     <div className="form-group">
                                                         <input  type="submit" value="Publicar" className="btn btn-primary"></input>
