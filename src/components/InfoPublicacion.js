@@ -3,7 +3,9 @@ import '../styles/InfoPublicacion.css'
 import { PublicacionContext } from '../context/PublicacionContext';
 import { AuthContext } from '../context/AuthContext';
 import { ReservaContext } from '../context/ReservaContext';
+import Comentario from './Comentario';
 import Swal from 'sweetalert2'
+
 
 //mirrar error de petición doble al eliminar o hacer reserva
 const InfoPublicacion = (props) => {
@@ -11,7 +13,7 @@ const InfoPublicacion = (props) => {
     const { match } = props;
     let { idPublicacion } = match.params;
 
-    const { loading, publicacion, getPublicacionById } = useContext(PublicacionContext)
+    const { loading, publicacion, getPublicacionById, comentarios, getComentariosByPublicacion, createComentario } = useContext(PublicacionContext)
     const { user, isAuthenticated } = useContext(AuthContext)
     const { existeInteres, getInteres, postInteres, deleteInteres, existeReserva, getReserva, postReserva, deleteReserva } = useContext(ReservaContext)
 
@@ -71,6 +73,10 @@ const InfoPublicacion = (props) => {
             getReserva(user.id, publicacion.id)
         }
     }, [user, publicacion, getInteres, getReserva])
+
+    useEffect(() => {
+        getComentariosByPublicacion(idPublicacion)
+    }, [getComentariosByPublicacion, idPublicacion])
 
     return (
         <div>
@@ -177,28 +183,10 @@ const InfoPublicacion = (props) => {
                                         <div className="comentarios">
                                             <h3 className="mb-5"> 2 comentarios </h3>
                                             <ul className="lista-comentarios">
-                                                <li className="comentario">
-                                                    <div className="bandera-comentario">
-                                                        <img src="https://www.pngkit.com/png/detail/859-8594728_cono-con-bandera-de-colombia-circle.png" className="bandera" alt="Bandera comentario" />
-                                                    </div>
-                                                    <div className="texto-comentario">
-                                                        <h3>Nombre usuario</h3>
-                                                        <div className="meta">Junio 4, 2020</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                    </div>
-                                                </li>
-
-                                                <li className="comentario">
-                                                    <div className="bandera-comentario">
-                                                        <img src="https://www.pngkit.com/png/detail/859-8594728_cono-con-bandera-de-colombia-circle.png" className="bandera" alt="Bandera comentario" />
-                                                    </div>
-                                                    <div className="texto-comentario">
-                                                        <h3>Nombre usuario</h3>
-                                                        <div className="meta">Junio 4, 2020</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ullamcorper magna non mi volutpat rhoncus. Donec dignissim bibendum ante, sed volutpat nulla. Curabitur congue congue neque, eu molestie dolor dapibus vel. Quisque ut elementum sem, sit amet porta diam. Fusce finibus lectus et diam consectetur commodo. Proin sit amet sem nec orci condimentum faucibus. Curabitur sodales urna metus, sit amet ullamcorper erat placerat et. Nam ac ipsum vulputate, iaculis nibh rhoncus, luctus felis. Phasellus cursus pretium ipsum, a aliquam nisi euismod quis. Vivamus at rhoncus arcu. In hac habitasse platea dictumst.</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                                {comentarios.map(comentario => (
+                                                    <Comentario comentario={comentario} />
+                                                ))}
+                                           </ul>
                                             <div className="form-comentario">
                                                 <h3 className="mb-5">Deja tu comentario</h3>
                                                 <form className="p-5 bg-light text-dark">
@@ -207,7 +195,7 @@ const InfoPublicacion = (props) => {
                                                         <textarea  className="form-control" id="comentario" rows="10" cols="30"></textarea>
                                                     </div>
                                                     <div className="form-group">
-                                                        <input type="submit" value="Publicar" className="btn btn-primary"></input>
+                                                        <input  type="submit" value="Publicar" className="btn btn-primary"></input>
                                                     </div>
                                                 </form>
                                             </div>

@@ -9,6 +9,7 @@ class PublicacionContextProvider extends Component {
         publicacion: null,
         publicaciones: [],
         actividades: [],
+        comentarios: [],
         loading: true
     }
 
@@ -146,6 +147,43 @@ class PublicacionContextProvider extends Component {
             })
     }
 
+    getComentariosByPublicacion = (publicacionId) => {
+        axios.get(process.env.REACT_APP_BACK_URL + '/Comentarios/publicacion/'+publicacionId)
+            .then(res => {
+                this.setState({
+                    ...this.state,
+                    comentarios: res.data,
+                    loading: false
+                })
+            })
+            .catch(error => {
+                console.log(error)
+                this.setState({
+                    ...this.state,
+                    comentarios: [],
+                    loading: true
+                })
+            })
+
+    }
+
+    createComentario(comentario){
+        axios.post(process.env.REACT_APP_BACK_URL + '/Comentarios', comentario)
+        .then(() => {
+            this.setState({
+                ...this.state,
+                loading: false
+            })
+        })
+        .catch(error => {
+            console.log(error)
+            this.setState({
+                ...this.state,
+                loading: true
+            })
+        })        
+    }
+
     render() {
         return (
             <PublicacionContext.Provider value={{
@@ -158,6 +196,8 @@ class PublicacionContextProvider extends Component {
                 getPublicacionesByRegion: this.getPublicacionesByRegion,
                 getPublicacionesByActividades: this.getPublicacionesByActividades,
                 getPublicacionesByRegionAndActividades: this.getPublicacionesByRegionAndActividades,
+                getComentariosByPublicacion: this.getComentariosByPublicacion,
+                createComentario: this.createComentario,
                 deletePublicacionesById: this.deletePublicacionesById,
             }}>
                 {this.props.children}
