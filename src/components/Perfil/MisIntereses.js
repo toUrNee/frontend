@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 import NavPropietario from './NavPropietario';
 import CardInteres from './CardInteres';
-import { ReservaContext } from '../context/ReservaContext';
+import { ReservaContext } from '../../context/ReservaContext';
 
 const MisIntereses = (props) => {
     const { user } = useContext(AuthContext)

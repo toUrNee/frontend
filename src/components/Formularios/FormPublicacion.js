@@ -1,12 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
-import img from '../images/post.png';
+import img from '../../images/post.png';
 import AddPlan from './AddPlan.js';
 import axios from 'axios';
 import AddActividad from './AddActividad.js';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 import { useLocation } from "react-router-dom";
 import { store } from 'react-notifications-component';
-import { PublicacionContext } from '../context/PublicacionContext';
+import { PublicacionContext } from '../../context/PublicacionContext';
 
 
 function FormPublicacion (){

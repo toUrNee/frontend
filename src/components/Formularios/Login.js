@@ -1,8 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
-import img from '../images/login.png';
+import img from '../../images/login.png';
 import { Link, useHistory, useLocation } from "react-router-dom";
-import { AuthContext } from '../context/AuthContext'
-import { store } from 'react-notifications-component';
+import { AuthContext } from '../../context/AuthContext'
 
 const Login = () => {
     
@@ -17,22 +16,6 @@ const Login = () => {
     })
 
     useEffect(()=>{
-        if (location.state){
-            store.addNotification({
-                title: "Debes iniciar sesion",
-                message: "Debes estar autenticado para poder acceder a " + location.state.from.pathname,
-                type: "warning",
-                insert: "top",
-                container: "top-right",
-                animationIn: ["animated", "fadeInDown"],
-                animationOut: ["animated", "fadeOut"],
-                dismiss: {
-                  duration: 5000,
-                  onScreen: false,
-                }
-            });
-        }
-
         let { from } = location.state || { from: { pathname: "/" } };
         //redirect authenticated user
         if (isAuthenticated){
