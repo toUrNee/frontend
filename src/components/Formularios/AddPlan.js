@@ -76,6 +76,7 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
                         required
                         value={publicacion.Titulo}
                         onChange={onChange}
+                        maxlength="50"
                     />
                 </div>
 
@@ -88,6 +89,7 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
                         onChange={onChange}
                         required
                         value={publicacion.Descripcion}
+                        maxlength="800"
                     />
                 </div>
 

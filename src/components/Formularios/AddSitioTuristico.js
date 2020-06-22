@@ -74,6 +74,7 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, success, error, edit }) 
                         type="text"
                         onChange={onChange}
                         value={sitio.Nombre}
+                        maxlength="50"
                         autoFocus
                     />
                 </div>
@@ -85,6 +86,7 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, success, error, edit }) 
                         type="text"
                         value={sitio.Descripcion}
                         onChange={onChange}
+                        maxlength="800"
                     />
                 </div>
                 <div className="row">

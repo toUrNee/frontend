@@ -153,6 +153,7 @@ const AddActividad = ({ prevStep, publicacion, actividades, success, warning, er
                             type="text"
                             value={actividad.Nombre}
                             onChange={onChange}
+                            maxlength="50"
                             required
                             autoFocus
                         />
