@@ -100,6 +100,10 @@ class PublicacionContextProvider extends Component {
     }
 
     getPublicacionesFiltered = (filtros) => {
+        this.setState({
+            ...this.state,
+            loading:true
+        })
         axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/filtered', {
             params: filtros,
             paramsSerializer: params => {

@@ -30,7 +30,8 @@ const Publicaciones = (props) => {
     //Estado por defecto
     const [region, setRegion] = useState({
         nombre: "Colombia",
-        img: portada
+        img: portada,
+        cargando: true,
     })
 
     //Arreglo de actividades activas en el filtro
@@ -54,21 +55,24 @@ const Publicaciones = (props) => {
         if (props.location.state) {
             setRegion({
                 nombre: props.location.state.region,
-                img: props.location.state.img
+                img: props.location.state.img,
+                cargando: false,
             })
         } else {
             setRegion({
                 nombre: "Colombia",
-                img: portada
+                img: portada,
+                cargando: false,
             })
         }
         getActividades()
-        filtrar()
         // eslint-disable-next-line
     }, [props.location.state, getActividades])
 
     useEffect(() => {
-        filtrar()
+        if(!region.cargando){
+            filtrar()
+        }
         // eslint-disable-next-line
     }, [region])
 
