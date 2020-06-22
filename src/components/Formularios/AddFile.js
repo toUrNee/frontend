@@ -50,7 +50,7 @@ const baseStyle = {
 }
 
 
-const AddFile = ({ prevStep, sitio, imagenes, setImagenes, success, error, warning }) => {
+const AddFile = ({ prevStep, sitio, imagenes, setImagenes, message }) => {
   const history = useHistory()
 
   const { getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject } = useDropzone({
@@ -58,7 +58,7 @@ const AddFile = ({ prevStep, sitio, imagenes, setImagenes, success, error, warni
     maxSize: 4194304,
     onDrop: acceptedFiles => {
       if (imagenes.length + acceptedFiles.length > 8){
-        error("Tu sitio turistico puede contener hasta 8 fotos")
+        message("Tu sitio turistico puede contener hasta 8 fotos", "error")
         return  
       }
       acceptedFiles.forEach(imagen => {
@@ -87,9 +87,9 @@ const AddFile = ({ prevStep, sitio, imagenes, setImagenes, success, error, warni
   const handlerSubmit = (e) => {
     e.preventDefault()
     if (imagenes.length < 1) {
-      warning("Ninguna imagen fue seleccionada :(")
+      message("Ninguna imagen fue seleccionada :(", "warning")
     } else {
-      success("¡Imagenes añadidas de manera correcta!")
+      message("¡Imagenes añadidas de manera correcta!", "success")
     }
     history.push('/perfil/sitios')
   }

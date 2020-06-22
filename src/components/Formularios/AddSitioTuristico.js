@@ -4,7 +4,7 @@ import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 
 
-const AddSitioTuristico = ({ nextStep, sitio, setSitio, success, error, edit }) => {
+const AddSitioTuristico = ({ nextStep, sitio, setSitio, message, edit }) => {
 
     const { user, cambiarRol } = useContext(AuthContext)
     const { regiones, departamentos, municipios, getDepartamentos, getMunicipios } = useContext(ExternalDataContext)
@@ -28,7 +28,7 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, success, error, edit }) 
         if (edit) {
             axios.put(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos/' + sitio.Id, sitio)
                 .then(() => {
-                    success("Tu sitio turistico fue actualizado exitosamente")
+                    message("Tu sitio turistico fue actualizado exitosamente", "success")
                     nextStep()
                 })
                 .catch(err => {
@@ -39,7 +39,7 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, success, error, edit }) 
         } else {
             axios.post(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos', sitio)
                 .then((response) => {
-                    success("Tu sitio turistico fue creado exitosamente", response.data.id)
+                    message("Tu sitio turistico fue creado exitosamente", "success")
                     setSitio({
                         ...sitio,
                         Id: response.data.id

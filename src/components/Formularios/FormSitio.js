@@ -25,43 +25,11 @@ function FormSitio() {
         Portada: 0
     })
 
-    const success = (message) => {
+    const message = (message, tipo) => {
         store.addNotification({
             title: "Excelente!",
             message: message,
-            type: "success",
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animated", "fadeInDown"],
-            animationOut: ["animated", "fadeOut"],
-            dismiss: {
-                duration: 5000,
-                onScreen: false
-            }
-        });
-    }
-
-    const error = (message) => {
-        store.addNotification({
-            title: "Oh no!",
-            message: message,
-            type: "danger",
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animated", "fadeInDown"],
-            animationOut: ["animated", "fadeOut"],
-            dismiss: {
-                duration: 5000,
-                onScreen: false
-            }
-        });
-    }
-
-    const warning = (message) => {
-        store.addNotification({
-            title: "Atención!",
-            message: message,
-            type: "danger",
+            type: tipo,
             insert: "top",
             container: "top-right",
             animationIn: ["animated", "fadeInDown"],
@@ -101,8 +69,7 @@ function FormSitio() {
                 nextStep={nextStep}
                 sitio={sitio}
                 setSitio={setSitio}
-                success={success}
-                error={error}
+                message={message}
                 edit={sitio.Id != null}
             />
         }
@@ -113,9 +80,7 @@ function FormSitio() {
                 setSitio={setSitio}
                 imagenes={imagenes}
                 setImagenes={setImagenes}
-                success={success}
-                error={error}
-                warning={warning}
+                message={message}
             />
         }
     }
