@@ -27,7 +27,7 @@ function FormSitio() {
 
     const success = (message) => {
         store.addNotification({
-            title: "Perfecto!",
+            title: "Excelente!",
             message: message,
             type: "success",
             insert: "top",
@@ -43,7 +43,7 @@ function FormSitio() {
 
     const error = (message) => {
         store.addNotification({
-            title: "Oops!",
+            title: "Oh no!",
             message: message,
             type: "danger",
             insert: "top",
@@ -59,7 +59,7 @@ function FormSitio() {
 
     const warning = (message) => {
         store.addNotification({
-            title: "Cuidado!",
+            title: "Atención!",
             message: message,
             type: "danger",
             insert: "top",
