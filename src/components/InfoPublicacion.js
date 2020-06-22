@@ -74,6 +74,7 @@ const InfoPublicacion = (props) => {
         axios.post(process.env.REACT_APP_BACK_URL + '/Comentarios', comentario)
         .then(() => {
             getComentariosByPublicacion(idPublicacion)
+            setComentario({...comentario, Contenido:""})
         })
         .catch(error => {
             console.log(error)
@@ -209,7 +210,7 @@ const InfoPublicacion = (props) => {
                                             </ul>
                                         </div>
                                         <div className="comentarios">
-                                            <h3 className="mb-5"> 2 comentarios </h3>
+                                            <h3 className="mb-5"> {comentarios.length} comentarios </h3>
                                             <ul className="lista-comentarios">
                                                 {comentarios.map(com => (
                                                     <Comentario key={com.id} comentario={com} />

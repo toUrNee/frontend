@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import '../styles/InfoPublicacion.css'
 import axios from 'axios'
+import Moment from 'react-moment'
 
 const Comentario = ({ comentario }) => {
 
@@ -23,11 +24,11 @@ const Comentario = ({ comentario }) => {
     return (
         <li key={comentario.id} className="comentario">
             <div className="bandera-comentario">
-                <img src={pais.flag} className="bandera" alt="Bandera comentario" />
+                <img style={{width:"40px", height:"40px"}} src={pais.flag} className="bandera" alt="Bandera comentario" />
             </div>
             <div className="texto-comentario">
-                <h3>{comentario.usuario.nombre}</h3>
-                <div className="meta">{comentario.fecha}</div>
+                <h3>{comentario.usuario.nombres}</h3>
+                <div className="meta"><Moment format="DD/MM/YYYY" date={comentario.fecha} /></div>
                 <p>{comentario.contenido}</p>
             </div>
         </li>
