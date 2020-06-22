@@ -10,7 +10,7 @@ class PublicacionContextProvider extends Component {
         publicaciones: [],
         actividades: [],
         comentarios: [],
-        loading: true
+        loading: true,
         numImagenes: 0,
     }
 
