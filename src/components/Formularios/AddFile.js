@@ -58,7 +58,7 @@ const AddFile = ({ prevStep, sitio, imagenes, setImagenes, message }) => {
     maxSize: 4194304,
     onDrop: acceptedFiles => {
       if (imagenes.length + acceptedFiles.length > 8){
-        message("Tu sitio turistico puede contener hasta 8 fotos", "error", "Ups!")
+        message("Tu sitio turistico puede contener hasta 8 fotos", "danger", "Ups!")
         return  
       }
       acceptedFiles.forEach(imagen => {
@@ -73,13 +73,13 @@ const AddFile = ({ prevStep, sitio, imagenes, setImagenes, message }) => {
           })
           .catch(err => {
             console.log(err)
-            error("Ocurrió un error con tu imagen. Intenta de nuevo.")
+            message("Ocurrió un error con tu imagen. Intenta de nuevo.", "danger", "Ups!")
           })
       })
     },
     onDropRejected: fileRejections => {
       fileRejections.forEach(err => {
-        error(err.errors[0].message)
+        message(err.errors[0].message, "danger", "Ups!")
       })
     }
   })

@@ -33,7 +33,7 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, message, edit }) => {
                 })
                 .catch(err => {
                     console.log(err);
-                    error("Ocurrio un error y no se pudo actualizar el sitio turistico")
+                    message("Ocurrio un error y no se pudo actualizar el sitio turistico", "danger", "Ups!")
                 })
 
         } else {
@@ -49,7 +49,7 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, message, edit }) => {
                 })
                 .catch(err => {
                     console.log(err);
-                    error("Ocurrio un error y no se pudo crear el sitio turistico")
+                    message("Ocurrio un error y no se pudo crear el sitio turistico", "danger", "Ups!")
                 })
         }
     }
