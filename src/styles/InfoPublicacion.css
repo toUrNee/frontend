@@ -51,6 +51,7 @@
     margin: 0;
     height: 400px;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .publicacion  .comentarios .lista-comentarios .comentario{
