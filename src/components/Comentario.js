@@ -9,6 +9,7 @@ const Comentario = ({ comentario }) => {
     const [pais, setPais] = useState("");
 
     useEffect(() => {
+        delete axios.defaults.headers.get["Authorization"]; 
         axios.get(process.env.REACT_APP_COUNTRIES_URL + '/alpha/' + comentario.usuario.nacionalidad, {
             params: {
                 fields: "name;flag"
@@ -19,6 +20,7 @@ const Comentario = ({ comentario }) => {
             console.log(err)
             setPais("")
         })
+        axios.defaults.headers.get['Authorization'] = "Bearer "+localStorage.getItem("token")
     }, [comentario])
 
     return (

@@ -7,6 +7,7 @@ import Comentario from './Comentario';
 import Swal from 'sweetalert2'
 import axios from 'axios'
 import defaultImg from '../images/no-image.jpg';
+import NumberFormat from 'react-number-format';
 
 const InfoPublicacion = (props) => {
 
@@ -231,7 +232,7 @@ const InfoPublicacion = (props) => {
                                             </div>
                                         </div>
                                         <div className="description">
-                                            <h2>Descripcion del plan <button type="button" className="btn btn-warning">  ${publicacion.precio} </button> </h2>
+                                            <h2>Descripcion del plan <span className="btn btn-warning"> <NumberFormat value={publicacion.precio} displayType={'text'} thousandSeparator={true} prefix={'$'} /> </span> </h2>
                                             <p>{publicacion.descripcion}</p>
 
                                             <h4>Descripcion del sitio</h4>
