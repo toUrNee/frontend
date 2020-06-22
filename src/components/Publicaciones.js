@@ -58,19 +58,24 @@ const Publicaciones = (props) => {
                 img: props.location.state.img,
                 cargando: false,
             })
+            setFiltroActividad([])
+            setPrecio([0, 5000000])
         } else {
             setRegion({
                 nombre: "Colombia",
                 img: portada,
                 cargando: false,
             })
+            setFiltroActividad([])
+            setPrecio([0, 5000000])
         }
+        filtrar()
         getActividades()
         // eslint-disable-next-line
-    }, [props.location.state, getActividades])
+    }, [props.location.state, getActividades, setFiltroActividad, setPrecio])
 
     useEffect(() => {
-        if(!region.cargando){
+        if (!region.cargando) {
             filtrar()
         }
         // eslint-disable-next-line
@@ -89,7 +94,14 @@ const Publicaciones = (props) => {
     }
 
     function onSelect(selectedList, selectedItem) {
-        setFiltroActividad([...filtroActividad, selectedItem]);
+        if (filtroActividad.indexOf(selectedItem) === -1) {
+            setFiltroActividad([...filtroActividad, selectedItem]);
+        }
+    }
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        filtrar();
     }
 
     function onRemove(selectedList, removedItem) {
@@ -153,7 +165,7 @@ const Publicaciones = (props) => {
                                             </h5>
                                             <Multiselect
                                                 options={actividades} // Options to display in the dropdown
-                                                selectedValues='' // Preselected value to persist in dropdown
+                                                selectedValues={filtroActividad} // Preselected value to persist in dropdown
                                                 onSelect={onSelect} // Function will trigger on select event
                                                 onRemove={onRemove} // Function will trigger on remove event
                                                 displayValue="nombre" // Property name to display in the dropdown options
@@ -178,7 +190,7 @@ const Publicaciones = (props) => {
                                             />
                                         </div>
 
-                                        <button type="button" className="btn btn-warning filtro-btn" onClick={filtrar}>Filtrar</button>
+                                        <button type="button" className="btn btn-warning filtro-btn" onClick={onSubmit}>Filtrar</button>
                                     </div>
 
                                 </div>
