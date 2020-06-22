@@ -9,30 +9,6 @@ const CardInteres = (props) => {
 
     const history = useHistory();
 
-    const hacerReserva = () => {
-        Swal.fire({
-            title: '¿Seguro de que deseas hacer una reserva para este plan?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            cancelButtonText: 'Cancelar',
-            confirmButtonText: 'Sí, deseo hacer la reserva'
-        }).then((result) => {
-            if (result.value) {
-                props.postReserva(props.user.id, props.interes.publicacion.id)
-                props.deleteInteres(props.user.id, props.interes.publicacion.id)
-                Swal.fire(
-                    'Listo!',
-                    'Tu reserva ha sido creada éxito.',
-                    'success'
-                ).then(() => {
-                    history.push("/perfil/reservas/");
-                })
-            }
-        })
-    }
-
     return (
         <div className="card card-info mb-3 col-lg-5 col-md-11" style={{ margin: "5px" }}>
             <div className="row no-gutters">
