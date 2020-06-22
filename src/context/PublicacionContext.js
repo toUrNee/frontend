@@ -56,22 +56,27 @@ class PublicacionContextProvider extends Component {
                 })
             })
 
-        axios.get(process.env.REACT_APP_BACK_URL + '/Archivo_SitioTuristico/sitio/'+id+'/imagenes')
-        .then(res => {
-            this.setState({
-                ...this.state,
-                numImagenes: res.data,
-            })
-        })
-        .catch(err => {
-            console.log(err)
-            this.setState({
-                ...this.state,
-                numImagenes: 0,
-            })
-        })
+        
+
+
     }
 
+    getImagenesByPublicacion = (idSitio) => {
+        axios.get(process.env.REACT_APP_BACK_URL + '/Archivo_SitioTuristico/sitio/' + idSitio + '/imagenes')
+            .then(res => {
+                this.setState({
+                    ...this.state,
+                    numImagenes: res.data,
+                })
+            })
+            .catch(err => {
+                console.log(err)
+                this.setState({
+                    ...this.state,
+                    numImagenes: 0,
+                })
+            })
+    }
     //Trae publicaciones por propietario
 
     getPublicacionesByPropietarioId = (id) => {
@@ -175,6 +180,7 @@ class PublicacionContextProvider extends Component {
                 getPublicacionesByActividades: this.getPublicacionesByActividades,
                 getPublicacionesByRegionAndActividades: this.getPublicacionesByRegionAndActividades,
                 deletePublicacionesById: this.deletePublicacionesById,
+                getImagenesByPublicacion: this.getImagenesByPublicacion,
             }}>
                 {this.props.children}
             </PublicacionContext.Provider >

@@ -46,16 +46,12 @@ const CardPublicacion = (props) => {
                     <p className="card-text">{props.publicacion.descripcion}</p>
                 </div>
                 <div className="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
-                    {/*<div className="date">
-                        <i className="far fa-calendar-alt"></i>{fecha}
-
-                    </div>*/}
+                    
                     {props.publicacion.actividades.map(actividad => (
 
                         <i className={actividad.tipoActividad.icono} key={actividad.id}></i>
                     ))}
                     <div className="stats">
-                        <i className="far fa-comment text-primary"></i> 13
                     <i className="fas fa-heart text-danger"></i> {interesados.length} interesados
 
                     </div>

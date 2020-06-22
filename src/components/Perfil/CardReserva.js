@@ -12,7 +12,7 @@ const CardReserva = (props) => {
     useEffect(() => {
         setImage({ src: process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/sitio/" + props.reserva.publicacion.sitioId + "/random", hash: Date.now() })
     }, [props.reserva.publicacion.sitioId])
-    
+
     const eliminarReserva = () => {
         Swal.fire({
             title: '¿Seguro de que deseas remover esta reserva?',
@@ -43,7 +43,7 @@ const CardReserva = (props) => {
                     alt="Imagen plan"
                     className="card-img-top"
                     onError={() => setImage({ src: default_src, hash: Date.now() })}
-                    
+
                 />
             </div>
             <div className="card-body">
@@ -53,11 +53,25 @@ const CardReserva = (props) => {
                     </h4>
                 </Link>
                 <p className="card-text">{props.reserva.publicacion.descripcion}</p>
-                    <p className="card-text">
-                        <small className="text-muted">
-                            Guardado el <Moment format="DD/MM/YYYY" date={props.reserva.publicacion.id}/>
-                        </small>
-                    </p>
+                <p className="card-text">
+                    <small className="text-muted">
+                        Fecha de la reserva: <Moment format="DD/MM/YYYY" date={props.reserva.fecha} />
+                    </small>
+                </p>
+                <button
+                    type="button"
+                    className={
+                        props.reserva.estadoReservaId === 1 ?
+                            "btn btn-outline-info"
+                            : props.reserva.estadoReservaId === 2 ?
+                                "btn btn-outline-success"
+                                : "btn btn-outline-danger"
+                    }
+                    style={{ marginRight: '1rem' }}
+                    disabled
+                >
+                    {props.reserva.estadoReserva.nombre}
+                </button>
                 <button type="button" className="btn btn-danger" onClick={eliminarReserva}> <i className="far fa-trash-alt"></i> Eliminar </button>
             </div>
         </div>
