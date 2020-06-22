@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import '../styles/InfoPublicacion.css'
 import { PublicacionContext } from '../context/PublicacionContext';
 import { AuthContext } from '../context/AuthContext';
 import { ReservaContext } from '../context/ReservaContext';
+import Comentario from './Comentario';
 import Swal from 'sweetalert2'
+import axios from 'axios'
 import defaultImg from '../images/no-image.jpg';
 
-
-//mirrar error de petición doble al eliminar o hacer reserva
 const InfoPublicacion = (props) => {
 
 
@@ -18,7 +18,13 @@ const InfoPublicacion = (props) => {
     const { match } = props;
     let { idPublicacion } = match.params;
 
-    const { loading, publicacion, getPublicacionById, numImagenes, getImagenesByPublicacion } = useContext(PublicacionContext)
+    const [comentario, setComentario] = useState({
+        UsuarioId: null,
+        PublicacionId: null,
+        Contenido: ""
+    })
+    const { loading, publicacion, getPublicacionById, comentarios, getComentariosByPublicacion, numImagenes, getImagenesByPublicacion } = useContext(PublicacionContext)
+
     const { user, isAuthenticated } = useContext(AuthContext)
     const { existeInteres, getInteres, postInteres, deleteInteres, existeReserva, getReserva, postReserva, deleteReserva } = useContext(ReservaContext)
 
@@ -72,6 +78,31 @@ const InfoPublicacion = (props) => {
         });
     }
 
+    
+    const comentar = (e) => {
+        e.preventDefault()
+        axios.post(process.env.REACT_APP_BACK_URL + '/Comentarios', comentario)
+        .then(() => {
+            getComentariosByPublicacion(idPublicacion)
+            setComentario({...comentario, Contenido:""})
+        })
+        .catch(error => {
+            console.log(error)
+        })        
+    }
+
+    useEffect(() => {
+        if(user !== null && idPublicacion !== null){
+            setComentario({
+                ...comentario,
+                UsuarioId: user.id,
+                PublicacionId: parseInt(idPublicacion),
+            })
+        }
+    // eslint-disable-next-line
+    },[user, idPublicacion])
+
+
     useEffect(() => {
         getPublicacionById(idPublicacion)
     }, [getPublicacionById, idPublicacion])
@@ -89,9 +120,14 @@ const InfoPublicacion = (props) => {
         }
     }, [user, publicacion, getInteres, getReserva])
 
+    useEffect(() => {
+        getComentariosByPublicacion(idPublicacion)
+    }, [getComentariosByPublicacion, idPublicacion])
+
     const onChange = (event) => {
         setFecha(event.target.value)
     }
+
 
     return (
         <div>
@@ -232,39 +268,31 @@ const InfoPublicacion = (props) => {
                                             </ul>
                                         </div>
                                         <div className="comentarios">
-                                            <h3 className="mb-5"> 2 comentarios </h3>
+                                            <h3 className="mb-5"> {comentarios.length} comentarios </h3>
                                             <ul className="lista-comentarios">
-                                                <li className="comentario">
-                                                    <div className="bandera-comentario">
-                                                        <img src="https://www.pngkit.com/png/detail/859-8594728_cono-con-bandera-de-colombia-circle.png" className="bandera" alt="Bandera comentario" />
-                                                    </div>
-                                                    <div className="texto-comentario">
-                                                        <h3>Nombre usuario</h3>
-                                                        <div className="meta">Junio 4, 2020</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                                                    </div>
-                                                </li>
-
-                                                <li className="comentario">
-                                                    <div className="bandera-comentario">
-                                                        <img src="https://www.pngkit.com/png/detail/859-8594728_cono-con-bandera-de-colombia-circle.png" className="bandera" alt="Bandera comentario" />
-                                                    </div>
-                                                    <div className="texto-comentario">
-                                                        <h3>Nombre usuario</h3>
-                                                        <div className="meta">Junio 4, 2020</div>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ullamcorper magna non mi volutpat rhoncus. Donec dignissim bibendum ante, sed volutpat nulla. Curabitur congue congue neque, eu molestie dolor dapibus vel. Quisque ut elementum sem, sit amet porta diam. Fusce finibus lectus et diam consectetur commodo. Proin sit amet sem nec orci condimentum faucibus. Curabitur sodales urna metus, sit amet ullamcorper erat placerat et. Nam ac ipsum vulputate, iaculis nibh rhoncus, luctus felis. Phasellus cursus pretium ipsum, a aliquam nisi euismod quis. Vivamus at rhoncus arcu. In hac habitasse platea dictumst.</p>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                                {comentarios.map(com => (
+                                                    <Comentario key={com.id} comentario={com} />
+                                                ))}
+                                           </ul>
                                             <div className="form-comentario">
                                                 <h3 className="mb-5">Deja tu comentario</h3>
-                                                <form className="p-5 bg-light text-dark">
+                                                <form onSubmit={comentar} className="p-5 bg-light text-dark">
                                                     <div className="form-group">
                                                         <label htmlFor="comentario">Comentario</label>
-                                                        <textarea className="form-control" id="comentario" rows="10" cols="30"></textarea>
+                                                        <textarea 
+                                                            onChange={(e) => {setComentario({...comentario, Contenido:e.target.value})}} 
+                                                            value={comentario.Contenido} 
+                                                            className="form-control" 
+                                                            id="comentario" 
+                                                            rows="10" 
+                                                            cols="30"
+                                                            maxlength="500"
+                                                            >
+                                                        </textarea>
+
                                                     </div>
                                                     <div className="form-group">
-                                                        <input type="submit" value="Publicar" className="btn btn-primary"></input>
+                                                        <input  type="submit" value="Publicar" className="btn btn-primary"></input>
                                                     </div>
                                                 </form>
                                             </div>

@@ -46,9 +46,12 @@
     padding: 3rem 0;
 }
 
-.publicacion.comentarios .lista-comentarios{
+.publicacion .comentarios .lista-comentarios{
     padding:0;
     margin: 0;
+    height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .publicacion  .comentarios .lista-comentarios .comentario{
@@ -61,7 +64,7 @@
 }
 
 .comentarios .lista-comentarios .comentario .bandera-comentario{
-    width: 80px;
+    width: 10px;
     float: left;
 }
 
@@ -90,6 +93,8 @@
     margin-top: 0;
     margin-bottom: 1rem;
     text-align: justify;
+    width: 100%;
+    padding: 0 5px 0 0;
 }
 
 .lateral{

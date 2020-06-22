@@ -9,6 +9,7 @@ class PublicacionContextProvider extends Component {
         publicacion: null,
         publicaciones: [],
         actividades: [],
+        comentarios: [],
         loading: true,
         numImagenes: 0,
     }
@@ -167,6 +168,26 @@ class PublicacionContextProvider extends Component {
             })
     }
 
+    getComentariosByPublicacion = (publicacionId) => {
+        axios.get(process.env.REACT_APP_BACK_URL + '/Comentarios/publicacion/'+publicacionId)
+            .then(res => {
+                this.setState({
+                    ...this.state,
+                    comentarios: res.data,
+                    loading: false
+                })
+            })
+            .catch(error => {
+                console.log(error)
+                this.setState({
+                    ...this.state,
+                    comentarios: [],
+                    loading: true
+                })
+            })
+
+    }
+
     render() {
         return (
             <PublicacionContext.Provider value={{
@@ -179,6 +200,7 @@ class PublicacionContextProvider extends Component {
                 getPublicacionesByRegion: this.getPublicacionesByRegion,
                 getPublicacionesByActividades: this.getPublicacionesByActividades,
                 getPublicacionesByRegionAndActividades: this.getPublicacionesByRegionAndActividades,
+                getComentariosByPublicacion: this.getComentariosByPublicacion,
                 deletePublicacionesById: this.deletePublicacionesById,
                 getImagenesByPublicacion: this.getImagenesByPublicacion,
             }}>
