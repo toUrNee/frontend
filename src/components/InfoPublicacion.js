@@ -70,7 +70,6 @@ const InfoPublicacion = (props) => {
     
     const comentar = (e) => {
         e.preventDefault()
-        console.log(comentario);
         axios.post(process.env.REACT_APP_BACK_URL + '/Comentarios', comentario)
         .then(() => {
             getComentariosByPublicacion(idPublicacion)
@@ -227,7 +226,9 @@ const InfoPublicacion = (props) => {
                                                             className="form-control" 
                                                             id="comentario" 
                                                             rows="10" 
-                                                            cols="30">
+                                                            cols="30"
+                                                            maxlength="500"
+                                                            >
                                                         </textarea>
                                                     </div>
                                                     <div className="form-group">
