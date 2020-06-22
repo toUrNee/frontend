@@ -92,6 +92,8 @@
     margin-top: 0;
     margin-bottom: 1rem;
     text-align: justify;
+    width: 100%;
+    padding: 0 5px 0 0;
 }
 
 .lateral{
