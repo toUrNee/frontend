@@ -26,6 +26,7 @@ class ExternalDataContextProvider extends Component{
     }
 
     getPaises = () => {
+        delete axios.defaults.headers.get["Authorization"]; 
         axios.get(process.env.REACT_APP_COUNTRIES_URL + '/all', {
             params:{
                 fields: "name;flag;alpha3Code"
@@ -42,9 +43,12 @@ class ExternalDataContextProvider extends Component{
                 paises: []
             })
         })
+        axios.defaults.headers.get['Authorization'] = "Bearer "+localStorage.getItem("token")
+
     }
 
     getMunicipios = (departamento) => {
+        delete axios.defaults.headers.get["Authorization"]; 
         axios.get(process.env.REACT_APP_REGIONES_URL, { params: {$select: 'municipio', $where: 'departamento = "' + departamento + '"'}})
         .then(res => {
             this.setState({
@@ -58,9 +62,11 @@ class ExternalDataContextProvider extends Component{
                 municipios: []
             })
         })
+        axios.defaults.headers.get['Authorization'] = "Bearer "+localStorage.getItem("token")
     }
 
     getDepartamentos = (region) => {
+        delete axios.defaults.headers.get["Authorization"]; 
         axios.get(process.env.REACT_APP_REGIONES_URL, { params: {$select: 'departamento', $group: 'region,departamento', $where: 'region = "' + region + '"'}})
         .then(res => {
             this.setState({
@@ -74,6 +80,7 @@ class ExternalDataContextProvider extends Component{
                 departamentos: []
             })
         })
+        axios.defaults.headers.get['Authorization'] = "Bearer "+localStorage.getItem("token")
     }
 
     

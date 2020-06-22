@@ -33,10 +33,14 @@ import InfoPublicacion from './components/InfoPublicacion';
 import ReservaContextProvider from './context/ReservaContext';
 import MisReservas from './components/Perfil/MisReservas';
 import MisIntereses from './components/Perfil/MisIntereses';
-
+import axios from 'axios'
 
 function App() {
 
+    axios.defaults.headers.post['Authorization'] = "Bearer "+localStorage.getItem("token")
+    axios.defaults.headers.get['Authorization'] = "Bearer "+localStorage.getItem("token")
+    axios.defaults.headers.put['Authorization'] = "Bearer "+localStorage.getItem("token")
+    axios.defaults.headers.delete['Authorization'] = "Bearer "+localStorage.getItem("token")
 
     return (
         <AuthContextProvider>

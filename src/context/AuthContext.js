@@ -192,6 +192,7 @@ class AuthContextProvider extends Component {
     }
 
     getPais = (usuario) => {
+        delete axios.defaults.headers.get["Authorization"]; 
         axios.get(process.env.REACT_APP_COUNTRIES_URL + '/alpha/' + usuario.nacionalidad, {
             params:{
                 fields: "name;flag"
@@ -209,6 +210,7 @@ class AuthContextProvider extends Component {
                 paisUsuario: null
             })
         })
+        axios.defaults.headers.get['Authorization'] = "Bearer "+localStorage.getItem("token")
     }
 
     componentDidMount() {
