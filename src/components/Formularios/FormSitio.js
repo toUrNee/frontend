@@ -25,10 +25,10 @@ function FormSitio() {
         Portada: 0
     })
 
-    const message = (message, tipo, titulo) => {
+    const message = (mensaje, tipo, titulo) => {
         store.addNotification({
             title: titulo,
-            message: message,
+            message: mensaje,
             type: tipo,
             insert: "top",
             container: "top-right",
