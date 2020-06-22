@@ -11,6 +11,7 @@ class PublicacionContextProvider extends Component {
         actividades: [],
         comentarios: [],
         loading: true
+        numImagenes: 0,
     }
 
     //Trae las publicaciones
@@ -55,8 +56,28 @@ class PublicacionContextProvider extends Component {
                     loading: false
                 })
             })
+
+        
+
+
     }
 
+    getImagenesByPublicacion = (idSitio) => {
+        axios.get(process.env.REACT_APP_BACK_URL + '/Archivo_SitioTuristico/sitio/' + idSitio + '/imagenes')
+            .then(res => {
+                this.setState({
+                    ...this.state,
+                    numImagenes: res.data,
+                })
+            })
+            .catch(err => {
+                console.log(err)
+                this.setState({
+                    ...this.state,
+                    numImagenes: 0,
+                })
+            })
+    }
     //Trae publicaciones por propietario
 
     getPublicacionesByPropietarioId = (id) => {
@@ -181,6 +202,7 @@ class PublicacionContextProvider extends Component {
                 getPublicacionesByRegionAndActividades: this.getPublicacionesByRegionAndActividades,
                 getComentariosByPublicacion: this.getComentariosByPublicacion,
                 deletePublicacionesById: this.deletePublicacionesById,
+                getImagenesByPublicacion: this.getImagenesByPublicacion,
             }}>
                 {this.props.children}
             </PublicacionContext.Provider >

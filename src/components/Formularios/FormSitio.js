@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
-import img from '../images/crear-sitio-tur.png';
+import img from '../../images/crear-sitio-tur.png';
 import AddFile from './AddFile';
 import axios from 'axios';
 import AddSitioTuristico from './AddSitioTuristico';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 import { useLocation } from "react-router-dom";
 import { store } from 'react-notifications-component';
 
@@ -25,43 +25,11 @@ function FormSitio() {
         Portada: 0
     })
 
-    const success = (message) => {
+    const message = (mensaje, tipo, titulo) => {
         store.addNotification({
-            title: "Perfecto!",
-            message: message,
-            type: "success",
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animated", "fadeInDown"],
-            animationOut: ["animated", "fadeOut"],
-            dismiss: {
-                duration: 5000,
-                onScreen: false
-            }
-        });
-    }
-
-    const error = (message) => {
-        store.addNotification({
-            title: "Oops!",
-            message: message,
-            type: "danger",
-            insert: "top",
-            container: "top-right",
-            animationIn: ["animated", "fadeInDown"],
-            animationOut: ["animated", "fadeOut"],
-            dismiss: {
-                duration: 5000,
-                onScreen: false
-            }
-        });
-    }
-
-    const warning = (message) => {
-        store.addNotification({
-            title: "Cuidado!",
-            message: message,
-            type: "danger",
+            title: titulo,
+            message: mensaje,
+            type: tipo,
             insert: "top",
             container: "top-right",
             animationIn: ["animated", "fadeInDown"],
@@ -101,8 +69,7 @@ function FormSitio() {
                 nextStep={nextStep}
                 sitio={sitio}
                 setSitio={setSitio}
-                success={success}
-                error={error}
+                message={message}
                 edit={sitio.Id != null}
             />
         }
@@ -113,9 +80,7 @@ function FormSitio() {
                 setSitio={setSitio}
                 imagenes={imagenes}
                 setImagenes={setImagenes}
-                success={success}
-                error={error}
-                warning={warning}
+                message={message}
             />
         }
     }

@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useHistory } from "react-router-dom";
-import img from '../images/register.png'
-import { AuthContext } from '../context/AuthContext'
-import { ExternalDataContext } from '../context/ExternalDataContext'
+import img from '../../images/register.png'
+import { AuthContext } from '../../context/AuthContext'
+import { ExternalDataContext } from '../../context/ExternalDataContext'
 
 const Register = () => {
     
@@ -66,6 +66,7 @@ const Register = () => {
                                 placeholder="Nombre completo"
                                 onChange={onChange}
                                 required
+                                maxlength="50"
                             />
                         </div>
                         <div className="form-group">
@@ -76,6 +77,7 @@ const Register = () => {
                                 type="email"
                                 placeholder="name@example.com"
                                 onChange={onChange}
+                                maxlength="30"
                                 required />
                         </div>
                         <div className="row">
@@ -86,6 +88,7 @@ const Register = () => {
                                     className="form-control"
                                     type="text"
                                     onChange={onChange}
+                                    maxlength="20"
                                     required />
                             </div>
                             <div className="form-group col-6">
@@ -113,6 +116,7 @@ const Register = () => {
                                 className="form-control"
                                 type="text"
                                 placeholder="Nombre de usuario"
+                                maxlength="30"
                                 onChange={onChange}
                                 required />
                         </div>

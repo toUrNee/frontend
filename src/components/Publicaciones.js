@@ -11,20 +11,20 @@ import '../styles/Post.css'
 
 function valueLabelFormat(precio) {
     if (precio >= 1000000) {
-        return `${Math.round((precio / 1000000)*10)/10}M`;
+        return `${Math.round((precio / 1000000) * 10) / 10}M`;
     } else {
-        return `${Math.round((precio / 100000))*100}K`;
+        return `${Math.round((precio / 100000)) * 100}K`;
     }
 }
 
 const Publicaciones = (props) => {
 
-    const { 
-        loading, 
-        publicaciones, 
+    const {
+        loading,
+        publicaciones,
         actividades,
         getPublicacionesFiltered,
-        getActividades 
+        getActividades
     } = useContext(PublicacionContext)
 
     //Estado por defecto
@@ -56,7 +56,7 @@ const Publicaciones = (props) => {
                 nombre: props.location.state.region,
                 img: props.location.state.img
             })
-        }else{
+        } else {
             setRegion({
                 nombre: "Colombia",
                 img: portada
@@ -64,12 +64,12 @@ const Publicaciones = (props) => {
         }
         getActividades()
         filtrar()
-    // eslint-disable-next-line
+        // eslint-disable-next-line
     }, [props.location.state, getActividades])
 
     useEffect(() => {
         filtrar()
-    // eslint-disable-next-line
+        // eslint-disable-next-line
     }, [region])
 
 
@@ -118,7 +118,7 @@ const Publicaciones = (props) => {
                             <div className="row">
                                 <div className="col-md-12 col-lg-12 lateral">
                                     <div className="row filtro">
-                                        <div className="col-lg-7 col-md-12">
+                                        <div className="col-lg-5 col-md-12">
                                             <h5 className="filter-title">
                                                 Tipo de actividades
                                             {/* Modal de Bootstrap*/}
@@ -156,7 +156,7 @@ const Publicaciones = (props) => {
                                                 placeholder="Actividades"
                                             />
                                         </div>
-                                        <div className="col-lg-3 col-md-6">
+                                        <div className="col-lg-5 col-md-8">
                                             <h5 className="filter-title">
                                                 Precio
                                         </h5>

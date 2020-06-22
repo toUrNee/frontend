@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from 'react';
-import { ExternalDataContext } from '../context/ExternalDataContext';
+import { ExternalDataContext } from '../../context/ExternalDataContext';
 import axios from 'axios';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
 
-const AddSitioTuristico = ({ nextStep, sitio, setSitio, success, error, edit }) => {
+const AddSitioTuristico = ({ nextStep, sitio, setSitio, message, edit }) => {
 
     const { user, cambiarRol } = useContext(AuthContext)
     const { regiones, departamentos, municipios, getDepartamentos, getMunicipios } = useContext(ExternalDataContext)
@@ -28,18 +28,18 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, success, error, edit }) 
         if (edit) {
             axios.put(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos/' + sitio.Id, sitio)
                 .then(() => {
-                    success("Tu sitio turistico fue actualizado exitosamente")
+                    message("Tu sitio turistico fue actualizado exitosamente", "success", "Excelente!")
                     nextStep()
                 })
                 .catch(err => {
                     console.log(err);
-                    error("Ocurrio un error y no se pudo actualizar el sitio turistico")
+                    message("Ocurrio un error y no se pudo actualizar el sitio turistico", "danger", "Ups!")
                 })
 
         } else {
             axios.post(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos', sitio)
                 .then((response) => {
-                    success("Tu sitio turistico fue creado exitosamente", response.data.id)
+                    message("Tu sitio turistico fue creado exitosamente", "success", "Excelente!")
                     setSitio({
                         ...sitio,
                         Id: response.data.id
@@ -49,7 +49,7 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, success, error, edit }) 
                 })
                 .catch(err => {
                     console.log(err);
-                    error("Ocurrio un error y no se pudo crear el sitio turistico")
+                    message("Ocurrio un error y no se pudo crear el sitio turistico", "danger", "Ups!")
                 })
         }
     }
@@ -74,6 +74,7 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, success, error, edit }) 
                         type="text"
                         onChange={onChange}
                         value={sitio.Nombre}
+                        maxlength="50"
                         autoFocus
                     />
                 </div>
@@ -85,6 +86,7 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, success, error, edit }) 
                         type="text"
                         value={sitio.Descripcion}
                         onChange={onChange}
+                        maxlength="800"
                     />
                 </div>
                 <div className="row">
@@ -142,17 +144,6 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, success, error, edit }) 
                             )}
                         </select>
                     </div>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="Capacidad">Capacidad</label>
-                    <input
-                        name="Capacidad"
-                        className="form-control"
-                        type="number"
-                        min="1"
-                        value={sitio.Capacidad}
-                        onChange={onChange}
-                    />
                 </div>
 
                 <button className="btn btn-form-blue" onClick={handlerSubmit}>Siguiente</button>

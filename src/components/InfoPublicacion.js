@@ -6,9 +6,14 @@ import { ReservaContext } from '../context/ReservaContext';
 import Comentario from './Comentario';
 import Swal from 'sweetalert2'
 import axios from 'axios'
+import defaultImg from '../images/no-image.jpg';
 
-//mirrar error de petición doble al eliminar o hacer reserva
 const InfoPublicacion = (props) => {
+
+
+    var curr = new Date();
+    curr.setDate(curr.getDate());
+    var date = curr.toISOString().substr(0, 10);
 
     const { match } = props;
     let { idPublicacion } = match.params;
@@ -18,32 +23,37 @@ const InfoPublicacion = (props) => {
         PublicacionId: null,
         Contenido: ""
     })
-    const { loading, publicacion, getPublicacionById, comentarios, getComentariosByPublicacion } = useContext(PublicacionContext)
+    const { loading, publicacion, getPublicacionById, comentarios, getComentariosByPublicacion, numImagenes, getImagenesByPublicacion } = useContext(PublicacionContext)
+
     const { user, isAuthenticated } = useContext(AuthContext)
     const { existeInteres, getInteres, postInteres, deleteInteres, existeReserva, getReserva, postReserva, deleteReserva } = useContext(ReservaContext)
 
+    const [fecha, setFecha] = useState(null)
+
+    const agregarImagen = (num) => {
+        let imgs = []
+        if (!num) {
+            imgs.push(
+                <div className='carousel-item active' key={Date.now()}>
+                    <img src={defaultImg} className="d-block w-100" alt="..." />
+                </div>
+            )
+        }
+        for (let i = 0; i < num; i++) {
+            imgs.push(
+                <div className={i === 0 ? 'carousel-item active' : 'carousel-item'} key={i}>
+                    <img src={process.env.REACT_APP_BACK_URL + '/Archivo_SitioTuristico/sitio/' + publicacion.sitio.id + '/' + i} className="d-block w-100" alt="..." />
+                </div>
+            )
+        }
+        return imgs;
+    }
+
     const hacerReserva = () => {
-        Swal.fire({
-            title: '¿Seguro de que deseas hacer una reserva para este plan?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            cancelButtonText: 'Cancelar',
-            confirmButtonText: 'Sí, deseo hacer la reserva'
-        }).then((result) => {
-            if (result.value) {
-                postReserva(user.id, publicacion.id)
-                if(existeInteres){
-                    deleteInteres(user.id, publicacion.id)
-                }
-                Swal.fire(
-                    'Listo!',
-                    'Tu reserva ha sido creada éxito.',
-                    'success'
-                )
-            }
-        })
+        postReserva(user.id, publicacion.id, fecha)
+        if (existeInteres) {
+            deleteInteres(user.id, publicacion.id)
+        }
     }
 
     const eliminarReserva = () => {
@@ -67,6 +77,7 @@ const InfoPublicacion = (props) => {
             }
         });
     }
+
     
     const comentar = (e) => {
         e.preventDefault()
@@ -91,9 +102,16 @@ const InfoPublicacion = (props) => {
     // eslint-disable-next-line
     },[user, idPublicacion])
 
+
     useEffect(() => {
         getPublicacionById(idPublicacion)
     }, [getPublicacionById, idPublicacion])
+
+    useEffect(() => {
+        if(publicacion!==null){
+            getImagenesByPublicacion(publicacion.sitio.id)
+        }
+    }, [getImagenesByPublicacion, publicacion])
 
     useEffect(() => {
         if (publicacion !== null && user !== null) {
@@ -105,6 +123,11 @@ const InfoPublicacion = (props) => {
     useEffect(() => {
         getComentariosByPublicacion(idPublicacion)
     }, [getComentariosByPublicacion, idPublicacion])
+
+    const onChange = (event) => {
+        setFecha(event.target.value)
+    }
+
 
     return (
         <div>
@@ -133,39 +156,80 @@ const InfoPublicacion = (props) => {
                             <div className="container-fluid">
                                 <div className="row">
                                     <div className="col-md-12 col-lg-8 principal">
-                                        {isAuthenticated ?
+                                        {!isAuthenticated || user.id === publicacion.propietario.id ?
+                                            null :
                                             <div className="botones text-right">
                                                 <div>
-                                                {existeReserva ? 
-                                                    <div>
-                                                        <button type="button" className="btn btn-danger" disabled>
-                                                            <i className='far fa-heart' ></i> Guardar
-                                                        </button>   
-                                                        <button type="button" className="btn btn-success disabled" onClick={eliminarReserva}>
-                                                            <i className="far fa-bell-slash"></i>Remover reserva
-                                                        </button>
-                                                    </div>
-                                                :
-                                                    <div>
-                                                        {existeInteres ? 
-                                                            <button type="button" className="btn btn-danger" onClick={() => deleteInteres(user.id, publicacion.id)} >
-                                                                <i className='fas fa-heart' ></i> Guardado
-                                                            </button>
-                                                        :
-                                                            <button type="button" className="btn btn-danger" onClick={() => postInteres(user.id, publicacion.id)} >
+                                                    {existeReserva.estadoReservaId === 1 ?
+                                                        <div>
+                                                            <button type="button" className="btn btn-danger" disabled>
                                                                 <i className='far fa-heart' ></i> Guardar
-                                                            </button>
-                                                        }
-                                                        <button type="button" className="btn btn-success" onClick={hacerReserva}>
-                                                            <i className="far fa-bell"></i> Reservar
                                                         </button>
-                                                    </div>
-                                                }
+                                                            <button type="button" className="btn btn-success disabled" onClick={eliminarReserva}>
+                                                                <i className="far fa-clock"></i> En espera
+                                                        </button>
+                                                        </div>
+                                                        : existeReserva.estadoReservaId === 2 ?
+                                                            <div>
+                                                                <button type="button" className="btn btn-danger" disabled>
+                                                                    <i className='far fa-heart' ></i> Guardar
+                                                        </button>
+                                                                <button type="button" className="btn btn-outline-success disabled" onClick={eliminarReserva}>
+                                                                    <i className="fas fa-check"></i> Confirmada
+                                                        </button>
+                                                            </div>
+                                                            : existeReserva.estadoReservaId === 3 ?
+                                                                <div>
+                                                                    <button type="button" className="btn btn-danger" disabled>
+                                                                        <i className='far fa-heart' ></i> Guardar
+                                                        </button>
+                                                                    <button type="button" className="btn btn-outline-danger disabled" onClick={eliminarReserva}>
+                                                                        <i className="fas fa-times"></i> Rechazada
+                                                        </button>
+                                                                </div>
+                                                                :
+                                                                <div>
+                                                                    {existeInteres ?
+                                                                        <button type="button" className="btn btn-danger" onClick={() => deleteInteres(user.id, publicacion.id)} >
+                                                                            <i className='fas fa-heart' ></i> Guardado
+                                                            </button>
+                                                                        :
+                                                                        <button type="button" className="btn btn-danger" onClick={() => postInteres(user.id, publicacion.id)} >
+                                                                            <i className='far fa-heart' ></i> Guardar
+                                                            </button>
+                                                                    }
+                                                                    <button type="button" className="btn btn-success" data-toggle="modal" data-target="#fechaModal">
+                                                                        <i className="far fa-bell"></i> Reservar</button>
+                                                                </div>
+                                                    }
                                                 </div>
                                             </div>
-                                            : 
-                                            null
                                         }
+                                        <div className="modal" id="fechaModal">
+                                            <div className="modal-dialog">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h4 className="modal-title">Reservar {publicacion.titulo}</h4>
+                                                        <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+
+                                                    <div className="modal-body">
+                                                        <form>
+                                                            <div className="form-group col">
+                                                                <label htmlFor="Fecha">Fecha de la reserva </label>
+                                                                <input name="Fecha" className="form-control" type="date" min={date} onChange={onChange} />
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
+                                                    <div className="modal-footer">
+                                                        <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+                                                        <button type="button" className="btn btn-info" data-dismiss="modal" onClick={hacerReserva} disabled={fecha===null}>Crear reserva</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div className="description">
                                             <h2>Descripcion del plan <button type="button" className="btn btn-warning">  ${publicacion.precio} </button> </h2>
                                             <p>{publicacion.descripcion}</p>
@@ -175,12 +239,7 @@ const InfoPublicacion = (props) => {
                                         </div>
                                         <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
                                             <div className="carousel-inner">
-                                                <div className="carousel-item active">
-                                                    <img src="https://i.pinimg.com/originals/bc/69/15/bc6915193da74ba40629533db07966e8.jpg" className="d-block w-100" alt="..." />
-                                                </div>
-                                                <div className="carousel-item">
-                                                    <img src="https://static.vecteezy.com/system/resources/previews/000/239/809/original/vector-beautiful-nature-illustration.jpg" className="d-block w-100" alt="..." />
-                                                </div>
+                                                {agregarImagen(numImagenes)}
                                             </div>
                                             <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                                                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -230,6 +289,7 @@ const InfoPublicacion = (props) => {
                                                             maxlength="500"
                                                             >
                                                         </textarea>
+
                                                     </div>
                                                     <div className="form-group">
                                                         <input  type="submit" value="Publicar" className="btn btn-primary"></input>
@@ -243,6 +303,8 @@ const InfoPublicacion = (props) => {
                         </section>
                     </div>
             }
+
+
         </div>
 
     );
