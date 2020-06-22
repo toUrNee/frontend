@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
-import { ExternalDataContext } from '../context/ExternalDataContext';
+import { ExternalDataContext } from '../../context/ExternalDataContext';
 import axios from 'axios';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
 
 const AddSitioTuristico = ({ nextStep, sitio, setSitio, success, error, edit }) => {
@@ -142,17 +142,6 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, success, error, edit }) 
                             )}
                         </select>
                     </div>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="Capacidad">Capacidad</label>
-                    <input
-                        name="Capacidad"
-                        className="form-control"
-                        type="number"
-                        min="1"
-                        value={sitio.Capacidad}
-                        onChange={onChange}
-                    />
                 </div>
 
                 <button className="btn btn-form-blue" onClick={handlerSubmit}>Siguiente</button>

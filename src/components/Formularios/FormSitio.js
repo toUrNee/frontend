@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
-import img from '../images/crear-sitio-tur.png';
+import img from '../../images/crear-sitio-tur.png';
 import AddFile from './AddFile';
 import axios from 'axios';
 import AddSitioTuristico from './AddSitioTuristico';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 import { useLocation } from "react-router-dom";
 import { store } from 'react-notifications-component';
 

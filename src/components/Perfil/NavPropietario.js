@@ -1,7 +1,7 @@
 import React, { useContext} from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/PerfilPropietario.css'
-import { AuthContext } from '../context/AuthContext';
+import '../../styles/PerfilPropietario.css'
+import { AuthContext } from '../../context/AuthContext';
 
 const NavPropietario = (props) => {
 
