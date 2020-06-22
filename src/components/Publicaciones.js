@@ -63,7 +63,6 @@ const Publicaciones = (props) => {
             })
         }
         getActividades()
-        filtrar()
         // eslint-disable-next-line
     }, [props.location.state, getActividades])
 
@@ -75,6 +74,7 @@ const Publicaciones = (props) => {
 
     //Filtra las publicaciones por region y/o por actividades y precio
     function filtrar() {
+        console.log(region.nombre)
         var filtros = {
             region: region.nombre,
             actividades: filtroActividad.map(act => act.id),
