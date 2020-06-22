@@ -58,7 +58,7 @@ const AddFile = ({ prevStep, sitio, imagenes, setImagenes, message }) => {
     maxSize: 4194304,
     onDrop: acceptedFiles => {
       if (imagenes.length + acceptedFiles.length > 8){
-        message("Tu sitio turistico puede contener hasta 8 fotos", "error")
+        message("Tu sitio turistico puede contener hasta 8 fotos", "error", "Ups!")
         return  
       }
       acceptedFiles.forEach(imagen => {
@@ -87,9 +87,9 @@ const AddFile = ({ prevStep, sitio, imagenes, setImagenes, message }) => {
   const handlerSubmit = (e) => {
     e.preventDefault()
     if (imagenes.length < 1) {
-      message("Ninguna imagen fue seleccionada :(", "warning")
+      message("Ninguna imagen fue seleccionada :(", "warning", "Cuidado!")
     } else {
-      message("¡Imagenes añadidas de manera correcta!", "success")
+      message("¡Imagenes añadidas de manera correcta!", "success", "Excelente!")
     }
     history.push('/perfil/sitios')
   }
