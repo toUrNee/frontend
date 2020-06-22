@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/PerfilPropietario.css'
+import '../../styles/PerfilPropietario.css'
 import Moment from 'react-moment';
 import Swal from 'sweetalert2';
 import { useHistory } from "react-router-dom";
@@ -44,11 +44,6 @@ const CardInteres = (props) => {
                     </div>
                 </div>
                 <div className="col-md-3" style={{ textAlign: 'center', padding: '5% 0' }}>
-                    {/*
-                    <button type="button" className="btn btn-success" onClick={hacerReserva}> 
-                            <i className="far fa-bell"></i> Reservar 
-                        </button>
-                    */}
                         <button type="button" className="btn btn-success" onClick={hacerReserva}> 
                                 <i className="far fa-bell"></i> Reservar 
                         </button>

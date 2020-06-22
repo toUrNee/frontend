@@ -81,6 +81,14 @@
   z-index: 1;
 }
 
+.perfil .perfil-wrap .titulo-plan {
+  background: #502b13;
+  color: white;
+  text-align: center;
+  padding: 0.5rem ;
+  margin:0;
+}
+
 .perfil .perfil-wrap .perfil-links {
   opacity: 0;
   left: 0;

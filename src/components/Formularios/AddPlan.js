@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useLocation } from "react-router-dom";
-import { AuthContext } from '../context/AuthContext';
-import { SitioContext } from '../context/SitioContext';
+import { AuthContext } from '../../context/AuthContext';
+import { SitioContext } from '../../context/SitioContext';
 import NumberFormat from 'react-number-format';
 
 const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }) => {
@@ -10,10 +10,6 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
     const location = useLocation();
     const { user } = useContext(AuthContext)
     const { sitios, getSitiosById } = useContext(SitioContext)
-
-    var curr = new Date();
-    curr.setDate(curr.getDate());
-    var date = curr.toISOString().substr(0,10);
 
     const onChange = (event) => {
         if (event.target.type === "number" || event.target.type === "select-one") {
@@ -142,18 +138,6 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
                                 </Link>
                             }
                         </p>
-                    </div>
-                    <div className="form-group col">
-                        <label htmlFor="Fecha">Fecha</label>
-                        <input
-                            name="Fecha"
-                            className="form-control"
-                            type="date"
-                            min={date}
-                            onChange={onChange}
-                            required
-                            value={publicacion.Fecha}
-                        />
                     </div>
                 </div>
                 

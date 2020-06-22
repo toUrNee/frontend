@@ -8,15 +8,15 @@ import {
     Route,
     Redirect
 } from 'react-router-dom';
-import Login from './components/Login';
-import Register from './components/Register';
-import FormPublicacion from './components/FormPublicacion';
+import Login from './components/Formularios/Login';
+import Register from './components/Formularios/Register';
+import FormPublicacion from './components/Formularios/FormPublicacion';
 import Publicaciones from './components/Publicaciones';
 import Navbar from './components/Navbar';
 import Inicio from './components/Inicio';
 import AuthContextProvider, { AuthContext } from './context/AuthContext'
 import ExternalDataContextProvider from './context/ExternalDataContext'
-import FormSitio from './components/FormSitio'
+import FormSitio from './components/Formularios/FormSitio'
 import PublicacionContextProvider from './context/PublicacionContext'
 
 //Notifications library
@@ -26,13 +26,13 @@ import 'animate.css'
 import './App.css';
 import './styles/Form.css'
 import SitioContextProvider from './context/SitioContext';
-import PerfilPropietario from './components/PerfilPropietario';
-import MisPublicaciones from './components/MisPublicaciones';
-import MisSitios from './components/MisSitios';
+import PerfilPropietario from './components/Perfil/PerfilPropietario';
+import MisPublicaciones from './components/Perfil/MisPublicaciones';
+import MisSitios from './components/Perfil/MisSitios';
 import InfoPublicacion from './components/InfoPublicacion';
 import ReservaContextProvider from './context/ReservaContext';
-import MisReservas from './components/MisReservas';
-import MisIntereses from './components/MisIntereses';
+import MisReservas from './components/Perfil/MisReservas';
+import MisIntereses from './components/Perfil/MisIntereses';
 
 
 function App() {
