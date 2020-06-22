@@ -28,18 +28,18 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, message, edit }) => {
         if (edit) {
             axios.put(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos/' + sitio.Id, sitio)
                 .then(() => {
-                    message("Tu sitio turistico fue actualizado exitosamente", "success", "Excelente!")
+                    message("Tu sitio turístico fue actualizado exitosamente", "success", "Excelente!")
                     nextStep()
                 })
                 .catch(err => {
                     console.log(err);
-                    message("Ocurrio un error y no se pudo actualizar el sitio turistico", "danger", "Ups!")
+                    message("Ocurrió un error y no se pudo actualizar el sitio turístico", "danger", "Ups!")
                 })
 
         } else {
             axios.post(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos', sitio)
                 .then((response) => {
-                    message("Tu sitio turistico fue creado exitosamente", "success", "Excelente!")
+                    message("Tu sitio turístico fue creado exitosamente", "success", "Excelente!")
                     setSitio({
                         ...sitio,
                         Id: response.data.id
@@ -49,7 +49,7 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, message, edit }) => {
                 })
                 .catch(err => {
                     console.log(err);
-                    message("Ocurrio un error y no se pudo crear el sitio turistico", "danger", "Ups!")
+                    message("Ocurrió un error y no se pudo crear el sitio turístico", "danger", "¡Ups!")
                 })
         }
     }
@@ -79,7 +79,7 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, message, edit }) => {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="Descripcion">Descripcion</label>
+                    <label htmlFor="Descripcion">Descripción</label>
                     <textarea
                         name="Descripcion"
                         className="form-control"
@@ -91,7 +91,7 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, message, edit }) => {
                 </div>
                 <div className="row">
                     <div className="form-group col">
-                        <label htmlFor="Region">Region</label>
+                        <label htmlFor="Region">Región</label>
                         <select
                             name="Region"
                             className="form-control"
@@ -99,7 +99,7 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, message, edit }) => {
                             value={sitio.Region}
                             onChange={onChange}
                         >
-                            <option>Seleccione una opcion</option>
+                            <option>Seleccione una opción</option>
                             {regiones.map(region =>
                                 <option
                                     value={region.nombre} key={region.nombre}>
@@ -117,7 +117,7 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, message, edit }) => {
                             value={sitio.Departamento}
                             onChange={onChange}
                         >
-                            <option>Seleccione una opcion</option>
+                            <option>Seleccione una opción</option>
                             {departamentos.map(departamento =>
                                 <option
                                     value={departamento.departamento} key={departamento.departamento}>
@@ -135,7 +135,7 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, message, edit }) => {
                             value={sitio.Municipio}
                             onChange={onChange}
                         >
-                            <option>Seleccione una opcion</option>
+                            <option>Seleccione una opción</option>
                             {municipios.map(municipio =>
                                 <option
                                     value={municipio.municipio} key={municipio.municipio}>

@@ -41,7 +41,7 @@ const MisPublicaciones = (props) => {
                     <div className="row perfil-container">
                         {publicaciones.length === 0 ?
                             <div className="row justify-content-center">
-                                <p className="col-12">No tienes planes disponibles</p>
+                                <p className="col-12">No tienes planes disponibles.</p>
                                 <Link type="button" className="btn btn-success" to='/crear-plan'> <i className="fas fa-plus-circle"></i> Crear publicación </Link>
                             </div>
                             :

@@ -69,7 +69,7 @@ class AuthContextProvider extends Component {
                 })
                 store.addNotification({
                     title: "Error",
-                    message: err.response ? err.response.data : "Ocurrio un error al intentar iniciar sesion, intenta mas tarde",
+                    message: err.response ? err.response.data : "Ocurrió un error al intentar iniciar sesion, intenta mas tarde",
                     type: "danger",
                     insert: "top",
                     container: "top-right",
@@ -177,7 +177,7 @@ class AuthContextProvider extends Component {
                 })
                 store.addNotification({
                     title: "Error",
-                    message: err.response ? err.response.data : "Ocurrio un error en el registro, intenta mas tarde",
+                    message: err.response ? err.response.data : "Ocurrió un error en el registro, intenta mas tarde",
                     type: "danger",
                     insert: "top",
                     container: "top-right",

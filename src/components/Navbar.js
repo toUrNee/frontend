@@ -53,7 +53,7 @@ const Navbar = () => {
                                 <div className="dropdown-menu text-left" aria-labelledby="navbarDropdownMenuLink">
                                     
                                     <Link to='/crear-sitio-turistico' className="nav-link">
-                                        <span className="nav-item active"> Agregar sitio turistico </span>
+                                        <span className="nav-item active"> Agregar sitio turístico </span>
                                     </Link>
                                     <Link to='/crear-plan' className="nav-link">
                                         <span className="nav-item active"> Publicar plan </span>

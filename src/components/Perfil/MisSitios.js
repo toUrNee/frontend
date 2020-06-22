@@ -21,7 +21,7 @@ const MisSitios = (props) => {
 
                 <div className="section-title" >
                     <h2>Edita o elimina</h2>
-                    <p>Sitios turisticos</p>
+                    <p>Sitios turísticos</p>
                 </div>
                 <NavPropietario
                     perfil=""
@@ -40,7 +40,7 @@ const MisSitios = (props) => {
                     <div className="row perfil-container">
                         {sitios.length === 0 ?
                             <div className="row justify-content-center">
-                                <p className="col-12">Eliminaste todos los sitios</p>
+                                <p className="col-12">Eliminaste todos los sitios.</p>
                                 <Link type="button" className="btn btn-success" to='/crear-sitio-turistico'> <i className="fas fa-plus-circle"></i> Agregar sitio </Link>
                             </div>
                             :

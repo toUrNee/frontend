@@ -49,7 +49,7 @@ const Register = () => {
                 {/* Columna de color con imagen */}
                 <div className="col col-color">
                     <header>
-                        <h1 className="titulo-form-color">¡Bienvenido a Cattleya tours!</h1>
+                        <h1 className="titulo-form-color">¡Bienvenido a Cattleya Tours!</h1>
                         <img className="img-fluid mx-auto d-block img-form" src={img} alt="register" />
                     </header>
                 </div>
@@ -82,7 +82,7 @@ const Register = () => {
                         </div>
                         <div className="row">
                             <div className="form-group col-6">
-                                <label htmlFor="Telefono">Telefono</label>
+                                <label htmlFor="Telefono">Teléfono</label>
                                 <input
                                     name="Telefono"
                                     className="form-control"

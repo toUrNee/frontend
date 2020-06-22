@@ -15,8 +15,8 @@ const CardReserva = (props) => {
 
     const eliminarReserva = () => {
         Swal.fire({
-            title: '¿Seguro de que deseas remover esta reserva?',
-            text: "Estos cambios podrían ser irrevertibles!",
+            title: '¿Seguro que deseas remover esta reserva?',
+            text: "Estos cambios podrían ser irrevertibles.",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -27,8 +27,8 @@ const CardReserva = (props) => {
             if (result.value) {
                 props.deleteReserva(props.user.id, props.reserva.publicacion.id, props.index)
                 Swal.fire(
-                    'Listo!',
-                    'Tu reserva ha sido eliminada éxito.',
+                    '¡Listo!',
+                    'Tu reserva ha sido eliminada con éxito.',
                     'success'
                 )
             }

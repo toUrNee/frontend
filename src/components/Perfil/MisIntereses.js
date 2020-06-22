@@ -35,7 +35,7 @@ const MisIntereses = (props) => {
                     />
                     <div className="row justify-content-md-center">
                         {intereses.length === 0 ?
-                            <p>Aun no guardas ninguna publicación, te invitamos a seguir buscando un plan que te agrade</p>
+                            <p>Aún no guardas ninguna publicación, te invitamos a seguir buscando un plan que te agrade.</p>
                             :
                             intereses.map((interes, index) => (
                                 <CardInteres

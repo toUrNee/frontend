@@ -30,7 +30,7 @@ const MisReservas = (props) => {
                 <div className="container">
                     <div className="row justify-content-md-center">
                         { reservas.length === 0 ?
-                           <p>Parece que no tienes planes reservados, visita nuestros planes y haz una reserva ahora mismo</p>
+                           <p>Parece que no tienes planes reservados, visita nuestros planes y haz una reserva ahora mismo.</p>
                         :
                             reservas.map((reserva, index) => (
                                 <CardReserva

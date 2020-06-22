@@ -133,10 +133,10 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
                                 </option>)}
                         </select>
                         <p className="form-link">
-                            ¿No encuentras un sitio turistico?{" "}
+                            ¿No encuentras un sitio turístico?{" "}
                             {
                                 <Link to="/crear-sitio-turistico">
-                                    Crear sitio turistico
+                                    Crear sitio turístico
                                 </Link>
                             }
                         </p>

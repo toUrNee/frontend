@@ -48,7 +48,7 @@ const CardSitio = (props) => {
     const borrarPublicacion = () => {
         Swal.fire({
             title: '¿Seguro deseas eliminar esta publicación?',
-            text: "Estos cambios serán irrevertibles!",
+            text: "Estos cambios serán irrevertibles.",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -59,7 +59,7 @@ const CardSitio = (props) => {
             if (result.value) {
                 deletePublicacionesById(props.id, props.index)
                 Swal.fire(
-                    'Listo!',
+                    '¡Listo!',
                     'Tu publicación ha sido eliminada con éxito.',
                     'success'
                 )
@@ -69,8 +69,8 @@ const CardSitio = (props) => {
 
     const borrarSitio = () => {
         Swal.fire({
-            title: '¿Seguro deseas eliminar este sitio?',
-            text: "Estos cambios serán irrevertibles y las publicaciones asociadas también se eliminarán!",
+            title: '¿Seguro que deseas eliminar este sitio?',
+            text: "Estos cambios serán irrevertibles y las publicaciones asociadas también se eliminarán.",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -81,7 +81,7 @@ const CardSitio = (props) => {
             if (result.value) {
                 deleteSitioById(props.id, props.index)
                 Swal.fire(
-                    'Listo!',
+                    '¡Listo!',
                     'Tu sitio ha sido eliminado con éxito.',
                     'success'
                 )

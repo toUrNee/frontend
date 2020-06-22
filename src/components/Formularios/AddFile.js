@@ -58,7 +58,7 @@ const AddFile = ({ prevStep, sitio, imagenes, setImagenes, message }) => {
     maxSize: 4194304,
     onDrop: acceptedFiles => {
       if (imagenes.length + acceptedFiles.length > 8){
-        message("Tu sitio turistico puede contener hasta 8 fotos", "danger", "Ups!")
+        message("Tu sitio turístico puede contener hasta 8 fotos", "danger", "Ups!")
         return  
       }
       acceptedFiles.forEach(imagen => {

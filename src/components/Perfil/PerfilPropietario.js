@@ -59,7 +59,7 @@ const PerfilPropietario = (props) => {
                                 <span className="col">{user.email}</span>
                             </div>
                             <div className="row">
-                                <h3 className="col-5">Telefono:</h3>
+                                <h3 className="col-5">Teléfono:</h3>
                                 <span className="col"> {user.telefono}</span>
                             </div>
 

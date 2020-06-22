@@ -143,7 +143,7 @@ const InfoPublicacion = (props) => {
                     <div className="container-fluid">
                         <div className="text-center portada" style={{ marginBottom: 10, backgroundImage: `url("https://i.pinimg.com/originals/af/4c/57/af4c571f547a74ae7a0dbda30a79c509.jpg")` }}>
                             <span className="clasificacion bg-success ">Error 404</span>
-                            <h1>Publicación no encontrada</h1>
+                            <h1>Publicación no encontrada.</h1>
                         </div>
                     </div>
                     :
@@ -224,7 +224,7 @@ const InfoPublicacion = (props) => {
                                                     </div>
 
                                                     <div className="modal-footer">
-                                                        <button type="button" className="btn btn-danger" data-dismiss="modal">Close</button>
+                                                        <button type="button" className="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                                         <button type="button" className="btn btn-info" data-dismiss="modal" onClick={hacerReserva} disabled={fecha===null}>Crear reserva</button>
                                                     </div>
 
@@ -232,10 +232,10 @@ const InfoPublicacion = (props) => {
                                             </div>
                                         </div>
                                         <div className="description">
-                                            <h2>Descripcion del plan <span className="btn btn-warning"> <NumberFormat value={publicacion.precio} displayType={'text'} thousandSeparator={true} prefix={'$'} /> </span> </h2>
+                                            <h2>Descripción del plan <span className="btn btn-warning"> <NumberFormat value={publicacion.precio} displayType={'text'} thousandSeparator={true} prefix={'$'} /> </span> </h2>
                                             <p>{publicacion.descripcion}</p>
 
-                                            <h4>Descripcion del sitio</h4>
+                                            <h4>Descripción del sitio</h4>
                                             <p>{publicacion.sitio.descripcion}</p>
                                         </div>
                                         <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">

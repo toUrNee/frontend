@@ -66,7 +66,7 @@ class ReservaContextProvider extends Component {
                     }
                 })
                 Swal.fire(
-                    'Listo!',
+                    '¡Listo!',
                     'Tu reserva ha sido creada con éxito.',
                     'success'
                 )
@@ -78,8 +78,8 @@ class ReservaContextProvider extends Component {
                     existeReserva: false
                 })
                 Swal.fire(
-                    'Ups!',
-                    'Ocurrio un error al crear la reserva.',
+                    '¡Ups!',
+                    'Ocurrió un error al crear la reserva.',
                     'error'
                 )
             })
