@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import './App.css';
 import './styles/Form.css'
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Switch,
     Route,
     Redirect
