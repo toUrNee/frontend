@@ -1,0 +1,38 @@
+name: Deploy to github pages
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+# Environment variables available to all jobs and steps in this workflow
+env:
+  APP_LOCATION: "/" # location of your client code
+  API_LOCATION: "api" # location of your api source code - optional
+  APP_ARTIFACT_LOCATION: "build" # location of client code build output
+  AZURE_STATIC_WEB_APPS_API_TOKEN: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }} # secret containing deployment token for your static web app
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Build
+        run: npm run build
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.2
+        with:
+          # A file, directory or wildcard pattern that describes what to upload
+          path: build
+
+      - name: Deploy GitHub Pages site
+        uses: actions/deploy-pages@v1.2.9
