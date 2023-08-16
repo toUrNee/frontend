@@ -29,12 +29,12 @@ class ExternalDataContextProvider extends Component{
         delete axios.defaults.headers.get["Authorization"]; 
         axios.get(process.env.REACT_APP_COUNTRIES_URL + '/all', {
             params:{
-                fields: "name;flag;alpha3Code"
+                fields: "name,flag,cca3"
             }
         }).then(res => {
             this.setState({
                 ...this.state,
-                paises: res.data
+                paises: res.data.map(x => ({name: x.name.common, flag: x.flag, alpha3Code: x.cca3}))
             })
         }).catch(err => {
             console.log(err)
