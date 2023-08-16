@@ -2,15 +2,14 @@
   "name": "cattleya",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": "8.19.4",
+    "node": "16.20.1"
+  },
   "dependencies": {
     "@material-ui/core": "^4.10.2",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
     "animate.css": "^3.7.2",
-    "axios": "^0.21.2",
-    "bootstrap-icons": "^1.0.0-alpha4",
-    "moment": "^2.29.4",
+    "axios": "^1.4.0",
     "multiselect-react-dropdown": "^1.5.0",
     "qs": "^6.9.7",
     "react": "^16.13.1",
@@ -46,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "sonarqube-scanner": "^2.9.1"
   }
 }

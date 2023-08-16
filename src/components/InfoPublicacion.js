@@ -287,7 +287,7 @@ const InfoPublicacion = (props) => {
                                                             id="comentario" 
                                                             rows="10" 
                                                             cols="30"
-                                                            maxlength="500"
+                                                            maxLength="500"
                                                             >
                                                         </textarea>
 

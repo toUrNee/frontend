@@ -66,7 +66,7 @@ const Register = () => {
                                 placeholder="Nombre completo"
                                 onChange={onChange}
                                 required
-                                maxlength="50"
+                                maxLength="50"
                             />
                         </div>
                         <div className="form-group">
@@ -77,7 +77,7 @@ const Register = () => {
                                 type="email"
                                 placeholder="name@example.com"
                                 onChange={onChange}
-                                maxlength="30"
+                                maxLength="30"
                                 required />
                         </div>
                         <div className="row">
@@ -88,7 +88,7 @@ const Register = () => {
                                     className="form-control"
                                     type="text"
                                     onChange={onChange}
-                                    maxlength="20"
+                                    maxLength="20"
                                     required />
                             </div>
                             <div className="form-group col-6">
@@ -116,7 +116,7 @@ const Register = () => {
                                 className="form-control"
                                 type="text"
                                 placeholder="Nombre de usuario"
-                                maxlength="30"
+                                maxLength="30"
                                 onChange={onChange}
                                 required />
                         </div>
