@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useHistory } from "react-router-dom"
 
 
-const AddActividad = ({ prevStep, publicacion, actividades, success, warning, error, nextStep, actividadesPublicacion, setActividadesPublicacion }) => {
+const AddActividad = ({ prevStep, publicacion, categoriasActividad, success, warning, error, nextStep, actividadesPublicacion, setActividadesPublicacion }) => {
 
     const history = useHistory()
 
@@ -14,7 +14,11 @@ const AddActividad = ({ prevStep, publicacion, actividades, success, warning, er
     })
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/actividades/' + publicacion.Id)
+        axios.get(`${process.env.REACT_APP_BACK_URL}/Actividades/GetActividades`, {
+            params: {
+                publicacionId: publicacion.Id
+            }
+        })
             .then(res => {
                 var temp = res.data[0].actividades
                 setActividadesPublicacion(temp)
@@ -29,16 +33,20 @@ const AddActividad = ({ prevStep, publicacion, actividades, success, warning, er
     const handlerSubmit = (e) => {
         e.preventDefault()
         if (actividadesPublicacion.length < 5) {
-            axios.post(process.env.REACT_APP_BACK_URL + '/Actividades', actividad)
+            axios.post(`${process.env.REACT_APP_BACK_URL}/Actividades/CreateActividad`, actividad)
                 .then(() => {
-                    axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/actividades/' + publicacion.Id)
+                    axios.get(`${process.env.REACT_APP_BACK_URL}/Actividades/GetActividades`, {
+                        params: {
+                            publicacionId: publicacion.Id
+                        }
+                    })
                         .then(res => {
                             var temp = res.data[0].actividades
                             setActividadesPublicacion(temp)
                         })
                         .catch(err => {
                             console.log(err)
-                            error("Error cargando iconos")
+                            error("Error cargando actividades")
                         })
                     refresh()
                     success("Actividad añadida correctamente")
@@ -82,7 +90,11 @@ const AddActividad = ({ prevStep, publicacion, actividades, success, warning, er
 
     const borrarActividad = (i) => {
         var x = actividadesPublicacion[i].id
-        axios.delete(process.env.REACT_APP_BACK_URL + '/Actividades/' + x)
+        axios.delete(`${process.env.REACT_APP_BACK_URL}/Actividades/DeleteActividad`, {
+            query: {
+                id: x
+            }
+        })
             .then(() => {
                 var aux = actividadesPublicacion
                 aux.splice(i, 1)
@@ -110,7 +122,7 @@ const AddActividad = ({ prevStep, publicacion, actividades, success, warning, er
                                 </button>
                             </div>
                             <div className="modal-body">
-                                {actividades.map((act, index) => (
+                                {categoriasActividad.map((act, index) => (
                                     <div className="row" style={{ margin: "5px" }} key={act.id}>
                                         <h5 className="col">{act.nombre}</h5>
                                         <p className="col" style={{ color: 'black', fontSize: "13px", textAlign: "justify" }}>{act.descripcion}</p>
@@ -127,7 +139,7 @@ const AddActividad = ({ prevStep, publicacion, actividades, success, warning, er
             <p>
                 Crea las diferentes actividades que se pueden hacer
                 en este plan y clasifícalas en nuestras categorias (Máximo 5)
-                </p>
+            </p>
             <div className="row align-self-center">
                 <div className="card col-11" style={{ width: "18rem", boxShadow: 'none', margin: '1rem' }}>
                     <ul className="list-group list-group-flush">
@@ -171,7 +183,7 @@ const AddActividad = ({ prevStep, publicacion, actividades, success, warning, er
                             placeholder="Seleccione un tipo de actividad"
                             required
                         >
-                            {actividades.map(categoria => (
+                            {categoriasActividad.map(categoria => (
                                 <option
                                     value={categoria.id}
                                     key={categoria.nombre}
@@ -186,7 +198,7 @@ const AddActividad = ({ prevStep, publicacion, actividades, success, warning, er
                     <button className="btn btn-success col-2" type="submit" disabled={actividadesPublicacion.length === 5} style={{ height: '40px', marginTop: "15px" }}><i className="fa fa-plus-circle" /></button>
                 </div>
 
-                <div className="row justify-content-center" style={{marginTop: '2rem'}}>
+                <div className="row justify-content-center" style={{ marginTop: '2rem' }}>
                     <button className="btn btn-form-blue col-lg-5" onClick={prevStep}>Atras</button>
                     <button className="btn btn-form-blue col-lg-5" onClick={confirmSubmit}>Confirmar</button>
                 </div>

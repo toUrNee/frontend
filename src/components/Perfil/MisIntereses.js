@@ -9,8 +9,8 @@ const MisIntereses = (props) => {
     const { intereses, getInteresByUser, loadingReserva, deleteInteres, postReserva, getReservasByUserId } = useContext(ReservaContext)
 
     useEffect(() => {
-        getInteresByUser(user.id)
-    }, [getInteresByUser , user.id])
+        getInteresByUser(user.username)
+    }, [getInteresByUser , user.username])
 
     return (
         <section id="perfil" className="perfil">

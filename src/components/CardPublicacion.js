@@ -6,15 +6,32 @@ import NumberFormat from 'react-number-format';
 
 const CardPublicacion = (props) => {
 
-    const [image, setImage] = useState({ src: "", hash: Date.now() })
+    const [imageUrl, setImageUrl] = useState(default_src)
     const [interesados, setInteresados] = useState([])
 
     useEffect(() => {
-        setImage({ src: process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/sitio/" + props.publicacion.sitioId + "/random", hash: Date.now() })
+        axios.get(`${process.env.REACT_APP_BACK_URL}/ArchivoSitioTuristico/GetArchivosSitioTuristico`, {
+            params: {
+                sitioId: props.publicacion.sitioId,
+                random: true,
+                count: 1
+            }  
+        })
+            .then(res => {
+                setImageUrl(`${process.env.REACT_APP_BACK_URL}/ArchivoSitioTuristico/GetArchivoSitioTuristico?id=${res.data[0]}"`)
+            })
+            .catch(err => {
+                console.log(err);
+                setImageUrl(default_src)
+            })
     }, [props.publicacion.sitioId])
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/Interes/publicacion/' + props.publicacion.id)
+        axios.get(`${process.env.REACT_APP_BACK_URL}/Interes/GetInteresesByPublicacion`, {
+            params: {
+                publicacionId: props.publicacion.id
+            }  
+        })
             .then(res => {
                 setInteresados(res.data)
             })
@@ -28,13 +45,11 @@ const CardPublicacion = (props) => {
         <div className="card" >
             <Link to={'/publicacion/' + props.publicacion.id}>
                 <img
-                    src={image.src + "?" + image.hash}
+                    src={imageUrl}
                     alt="Imagen plan"
                     className="card-img-top"
-                    onError={() => setImage({ src: default_src, hash: Date.now() })}
+                    onError={() => setImageUrl(default_src)}
                 />
-
-
                 <div className="card-img-overlay">
                     <p to="/" className="btn btn-warning btn-sm ">
                         <NumberFormat value={props.publicacion.precio} displayType={'text'} thousandSeparator={true} prefix={'$'} />

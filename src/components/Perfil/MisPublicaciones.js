@@ -9,12 +9,12 @@ import { Link } from 'react-router-dom';
 
 const MisPublicaciones = (props) => {
 
-    const { loading, publicaciones, getPublicacionesByPropietarioId } = useContext(PublicacionContext)
+    const { loading, publicaciones, getPublicacionesByPropietarioUsername } = useContext(PublicacionContext)
     const { user } = useContext(AuthContext)
 
     useEffect(() => {
-        getPublicacionesByPropietarioId(user.id)
-    }, [getPublicacionesByPropietarioId, user])
+        getPublicacionesByPropietarioUsername(user.username)
+    }, [getPublicacionesByPropietarioUsername, user])
 
     return (
         <section id="mis-planes" className="perfil">

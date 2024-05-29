@@ -8,15 +8,15 @@ class PublicacionContextProvider extends Component {
     state = {
         publicacion: null,
         publicaciones: [],
-        actividades: [],
+        categoriasActividad: [],
         comentarios: [],
         loading: true,
-        numImagenes: 0,
+        imagenes: [],
     }
 
-    //Trae las publicaciones
+    //Trae todas las publicaciones
     getPublicaciones = () => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones')
+        axios.get(`${process.env.REACT_APP_BACK_URL}/Publicaciones/GetPublicaciones`)
             .then(res => {
                 this.setState({
                     ...this.state,
@@ -40,7 +40,11 @@ class PublicacionContextProvider extends Component {
             ...this.state,
             loading: true
         })
-        axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + id)
+        axios.get(`${process.env.REACT_APP_BACK_URL}/Publicaciones/GetPublicacion`, {
+            params: {
+                id: id,
+            }
+        })
             .then(res => {
                 this.setState({
                     ...this.state,
@@ -56,32 +60,36 @@ class PublicacionContextProvider extends Component {
                     loading: false
                 })
             })
-
-        
-
-
     }
 
     getImagenesByPublicacion = (idSitio) => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/Archivo_SitioTuristico/sitio/' + idSitio + '/imagenes')
+        axios.get(`${process.env.REACT_APP_BACK_URL}/ArchivoSitioTuristico/GetArchivosSitioTuristico`, {
+            params: {
+                sitioId: idSitio,
+            }
+        })
             .then(res => {
                 this.setState({
                     ...this.state,
-                    numImagenes: res.data,
+                    imagenes: res.data,
                 })
             })
             .catch(err => {
                 console.log(err)
                 this.setState({
                     ...this.state,
-                    numImagenes: 0,
+                    imagenes: [],
                 })
             })
     }
-    //Trae publicaciones por propietario
 
-    getPublicacionesByPropietarioId = (id) => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/propietario/' + id)
+    //Trae publicaciones por propietario
+    getPublicacionesByPropietarioUsername = (id) => {
+        axios.get(`${process.env.REACT_APP_BACK_URL}/Publicaciones/GetPublicaciones`, {
+            params: {
+                propietario: id,
+            }
+        })
             .then(res => {
                 this.setState({
                     ...this.state,
@@ -102,9 +110,9 @@ class PublicacionContextProvider extends Component {
     getPublicacionesFiltered = (filtros) => {
         this.setState({
             ...this.state,
-            loading:true
+            loading: true
         })
-        axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/filtered', {
+        axios.get(`${process.env.REACT_APP_BACK_URL}/Publicaciones/GetPublicaciones`, {
             params: filtros,
             paramsSerializer: params => {
                 return qs.stringify(params, { indices: false, arrayFormat: 'repeat' })
@@ -129,16 +137,16 @@ class PublicacionContextProvider extends Component {
     }
 
     //Trae tipo CategoriasActividad
-    getActividades = () => {
+    getCategoriasActividad = () => {
         this.setState({
             ...this.state,
             loading: true
         })
-        axios.get(process.env.REACT_APP_BACK_URL + '/CategoriasActividad')
+        axios.get(`${process.env.REACT_APP_BACK_URL}/CategoriasActividad/GetCategoriasActividad`)
             .then(res => {
                 this.setState({
                     ...this.state,
-                    actividades: res.data,
+                    categoriasActividad: res.data,
                     loading: false
                 })
             })
@@ -146,14 +154,18 @@ class PublicacionContextProvider extends Component {
                 console.log(error)
                 this.setState({
                     ...this.state,
-                    actividades: [],
+                    categoriasActividad: [],
                     loading: true
                 })
             })
     }
 
     deletePublicacionesById = (id, index) => {
-        axios.delete(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + id)
+        axios.delete(`${process.env.REACT_APP_BACK_URL}/Publicaciones/DeletePublicacion`, {
+            query: {
+                id: id
+            }
+        })
             .then(res => {
                 var aux = this.state.publicaciones
                 aux.splice(index, 1)
@@ -173,7 +185,11 @@ class PublicacionContextProvider extends Component {
     }
 
     getComentariosByPublicacion = (publicacionId) => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/Comentarios/publicacion/'+publicacionId)
+        axios.get(`${process.env.REACT_APP_BACK_URL}/Comentarios/GetComentarios`, {
+            params: {
+                publicacionId: publicacionId,
+            }
+        })
             .then(res => {
                 this.setState({
                     ...this.state,
@@ -199,11 +215,8 @@ class PublicacionContextProvider extends Component {
                 getPublicacionesFiltered: this.getPublicacionesFiltered,
                 getPublicacionById: this.getPublicacionById,
                 getPublicaciones: this.getPublicaciones,
-                getPublicacionesByPropietarioId: this.getPublicacionesByPropietarioId,
-                getActividades: this.getActividades,
-                getPublicacionesByRegion: this.getPublicacionesByRegion,
-                getPublicacionesByActividades: this.getPublicacionesByActividades,
-                getPublicacionesByRegionAndActividades: this.getPublicacionesByRegionAndActividades,
+                getPublicacionesByPropietarioUsername: this.getPublicacionesByPropietarioUsername,
+                getCategoriasActividad: this.getCategoriasActividad,
                 getComentariosByPublicacion: this.getComentariosByPublicacion,
                 deletePublicacionesById: this.deletePublicacionesById,
                 getImagenesByPublicacion: this.getImagenesByPublicacion,

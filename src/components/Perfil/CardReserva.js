@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState, useEffect } from 'react';
 import '../../styles/PerfilPropietario.css'
 import Swal from 'sweetalert2';
@@ -7,11 +8,24 @@ import { Link } from 'react-router-dom';
 
 const CardReserva = (props) => {
 
-    const [image, setImage] = useState({ src: "", hash: Date.now() })
+    const [imageUrl, setImageUrl] = useState(default_src)
 
     useEffect(() => {
-        setImage({ src: process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/sitio/" + props.reserva.publicacion.sitioId + "/random", hash: Date.now() })
-    }, [props.reserva.publicacion.sitioId])
+        axios.get(`${process.env.REACT_APP_BACK_URL}/ArchivoSitioTuristico/GetArchivosSitioTuristico`, {
+            params: {
+                sitioId: props.reserva.sitioId,
+                random: true,
+                count: 1
+            }  
+        })
+            .then(res => {
+                setImageUrl(`${process.env.REACT_APP_BACK_URL}/ArchivoSitioTuristico/GetArchivoSitioTuristico?id=${res.data[0].Id}"`)
+            })
+            .catch(err => {
+                console.log(err);
+                setImageUrl(default_src)
+            })
+    }, [props.reserva.sitioId])
 
     const eliminarReserva = () => {
         Swal.fire({
@@ -25,7 +39,7 @@ const CardReserva = (props) => {
             confirmButtonText: 'Sí, deseo remover la reserva'
         }).then((result) => {
             if (result.value) {
-                props.deleteReserva(props.user.id, props.reserva.publicacion.id, props.index)
+                props.deleteReserva(props.user.username, props.reserva.publicacion.id, props.index)
                 Swal.fire(
                     '¡Listo!',
                     'Tu reserva ha sido eliminada con éxito.',
@@ -39,11 +53,10 @@ const CardReserva = (props) => {
         <div className="card card-reserva col-6">
             <div className="card-img-body">
                 <img
-                    src={image.src + "?" + image.hash}
+                    src={imageUrl}
                     alt="Imagen plan"
                     className="card-img-top"
-                    onError={() => setImage({ src: default_src, hash: Date.now() })}
-
+                    onError={() => setImageUrl(default_src)}
                 />
             </div>
             <div className="card-body">

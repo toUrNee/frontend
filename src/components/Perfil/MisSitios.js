@@ -12,7 +12,7 @@ const MisSitios = (props) => {
     const { user } = useContext(AuthContext)
 
     useEffect(() => {
-        getSitiosById(user.id)
+        getSitiosById(user.username)
     }, [getSitiosById, user])
     
     return (

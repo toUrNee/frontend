@@ -10,7 +10,7 @@ const MisReservas = (props) => {
     const { user } = useContext(AuthContext)
     
     useEffect(() => {
-        getReservasByUserId(user.id)
+        getReservasByUserId(user.username)
     }, [getReservasByUserId, user])
     
     return (

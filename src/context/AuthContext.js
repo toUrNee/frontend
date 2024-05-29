@@ -15,32 +15,23 @@ class AuthContextProvider extends Component {
     }
 
     loginUser = (credenciales) => {
-        axios.post(process.env.REACT_APP_BACK_URL + '/Usuarios/Login', credenciales)
+        axios.post(`${process.env.REACT_APP_BACK_URL}/Usuarios/Login`, credenciales)
             .then(res => {
                 localStorage.setItem('token', res.data.token)
                 localStorage.setItem('usuario', JSON.stringify(res.data.usuario))
-                
-                if (res.data.usuario.rolId === 1) {
-                    this.setState({
-                        ...this.state,
-                        propietario: true,
-                        token: res.data.token,
-                        user: res.data.usuario,
-                        isAuthenticated: true,
-                        error: null
-                    })
-                    localStorage.setItem('propietario', true)
-                } else {
-                    this.setState({
-                        ...this.state,
-                        propietario: false,
-                        token: res.data.token,
-                        user: res.data.usuario,
-                        isAuthenticated: true,
-                        error: null
-                    })
-                    localStorage.setItem('propietario', false)
-                }
+                localStorage.setItem('propietario', res.data.usuario.rolId === 1)
+
+                this.setAxiosToken(res.data.token)
+
+                this.setState({
+                    ...this.state,
+                    propietario: res.data.usuario.rolId === 1,
+                    token: res.data.token,
+                    user: res.data.usuario,
+                    isAuthenticated: true,
+                    error: null
+                })
+
                 store.addNotification({
                     title: "Listo",
                     message: "Iniciaste sesion de forma existosa",
@@ -69,7 +60,7 @@ class AuthContextProvider extends Component {
                 })
                 store.addNotification({
                     title: "Error",
-                    message: err.response ? err.response.data : "Ocurrió un error al intentar iniciar sesion, intenta mas tarde",
+                    message: "Ocurrió un error al intentar iniciar sesion, intenta mas tarde",
                     type: "danger",
                     insert: "top",
                     container: "top-right",
@@ -131,16 +122,17 @@ class AuthContextProvider extends Component {
             }
         })
         usuario.rolId = 1;
-        axios.put(process.env.REACT_APP_BACK_URL + '/Usuarios/rol/'+ usuario.id, usuario);
+        axios.put(`${process.env.REACT_APP_BACK_URL}/Usuarios/UpdateUsuario`, usuario)
         localStorage.setItem('propietario', true)
     }
 
     registerUser = (usuario) => {
-        axios.post(process.env.REACT_APP_BACK_URL + '/Usuarios/Register', usuario)
+        axios.post(`${process.env.REACT_APP_BACK_URL}/Usuarios/Register`, usuario)
             .then(res => {
                 localStorage.setItem('token', res.data.token)
                 localStorage.setItem('usuario', JSON.stringify(res.data.usuario))
                 localStorage.setItem('propietario', false)
+                this.setAxiosToken(res.data.token)
                 this.setState({
                     ...this.state,
                     token: res.data.token,
@@ -177,7 +169,7 @@ class AuthContextProvider extends Component {
                 })
                 store.addNotification({
                     title: "Error",
-                    message: err.response ? err.response.data : "Ocurrió un error en el registro, intenta mas tarde",
+                    message: "Ocurrió un error en el registro, intenta mas tarde",
                     type: "danger",
                     insert: "top",
                     container: "top-right",
@@ -192,16 +184,16 @@ class AuthContextProvider extends Component {
     }
 
     getPais = (usuario) => {
-        delete axios.defaults.headers.get["Authorization"]; 
-        axios.get(process.env.REACT_APP_COUNTRIES_URL + '/alpha/' + usuario.nacionalidad, {
-            params:{
-                fields: "name;flag"
+        delete axios.defaults.headers.get["Authorization"];
+        axios.get(`${process.env.REACT_APP_COUNTRIES_URL}/alpha/${usuario.nacionalidad}`, {
+            params: {
+                fields: "name;flag",
             }
         }).then(res => {
             this.setState({
                 ...this.state,
                 paisUsuario: res.data,
-                isAuthenticated:true
+                isAuthenticated: true
             })
         }).catch(err => {
             console.log(err)
@@ -210,7 +202,14 @@ class AuthContextProvider extends Component {
                 paisUsuario: null
             })
         })
-        axios.defaults.headers.get['Authorization'] = "Bearer "+localStorage.getItem("token")
+        axios.defaults.headers.get['Authorization'] = "Bearer " + localStorage.getItem("token")
+    }
+
+    setAxiosToken(token) {
+        axios.defaults.headers.post['Authorization'] = "Bearer " + token
+        axios.defaults.headers.get['Authorization'] = "Bearer " + token
+        axios.defaults.headers.put['Authorization'] = "Bearer " + token
+        axios.defaults.headers.delete['Authorization'] = "Bearer " + token
     }
 
     componentDidMount() {
@@ -223,15 +222,12 @@ class AuthContextProvider extends Component {
                 token: token,
                 user: usuario,
                 isAuthenticated: true,
+                propietario: propietario === "true",
                 error: null
             })
 
-            if (propietario === "true") {
+            this.setAxiosToken(token)
 
-                this.setState({
-                    propietario: true
-                })
-            }
         } else {
             localStorage.removeItem('token')
             localStorage.removeItem('usuario')

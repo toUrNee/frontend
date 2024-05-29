@@ -23,7 +23,7 @@ const CardInteres = (props) => {
                     <button type="button" className="btn btn-info" onClick={() => history.push('/publicacion/' + props.interes.publicacion.id)}>
                         <i class="fas fa-info-circle"></i> Ver más
                         </button>
-                    <button type="button" className="btn btn-danger" onClick={() => props.deleteInteres(props.user.id, props.interes.publicacion.id, props.index)}>
+                    <button type="button" className="btn btn-danger" onClick={() => props.deleteInteres(props.user.username, props.interes.publicacion.id, props.index)}>
                         <i className="far fa-trash-alt"></i> Eliminar
                         </button>
                 </div>

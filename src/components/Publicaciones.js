@@ -22,9 +22,9 @@ const Publicaciones = (props) => {
     const {
         loading,
         publicaciones,
-        actividades,
+        categoriasActividad,
         getPublicacionesFiltered,
-        getActividades
+        getCategoriasActividad
     } = useContext(PublicacionContext)
 
     //Estado por defecto
@@ -70,9 +70,9 @@ const Publicaciones = (props) => {
             setPrecio([0, 5000000])
         }
         filtrar()
-        getActividades()
+        getCategoriasActividad()
         // eslint-disable-next-line
-    }, [props.location.state, getActividades, setFiltroActividad, setPrecio])
+    }, [props.location.state, getCategoriasActividad, setFiltroActividad, setPrecio])
 
     useEffect(() => {
         if (!region.cargando) {
@@ -86,7 +86,7 @@ const Publicaciones = (props) => {
     function filtrar() {
         var filtros = {
             region: region.nombre,
-            actividades: filtroActividad.map(act => act.id),
+            categoriasActividad: filtroActividad.map(act => act.id),
             precioMinimo: precio[0],
             precioMaximo: precio[1]
         }
@@ -149,7 +149,7 @@ const Publicaciones = (props) => {
                                                                 </button>
                                                             </div>
                                                             <div className="modal-body">
-                                                                {actividades.map((actividad, index) => (
+                                                                {categoriasActividad.map((actividad, index) => (
                                                                     <div className="row" style={{ margin: "5px" }} key={actividad.id}>
                                                                         <h5 className="col">{actividad.nombre}</h5>
                                                                         <p className="col" style={{ color: 'black', fontSize: "13px", textAlign: "justify" }}>{actividad.descripcion}</p>
@@ -164,7 +164,7 @@ const Publicaciones = (props) => {
                                                 </div>
                                             </h5>
                                             <Multiselect
-                                                options={actividades} // Options to display in the dropdown
+                                                options={categoriasActividad} // Options to display in the dropdown
                                                 selectedValues={filtroActividad} // Preselected value to persist in dropdown
                                                 onSelect={onSelect} // Function will trigger on select event
                                                 onRemove={onRemove} // Function will trigger on remove event

@@ -27,8 +27,9 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
 
     const handlerSubmit = (e) => {
         e.preventDefault()
+        publicacion.PropietarioUsername = user.username
         if (edit) {
-            axios.put(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + publicacion.Id, publicacion)
+            axios.put(`${process.env.REACT_APP_BACK_URL}/Publicaciones/UpdatePublicacion`, publicacion)
                 .then(() => {
                     success("Tu publicación fue actualizada con éxito")
                     nextStep()
@@ -38,7 +39,7 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
                     error("Ha ocurrido un error y tu publicación no ha podido ser actualizada")
                 })
         } else {
-            axios.post(process.env.REACT_APP_BACK_URL + '/Publicaciones/', publicacion)
+            axios.post(`${process.env.REACT_APP_BACK_URL}/Publicaciones/CreatePublicacion`, publicacion)
                 .then((res) => {
                     success("Tu publicación fue creada con éxito", res.data.id)
                     setPublicacion({
@@ -55,12 +56,8 @@ const AddPlan = ({ nextStep, publicacion, setPublicacion, success, error, edit }
     }
 
     useEffect(() => {
-        publicacion.PropietarioId = parseInt(user.id)
-    }, [publicacion, user])
-
-    useEffect(() => {
-        getSitiosById(publicacion.PropietarioId)
-    }, [getSitiosById, publicacion.PropietarioId])
+        getSitiosById(user.username)
+    }, [getSitiosById, user.username])
 
     return (
         <div className="col col-form">

@@ -4,37 +4,41 @@ import axios from 'axios'
 export const SitioContext = createContext()
 
 class SitioContextProvider extends Component {
-    state = { 
+    state = {
         sitios: [],
         loading: true,
     }
 
     //Traer los sitios turisticos
     getSitios = () => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos')
-        .then(res =>{
-            this.setState({
-                ...this.state,
-                sitios: res.data,
-                loading: false
-            })
-        })
-        .catch( error =>{
-            console.log(error)
-            this.setState({
-                ...this.setState({
+        axios.get(`${process.env.REACT_APP_BACK_URL}/SitiosTuristicos/GetSitiosTuristicos`)
+            .then(res => {
+                this.setState({
                     ...this.state,
-                    sitios: []
+                    sitios: res.data,
+                    loading: false
                 })
             })
-        })
+            .catch(error => {
+                console.log(error)
+                this.setState({
+                    ...this.setState({
+                        ...this.state,
+                        sitios: []
+                    })
+                })
+            })
     }
 
     getSitiosById = (id) => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos/propietario/' + id)
+        axios.get(`${process.env.REACT_APP_BACK_URL}/SitiosTuristicos/GetSitiosTuristicosByUser`, {
+            params: {
+                propietario: id,
+            }
+        })
             .then(res => {
                 this.setState({
-                    ...this.state, 
+                    ...this.state,
                     sitios: res.data,
                     loading: false
                 })
@@ -49,27 +53,31 @@ class SitioContextProvider extends Component {
     }
 
     deleteSitioById = (id, index) => {
-        axios.delete(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos/' + id)
-        .then(res => {
-            var aux = this.state.sitios
-            aux.splice(index,1)
-            this.setState({
-                ...this.state,
-                sitios: aux,
-                loading: false
-            })
+        axios.delete(`${process.env.REACT_APP_BACK_URL}/SitiosTuristicos/DeleteSitioTuristico`, {
+            query: {
+                id: id,
+            }
         })
-        .catch(error =>{
-            console.log(error)
-            this.setState({
-                ...this.state,
-                loading: false
+            .then(res => {
+                var aux = this.state.sitios
+                aux.splice(index, 1)
+                this.setState({
+                    ...this.state,
+                    sitios: aux,
+                    loading: false
+                })
             })
-        })
+            .catch(error => {
+                console.log(error)
+                this.setState({
+                    ...this.state,
+                    loading: false
+                })
+            })
     }
 
-    render() { 
-        return ( 
+    render() {
+        return (
             <SitioContext.Provider value={{
                 ...this.state,
                 getSitios: this.getSitios,
@@ -81,5 +89,5 @@ class SitioContextProvider extends Component {
         );
     }
 }
- 
+
 export default SitioContextProvider;

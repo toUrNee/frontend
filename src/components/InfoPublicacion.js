@@ -20,40 +20,21 @@ const InfoPublicacion = (props) => {
     let { idPublicacion } = match.params;
 
     const [comentario, setComentario] = useState({
-        UsuarioId: null,
+        Username: null,
         PublicacionId: null,
         Contenido: ""
     })
-    const { loading, publicacion, getPublicacionById, comentarios, getComentariosByPublicacion, numImagenes, getImagenesByPublicacion } = useContext(PublicacionContext)
+    const { loading, publicacion, getPublicacionById, comentarios, getComentariosByPublicacion, imagenes, getImagenesByPublicacion } = useContext(PublicacionContext)
 
     const { user, isAuthenticated } = useContext(AuthContext)
     const { existeInteres, getInteres, postInteres, deleteInteres, existeReserva, getReserva, postReserva, deleteReserva } = useContext(ReservaContext)
 
     const [fecha, setFecha] = useState(null)
 
-    const agregarImagen = (num) => {
-        let imgs = []
-        if (!num) {
-            imgs.push(
-                <div className='carousel-item active' key={Date.now()}>
-                    <img src={defaultImg} className="d-block w-100" alt="..." />
-                </div>
-            )
-        }
-        for (let i = 0; i < num; i++) {
-            imgs.push(
-                <div className={i === 0 ? 'carousel-item active' : 'carousel-item'} key={i}>
-                    <img src={process.env.REACT_APP_BACK_URL + '/Archivo_SitioTuristico/sitio/' + publicacion.sitio.id + '/' + i} className="d-block w-100" alt="..." />
-                </div>
-            )
-        }
-        return imgs;
-    }
-
     const hacerReserva = () => {
-        postReserva(user.id, publicacion.id, fecha)
+        postReserva(user.username, publicacion.id, fecha)
         if (existeInteres) {
-            deleteInteres(user.id, publicacion.id)
+            deleteInteres(user.username, publicacion.id)
         }
     }
 
@@ -69,7 +50,7 @@ const InfoPublicacion = (props) => {
             confirmButtonText: 'Sí, deseo remover la reserva'
         }).then((result) => {
             if (result.value) {
-                deleteReserva(user.id, publicacion.id)
+                deleteReserva(user.username, publicacion.id)
                 Swal.fire(
                     'Listo!',
                     'Tu reserva ha sido eliminada éxito.',
@@ -79,29 +60,29 @@ const InfoPublicacion = (props) => {
         });
     }
 
-    
+
     const comentar = (e) => {
         e.preventDefault()
-        axios.post(process.env.REACT_APP_BACK_URL + '/Comentarios', comentario)
-        .then(() => {
-            getComentariosByPublicacion(idPublicacion)
-            setComentario({...comentario, Contenido:""})
-        })
-        .catch(error => {
-            console.log(error)
-        })        
+        axios.post(`${process.env.REACT_APP_BACK_URL}/Comentarios/CreateComentario`, comentario)
+            .then(() => {
+                getComentariosByPublicacion(idPublicacion)
+                setComentario({ ...comentario, Contenido: "" })
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     useEffect(() => {
-        if(user !== null && idPublicacion !== null){
+        if (user !== null && idPublicacion !== null) {
             setComentario({
                 ...comentario,
-                UsuarioId: user.id,
+                Username: user.username,
                 PublicacionId: parseInt(idPublicacion),
             })
         }
-    // eslint-disable-next-line
-    },[user, idPublicacion])
+        // eslint-disable-next-line
+    }, [user, idPublicacion])
 
 
     useEffect(() => {
@@ -109,15 +90,15 @@ const InfoPublicacion = (props) => {
     }, [getPublicacionById, idPublicacion])
 
     useEffect(() => {
-        if(publicacion!==null){
+        if (publicacion !== null) {
             getImagenesByPublicacion(publicacion.sitio.id)
         }
     }, [getImagenesByPublicacion, publicacion])
 
     useEffect(() => {
         if (publicacion !== null && user !== null) {
-            getInteres(user.id, publicacion.id)
-            getReserva(user.id, publicacion.id)
+            getInteres(user.username, publicacion.id)
+            getReserva(user.username, publicacion.id)
         }
     }, [user, publicacion, getInteres, getReserva])
 
@@ -157,7 +138,7 @@ const InfoPublicacion = (props) => {
                             <div className="container-fluid">
                                 <div className="row">
                                     <div className="col-md-12 col-lg-8 principal">
-                                        {!isAuthenticated || user.id === publicacion.propietario.id ?
+                                        {!isAuthenticated || user.username === publicacion.propietario.id ?
                                             null :
                                             <div className="botones text-right">
                                                 <div>
@@ -165,39 +146,39 @@ const InfoPublicacion = (props) => {
                                                         <div>
                                                             <button type="button" className="btn btn-danger" disabled>
                                                                 <i className='far fa-heart' ></i> Guardar
-                                                        </button>
+                                                            </button>
                                                             <button type="button" className="btn btn-success disabled" onClick={eliminarReserva}>
                                                                 <i className="far fa-clock"></i> En espera
-                                                        </button>
+                                                            </button>
                                                         </div>
                                                         : existeReserva.estadoReservaId === 2 ?
                                                             <div>
                                                                 <button type="button" className="btn btn-danger" disabled>
                                                                     <i className='far fa-heart' ></i> Guardar
-                                                        </button>
+                                                                </button>
                                                                 <button type="button" className="btn btn-outline-success disabled" onClick={eliminarReserva}>
                                                                     <i className="fas fa-check"></i> Confirmada
-                                                        </button>
+                                                                </button>
                                                             </div>
                                                             : existeReserva.estadoReservaId === 3 ?
                                                                 <div>
                                                                     <button type="button" className="btn btn-danger" disabled>
                                                                         <i className='far fa-heart' ></i> Guardar
-                                                        </button>
+                                                                    </button>
                                                                     <button type="button" className="btn btn-outline-danger disabled" onClick={eliminarReserva}>
                                                                         <i className="fas fa-times"></i> Rechazada
-                                                        </button>
+                                                                    </button>
                                                                 </div>
                                                                 :
                                                                 <div>
                                                                     {existeInteres ?
-                                                                        <button type="button" className="btn btn-danger" onClick={() => deleteInteres(user.id, publicacion.id)} >
+                                                                        <button type="button" className="btn btn-danger" onClick={() => deleteInteres(user.username, publicacion.id)} >
                                                                             <i className='fas fa-heart' ></i> Guardado
-                                                            </button>
+                                                                        </button>
                                                                         :
-                                                                        <button type="button" className="btn btn-danger" onClick={() => postInteres(user.id, publicacion.id)} >
+                                                                        <button type="button" className="btn btn-danger" onClick={() => postInteres(user.username, publicacion.id)} >
                                                                             <i className='far fa-heart' ></i> Guardar
-                                                            </button>
+                                                                        </button>
                                                                     }
                                                                     <button type="button" className="btn btn-success" data-toggle="modal" data-target="#fechaModal">
                                                                         <i className="far fa-bell"></i> Reservar</button>
@@ -225,7 +206,7 @@ const InfoPublicacion = (props) => {
 
                                                     <div className="modal-footer">
                                                         <button type="button" className="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                                                        <button type="button" className="btn btn-info" data-dismiss="modal" onClick={hacerReserva} disabled={fecha===null}>Crear reserva</button>
+                                                        <button type="button" className="btn btn-info" data-dismiss="modal" onClick={hacerReserva} disabled={fecha === null}>Crear reserva</button>
                                                     </div>
 
                                                 </div>
@@ -240,7 +221,19 @@ const InfoPublicacion = (props) => {
                                         </div>
                                         <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
                                             <div className="carousel-inner">
-                                                {agregarImagen(numImagenes)}
+                                                {imagenes.length > 0 ?
+                                                    <div className='carousel-item active' key={Date.now()}>
+                                                        <img src={defaultImg} className="d-block w-100" alt="..." />
+                                                    </div>
+                                                    :
+                                                    <div>
+                                                        {imagenes.map((id, index) =>
+                                                            <div className={index === 0 ? 'carousel-item active' : 'carousel-item'} key={index}>
+                                                                <img src={`${process.env.REACT_APP_BACK_URL}/ArchivoSitioTuristico/GetArchivoSitioTuristico?id=${id}"`} className="d-block w-100" alt="..." />
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                }
                                             </div>
                                             <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                                                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -256,7 +249,7 @@ const InfoPublicacion = (props) => {
                                         <div className="lateral-box">
                                             <h3 className="titulo-lateral">
                                                 Actividades disponibles
-                                </h3>
+                                            </h3>
                                             <ul className="actividades">
                                                 {publicacion.actividades.map(actividad => (
 
@@ -274,26 +267,26 @@ const InfoPublicacion = (props) => {
                                                 {comentarios.map(com => (
                                                     <Comentario key={com.id} comentario={com} />
                                                 ))}
-                                           </ul>
+                                            </ul>
                                             <div className="form-comentario">
                                                 <h3 className="mb-5">Deja tu comentario</h3>
                                                 <form onSubmit={comentar} className="p-5 bg-light text-dark">
                                                     <div className="form-group">
                                                         <label htmlFor="comentario">Comentario</label>
-                                                        <textarea 
-                                                            onChange={(e) => {setComentario({...comentario, Contenido:e.target.value})}} 
-                                                            value={comentario.Contenido} 
-                                                            className="form-control" 
-                                                            id="comentario" 
-                                                            rows="10" 
+                                                        <textarea
+                                                            onChange={(e) => { setComentario({ ...comentario, Contenido: e.target.value }) }}
+                                                            value={comentario.Contenido}
+                                                            className="form-control"
+                                                            id="comentario"
+                                                            rows="10"
                                                             cols="30"
                                                             maxLength="500"
-                                                            >
+                                                        >
                                                         </textarea>
 
                                                     </div>
                                                     <div className="form-group">
-                                                        <input  type="submit" value="Publicar" className="btn btn-primary"></input>
+                                                        <input type="submit" value="Publicar" className="btn btn-primary"></input>
                                                     </div>
                                                 </form>
                                             </div>

@@ -15,7 +15,7 @@ function FormPublicacion (){
     const { user } = useContext(AuthContext)
     const [step, setStep] = useState(1)
 
-    const { actividades, getActividades } = useContext(PublicacionContext)
+    const { categoriasActividad, getCategoriasActividad } = useContext(PublicacionContext)
 
     const [actividadesPublicacion, setActividadesPublicacion] = useState([])
 
@@ -25,23 +25,27 @@ function FormPublicacion (){
         Fecha: "",
         Descripcion: "",
         Precio: 0,
-        PropietarioId: user.Id
+        PropietarioUsername: user.username
     })
 
     useEffect(() => {
-        getActividades()
-    }, [getActividades])
+        getCategoriasActividad()
+    }, [getCategoriasActividad])
 
     useEffect(() => {
         if (location.state && location.state.publicacion) {
-            axios.get(process.env.REACT_APP_BACK_URL + '/Publicaciones/' + location.state.publicacion)
+            axios.get(`${process.env.REACT_APP_BACK_URL}/Publicaciones/GetPublicacion`, {
+                params: {
+                    id:location.state.publicacion,
+                }
+            })
                 .then(res => {
                     setPublicacion({
                         Id: res.data.id,
                         Fecha: res.data.fecha,
                         Titulo: res.data.titulo,
                         Descripcion: res.data.descripcion,
-                        PropietarioId: res.data.propietarioId,
+                        PropietarioUsername: res.data.PropietarioUsername,
                         Precio: res.data.precio,
                         SitioId: res.data.sitioId,
                     })
@@ -117,7 +121,7 @@ function FormPublicacion (){
                 prevStep = {prevStep}
                 nextStep = {nextStep}
                 publicacion = {publicacion}
-                actividades = {actividades}
+                categoriasActividad = {categoriasActividad}
                 actividadesPublicacion = {actividadesPublicacion}
                 setActividadesPublicacion = {setActividadesPublicacion}
                 success = {success}

@@ -10,9 +10,9 @@ const Comentario = ({ comentario }) => {
 
     useEffect(() => {
         delete axios.defaults.headers.get["Authorization"]; 
-        axios.get(process.env.REACT_APP_COUNTRIES_URL + '/alpha/' + comentario.usuario.nacionalidad, {
+        axios.get(`${process.env.REACT_APP_COUNTRIES_URL}/alpha/${comentario.usuario.nacionalidad}`, {
             params: {
-                fields: "name;flag"
+                fields: "name;flag",
             }
         }).then(res => {
             setPais(res.data)

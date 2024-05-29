@@ -9,7 +9,7 @@ import llano from '../images/llano.jpg'
 
 export const ExternalDataContext = createContext()
 
-class ExternalDataContextProvider extends Component{
+class ExternalDataContextProvider extends Component {
     state = {
         paises: [],
         municipios: [],
@@ -26,15 +26,15 @@ class ExternalDataContextProvider extends Component{
     }
 
     getPaises = () => {
-        delete axios.defaults.headers.get["Authorization"]; 
-        axios.get(process.env.REACT_APP_COUNTRIES_URL + '/all', {
-            params:{
+        delete axios.defaults.headers.get["Authorization"];
+        axios.get(`${process.env.REACT_APP_COUNTRIES_URL}/all`, {
+            params: {
                 fields: "name,flag,cca3"
             }
         }).then(res => {
             this.setState({
                 ...this.state,
-                paises: res.data.map(x => ({name: x.name.common, flag: x.flag, alpha3Code: x.cca3}))
+                paises: res.data.map(x => ({ name: x.name.common, flag: x.flag, alpha3Code: x.cca3 }))
             })
         }).catch(err => {
             console.log(err)
@@ -43,55 +43,66 @@ class ExternalDataContextProvider extends Component{
                 paises: []
             })
         })
-        axios.defaults.headers.get['Authorization'] = "Bearer "+localStorage.getItem("token")
+        axios.defaults.headers.get['Authorization'] = "Bearer " + localStorage.getItem("token")
 
     }
 
     getMunicipios = (departamento) => {
-        delete axios.defaults.headers.get["Authorization"]; 
-        axios.get(process.env.REACT_APP_REGIONES_URL, { params: {$select: 'municipio', $where: 'departamento = "' + departamento + '"'}})
-        .then(res => {
-            this.setState({
-                ...this.state,
-                municipios: res.data
-            })
-        }).catch(err => {
-            console.log(err)
-            this.setState({
-                ...this.state,
-                municipios: []
-            })
+        delete axios.defaults.headers.get["Authorization"];
+        axios.get(`${process.env.REACT_APP_REGIONES_URL}`, {
+            params: {
+                $select: 'municipio',
+                $where: `departamento="${departamento}"`
+            }
         })
-        axios.defaults.headers.get['Authorization'] = "Bearer "+localStorage.getItem("token")
+            .then(res => {
+                this.setState({
+                    ...this.state,
+                    municipios: res.data
+                })
+            }).catch(err => {
+                console.log(err)
+                this.setState({
+                    ...this.state,
+                    municipios: []
+                })
+            })
+        axios.defaults.headers.get['Authorization'] = "Bearer " + localStorage.getItem("token")
     }
 
     getDepartamentos = (region) => {
-        delete axios.defaults.headers.get["Authorization"]; 
-        axios.get(process.env.REACT_APP_REGIONES_URL, { params: {$select: 'departamento', $group: 'region,departamento', $where: 'region = "' + region + '"'}})
-        .then(res => {
-            this.setState({
-                ...this.state,
-                departamentos: res.data
-            })
-        }).catch(err => {
-            console.log(err)
-            this.setState({
-                ...this.state,
-                departamentos: []
-            })
+        delete axios.defaults.headers.get["Authorization"];
+        axios.get(`${process.env.REACT_APP_REGIONES_URL}`, {
+            params: {
+                $select: 'departamento',
+                $group: 'region,departamento',
+                $where: `region="${region}"`
+            }
         })
-        axios.defaults.headers.get['Authorization'] = "Bearer "+localStorage.getItem("token")
+            .then(res => {
+                this.setState({
+                    ...this.state,
+                    departamentos: res.data
+                })
+            }).catch(err => {
+                console.log(err)
+                this.setState({
+                    ...this.state,
+                    departamentos: []
+                })
+            })
+        axios.defaults.headers.get['Authorization'] = "Bearer " + localStorage.getItem("token")
     }
 
-    
 
-    render(){
-        return(
+
+    render() {
+        return (
             <ExternalDataContext.Provider value={{
-                ...this.state, 
-                getPaises:this.getPaises,
-                getMunicipios:this.getMunicipios,
-                getDepartamentos:this.getDepartamentos,
+                ...this.state,
+                getPaises: this.getPaises,
+                getMunicipios: this.getMunicipios,
+                getDepartamentos: this.getDepartamentos,
             }}>
                 {this.props.children}
             </ExternalDataContext.Provider>

@@ -25,8 +25,9 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, message, edit }) => {
 
     const handlerSubmit = (e) => {
         e.preventDefault()
+        sitio.PropietarioUsername = user.username
         if (edit) {
-            axios.put(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos/' + sitio.Id, sitio)
+            axios.put(`${process.env.REACT_APP_BACK_URL}/SitiosTuristicos/UpdateSitioTuristico`, sitio)
                 .then(() => {
                     message("Tu sitio turístico fue actualizado exitosamente", "success", "Excelente!")
                     nextStep()
@@ -37,7 +38,7 @@ const AddSitioTuristico = ({ nextStep, sitio, setSitio, message, edit }) => {
                 })
 
         } else {
-            axios.post(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos', sitio)
+            axios.post(`${process.env.REACT_APP_BACK_URL}/SitiosTuristicos/CreateSitioTuristico`, sitio)
                 .then((response) => {
                     message("Tu sitio turístico fue creado exitosamente", "success", "Excelente!")
                     setSitio({

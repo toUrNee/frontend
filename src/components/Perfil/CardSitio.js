@@ -14,18 +14,22 @@ const CardSitio = (props) => {
     const { deletePublicacionesById } = useContext(PublicacionContext)
     const { deleteSitioById } = useContext(SitioContext)
 
-    const [image, setImage] = useState({ src: "", hash: Date.now() })
+    const [imageUrl, setImageUrl] = useState(default_src)
     const [reservas, setReservas] = useState([])
     const [actualizar, setActualizar] = useState(false)
     const [reservaState, setReservaState] = useState({
         Fecha: '',
-        UsuarioId: '',
+        Username: '',
         PublicacionId: '',
         EstadoReservaId: 0,
     })
 
     useEffect(() => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/Reserva/publicacion/' + props.id)
+        axios.get(`${process.env.REACT_APP_BACK_URL}/Reserva/GetReservasByPublicacion`, {
+            params: {
+                publicacionId:props.id,
+            }
+        })
             .then(res => {
                 setReservas(res.data)
             })
@@ -39,7 +43,7 @@ const CardSitio = (props) => {
     const actualizarReserva = (_reserva, _estadoReserva) => {
         setReservaState({
             Fecha: _reserva.fecha,
-            UsuarioId: _reserva.usuario.id,
+            Username: _reserva.usuario.Username,
             PublicacionId: props.id,
             EstadoReservaId: _estadoReserva,
         })
@@ -90,7 +94,20 @@ const CardSitio = (props) => {
     }
 
     useEffect(() => {
-        setImage({ src: process.env.REACT_APP_BACK_URL + "/Archivo_SitioTuristico/sitio/" + props.sitioId + "/random", hash: Date.now() })
+        axios.get(`${process.env.REACT_APP_BACK_URL}/ArchivoSitioTuristico/GetArchivosSitioTuristico`, {
+            params: {
+                sitioId: props.sitioId,
+                random: true,
+                count: 1
+            }  
+        })
+            .then(res => {
+                setImageUrl(`${process.env.REACT_APP_BACK_URL}/ArchivoSitioTuristico/GetArchivoSitioTuristico?id=${res.data[0].Id}"`)
+            })
+            .catch(err => {
+                console.log(err);
+                setImageUrl(default_src)
+            })
     }, [props.sitioId])
 
 
@@ -98,7 +115,11 @@ const CardSitio = (props) => {
         
         if(reservaState.EstadoReservaId){
             
-            axios.put(process.env.REACT_APP_BACK_URL + '/Reserva/publicacion/' + props.id + '/usuario/' + reservaState.UsuarioId, reservaState)
+            axios.put(`${process.env.REACT_APP_BACK_URL}/Reserva/UpdateReserva`, {
+                publicacionId: props.id,
+                username: reservaState.Username,
+                estadoReserva: reservaState,
+            })
             .then(() => {
                 Swal.fire(
                     'Listo',
@@ -118,10 +139,10 @@ const CardSitio = (props) => {
         <div className="col-lg-4 col-md-6 perfil-item filter-app">
             <div className="perfil-wrap">
                 <img
-                    src={image.src + "?" + image.hash}
+                    src={imageUrl}
                     alt="Imagen sitio"
                     className="card-img-top"
-                    onError={() => setImage({ src: default_src, hash: Date.now() })}
+                    onError={() => setImageUrl(default_src)}
                 />
                 {
                     location.pathname === '/perfil/sitios' ?
@@ -180,7 +201,7 @@ const CardSitio = (props) => {
                         </div>
                         <div className="modal-body container">
                             {reservas.map(reservaa => (
-                                <div className="row" key={reservaa.usuario.id}>
+                                <div className="row" key={reservaa.usuario.Username}>
                                     <div className="col-lg-4 col-md-6">
                                         <h5>Fecha de la reserva</h5>
                                         <p><Moment format="DD/MM/YYYY" date={reservaa.fecha} /></p>

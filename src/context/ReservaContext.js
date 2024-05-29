@@ -14,8 +14,13 @@ class ReservaContextProvider extends Component {
         existeReserva: false,
     }
 
-    getReserva = (usuarioId, publicacionId) => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/Reserva/publicacion/' + publicacionId + '/usuario/' + usuarioId)
+    getReserva = (Username, publicacionId) => {
+        axios.get(`${process.env.REACT_APP_BACK_URL}/Reserva/GetReserva`, {
+            params: {
+                username: Username,
+                publicacionId: publicacionId,
+            }
+        })
             .then(res => {
                 this.setState({
                     ...this.state,
@@ -25,33 +30,37 @@ class ReservaContextProvider extends Component {
             .catch(() => {
                 this.setState({
                     ...this.state,
-                    existeReserva: false
+                    loadingReserva: false,
                 })
             })
     }
 
-    getInteres = (usuarioId, publicacionId) => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/Interes/publicacion/' + publicacionId + '/usuario/' + usuarioId)
+    getInteres = (Username, publicacionId) => {
+        axios.get(`${process.env.REACT_APP_BACK_URL}/Interes/GetInteres`, {
+            params: {
+                username: Username,
+                publicacionId: publicacionId,
+            }
+        })
             .then(res => {
                 this.setState({
                     ...this.state,
-                    existeInteres: true,
+                    existeInteres: res.data,
                     loadingReserva: false,
                 })
             })
             .catch(err => {
                 this.setState({
                     ...this.state,
-                    existeInteres: false,
                     loadingReserva: false,
                 })
             })
     }
 
-    postReserva = (usuarioId, publicacionId, fecha) => {
-        axios.post(process.env.REACT_APP_BACK_URL + '/Reserva', {
+    postReserva = (Username, publicacionId, fecha) => {
+        axios.post(`${process.env.REACT_APP_BACK_URL}/Reserva/CreateReserva`, {
             Fecha: fecha,
-            UsuarioId: usuarioId,
+            Username: Username,
             PublicacionId: publicacionId,
             EstadoReservaId: 1,
         })
@@ -60,7 +69,7 @@ class ReservaContextProvider extends Component {
                     ...this.state,
                     existeReserva: {
                         fecha: new Date(),
-                        usuarioId: usuarioId,
+                        Username: Username,
                         publicacionId: publicacionId,
                         estadoReservaId: 1,
                     }
@@ -85,8 +94,8 @@ class ReservaContextProvider extends Component {
             })
     }
 
-    putReserva = (reserva, estadoId) => {
-        axios.put(process.env.REACT_APP_BACK_URL + '/Reserva/publicacion/' + reserva.PublicacionId + '/usuario/' + reserva.UsuarioId, reserva)
+    putReserva = (reserva) => {
+        axios.put(`${process.env.REACT_APP_BACK_URL}/Reserva/UpdateReserva`, reserva)
             .then(() => {
                 this.setState({
                     ...this.state,
@@ -102,10 +111,10 @@ class ReservaContextProvider extends Component {
             })
     }
 
-    postInteres = (usuarioId, publicacionId) => {
-        axios.post(process.env.REACT_APP_BACK_URL + '/Interes/', {
+    postInteres = (Username, publicacionId) => {
+        axios.post(`${process.env.REACT_APP_BACK_URL}/Interes/CreateInteres`, {
             Fecha: new Date(),
-            UsuarioId: usuarioId,
+            Username: Username,
             PublicacionId: publicacionId
         })
             .then(() => {
@@ -125,8 +134,13 @@ class ReservaContextProvider extends Component {
             })
     }
 
-    deleteReserva = (usuarioId, publicacionId, index) => {
-        axios.delete(process.env.REACT_APP_BACK_URL + '/Reserva/publicacion/' + publicacionId + '/usuario/' + usuarioId)
+    deleteReserva = (Username, publicacionId, index) => {
+        axios.delete(`${process.env.REACT_APP_BACK_URL}/Reserva/DeleteReserva`, {
+            query: {
+                publicacionId: publicacionId,
+                username: Username,
+            }
+        })
             .then(() => {
                 var aux = this.state.reservas
                 aux.splice(index, 1)
@@ -145,8 +159,13 @@ class ReservaContextProvider extends Component {
             })
     }
 
-    deleteInteres = (usuarioId, publicacionId, index) => {
-        axios.delete(process.env.REACT_APP_BACK_URL + '/Interes/publicacion/' + publicacionId + '/usuario/' + usuarioId)
+    deleteInteres = (Username, publicacionId, index) => {
+        axios.delete(`${process.env.REACT_APP_BACK_URL}/Interes/DeleteInteres`, {
+            query: {
+                publicacionId: publicacionId,
+                username: Username,
+            }
+        })
             .then(res => {
                 var aux = this.state.intereses
                 aux.splice(index, 1)
@@ -168,7 +187,11 @@ class ReservaContextProvider extends Component {
     }
 
     getReservasByUserId = (id) => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/Reserva/usuario/' + id)
+        axios.get(`${process.env.REACT_APP_BACK_URL}/Reserva/GetReservasByUser`, {
+            params: {
+                username: id,
+            }
+        })
             .then(res => {
                 this.setState({
                     ...this.state,
@@ -184,8 +207,12 @@ class ReservaContextProvider extends Component {
             })
     }
 
-    getInteresByUser = (usuarioId) => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/Interes/usuario/' + usuarioId)
+    getInteresByUser = (Username) => {
+        axios.get(`${process.env.REACT_APP_BACK_URL}/Interes/GetInteresesByUser`, {
+            params: {
+                username: Username,
+            }
+        })
             .then(res => {
                 this.setState({
                     ...this.state,
@@ -204,7 +231,11 @@ class ReservaContextProvider extends Component {
     }
 
     getInteresadosByPublicacionId = (publicacionId) => {
-        axios.get(process.env.REACT_APP_BACK_URL + '/Interes/publicacion/' + publicacionId)
+        axios.get(`${process.env.REACT_APP_BACK_URL}/Interes/GetInteresesByPublicacion`, {
+            params: {
+                publicacionId: publicacionId,
+            }
+        })
             .then(res => {
                 this.setState({
                     ...this.state,

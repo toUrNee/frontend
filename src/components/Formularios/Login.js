@@ -10,9 +10,8 @@ const Login = () => {
 
     const { loginUser, isAuthenticated } = useContext(AuthContext)
     const [ credenciales, setCredenciales ] = useState({
-        Email: "",
-        Password: "",
-        Propietario: "",
+        email: "",
+        password: "",
     })
 
     useEffect(()=>{
@@ -52,7 +51,7 @@ const Login = () => {
                         <div className="form-group">
                             <label htmlFor="email">Correo</label>
                             <input type="email" 
-                                name="Email"
+                                name="email"
                                 className="form-control" 
                                 aria-describedby="emailHelp" 
                                 placeholder="Enter email" 
@@ -62,9 +61,9 @@ const Login = () => {
                         <div className="form-group">
                             <label htmlFor="password">Password</label>
                             <input type="password"
-                                name="Password"
+                                name="password"
                                 className="form-control" 
-                                placeholder="Password" 
+                                placeholder="Enter Password" 
                                 onChange={onChange}
                             />
                         </div>

@@ -21,7 +21,7 @@ function FormSitio() {
         Region: "",
         Municipio: "",
         Departamento: "",
-        PropietarioId: user.id,
+        PropietarioUsername: user.username,
         Portada: 0
     })
 
@@ -43,7 +43,11 @@ function FormSitio() {
 
     useEffect(() => {
         if (location.state && location.state.sitio) {
-            axios.get(process.env.REACT_APP_BACK_URL + '/SitiosTuristicos/' + location.state.sitio)
+            axios.get(`${process.env.REACT_APP_BACK_URL}/SitiosTuristicos/GetSitioTuristico`, {
+                params: {
+                    id:location.state.sitio,
+                }
+            })
                 .then(res => {
                     setSitio({
                         Id: res.data.id,
@@ -53,7 +57,7 @@ function FormSitio() {
                         Region: res.data.region,
                         Municipio: res.data.municipio,
                         Departamento: res.data.departamento,
-                        PropietarioId: res.data.propietarioId
+                        PropietarioUsername: res.data.PropietarioUsername
                     })
                     setImagenes([...res.data.imagenes])
                 })
